@@ -1,9 +1,6 @@
-<%@ page import="java.util.ResourceBundle" %>
-<%@ page import="java.util.Locale" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="entity.Book" %>
-<%@ page import="java.util.List" %>
-<%@ page import="entity.Author" %>
-<%@ page import="entity.Category" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,17 +14,18 @@
     </head>
 <body>
 <jsp:include page="/admin/adminHeader"/>
-
-<% Locale locale = (Locale) session.getAttribute("locale");
-    ResourceBundle bundle = ResourceBundle.getBundle("content", locale);
-    List <Book> books = (List<Book>) session.getAttribute("books");
-    List <Author> authors = (List<Author>) session.getAttribute("authors");
-    List <Category> categories = (List<Category>) session.getAttribute("categories");
-%>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="content" var="content" scope="session"/>
+<fmt:message bundle="${content}" key="FORMAT" var="format" />
+<fmt:message bundle="${content}" key="QUANTITY" var="quantity"/>
+<fmt:message bundle="${content}" key="PRICE" var="price" />
+<fmt:message bundle="${content}" key="EDIT" var="edit" />
+<fmt:message bundle="${content}" key="SEARCH" var="search" />
+<fmt:message bundle="${content}" key="LANGUAGE" var="lang" />
 
 
 <section class="admin-filter">
-    <h1><%=bundle.getString("SEARCH")%></h1>
+    <h1><c:out value="${search}"/> </h1>
     <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-books')">
 </section>
 
@@ -39,29 +37,28 @@
 <section>
     <form action = "<%= request.getContextPath()%>/controller" method = "post">
         <table class="admin-table" id="admin-books">
-        <th class = "admin-th"><%=bundle.getString("ID")%></th>
-        <th class = "admin-th"><%=bundle.getString("TITLE")%></th>
-        <th class = "admin-th"><%=bundle.getString("AUTHORS")%></th>
-        <th class = "admin-th"><%=bundle.getString("CATEGORY")%></th>
-        <th class = "admin-th"><%=bundle.getString("FORMAT")%></th>
-        <th class = "admin-th"><%=bundle.getString("QUANTITY")%></th>
-        <th class = "admin-th"><%=bundle.getString("LANGUAGE")%></th>
-        <th class = "admin-th"><%=bundle.getString("PRICE")%></th>
-        <th class = "admin-th"><%=bundle.getString("IMAGE")%></th>
-        <th class = "admin-th"><%=bundle.getString("EDIT")%></th>
-        <%for (Book book: books) {
-        %>
-        <tr>
-            <td><%=book.getId()%></td>
-            <td><%=book.getTitle()%></td>
-            <td><%=book.getAuthors().toString().substring(1, book.getAuthors().toString().length()-1)%></td>
-            <td><%=book.getCategoryId()%></td>
-            <td><%=book.getFormatId()%></td>
-            <td><%=book.getQuantity()%></td>
-            <td><%=book.getLanguage()%></td>
-            <td><%=book.getPrice()%></td>
-            <td><a id = "a-img" href="#"><img src="/imageServlet?image_id=<%=book.getId()%>&table=book_covers" alt ="<%=book.getTitle()%>"></a></td>
-            <td><a href="/editBook?id=<%=book.getId()%>" class="edit"><%=bundle.getString("EDIT")%></a></td>
+        <th class = "admin-th">ID</th>
+        <th class = "admin-th"><c:out value="${title}"/><th>
+            <th class = "admin-th"><c:out value="${authors}"/><th>
+            <th class = "admin-th"><c:out value="${cat}"/><th>
+            <th class = "admin-th"><c:out value="${format}"/><th>
+            <th class = "admin-th"><c:out value="${quantity}"/><th>
+            <th class = "admin-th"><c:out value="${language}"/><th>
+            <th class = "admin-th"><c:out value="${price}"/><th>
+            <th class = "admin-th"><c:out value="${image}"/><th>
+            <th class = "admin-th"><c:out value="${edit}">/><th>
+                <c:forEach items="books" var="book">
+                    <tr>
+                    <td><c:out value="${book.id}"/></td>
+                    <td><c:out value="${book.title}"/></td>
+                    <td><c:out value="${book.authors}"/></td>
+                    <td><c:out value="${book.categoryId}"/></td>
+                    <td><c:out value="${book.formatId}"/></td>
+                    <td><c:out value="${book.quantity}"/></td>
+                    <td><c:out value="${book.language}"/></td>
+                    <td><c:out value="${book.price}"/></td>
+                    <td><a id = "a-img" href="#"><img src="/imageServlet?image_id=${book.id}%>&table=book_covers" alt ="${book.title}"></a></td>
+                    <td><a href="/editBook?id=${book.id}" class="edit">${edit}</a></td>
         </tr>
         <%}%>
     </table>

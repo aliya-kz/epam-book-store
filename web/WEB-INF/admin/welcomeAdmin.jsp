@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page contentType="text/html;charset=UTF-8"  %>
@@ -11,22 +12,15 @@
 </head>
 <body>
 
-<% Locale locale = (Locale) session.getAttribute("locale");
-if (locale == null) {
-    locale = Locale.ENGLISH;
-    session.setAttribute("locale", locale);
-}
-ResourceBundle bundle = ResourceBundle.getBundle("content", locale);
-    System.out.println(("locale " + locale));
-    System.out.println("page req uri "+ request.getRequestURI());
-%>
+<fmt:setBundle basename="content" var="content" scope="session"/>
+<fmt:message bundle="${content}" key="WELCOME_ADMIN" var="welcome_admin" />
 
-<% session.setAttribute("uri", request.getRequestURI());
-    System.out.println("session id " + session.getId());%>
+
+
 <jsp:include page="/admin/adminHeader"/>
 
 <main class="admin-main">
-    <p><%=bundle.getString("WELCOME_ADMIN")%>></p>
+    <p>${welcome_admin}</p>
 </main>
 </body>
 </html>

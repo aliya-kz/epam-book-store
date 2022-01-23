@@ -13,10 +13,11 @@
     </head>
 <body>
 
-<fmt:setBundle basename="content" var="content"/>
-<fmt:message bundle="${content}" key = "LOG_IN" var="log_in"></fmt:message>
-
-<c:out value="${log_in}"></c:out>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="content" var="content" scope="session"/>
+<fmt:message bundle="${content}" key="SEARCH" var="search"/>
+<fmt:message bundle="${content}" key="CATEGORY" var="cat" />
+<fmt:message bundle="${content}" key="LANGUAGE" var="lang" />
 
  <form action = "/controller?uri=<%=request.getRequestURI()%>" method="post">
     <td> <input type="text"  name="service-name" required/></td>

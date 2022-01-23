@@ -26,16 +26,16 @@ public class LoginService implements Service {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute("locale");
+        String locale = (String) session.getAttribute("locale");
         User user = userDao.validateUser(email, password);
         if (user == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login/msg=error");
             dispatcher.forward(request, response);
         } else {
             session.setAttribute("books", bookDao.getAll());
-            session.setAttribute("authors", authorDao.getAll(locale.toString()));
+            session.setAttribute("authors", authorDao.getAll(locale));
             session.setAttribute("formats", formatDao.getAll());
-            session.setAttribute("categories", categoryDao.getAll(locale.toString()));
+            session.setAttribute("categories", categoryDao.getAll(locale));
             session.setAttribute("langs", languageDao.getAll());
             if (user.isAdmin()) {
                 session.setAttribute("users", userDao.getAll());

@@ -17,8 +17,8 @@ public class GetAllAuthorsService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute("locale");
-        List<Author> authors = authorDao.getAll(locale.toString());
+        String locale = (String) session.getAttribute("locale");
+        List<Author> authors = authorDao.getAll(locale);
         session.setAttribute("authors", authors);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-authors");
         dispatcher.forward(request, response);

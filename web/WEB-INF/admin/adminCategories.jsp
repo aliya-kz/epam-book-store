@@ -1,5 +1,5 @@
-<%@ page import="java.util.ResourceBundle" %>
-<%@ page import="java.util.Locale" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Category" %>
 <%@ page import="entity.Lang" %>
@@ -17,66 +17,70 @@
 <body>
 <jsp:include page="/admin/adminHeader"/>
 
-<% Locale locale = (Locale) session.getAttribute("locale");
-    ResourceBundle bundle = ResourceBundle.getBundle("content", locale);
-    String msg = request.getParameter("msg");
-    List<Category> categories = (List<Category>) session.getAttribute("categories");
-%>
-<%if (msg != null && msg.equals("error")) {%>
-<div class="error-msg"><%=bundle.getString("ERROR_GEN")%></div>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="content" var="content" scope="session"/>
+<fmt:message bundle="${content}" key="SEARCH" var="search"/>
+<fmt:message bundle="${content}" key="CATEGORY" var="cat" />
+<fmt:message bundle="${content}" key="LANGUAGE" var="lang" />
+<fmt:message bundle="${content}" key="ADD_CATEGORY" var="add_cat" />
+<fmt:message bundle="${content}" key="ADD_NEW_CATEGORY" var="add_new_cat" />
+<fmt:message bundle="${content}" key="INSERT_CATEGORY_ID" var="insert_cat_id" />
+<fmt:message bundle="${content}" key="INSERT_CATEGORY_NAME" var="insert_cat_name" />
+<fmt:message bundle="${content}" key="ALL_CATEGORIES" var="all_cat" />
+<fmt:message bundle="${content}" key="EDIT" var="edit" />
+<fmt:message bundle="${content}" key="ERROR_GEN" var="error" />
+
+<% String msg = request.getParameter("msg");
+if (msg != null && msg.equals("error")) {%>
+<div class="error-msg">${error}</div>
 <%}%>
 
 <main class="admin-main">
 
     <section class="admin-filter">
-        <h1><%=bundle.getString("SEARCH")%></h1>
+        <h1><c:out value = "${search}"/></h1>
         <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-categories')">
     </section>
 
     <section>
         <form action = "<%= request.getContextPath()%>/controller" method = "post">
-            <h3> <%=bundle.getString("ADD_NEW_CATEGORY")%> </h3>
+            <h3> <c:out value = "${add_new_cat}"/> </h3>
             <table class="admin-table">
-                <th><%=bundle.getString("ID")%></th>
-                <th><%=bundle.getString("CATEGORY")%></th>
-                <th><%=bundle.getString("LANGUAGE")%></th>
+                <th>ID</th>
+                <th><c:out value = "${cat}"/></th>
+                <th><c:out value = "${lang}"/></th>
                 <th> </th>
                 <tr>
-                    <td> <input type="text" placeholder="<%=bundle.getString("INSERT_CATEGORY_ID")%>" name="new_id"/></td>
-                    <td> <input type="text" placeholder="<%=bundle.getString("INSERT_CATEGORY_NAME")%>" name="new_category"/></td>
-                    <td> <select name = "cat_lang">
-                        <%List<Lang> langs = (List<Lang>) session.getAttribute("langs");
-                            for (Lang lang: langs) {%>
-                        <option value ="<%=lang.getTitle()%>"><%=lang.getTitle()%></option>
-                        <%}%>
+                    <td> <input type="text" placeholder="${insert_cat_id}" name="new_id"/></td>
+                    <td> <input type="text" placeholder="${insert_cat_name}" name="new_category"/></td>
+                    <td><select name = "cat_lang">
+                         <c:forEach var="lang"  items="${langs}">
+                        <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
+                         </c:forEach>
                     </select></td>
                     <td><input type="hidden" name="service_name" value="add_new_category">
-                        <input type="submit" class="submit-btn" value = "<%=bundle.getString("ADD_CATEGORY")%>"> </td>
+                        <input type="submit" class="submit-btn" value = "${add_cat}"> </td>
                 </tr>
             </table>
         </form>
 
         <form action = "<%= request.getContextPath()%>/controller" method = "post">
-            <h3> <%=bundle.getString("ALL_CATEGORIES")%>  </h3>
+            <h3> <c:out value = "${all_cat}"/> </h3>
             <table class="admin-table" id="admin-categories">
-                <th><%=bundle.getString("ID")%></th>
-                <th><%=bundle.getString("CATEGORY")%></th>
-                <th><%=bundle.getString("LANGUAGE")%></th>
-                <th><%=bundle.getString("EDIT")%></th>
-                <% for (Category category: categories) {
-                        int id = category.getId();
-                        String title = category.getCategoryName();
-                        String language = category.getLang();
-                %>
+                <th>ID</th>
+                <th><c:out value = "${cat}"/></th>
+                <th><c:out value = "${lang}"/></th>
+                <th><c:out value = "${edit}"/></th>
+                    <c:forEach var="category" items="${categories}">
                 <tr>
-                    <td><%=id%></td>
-                    <td><%=title%></td>
-                    <td><%=language%></td>
-                    <td><a href ="/editCategory?id=<%=String.valueOf(id)%>&categoryName=<%=title%>&lang=<%=language%>">
-                        <%=bundle.getString("EDIT")%></a>
+                    <td>${category.id}</td>
+                    <td>${category.categoryName}</td>
+                    <td>${category.lang}</td>
+                    <td><a href ="/editCategory?id=${category.id}&categoryName=${category.categoryName}&lang=${category.lang}">
+                        ${edit}</a>
                     </td>
                 </tr>
-                <%}%>
+                    </c:forEach>
             </table>
         </form>
     </section>

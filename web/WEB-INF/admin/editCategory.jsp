@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page import="java.util.Locale" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -14,11 +15,14 @@
 
 <jsp:useBean id="category" class="entity.Category" scope="request"></jsp:useBean>
 <jsp:setProperty name="category" property="*"></jsp:setProperty>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="content" var="content" scope="session"/>
+<fmt:message bundle="${content}" key="SEARCH" var="search"/>
+<fmt:message bundle="${content}" key="CATEGORY" var="cat" />
+<fmt:message bundle="${content}" key="LANGUAGE" var="lang" />
 
-<% Locale locale = (Locale) session.getAttribute("locale");
-  ResourceBundle bundle = ResourceBundle.getBundle("content", locale);
-    System.out.println("uri" + request.getRequestURI());
-  String msg = request.getParameter("msg");%>
+
+<%String msg = request.getParameter("msg");%>
 
 <form action = "<%= request.getContextPath()%>/controller?category_id=${category.id}&lang=${category.lang}" method = "post">
 <table class="admin-table" id="edit-category">

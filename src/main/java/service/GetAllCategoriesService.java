@@ -17,8 +17,8 @@ public class GetAllCategoriesService implements Service{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute("locale");
-        List<Category> categories = categoryDao.getAll(locale.toString());
+        String locale = (String) session.getAttribute("locale");
+        List<Category> categories = categoryDao.getAll(locale);
         session.setAttribute("categories", categories);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminCategories.jsp");
         dispatcher.forward(request, response);

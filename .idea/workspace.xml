@@ -9,11 +9,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="" />
+    <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bundleToListConverter/BundleMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/ImageServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChangeLanguageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ChangeLanguageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/GetAllAuthorsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/GetAllAuthorsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/GetAllCategoriesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/GetAllCategoriesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminBooks.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminBooks.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminHeader.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminHeader.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminUsers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminUsers.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/welcomeAdmin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/welcomeAdmin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,8 +70,10 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/WEB-INF/view" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.45781776" />
@@ -50,10 +82,16 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\demo\web\WEB-INF\view" />
       <recent name="D:\demo\web" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\demo\src\main\java" />
+      <recent name="D:\demo\web\WEB-INF" />
       <recent name="D:\demo\web\WEB-INF\lib" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
     </key>
   </component>
   <component name="RunManager">
@@ -154,7 +192,9 @@
       <option name="presentableId" value="Default" />
       <updated>1642853432122</updated>
       <workItem from="1642853433682" duration="95000" />
-      <workItem from="1642853811142" duration="3920000" />
+      <workItem from="1642853811142" duration="6607000" />
+      <workItem from="1642871372300" duration="5780000" />
+      <workItem from="1642914320960" duration="13706000" />
     </task>
     <servers />
   </component>
@@ -171,6 +211,22 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp</url>
+          <line>98</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp</url>
+          <line>93</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

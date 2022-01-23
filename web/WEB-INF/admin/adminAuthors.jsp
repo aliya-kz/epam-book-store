@@ -1,38 +1,48 @@
-<%@ page import="java.util.ResourceBundle" %>
-<%@ page import="java.util.Locale" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Author" %>
 <%@ page import="entity.Lang" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <head>
         <script src="/js/script.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
         <title>admin-authors</title>
-    </head>
+</head>
 <body>
 <jsp:include page="/admin/adminHeader"/>
 
-<% Locale locale = (Locale) session.getAttribute("locale");
-    ResourceBundle bundle = ResourceBundle.getBundle("content", locale);
-    List<Author> authors = (List<Author>) session.getAttribute("authors");
-    String msg = request.getParameter("msg");
-    if (msg != null && msg.equals("error")) {%>
-<div class = "error"> <%=bundle.getString("ERROR_GEN")%></div>
-    <%}%>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="content" var="content" scope="session"/>
+<fmt:message bundle="${content}" key="NAME" var="name" />
+<fmt:message bundle="${content}" key="SURNAME" var="surname" />
+<fmt:message bundle="${content}" key="BIOGRAPHY" var="biography" />
+<fmt:message bundle="${content}" key="LANGUAGE" var="language" />
+<fmt:message bundle="${content}" key="IMAGE" var="image" />
+<fmt:message bundle="${content}" key="ADD_AUTHOR" var="add_author" />
+<fmt:message bundle="${content}" key="ADD_TRANSLATION" var="add_translation" />
+<fmt:message bundle="${content}" key="ERROR_GEN" var="error_gen" />
+<fmt:message bundle="${content}" key="ANALYTICS" var="analytics" />
+<fmt:message bundle="${content}" key="SEARCH" var="search" />
+<fmt:message bundle="${content}" key="ALL_AUTHORS" var="all_authors" />
 <main>
+<%  String msg = request.getParameter("msg");
+    if (msg != null && msg.equals("error")) {%>
+<div class = "error"> ${error_gen}</div>
+    <%}%>
+
     <section class="add-new-entity">
-           <h3> <%=bundle.getString("ADD_AUTHOR")%> </h3>
+           <h3> <c:out value="${add_author}"/></h3>
             <table class="admin-table">
-                <th><%=bundle.getString("NAME")%></th>
-                <th><%=bundle.getString("SURNAME")%></th>
-                <th><%=bundle.getString("BIOGRAPHY")%></th>
-                <th><%=bundle.getString("LANGUAGE")%></th>
-                <th><%=bundle.getString("IMAGE")%></th>
+                <th> <c:out value="${name}"/></th>
+                <th> <c:out value="${surname}"/></th>
+                <th> <c:out value="${biography}"/></th>
+                <th> <c:out value="${language}"/></th>
+                <th> <c:out value="${image}"/></th>
                 <th> </th>
 
                 <tr>
@@ -41,27 +51,26 @@
                     <td> <input type="text"  name="surname" required/></td>
                     <td> <input type="text"  name="biography" required/></td>
                     <td><select name = "lang">
-                            <%List<Lang> langs = (List<Lang>) session.getAttribute("langs");
-                                for (Lang lang: langs) {%>
-                            <option value ="<%=lang.getTitle()%>"><%=lang.getTitle()%></option>
-                            <%}%>
+                        <c:forEach var="lang"  items="${langs}">
+                        <option value ="${lang.title}"><c:out value="${lang.title}"></option>
+                        </c:out>
                     </select></td>
                     <td><input type="file" name="file" required/></td>
                     <td><input type="hidden" name="service_name" value="add_new_author">
-                        <input type="submit" class="submit-btn" value = "<%=bundle.getString("ADD_AUTHOR")%>"> </td>
+                        <input type="submit" class="submit-btn" value = "${add_author}"> </td>
                     </form>
                 </tr>
             </table>
     </section>
 
     <section class="add-translation">
-        <h3> <%=bundle.getString("ADD_TRANSLATION")%> </h3>
+        <h3> <c:out value="${add_translation}"/></h3>
         <table class="admin-table">
-            <th><%=bundle.getString("ID")%></th>
-            <th><%=bundle.getString("NAME")%></th>
-            <th><%=bundle.getString("SURNAME")%></th>
-            <th><%=bundle.getString("BIOGRAPHY")%></th>
-            <th><%=bundle.getString("LANGUAGE")%></th>
+            <th>ID</th>
+            <th><c:out value="${name}"/></th>
+            <th><c:out value="${surname}"/></th>
+            <th><c:out value="${biography}"/></th>
+            <th><c:out value="${language}"/></th>
             <th> </th>
 
             <tr>
@@ -71,50 +80,48 @@
                     <td> <input type="text"  name="surname" required/></td>
                     <td> <input type="text"  name="biography" required/></td>
                     <td><select name = "lang">
-                        <%for (Lang lang: langs) {%>
-                        <option value ="<%=lang.getTitle()%>"><%=lang.getTitle()%></option>
-                        <%}%>
+                        <c:forEach var="lang"  items="${langs}">
+                        <option value ="${lang.title}"><c:out value="${lang.title}"></option>
+                            </c:out>
                     </select></td>
                     <td><input type="hidden" name="service_name" value="add_new_author">
-                        <input type="submit" class="submit-btn" value = "<%=bundle.getString("ADD_TRANSLATION")%>"> </td>
+                        <input type="submit" class="submit-btn" value = "${add_translation}"> </td>
                 </form>
             </tr>
         </table>
     </section>
 
     <section class="admin-filter">
-        <h1><%=bundle.getString("SEARCH")%></h1>
+        <h1><c:out value="${search}"/></h1>
         <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-authors')">
     </section>
 
     <section class="all-entities">
         <form action = "<%=request.getContextPath()%>/controller" method = "post">
-            <h3> <%=bundle.getString("ALL_AUTHORS")%>  </h3>
+            <h3> <c:out value="${all_authors}"/>  </h3>
             <table class="admin-table" id="admin-authors">
-                <th><%=bundle.getString("ID")%></th>
-                <th><%=bundle.getString("NAME")%></th>
-                <th><%=bundle.getString("SURNAME")%></th>
-                <th><%=bundle.getString("BIOGRAPHY")%></th>
-                <th><%=bundle.getString("IMAGE")%></th>
+                <th>ID</th>
+                <th><c:out value="${name}"/></th>
+                <th><c:out value="${surname}"/></th>
+                <th><c:out value="${biography}"/></th>
+                <th><c:out value="${language}"/></th>
                 <th> </th>
-                <% for (Author author: authors) {
-                    int id = author.getId();
-                %>
+                <c:forEach var="author"  items="${authors}">
                 <tr>
-                    <td><%=id%></td>
-                    <td><%=author.getName()%></td>
-                    <td><%=author.getSurname()%></td>
-                    <td><%=author.getBiography()%></td>
+                    <th><c:out value="${author.id}"/></th>
+                    <th><c:out value="${author.name}"/></th>
+                    <th><c:out value="${author.surname}"/></th>
+                    <th><c:out value="${author.biography}"/></th>
                     <td><a href="#" class = "admin-image">
-                        <img src="/imageServlet?id=<%=id%>&table=authors" alt="author" width="150px"/></a></td>
-                    <td><a href ="/edit-author?id=<%=String.valueOf(id)%>">
-                    <%=bundle.getString("EDIT")%></a></td>
+                        <img src="/imageServlet?id=${author.id}&table=authors" alt="author" width="150px"/></a></td>
+                    <td><a href ="/edit-author?id=${author.id}">
+                    ${edit}</a></td>
                 </tr>
-                <%}%>
+                </c:forEach>
             </table>
         </form>
     </section>
 </main>
-<jsp:include page="/WEB-INF/view/footer.jsp"/>
+    <jsp:include page="/WEB-INF/view/footer.jsp"/>
 </body>
 </html>

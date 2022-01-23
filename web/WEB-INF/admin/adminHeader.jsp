@@ -1,5 +1,4 @@
-<%@ page import="java.util.Locale" %>
-<%@ page import="java.util.ResourceBundle" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8"  %>
 <html>
 <head>
@@ -11,38 +10,43 @@
 </head>
 <body>
 
-<% Locale locale = (Locale) session.getAttribute("locale");
-    if (locale==null) {
-        locale=Locale.ENGLISH;
-    }
-    ResourceBundle bundle = ResourceBundle.getBundle("content", locale);
-%>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="content" var="content" scope="session"/>
+<fmt:message bundle="${content}" key="LOG_IN" var="log_in" />
+<fmt:message bundle="${content}" key="LOG_OUT" var="log_out" />
+<fmt:message bundle="${content}" key="BOOKS" var="books" />
+<fmt:message bundle="${content}" key="CATEGORIES" var="categories" />
+<fmt:message bundle="${content}" key="USERS" var="users" />
+<fmt:message bundle="${content}" key="ORDERS" var="orders" />
+<fmt:message bundle="${content}" key="MESSAGES" var="messages" />
+<fmt:message bundle="${content}" key="AUTHORS" var="authors" />
+<fmt:message bundle="${content}" key="ANALYTICS" var="analytics" />
 <header class = "header">
     <div class="bar">
         <ul class="bar-list">
             <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "lang" value="en"/>
-                <input type = "hidden" name = "uri" value="<%=request.getRequestURI()%>"/>
+                <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
+                <input type = "hidden" name = "locale" value ="en_US"/>
                 <input class="lang" id="eng" type="submit" name="service_name" value="change_language"/> </form></li>
-            <li> <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "uri" value="<%=request.getRequestURI()%>"/>
-                <input type = "hidden" name = "lang" value="ru"/>
+            <li> <form action = "<%=request.getContextPath()%>/controller" method = "post">
+                <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
+                <input type = "hidden" name = "locale" value = "ru_RU"/>
                 <input class="lang" id="rus" type="submit" name="service_name" value="change_language"/></form></li>
             <li class="logout"> <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <button class="logout" name="service_name" value="log_out"><%=bundle.getString("LOG_OUT")%></button></form></li>
+                <button class="logout" name="service_name" value="log_out">${log_out}</button></form></li>
         </ul>
     </div>
     </header>
 <form action = "<%=request.getContextPath()%>/controller" method = "post">
     <nav class="nav">
         <ul class="nav-menu">
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_books"><%=bundle.getString("BOOKS")%> </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_categories"><%=bundle.getString("CATEGORIES")%></button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_users"><%=bundle.getString("USERS")%> </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_orders"><%=bundle.getString("ORDERS")%> </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_messages"><%=bundle.getString("MESSAGES")%> </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_authors"><%=bundle.getString("AUTHORS")%> </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_analytics"><%=bundle.getString("ANALYTICS")%> </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_books">${books} </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_categories">${categories}</button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_users">${users} </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_orders">${orders} </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_authors">${authors} </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_messages">${messages} </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_analytics">${analytics} </button></li>
         </ul>
     </nav>
 </form>
