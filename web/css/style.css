@@ -5,12 +5,184 @@
     font-weight: 300;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
+    font-size: 12px;
+    text-decoration: none;
 }
 
-body {
-    margin-left: 20px;
-    margin-right: 20px;
+.welcome-main {
+    background-size: cover;
+    position: relative;
+    height: 100%;
+    background-image: url("/images/img/welcome.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+.welcome-form-container {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+}
+
+#welcome-form {
+    display: inline-block;
+}
+
+#welcome-form select {
+    height: 40px;
+    width: 150px;
+    margin-right: 3px;
+    border: 1px solid #606760;
+}
+
+.go-btn {
+    height: 40px;
+    width: 40px;
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* header*/
+
+#logo {
+    font-family: 'Cutive Mono', monospace;
+    font-size: 42px;
+    position: absolute;
+    left: 48%;
+    padding-top: 30px;
+}
+
+.bar {
+    border-bottom: 1px solid #000;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    background-color: #F2F2F2;
+}
+
+.bar-list {
+    display: flex;
+    justify-content: space-between;
+    max-width: 150px;
+    list-style: none;
+}
+
+.bar ul li {
+    margin-left: 20px;
+}
+
+.bar a {
+    text-decoration: none;
+}
+
+.lang {
+    width: 30px;
+    height: 18px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    color: transparent;
+}
+
+#eng{
+    background: url("/images/icons/usa.png") no-repeat;
+    background-size: cover;
+}
+
+#rus{
+    background: url("/images/icons/russia.png") no-repeat;
+    background-size: cover;
+}
+
+.nav {
+    border-bottom:1px solid  rgb(190, 190, 190);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-menu {
+    margin-left: 0;
+}
+
+.nav-menu li {
+    width: 160px;
+    display: inline;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-right: 1px solid rgb(190, 190, 190);
+}
+
+.nav-menu a:hover,
+.nav-menu a:active {
+    color: #935e39;
+}
+
+.nav-menu ul li a {
+    text-decoration: none !important;
+    color: #33312C;
+    font-size: 24px;
+}
+
+.logo {
+    height: 150px;
+    position: relative;
+    border-bottom: 2px solid grey;
+}
+
+.logo p {
+    position: absolute;
+    width: 250px;
+    margin: auto;
+    top: 40%;
+    text-align: center;
+}
+
+.logo a {
+    font-family: 'Cutive Mono', monospace;
+    font-size: 42px;
+    color: slategray;
+}
+
+.search {
+    display: inline-block;
+    height: 25px;
+}
+
+.search input {
+    margin-right: 1px;
+    border: solid 1px black;
+    height: 25px;
+}
+
+.search button {
+    height: 25px;
+    width: 25px;
+    background-image: url("/images/icons/search.png");
+    background-repeat: no-repeat;
+    background-size: 90%;
+    border: 2px solid black;
+}
+
+.cart {
+    background: url("/images/icons/cart.png") no-repeat;
+    background-size: cover;
+    width: 35px;
+    height: 35px;
+    border: none;
+}
+
+
+
+
 
 .admin-main {
     position: relative;
@@ -22,10 +194,6 @@ h1 {
     padding-bottom: 30px;
 }
 
-h3 {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
 
 .admin-main p {
     position: absolute;
@@ -35,7 +203,6 @@ h3 {
 }
 
 .admin-table {
-
     border-collapse: collapse;
     width: 100%;
 }
@@ -207,150 +374,24 @@ h3 {
 .accept {
     background-color: #399341;
 }
-
-.bar {
-    border-bottom: 1px solid #000;
-    padding-bottom: 20px;
-    padding-top: 20px;
-}
-
-.bar-list {
-    display: flex;
-    justify-content: space-between;
-    max-width: 150px;
-    list-style: none;
-}
-
-.bar ul li {
-    margin-left: 20px;
-}
-
-.bar a {
-    text-decoration: none;
-}
-
-.lang {
-    width: 30px;
-    height: 18px;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    color: transparent;
-}
-
-#eng{
-    background: url("/images/icons/eng.png") no-repeat;
-    background-size: cover;
-}
-
-#rus{
-    background: url("/images/icons/russia.png") no-repeat;
-    background-size: cover;
-}
-
-.nav {
-    border-bottom:1px solid #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    background-color: #398b93;
-}
-
-.nav-menu {
-    margin-left: 0;
-    height: 100%;
-}
-
 .msg-div {
     font-size: 42px;
     color: #934139;
 }
 
 
-.nav-menu li {
-    width: 160px;
-    display: inline;
-    padding-left: 20px;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
 
-.nav-menu a:hover,
-.nav-menu a:active {
-    color: #935e39;
-}
 
-.nav-menu ul li a {
-    text-decoration: none !important;
-    color: #336b75;
-}
 
-.logo {
-    position: relative;
-    background-color: antiquewhite;
-    height: 100px;
-    border-bottom:1px solid #000;
-}
-
-.logo p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    font-size: 40px;
-}
-
-.basket {
-    background: url("/images/icons/shopping-cart.png") no-repeat;
+/*index*/
+#ads {
+    background-image: url("/images/img/shelf.jpg");
     background-size: cover;
-    width: 45px;
-    height: 45px;
-    border: none;
-}
-
-.welcome-main {
-    background: url("/images/img/background.jpg") no-repeat;
-    background-size: cover;
-    position: relative;
-}
-
-.welcome-form-container{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-}
-
-#welcome-form {
-    width: 155px;
-    display: inline-block;
-}
-
-#welcome-form input {
-   height: 30px;
-}
-
-#welcome-form option {
-    width: 120px;
-    margin-right: 5px;
-    border: 1px solid black;
-    height: 30px;
-}
-
-.go-btn {
-    height: 30px;
-    width: 30px;
-    background-color: black;
-    color: white;
-}
-
-#bestsellers {
     height: 350px;
- }
+}
 
 #index-books {
+    padding: 40px 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -358,7 +399,40 @@ h3 {
 
 .index-book {
     width: 170px;
-    height: 280px;
+    height: 320px;
+}
+
+h3 {
+    color: #585858;
+}
+
+h3:hover {
+    text-decoration: underline;
+}
+
+h4 {
+    color: #994d00;
+}
+
+h4:hover {
+    color: #663300;
+}
+
+button {
+    cursor: pointer;
+}
+
+.see-more {
+    width: 100px;
+    heigh: 30px;
+    text-transform: uppercase;
+    background-color: #24575c;
+    margin-left: 40px;
+}
+
+.see-more a {
+    color: white;
+    font-size: 24px;
 }
 
 .index-book img {

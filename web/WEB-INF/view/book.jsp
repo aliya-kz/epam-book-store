@@ -98,6 +98,8 @@ request.setAttribute("id", request.getParameter("id"));%>
             </form>
             </div>
     </section>
+<div class="book-desc"><c:out value="${book.description}"/> </div>
+<jsp:include page="/footer"/>
 </body>
 </html>
 

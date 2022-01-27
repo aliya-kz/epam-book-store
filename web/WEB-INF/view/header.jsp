@@ -4,6 +4,9 @@
 <%@ page contentType="text/html;charset=UTF-8"  %>
 <html>
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,11 +14,8 @@
     <title>header</title>
 </head>
 <body>
-<%String locale = (String) session.getAttribute("locale");
-if (locale == null) {
-    locale = "en_US";
-}
-    User currentUser = (User) session.getAttribute("current_user");
+<%User user = (User) session.getAttribute("user");
+System.out.println (" user" + user);
 %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
@@ -31,53 +31,59 @@ if (locale == null) {
     <div class="bar">
         <ul class="bar-list">
             <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "locale" value="en_US"/>
+                <input type = "hidden" name = "locale" value = "en_US"/>
                 <input type = "hidden" name = "uri" value="<%=request.getRequestURI()%>"/>
-                <input class="lang" id="eng" type="submit" name="service_name" value="change_language"/> </form></li>
+                <input class="lang" id = "eng" type="submit" name = "service_name" value = "change_language"/> </form></li>
             <li> <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "uri" value="<%=request.getRequestURI()%>"/>
+                <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
                 <input type = "hidden" name = "locale" value="ru_RU"/>
-                <input class="lang" id="rus" type="submit" name="service_name" value="change_language"/></form></li>
-            <li class="logout"> <form action = "<%= request.getContextPath()%>/controller" method = "post">
+                <input class="lang" id ="rus" type = "submit" name = "service_name" value = "change_language"/></form></li>
+            <li class = "logout"> <form action = "<%= request.getContextPath()%>/controller" method = "post">
                 <button class="logout" name="service_name" value="log_out">${log_out}</button></form></li>
-            <li class="log">
-            <c:if test="${current_user == null}">
-                <a href="/login">${log_in}</a>
-            </c:if>
-            <c:if test="${current_user != null}">
-               <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                    <button class="logout" name="service_name" value="log_out">${log_out}</button>
+            <li class = "log">
+
+                <form action = "<%= request.getContextPath()%>/controller" method = "post">
+                    <c:if test = "${user == null}">
+                        <a href = "/login"><c:out value="${log_in}"/></a>
+                    </c:if>
+                    <c:if test = "${user != null}">
+                        <button class = "logout" name = "service_name" value = "log_out"><c:out value="${log_out}"/></button>
+                    </c:if>
                 </form>
-                <jsp:useBean id ="current_user" class = "entity.User" scope="session"/>
-                <jsp:setProperty name="current_user" property="*"/>
-            </c:if>
             </li>
         </ul>
     </div>
 
-    <div class="logo">
-        <p><a href="/index">BookLovers</a></p>
+    <div class = "logo">
+        <p><a href="/index">The Reader</a></p>
     </div>
 
-    <form action = "<%= request.getContextPath()%>/controller" method = "post">
-    <nav class="nav" id = "header_nav">
-        <ul class="nav-menu">
-            <li > <a href="#">${category}</a></li>
-            <li> <a href="#">${arrivals}</a></li>
-            <li> <a href="#">${sale}</a></li>
-            <li> <a href="#">${delivery}</a></li>
-            <li> <a href="#">${contacts}</a></li>
+    <form action = "<%=request.getContextPath()%>/controller" method = "post">
+    <nav class = "nav" id = "header_nav">
+        <ul class = "nav-menu">
+            <li > <a href = "#"><c:out value = "${category}"/></a></li>
+            <li> <a href = "#"><c:out value = "${arrivals}"/></a></li>
+            <li> <a href = "#"><c:out value = "${sale}"/></a></li>
+            <li> <a href = "#"><c:out value = "${delivery}"/></a></li>
+            <li> <a href = "#"><c:out value = "${contacts}"/></a></li>
         </ul>
-        <div class="search">
-            <input type = "search" id = "search"/>
+        <div class = "search">
+            <input type = "search"/>
             <button> </button>
         </div>
-            <button class ="basket"><a href="#"></a></button>
+
+        <button class = "cart"><a href = "/cart"></a></button>
+        <button class = "wish-list">
+           <div class = "wish-list">
+               <c:if test="${user != null}">
+                   <a href = "/wish-list?id=${user.id}"></a>
+               </c:if>
+               <c:if test="${user != null}">
+                   <a href = "/wish-list?id=${user.id}"></a></button>
+               </c:if>
+           </div>
     </nav>
     </form>
 </header>
 </body>
-
-
-
 </html>

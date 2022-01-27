@@ -1,6 +1,4 @@
-<%@ page import="entity.Cart" %>
-<%@ page import="entity.Book" %>
-<%@ page import="java.util.Map" %>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,6 +9,7 @@
     <title>Cart</title>
 </head>
 <body>
+<form action = "<%=request.getContextPath()%>/controller?uri=<%=request.getRequestURI()%>" method = "post">
 
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="content" var="content" scope="session"/>
@@ -29,16 +28,15 @@
  %>
 
 <jsp:useBean id="cart" class="entity.Cart" scope="session"/>
-<c:out value="${cart.cartItems}"></c:out>
+<table>
 <c:forEach var="entry" items="${cart.cartItems}">
 <c:set var = "book" value="${entry.key}"/>
     <c:set var="bookQty" value="${entry.value}"/>
-<c:out value="${book.title}"/>
+
 <section id = "book">
     <div class = "book-cover">
         <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}"/>
     </div>
-
     <div class = "book-info">
         <h1><c:out value = "${book.title}"/></h1>
         <c:forEach var="author_id" items="${book.authors}">
@@ -48,15 +46,16 @@
                 </c:if>
             </c:forEach>
         </c:forEach>
-        </div>
+        <c:out value="${book.format}"/>
+        <c:out value="${book.language}"/>
+                </div>
 
 
 
 </section>
 </c:forEach>
-</body>
-</html>
+</table>
 
-
+</form>
 </body>
 </html>
