@@ -1,6 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="entity.Book" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,16 +37,16 @@
     <form action = "<%= request.getContextPath()%>/controller" method = "post">
         <table class="admin-table" id="admin-books">
         <th class = "admin-th">ID</th>
-        <th class = "admin-th"><c:out value="${title}"/><th>
-            <th class = "admin-th"><c:out value="${authors}"/><th>
-            <th class = "admin-th"><c:out value="${cat}"/><th>
-            <th class = "admin-th"><c:out value="${format}"/><th>
-            <th class = "admin-th"><c:out value="${quantity}"/><th>
-            <th class = "admin-th"><c:out value="${language}"/><th>
-            <th class = "admin-th"><c:out value="${price}"/><th>
-            <th class = "admin-th"><c:out value="${image}"/><th>
-            <th class = "admin-th"><c:out value="${edit}">/><th>
-                <c:forEach items="books" var="book">
+        <th class = "admin-th"><c:out value="${title}"/></th>
+            <th class = "admin-th"><c:out value="${authors}"/></th>
+            <th class = "admin-th"><c:out value="${cat}"/></th>
+            <th class = "admin-th"><c:out value="${format}"/></th>
+            <th class = "admin-th"><c:out value="${quantity}"/></th>
+            <th class = "admin-th"><c:out value="${language}"/></th>
+            <th class = "admin-th"><c:out value="${price}"/></th>
+            <th class = "admin-th"><c:out value="${image}"/></th>
+            <th class = "admin-th"><c:out value="${edit}"/></th>
+                <c:forEach items="${books_list}" var="book">
                     <tr>
                     <td><c:out value="${book.id}"/></td>
                     <td><c:out value="${book.title}"/></td>
@@ -55,17 +54,16 @@
                     <td><c:out value="${book.categoryId}"/></td>
                     <td><c:out value="${book.formatId}"/></td>
                     <td><c:out value="${book.quantity}"/></td>
-                    <td><c:out value="${book.language}"/></td>
+                    <td><c:out value="${book.lang}"/></td>
                     <td><c:out value="${book.price}"/></td>
                     <td><a id = "a-img" href="#"><img src="/imageServlet?image_id=${book.id}%>&table=book_covers" alt ="${book.title}"></a></td>
                     <td><a href="/editBook?id=${book.id}" class="edit">${edit}</a></td>
-        </tr>
-        <%}%>
+                    </tr>
+                </c:forEach>
     </table>
     </form>
 </section>
 
-</form>
 </body>
 <jsp:include page="/WEB-INF/view/footer.jsp"/>
 </html>

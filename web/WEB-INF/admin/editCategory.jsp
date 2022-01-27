@@ -1,10 +1,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.util.ResourceBundle" %>
-<%@ page import="java.util.Locale" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-  <head>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,42 +12,44 @@
 <body>
 
 <jsp:useBean id="category" class="entity.Category" scope="request"></jsp:useBean>
-<jsp:setProperty name="category" property="*"></jsp:setProperty>
+<jsp:setProperty name="category" property="*"/>
+
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
-<fmt:message bundle="${content}" key="SEARCH" var="search"/>
-<fmt:message bundle="${content}" key="CATEGORY" var="cat" />
-<fmt:message bundle="${content}" key="LANGUAGE" var="lang" />
-
-
-<%String msg = request.getParameter("msg");%>
+<fmt:message bundle="${content}" key="CURRENT_VALUE" var="current_value"/>
+<fmt:message bundle="${content}" key="NEW_VALUE" var="new_value"/>
+<fmt:message bundle="${content}" key="CANT_CHANGE" var="cant_change"/>
+<fmt:message bundle="${content}" key="TITLE" var="title"/>
+<fmt:message bundle="${content}" key="SAVE" var="save"/>
+<fmt:message bundle="${content}" key="DELETE_IN_ALL_LANG" var="delete_in_all"/>
+<fmt:message bundle="${content}" key="DELETE" var="delete"/>
 
 <form action = "<%= request.getContextPath()%>/controller?category_id=${category.id}&lang=${category.lang}" method = "post">
 <table class="admin-table" id="edit-category">
     <th> </th>
-    <th><%=bundle.getString("CURRENT_VALUE")%></th>
-    <th><%=bundle.getString("NEW_VALUE")%></th>
+    <th><c:out value="${current_value}"/></th>
+    <th><c:out value="${new_value}"/></th>
     <th> </th>
 
     <tr>
-      <td> ID </td>
-        <td>${category.id}</td>
-        <td><%=bundle.getString("CANT_CHANGE")%></td>
+        <td> ID </td>
+        <td><c:out value="${category.id}"/></td>
+        <td><c:out value="${cant_change}"/></td>
         <td></td>
     </tr>
 
     <tr>
-      <td> <%=bundle.getString("TITLE")%></td>
-        <td>${category.categoryName}</td>
+      <td><c:out value="${title}"/></td>
+        <td><c:out value="${category.categoryName}"/></td>
         <td><input type="text" name ="new_value" required/></td>
         <td><input type = "hidden" name="service_name" value="edit_category">
-        <input type="submit" value = "<%=bundle.getString("SAVE")%>"></td>
+        <input type="submit" value = "${save}"></td>
     </tr>
 
     <tr>
-      <td><%=bundle.getString("LANGUAGE")%>  </td>
-      <td>${category.lang}</td>
-      <td><%=bundle.getString("CANT_CHANGE")%></td>
+      <td><c:out value="${language}"/> </td>
+      <td><c:out value="${category.lang}"/></td>
+      <td><c:out value="${cant_change}"/></td>
       <td></td>
     </tr>
   </table>
@@ -57,17 +57,14 @@
 
   <form action = "<%= request.getContextPath()%>/controller?id=${category.id}&table=categories_lang&lang=${category.lang}" method = "post">
     <input type="hidden" name="service_name" value="delete_entity"/>
-      <%=bundle.getString("DELETE")%>
-    <input id = "decline" type="submit" value="<%=bundle.getString("DELETE")%>"/>
+      <c:out value="${delete}"/>
+    <input id = "decline" type="submit" value="${delete}"/>
   </form>
-
-
 <br>
-
   <form action = "<%= request.getContextPath()%>/controller?id=${category.id}&table=categories" method = "post">
   <input type="hidden" name="service_name" value="delete_entity"/>
-  <%=bundle.getString("DELETE_IN_ALL_LANG")%>
-  <input id = "decline" type="submit" value="<%=bundle.getString("DELETE")%>"/>
+      <c:out value="${delete_in_all}"/>
+  <input id = "decline" type="submit" value="${delete}"/>
 </form>
 </main>
 </body>

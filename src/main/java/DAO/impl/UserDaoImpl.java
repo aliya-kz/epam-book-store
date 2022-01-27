@@ -35,6 +35,8 @@ public class UserDaoImpl implements UserDao {
 
     private static String CHECK_ADMIN_SQL = "SELECT is_admin from users where email = ?;";
 
+    private static String GET_ID = "SELECT id FROM users WHERE email = ?;";
+
     PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
     @Override
     public int addEntity (User user) {
@@ -53,9 +55,10 @@ public class UserDaoImpl implements UserDao {
             statement.setString(6,encryptedPassword);
             result = statement.executeUpdate();
 
-            statement1 = connection.prepareStatement("SELECT * FROM users WHERE email = " + user.getEmail());
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            statement1 = connection.prepareStatement(GET_ID);
+            statement1.setString(1, user.getEmail());
+            ResultSet resultSet = statement1.executeQuery();
+            while (resultSet.next()) {
                 id = resultSet.getInt("id");
             }
 

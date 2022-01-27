@@ -1,8 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.List" %>
-<%@ page import="entity.Author" %>
-<%@ page import="entity.Lang" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -13,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
         <title>admin-authors</title>
 </head>
+
 <body>
 <jsp:include page="/admin/adminHeader"/>
 
@@ -29,38 +27,34 @@
 <fmt:message bundle="${content}" key="ANALYTICS" var="analytics" />
 <fmt:message bundle="${content}" key="SEARCH" var="search" />
 <fmt:message bundle="${content}" key="ALL_AUTHORS" var="all_authors" />
-<main>
-<%  String msg = request.getParameter("msg");
-    if (msg != null && msg.equals("error")) {%>
-<div class = "error"> ${error_gen}</div>
-    <%}%>
+<fmt:message bundle="${content}" key="EDIT" var="edit" />
 
+<main>
     <section class="add-new-entity">
            <h3> <c:out value="${add_author}"/></h3>
-            <table class="admin-table">
+        <form action = "/image-servlet?uri=<%=request.getRequestURI()%>" method="post" enctype="multipart/form-data">
+        <table class="admin-table">
                 <th> <c:out value="${name}"/></th>
                 <th> <c:out value="${surname}"/></th>
                 <th> <c:out value="${biography}"/></th>
                 <th> <c:out value="${language}"/></th>
                 <th> <c:out value="${image}"/></th>
                 <th> </th>
-
-                <tr>
-                    <form action = "/imageServlet?uri=<%=request.getRequestURI()%>" method="post" enctype="multipart/form-data">
-                    <td> <input type="text"  name="name" required/></td>
-                    <td> <input type="text"  name="surname" required/></td>
-                    <td> <input type="text"  name="biography" required/></td>
-                    <td><select name = "lang">
-                        <c:forEach var="lang"  items="${langs}">
-                        <option value ="${lang.title}"><c:out value="${lang.title}"></option>
-                        </c:out>
-                    </select></td>
-                    <td><input type="file" name="file" required/></td>
-                    <td><input type="hidden" name="service_name" value="add_new_author">
-                        <input type="submit" class="submit-btn" value = "${add_author}"> </td>
-                    </form>
-                </tr>
+                 <tr>
+                     <td> <input type="text"  name="name" required/></td>
+                     <td> <input type="text"  name="surname" required/></td>
+                     <td> <input type="text"  name="biography" required/></td>
+                     <td> <select name = "lang">
+                        <c:forEach var="lang" items="${langs_list}">
+                        <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
+                        </c:forEach>
+                     </select></td>
+                     <td><input type="file" name="file" required/></td>
+                     <td><input type="hidden" name="service_name" value="add_new_author">
+                         <input type="submit" class="submit-btn" value = "${add_author}"> </td>
+                 </tr>
             </table>
+        </form>
     </section>
 
     <section class="add-translation">
@@ -80,9 +74,9 @@
                     <td> <input type="text"  name="surname" required/></td>
                     <td> <input type="text"  name="biography" required/></td>
                     <td><select name = "lang">
-                        <c:forEach var="lang"  items="${langs}">
-                        <option value ="${lang.title}"><c:out value="${lang.title}"></option>
-                            </c:out>
+                        <c:forEach var="lang"  items="${langs_list}">
+                        <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
+                        </c:forEach>
                     </select></td>
                     <td><input type="hidden" name="service_name" value="add_new_author">
                         <input type="submit" class="submit-btn" value = "${add_translation}"> </td>
@@ -98,30 +92,32 @@
 
     <section class="all-entities">
         <form action = "<%=request.getContextPath()%>/controller" method = "post">
-            <h3> <c:out value="${all_authors}"/>  </h3>
-            <table class="admin-table" id="admin-authors">
+            <h3> <c:out value="${all_authors}"/> </h3>
+            <table class="admin-table">
+                <th><c:out value="${image}"/></th>
                 <th>ID</th>
                 <th><c:out value="${name}"/></th>
                 <th><c:out value="${surname}"/></th>
                 <th><c:out value="${biography}"/></th>
                 <th><c:out value="${language}"/></th>
                 <th> </th>
-                <c:forEach var="author"  items="${authors}">
+                <c:forEach var="author"  items="${authors_list}">
                 <tr>
-                    <th><c:out value="${author.id}"/></th>
-                    <th><c:out value="${author.name}"/></th>
-                    <th><c:out value="${author.surname}"/></th>
-                    <th><c:out value="${author.biography}"/></th>
-                    <td><a href="#" class = "admin-image">
-                        <img src="/imageServlet?id=${author.id}&table=authors" alt="author" width="150px"/></a></td>
-                    <td><a href ="/edit-author?id=${author.id}">
+                    <td class="td-image"><a href="#" class = "admin-image">
+                        <img src="/image-servlet?image_id=${author.id}&table=authors" alt="author" width="90px"/></a></td>
+                    <td><c:out value="${author.id}"/></td>
+                    <td><c:out value="${author.name}"/></td>
+                    <td><c:out value="${author.surname}"/></td>
+                    <td><c:out value="${author.biography}"/></td>
+                    <td><c:out value="${author.lang}"/></td>
+                  <td><a href ="/edit-author?author_id=${author.id}">
                     ${edit}</a></td>
                 </tr>
                 </c:forEach>
             </table>
         </form>
     </section>
-</main>
     <jsp:include page="/WEB-INF/view/footer.jsp"/>
+</main>
 </body>
 </html>

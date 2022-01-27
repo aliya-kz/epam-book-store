@@ -30,7 +30,7 @@
         <th class = "admin-th"><c:out value = "${phone_number}"/></th>
         <th class = "admin-th"> </th>
         <th class = "admin-th"> </th>
-            <c:forEach var="user"  items="${users}">
+            <c:forEach var="user"  items="${users_list}">
                 <tr class="book-row">
                     <td><c:out value="${user.id}"/></td>
                     <td><c:out value="${user.email}"/></td>

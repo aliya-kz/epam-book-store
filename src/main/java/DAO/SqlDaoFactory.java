@@ -3,7 +3,6 @@ import DAO.impl.*;
 
 public class SqlDaoFactory {
     private static SqlDaoFactory instance = new SqlDaoFactory();
-
     private UserDao userDao;
     private BookDao bookDao;
     private CategoryDao categoryDao;

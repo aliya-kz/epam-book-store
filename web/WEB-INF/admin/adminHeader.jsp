@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"  %>
 <html>
 <head>
@@ -40,13 +41,13 @@
 <form action = "<%=request.getContextPath()%>/controller" method = "post">
     <nav class="nav">
         <ul class="nav-menu">
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_books">${books} </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_categories">${categories}</button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_users">${users} </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_orders">${orders} </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_authors">${authors} </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_messages">${messages} </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_analytics">${analytics} </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_books"><c:out value="${books}"/> </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_categories"><c:out value="${categories}"/> </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_users"><c:out value="${users}"/>  </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_orders"><c:out value="${orders}"/>  </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_authors"><c:out value="${authors}"/>  </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_messages"><c:out value="${messages}"/>  </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_analytics"><c:out value="${analytics}"/>  </button></li>
         </ul>
     </nav>
 </form>

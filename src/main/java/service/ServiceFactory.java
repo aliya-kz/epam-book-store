@@ -26,6 +26,10 @@ public class ServiceFactory {
             SERVICE_MAP.put("edit_book", new EditBookService());
             SERVICE_MAP.put("delete_entity", new DeleteEntityService());
             SERVICE_MAP.put("add_new_author", new AddNewAuthorService());
+            SERVICE_MAP.put("edit_author", new EditAuthorService());
+            SERVICE_MAP.put("edit_image", new EditImageService());
+            SERVICE_MAP.put("welcome", new WelcomeService());
+            SERVICE_MAP.put("add_to_cart", new AddToCartService());
         }
 
         public static ServiceFactory getInstance() {

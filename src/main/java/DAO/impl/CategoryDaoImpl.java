@@ -27,32 +27,6 @@ public class CategoryDaoImpl implements CategoryDao {
     private static String DELETE_CATEGORIES = "DELETE from categories WHERE id = ?;";
     private static String SELECT_CATEGORY_BY_ID = "SELECT * from categories where id = ?;";
 
-    @Override
-    public List<Category> getAll() {
-        List<Category> categories = new ArrayList<>();
-        Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SELECT_ALL_CATEGORIES);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Category category = new Category();
-                category.setId(resultSet.getInt("id"));
-                category.setCategoryName(resultSet.getString("category_name"));
-                category.setLang(resultSet.getString("lang"));
-                categories.add(category);
-            }
-        } catch (SQLException ex) {
-            LOGGER.error(ex);
-            ex.printStackTrace();
-        } finally {
-            close(statement);
-            connectionPool.returnConnection(connection);
-        }
-        Collections.sort(categories);
-        return categories;
-    }
-
     public List<Category> getAll(String lang) {
         List<Category> categories = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();

@@ -1,67 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;1,300&display=swap');
-
 * {
     margin: 0 auto;
     padding: 0;
-    font-family: "Source Sans Pro", sans-serif;
     font-size: 16px;
     font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
 }
 
 body {
     margin-left: 20px;
     margin-right: 20px;
 }
-.main-container {
-    display: flex;
-    justify-content: space-between;
-}
 
-.login-container {
-    margin: 0 auto;
-    width: 350px;
-    font-size: 24px;
-    border: 2px solid rgba(0,0,0,0.06);
-    border-radius: 10px;
-}
-
-.signup-container {
-    margin: 0 auto;
-    width: 350px;
-    font-size: 16px;
-    border: 2px solid rgba(0,0,0,0.06);
-    border-radius: 10px;
+.admin-main {
+    position: relative;
+    background-color: #F3F3F3;
 }
 
 h1 {
-    font-size: 36px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
-h3, h1 {
-    margin-top: 25px;
+h3 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.admin-main p {
+    position: absolute;
     text-align: center;
-    margin-bottom: 25px;
+    color: white;
+    font-size: 48px;
 }
 
-input {
-    padding:10px;
-    border:0;
-    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-    border-radius: 10px;
+.admin-table {
+
+    border-collapse: collapse;
+    width: 100%;
 }
 
-.submit-btn {
-    width: 120px;
-    border-radius: 30px;
-    border-radius: 30px;
+.admin-table td,
+.admin-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
 }
 
-#decline {
-    background-color: tomato;
+.admin-table tr {
+    background-color: #f7fbfc;
 }
 
-#accept {
-    background-color: #04AA6D;
+.admin-table tr:nth-child(even){
+    background-color: white;}
+
+.admin-table th {
+    text-align: left;
+    background-color: #5ab6bf;
+    color: #24575c;
+}
+
+.admin-menu-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .admin-title {
@@ -75,9 +78,134 @@ input {
     width: 150px;
 }
 
-.admin-main {
-    display: flex;
-    justify-content: space-between;
+.edit-image {
+    margin-left: 50px;
+}
+
+.login-container {
+    margin: 0 auto;
+    width: 350px;
+    font-size: 24px;
+    border: 2px solid rgba(0,0,0,0.06);
+    border-radius: 10px;
+}
+
+.td-image {
+    width:100px;
+    height: 180px;
+}
+
+.error {
+    color: #934139;
+    font-size: 32px;
+}
+
+.main-container {
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.signup-container {
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px black;
+    width: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.signup-header {
+    background-color: rgb(215, 215, 215);
+    border-bottom:  1px solid #f0f0f0;
+    padding: 20px 40px;
+}
+
+.signup-header h3 {
+    margin: 0;
+}
+
+.signup-form {
+    padding: 30px 40px;
+    background-color: #f7f7f7;
+}
+
+.form-control {
+    margin-bottom: 8px;
+    padding-bottom: 15px;
+    position: relative;
+}
+.form-control.success input {
+    border-color: #2ecc71;
+}
+
+.form-control.error input {
+    border-color: #e74c3c;
+}
+
+.form-control.success i.fas-fa-check-circle {
+    visibility: visible;
+    color: #2ecc71;
+}
+
+.form-control.success i.fas-fa-check-exclamation-circle {
+    visibility: visible;
+    color: #e74c3c;
+}
+
+.form-control.error small {
+    visibility: visible;
+    color: #e74c3c;
+    font-size: 10px;
+}
+
+.form-control label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.form-control input {
+    border: 2px solid #0f0f0f;
+    border-radius: 4px;
+    display: block;
+    font-family: inherit;
+    font-size: 12px;
+    width: 100%;
+    padding: 7px;
+}
+
+.form-control i {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    visibility: hidden;
+}
+
+.form-control small {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+}
+
+.signup-form button {
+    background-color: red;
+    border: 2px solid red;
+    color: white;
+    display: block;
+    padding: 5px;
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
+}
+
+.decline {
+    background-color: tomato;
+}
+
+.accept {
+    background-color: #399341;
 }
 
 .bar {
@@ -101,27 +229,6 @@ input {
     text-decoration: none;
 }
 
-.logo {
-    position: relative;
-    background-color: antiquewhite;
-    height: 100px;
-    border-bottom:1px solid #000;
-}
-
-#admin-logo{
-    height: 60px;
-    background-color: darkgrey;
-}
-
-.logo p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    font-size: 40px;
-}
-
 .lang {
     width: 30px;
     height: 18px;
@@ -137,7 +244,7 @@ input {
 }
 
 #rus{
-    background: url("/images/icons/ru.png") no-repeat;
+    background: url("/images/icons/russia.png") no-repeat;
     background-size: cover;
 }
 
@@ -147,38 +254,53 @@ input {
     justify-content: space-between;
     align-items: center;
     height: 40px;
-    background-color: darkslateblue;
+    background-color: #398b93;
 }
 
 .nav-menu {
     margin-left: 0;
     height: 100%;
-    text-transform: uppercase;
 }
 
 .msg-div {
     font-size: 42px;
-    color: red;
+    color: #934139;
 }
 
+
 .nav-menu li {
-    margin-top: 0;
-    margin-bottom: 0;
     width: 160px;
     display: inline;
     padding-left: 20px;
     font-size: 16px;
-    font-weight: 300;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-.nav-menu li:hover,
-.nav-menu li:active {
-    background-color: #6c63a2;
+.nav-menu a:hover,
+.nav-menu a:active {
+    color: #935e39;
 }
 
-a {
+.nav-menu ul li a {
     text-decoration: none !important;
     color: #336b75;
+}
+
+.logo {
+    position: relative;
+    background-color: antiquewhite;
+    height: 100px;
+    border-bottom:1px solid #000;
+}
+
+.logo p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
 }
 
 .basket {
@@ -189,130 +311,108 @@ a {
     border: none;
 }
 
-#search {
-    width: 250px;
-    height: 30px;
-    border-radius: 30px;
-}
-button {
-    cursor: pointer;
-}
-
-.search button {
-    background: url("/images/icons/search.png") no-repeat;
-    width: 30px;
-    height: 30px;
+.welcome-main {
+    background: url("/images/img/background.jpg") no-repeat;
     background-size: cover;
-    border: none;
+    position: relative;
 }
 
-.bestsellers {
-    height: 400px;
-    border-bottom:1px solid #000;
+.welcome-form-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+#welcome-form {
+    width: 155px;
+    display: inline-block;
+}
+
+#welcome-form input {
+   height: 30px;
+}
+
+#welcome-form option {
+    width: 120px;
+    margin-right: 5px;
+    border: 1px solid black;
+    height: 30px;
+}
+
+.go-btn {
+    height: 30px;
+    width: 30px;
+    background-color: black;
+    color: white;
+}
+
+#bestsellers {
+    height: 350px;
+ }
+
+#index-books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.index-book {
+    width: 170px;
+    height: 280px;
+}
+
+.index-book img {
+    height: 70%;
+}
+
+.index-book a {
+    text-decoration: none;
+    color: #808080;
+}
+
+.index-book-name {
+    font-size: 12px;
+}
+
+.index-author-name {
+    font-size: 10px;
+    color: #A0522D;
+}
+
+.index-book-price {
+    font-size: 12px;
+    color:black;
+    font-weight: bold;
+}
+
+.books-main {
     display: flex;
     justify-content: space-between;
 }
 
-.books {
-    height: 400px;
+.filter {
+    width: 150px;
 }
 
-.arrow {
-    width: 40px;
-    height: 40px;
-    border: none;
+.book-info-table td {
+    border: solid 1px #808080;
 }
 
-#left-arrow {
-    background: url("/images/icons/left-arrow.png") no-repeat;
-    background-size: cover;
+#book,
+.book-info-table td {
+    display: flex;
+    justify-content: space-between;
 }
 
-#right-arrow {
-    background: url("/images/icons/right-arrow.png") no-repeat;
-    background-size: cover;
+.book-cover {
+    margin-right: 60px;
 }
 
-.admin-main {
-    position: relative;
-    background-color: #F3F3F3;
-}
 
-.admin-main p {
-    position: absolute;
-    text-align: center;
-    color: white;
-    font-size: 48px;
-}
 
-.admin-table {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.admin-table td,
-.admin-table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.admin-table tr:nth-child(even){
-    background-color: #f2f2f2;}
-
-.admin-table tr:hover {
-    background-color: #ddd;}
-
-.admin-table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: lightsteelblue;
-    color: white;
-}
-
-.book-row.even {
-    background-color: #efefef;
-}
-
-.admin-menu-btn {
-    background-color: transparent;
-    border: none;
-    color: white;
-    letter-spacing: 2px;
-}
-
-#a-img{
-    display: block;
-}
-
-#a-img img {
-    display: none;
-    position: absolute;
-    top: 0;
-    border: 0;
-    left: 100%;
-}
-
-#a-img:hover {
-    display: block;
-}
 
 .footer {
-    background-color: darkslateblue;
+    background-color: #24575c;
     height: 80px;
-}
-
-.admin-image {
-    display: block;
-}
-
-.admin-image img {
-    display: none;
-}
-
-.admin-image:hover {
-    display: block;
-    width: 150px;
 }
 

@@ -1,19 +1,29 @@
-<%@ page import="java.util.ResourceBundle" %>
-<%@ page import="java.util.Locale" %><%--
-  Created by IntelliJ IDEA.
-  User: zhuma_rprmwfo
-  Date: 04.01.2022
-  Time: 11:33
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="service.ChangeLanguageService" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link rel = "stylesheet" href="/css/style.css"/>
+    <script src="/js/validation.js"> </script>
+    <title>welcome</title>
 </head>
 <body>
-<% ResourceBundle bundle = ResourceBundle.getBundle("content", Locale.forLanguageTag("ru"));
-%>
-<h1> <%=bundle.getString("WELCOME")%>, <%=session.getAttribute("user_name")%></h1>
+
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="content" var="content" scope="session"/>
+
+<main class = "welcome-main">
+    <div class="welcome-form-container">
+    <form id = "welcome-form" action = "<%= request.getContextPath()%>/controller" method = "post">
+        <select name = "locale">
+               <option value ="en_EN">English</option>
+              <option value ="ru_RU">Русский</option>
+        </select>
+        <input  id="eng" type="hidden" name="service_name" value="welcome"/>
+    <button class = "go-btn"> GO </button>
+    </form>
+    </div>
+</main>
 </body>
 </html>

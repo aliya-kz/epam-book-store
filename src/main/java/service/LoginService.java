@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Locale;
+
 
 
 public class LoginService implements Service {
@@ -26,16 +26,25 @@ public class LoginService implements Service {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
+        String uri = request.getRequestURI();
         String locale = (String) session.getAttribute("locale");
+        if (locale == null) {
+            locale = "en_US";
+        }
+        String lang = locale.substring(0, 2);
         User user = userDao.validateUser(email, password);
         if (user == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login/msg=error");
             dispatcher.forward(request, response);
         } else {
-            session.setAttribute("books", bookDao.getAll());
-            session.setAttribute("authors", authorDao.getAll(locale));
-            session.setAttribute("formats", formatDao.getAll());
-            session.setAttribute("categories", categoryDao.getAll(locale));
+            if (user.isBlocked()) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/login?msg=blocked");
+                dispatcher.forward(request, response);
+            }
+            session.setAttribute("books", bookDao.getAll(lang));
+            session.setAttribute("authors", authorDao.getAll(lang));
+            session.setAttribute("formats", formatDao.getAll(lang));
+            session.setAttribute("categories", categoryDao.getAll(lang));
             session.setAttribute("langs", languageDao.getAll());
             if (user.isAdmin()) {
                 session.setAttribute("users", userDao.getAll());

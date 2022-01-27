@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page contentType="text/html;charset=UTF-8"  %>
@@ -11,16 +12,13 @@
     <title>WelcomeAdmin</title>
 </head>
 <body>
-
+<jsp:include page="/admin/adminHeader"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
 <fmt:message bundle="${content}" key="WELCOME_ADMIN" var="welcome_admin" />
 
 
-
-<jsp:include page="/admin/adminHeader"/>
-
 <main class="admin-main">
-    <p>${welcome_admin}</p>
+    <p><c:out value="${welcome_admin}"/></p>
 </main>
 </body>
 </html>

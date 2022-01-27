@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserDao extends BaseDao <User> {
   int addEntity (User user);
   int addAddress (int id, String address);
-
+  List <User> getAll();
    boolean isAdmin (String email);
   User validateUser (String email, String password);
   boolean userExists (String email);

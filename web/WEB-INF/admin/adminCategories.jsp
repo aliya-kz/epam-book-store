@@ -1,11 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.List" %>
-<%@ page import="entity.Category" %>
-<%@ page import="entity.Lang" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
     <head>
         <script src="/js/script.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -21,7 +17,7 @@
 <fmt:setBundle basename="content" var="content" scope="session"/>
 <fmt:message bundle="${content}" key="SEARCH" var="search"/>
 <fmt:message bundle="${content}" key="CATEGORY" var="cat" />
-<fmt:message bundle="${content}" key="LANGUAGE" var="lang" />
+<fmt:message bundle="${content}" key="LANGUAGE" var="language" />
 <fmt:message bundle="${content}" key="ADD_CATEGORY" var="add_cat" />
 <fmt:message bundle="${content}" key="ADD_NEW_CATEGORY" var="add_new_cat" />
 <fmt:message bundle="${content}" key="INSERT_CATEGORY_ID" var="insert_cat_id" />
@@ -30,31 +26,26 @@
 <fmt:message bundle="${content}" key="EDIT" var="edit" />
 <fmt:message bundle="${content}" key="ERROR_GEN" var="error" />
 
-<% String msg = request.getParameter("msg");
-if (msg != null && msg.equals("error")) {%>
-<div class="error-msg">${error}</div>
-<%}%>
-
 <main class="admin-main">
 
     <section class="admin-filter">
         <h1><c:out value = "${search}"/></h1>
-        <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-categories')">
+        <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-categories')"/>
     </section>
 
     <section>
-        <form action = "<%= request.getContextPath()%>/controller" method = "post">
-            <h3> <c:out value = "${add_new_cat}"/> </h3>
+        <h3> <c:out value = "${add_new_cat}"/> </h3>
+            <form action = "<%= request.getContextPath()%>/controller" method = "post">
             <table class="admin-table">
                 <th>ID</th>
                 <th><c:out value = "${cat}"/></th>
-                <th><c:out value = "${lang}"/></th>
+                <th><c:out value = "${language}"/></th>
                 <th> </th>
                 <tr>
-                    <td> <input type="text" placeholder="${insert_cat_id}" name="new_id"/></td>
-                    <td> <input type="text" placeholder="${insert_cat_name}" name="new_category"/></td>
+                    <td> <input type="text" placeholder="${insert_cat_id}" name="new_id"></td>
+                    <td> <input type="text" placeholder="${insert_cat_name}" name="new_category"></td>
                     <td><select name = "cat_lang">
-                         <c:forEach var="lang"  items="${langs}">
+                         <c:forEach var="lang" items="${langs_list}">
                         <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
                          </c:forEach>
                     </select></td>
@@ -64,18 +55,18 @@ if (msg != null && msg.equals("error")) {%>
             </table>
         </form>
 
+        <h3> <c:out value = "${all_cat}"/> </h3>
         <form action = "<%= request.getContextPath()%>/controller" method = "post">
-            <h3> <c:out value = "${all_cat}"/> </h3>
             <table class="admin-table" id="admin-categories">
                 <th>ID</th>
                 <th><c:out value = "${cat}"/></th>
-                <th><c:out value = "${lang}"/></th>
+                <th><c:out value = "${language}"/></th>
                 <th><c:out value = "${edit}"/></th>
-                    <c:forEach var="category" items="${categories}">
+                    <c:forEach var="category" items="${categories_list}">
                 <tr>
-                    <td>${category.id}</td>
-                    <td>${category.categoryName}</td>
-                    <td>${category.lang}</td>
+                    <td><c:out value ="${category.id}"/></td>
+                    <td><c:out value = "${category.categoryName}"/></td>
+                    <td><c:out value="${category.lang}"/></td>
                     <td><a href ="/editCategory?id=${category.id}&categoryName=${category.categoryName}&lang=${category.lang}">
                         ${edit}</a>
                     </td>

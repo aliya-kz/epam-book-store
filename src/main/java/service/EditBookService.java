@@ -28,7 +28,7 @@ public class EditBookService implements Service{
             dispatcher.forward(request, response);
         }
         else {
-            List<Book> books = bookDao.getAll();
+            List<Book> books = bookDao.getAll((String)session.getAttribute("locale"));
             session.setAttribute("books", books);
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
             dispatcher.forward(request, response);

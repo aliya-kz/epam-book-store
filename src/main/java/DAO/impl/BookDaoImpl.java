@@ -4,6 +4,7 @@ import DAO.BookDao;
 import DAO.db_connection.ConnectionPool;
 import entity.Author;
 import entity.Book;
+import entity.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.*;
@@ -27,6 +28,9 @@ public class BookDaoImpl implements BookDao {
 
     private static String SELECT_BOOK_SQL = "select b.*, bl.description,bl.lang from books b left join books_lang bl on b.id=bl.book_id where b.id = ?;";
 
+    private static String SELECT_ALL_BOOKS = "select b.*, ab.author_id, cl.category_name, fl.format_name, bc.image from books b " +
+            "left join authors_to_books ab on b.id=ab.book_id left join categories_lang cl on cl.id=b.category_id left join " +
+            "formats_lang fl on fl.id=b.format_id left join book_covers bc on bc.id=b.id where fl.lang= ? and cl.lang=?;";
     @Override
     public int addEntity(Book book) {
         Connection connection = connectionPool.takeConnection();
@@ -72,26 +76,29 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getAll() {
+    public List<Book> getAll(String lang) {
         Connection connection = connectionPool.takeConnection();
         List<Book> books = new ArrayList<>();
-        Statement statement = null;
+        PreparedStatement statement = null;
         try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select ab.author_id, b.*, bc.image from authors_to_books ab " +
-                    "left join books b on b.id=ab.book_id left join book_covers bc on b.id=bc.id;");
+            statement = connection.prepareStatement(SELECT_ALL_BOOKS);
+            statement.setString(1, lang);
+            statement.setString(2, lang);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 Book book = new Book(id);
-                int author_id = resultSet.getInt("author_id");
+                int authorId = resultSet.getInt("author_id");
                 int index = books.indexOf(book);
                 if (index > -1) {
                     Book existingBook = books.get(index);
-                    existingBook.getAuthors().add(author_id);
+                    existingBook.getAuthors().add(authorId);
                 } else {
                     book.setTitle(resultSet.getString("title"));
                     List<Integer> authors = new ArrayList<>();
-                    authors.add(resultSet.getInt("author_id"));
+                    if (!authors.contains(resultSet.getInt("author_id"))) {
+                        authors.add(resultSet.getInt("author_id"));
+                    }
                     book.setAuthors(authors);
                     book.setPublisher(resultSet.getString("publisher"));
                     book.setIsbn(resultSet.getString("isbn"));
@@ -100,7 +107,9 @@ public class BookDaoImpl implements BookDao {
                     book.setPrice(resultSet.getInt("price"));
                     book.setDescription(resultSet.getString("description"));
                     book.setCategoryId(resultSet.getInt("category_id"));
+                    book.setCategory(resultSet.getString("category_name"));
                     book.setFormatId(resultSet.getInt("format_id"));
+                    book.setFormat(resultSet.getString("format_name"));
                     book.setImage(resultSet.getBytes("image"));
                     books.add(book);
                 }
@@ -114,6 +123,8 @@ public class BookDaoImpl implements BookDao {
         }
         return books;
     }
+
+
 
     @Override
     public int deleteById(int id) {

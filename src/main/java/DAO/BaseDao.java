@@ -2,6 +2,8 @@ package DAO;
 
 import DAO.db_connection.ConnectionPool;
 import entity.Entity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -49,8 +51,6 @@ public interface BaseDao <T extends Entity> {
     }
 
     int addEntity(T t);
-
-    List <T> getAll ();
 
     int deleteById (int id);
 
@@ -120,6 +120,7 @@ public interface BaseDao <T extends Entity> {
     }
 
     default int setColumnValueLang(String table, int id, String columnName, Object value, String lang) {
+        Logger logger = LogManager.getLogger(this.getClass().getName());
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
@@ -133,6 +134,7 @@ public interface BaseDao <T extends Entity> {
             result = statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+            logger.info(e);
         } finally {
             close(statement);
             connectionPool.returnConnection(connection);

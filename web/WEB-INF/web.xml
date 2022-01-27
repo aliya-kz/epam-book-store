@@ -25,7 +25,7 @@
 
     <servlet-mapping>
         <servlet-name>ImageServlet</servlet-name>
-        <url-pattern>/imageServlet</url-pattern>
+        <url-pattern>/image-servlet</url-pattern>
     </servlet-mapping>
 
     <filter>
@@ -39,6 +39,7 @@
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/controller</url-pattern>
+        <url-pattern>/image-servlet</url-pattern>
     </filter-mapping>
 
     <servlet>
@@ -88,6 +89,69 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>books</servlet-name>
+        <jsp-file>/WEB-INF/view/books.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>books</servlet-name>
+        <url-pattern>/books</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>book</servlet-name>
+        <jsp-file>/WEB-INF/view/book.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>book</servlet-name>
+        <url-pattern>/book</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>author</servlet-name>
+        <jsp-file>/WEB-INF/view/author.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>author</servlet-name>
+        <url-pattern>/author</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>cart</servlet-name>
+        <jsp-file>/WEB-INF/view/cart.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cart</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkout</servlet-name>
+        <jsp-file>/WEB-INF/view/checkout.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>authors</servlet-name>
+        <jsp-file>/WEB-INF/view/authors.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>authors</servlet-name>
+        <url-pattern>/authors</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>footer</servlet-name>
+        <jsp-file>/WEB-INF/view/footer.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>footer</servlet-name>
+        <url-pattern>/footer</url-pattern>
+    </servlet-mapping>
+
+     <servlet>
         <servlet-name>adminHeader</servlet-name>
         <jsp-file>/WEB-INF/admin/adminHeader.jsp</jsp-file>
     </servlet>

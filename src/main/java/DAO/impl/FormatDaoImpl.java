@@ -16,7 +16,7 @@ import java.util.List;
 public class FormatDaoImpl implements FormatDao {
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static String GET_ALL_FORMATS= "SELECT * FROM formats_lang";
+    private static String GET_ALL_FORMATS= "SELECT * FROM formats_lang where lang = ?";
 
     @Override
     public int addEntity(Format format) {
@@ -24,11 +24,12 @@ public class FormatDaoImpl implements FormatDao {
     }
 
     @Override
-    public List<Format> getAll() {
+    public List<Format> getAll(String lang) {
         List <Format> formats = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
         try { statement = connection.prepareStatement(GET_ALL_FORMATS);
+            statement.setString(1, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Format format = new Format();

@@ -7,6 +7,7 @@ public class Author extends Entity {
     private String biography;
     private byte[] image;
     private String lang;
+    private String fullName;
 
 
     public Author() {}
@@ -36,6 +37,14 @@ public class Author extends Entity {
 
     public void setLang(String lang) {
         this.lang = lang;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setName(String name) {

@@ -15,8 +15,13 @@ public class GetAllBooksService implements Service {
     BookDaoImpl bookDao = new BookDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<Book> books = bookDao.getAll();
         HttpSession session = request.getSession();
+        String locale = (String) session.getAttribute("locale");
+        if (locale == null) {
+            locale = "en_US";
+        }
+        String lang = locale.substring(0, 2);
+        List<Book> books = bookDao.getAll(lang);
         session.setAttribute("books", books);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminBooks.jsp");
         dispatcher.forward(request, response);

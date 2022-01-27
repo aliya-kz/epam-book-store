@@ -11,10 +11,12 @@ public class Book extends Entity {
     private int quantity;
     private double price;
     private int categoryId;
+    private String category;
     private String isbn;
     private String description;
     private String language;
     private int formatId;
+    private String format;
     private byte[] image;
 
     public Book() {
@@ -22,6 +24,22 @@ public class Book extends Entity {
 
     public Book (int id) {
         this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
     }
 
     public byte[] getImage() {
@@ -40,12 +58,12 @@ public class Book extends Entity {
         this.id = id;
     }
 
-    public void setAuthors(List<Integer> authors) {
-        this.authors = authors;
-    }
-
     public List<Integer> getAuthors() {
         return authors;
+    }
+
+    public void setAuthors(List<Integer> authors) {
+        this.authors = authors;
     }
 
     public String getTitle() {

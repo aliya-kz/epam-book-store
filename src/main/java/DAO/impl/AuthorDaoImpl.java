@@ -44,13 +44,11 @@ public class AuthorDaoImpl implements AuthorDao {
             if (resultSet.next()) {
                 id = resultSet.getInt(1) + 1;
             }
-
             author.setId(id);
             statement1 = connection.prepareStatement(INSERT_AUTHORS);
             statement1.setInt(1, id);
             statement1.setBytes(2, author.getImage());
             statement1.executeUpdate();
-
             result = addTranslation(author);
         } catch (Exception e) {
             LOGGER.error(e);
@@ -85,35 +83,7 @@ public class AuthorDaoImpl implements AuthorDao {
         return result;
     }
 
-    @Override
-    public List<Author> getAll() {
-        List <Author> authors = new ArrayList<>();
-        Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try { statement = connection.prepareStatement(GET_ALL_AUTHORS);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Author author = new Author();
-                author.setId(resultSet.getInt("id"));
-                author.setName(resultSet.getString("name"));
-                author.setSurname(resultSet.getString("surname"));
-                author.setBiography(resultSet.getString("biography"));
-                author.setImage(resultSet.getBytes("image"));
-                author.setLang(resultSet.getString("lang"));
-                authors.add(author);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.info(e);
-        }
-        finally {
-            close(statement);
-            connectionPool.returnConnection(connection);
-        }
-        return authors;
-    }
-
-    public List<Author> getAll(String lang) {
+     public List<Author> getAll(String lang) {
         List <Author> authors = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
@@ -127,6 +97,7 @@ public class AuthorDaoImpl implements AuthorDao {
                 author.setSurname(resultSet.getString("surname"));
                 author.setBiography(resultSet.getString("biography"));
                 author.setImage(resultSet.getBytes("image"));
+                author.setFullName(resultSet.getString("surname") + " " + resultSet.getString("name"));
                 author.setLang(lang);
                 authors.add(author);
             }
@@ -147,6 +118,6 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     public  static  void main (String[] args) {
-        AuthorDao impl = new AuthorDaoImpl();
+
     }
 }

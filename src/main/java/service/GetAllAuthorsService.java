@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
+
 
 public class GetAllAuthorsService implements Service {
     AuthorDao authorDao = SqlDaoFactory.getInstance().getAuthorDao();
@@ -18,7 +18,11 @@ public class GetAllAuthorsService implements Service {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         String locale = (String) session.getAttribute("locale");
-        List<Author> authors = authorDao.getAll(locale);
+        if (locale == null) {
+            locale = "en_US";
+        }
+        String lang = locale.substring(0, 2);
+        List<Author> authors = authorDao.getAll(lang);
         session.setAttribute("authors", authors);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-authors");
         dispatcher.forward(request, response);

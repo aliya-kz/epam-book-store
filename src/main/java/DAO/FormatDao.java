@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FormatDao extends BaseDao <Format>{
     int addEntity (Format format);
-    List<Format> getAll ();
+    List<Format> getAll (String lang);
     int deleteById (int id);
 }
