@@ -15,7 +15,7 @@
         <title>admin-messages</title>
     </head>
 <body>
-<jsp:include page="/admin/adminHeader"/>
+<jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
 
     <% Locale locale = (Locale) session.getAttribute("locale");
     System.out.println("locale in adminmessages " + locale);

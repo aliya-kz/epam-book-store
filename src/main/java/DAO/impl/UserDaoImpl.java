@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
             "(name, surname, date_of_birth, email, phone, password) " +
             "VALUES " + "(?,?,?,?,?,?);";
 
-    private static String GET_USER= "SELECT u.*, c.card_number, a.address FROM users u " +
+    private static String GET_USER= "SELECT u.*, c.card, a.address FROM users u " +
             "LEFT JOIN cards c ON u.id=c.user_id LEFT JOIN addresses a ON u.id=a.user_id " +
             "WHERE email = ? AND password = ?;";
 
@@ -188,7 +188,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User validateUser (String email, String password) {
-        User user = null;
+        User user = new User();
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
         try {
@@ -196,17 +196,16 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, email);
             statement.setString(2, passwordEncrypter.encrypt(password));
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                if (user == null) {
-                    user = new User();
+            if (resultSet.next()) {
+                if (user.getAddresses() == null) {
                     user.setId(resultSet.getInt("id"));
                     List<String> addresses = new ArrayList<>();
                     addresses.add(resultSet.getString("address"));
                     List<String> cards = new ArrayList<>();
                     user.setAddresses(addresses);
-                    cards.add(resultSet.getString("card_number"));
+                    cards.add(resultSet.getString("card"));
                     user.setCards(cards);
-                    user.setEmail(resultSet.getString("email"));
+                    user.setEmail(email);
                     user.setName(resultSet.getString("name"));
                     user.setSurname(resultSet.getString("surname"));
                     user.setPhone(resultSet.getString("phone"));
@@ -214,12 +213,13 @@ public class UserDaoImpl implements UserDao {
                     user.setBlocked(resultSet.getBoolean("is_blocked"));
                     user.setAdmin(resultSet.getBoolean("is_admin"));
                 } else
-                if (resultSet.getString("address") != null) {
+                    if (resultSet.getString("address") != null) {
                     user.getAddresses().add(resultSet.getString("address"));
-                }
-                if (resultSet.getString("address") != null) {
-                    user.getAddresses().add(resultSet.getString("address"));
-                }
+                    }
+                    if (resultSet.getString("card") != null) {
+                    user.getCards().add(resultSet.getString("card"));
+                    }
+                System.out.println("user in dao "+user.getName());
             }
         } catch (SQLException e) {
             LOGGER.warn(e);

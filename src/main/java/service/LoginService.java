@@ -28,17 +28,14 @@ public class LoginService implements Service {
         HttpSession session = request.getSession();
         String uri = request.getRequestURI();
         String locale = (String) session.getAttribute("locale");
-        if (locale == null) {
-            locale = "en_US";
-        }
         String lang = locale.substring(0, 2);
         User user = userDao.validateUser(email, password);
-        if (user == null) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/login/msg=error");
+        if (user.getName() == null) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/logIn.jsp?msg=wrong");
             dispatcher.forward(request, response);
         } else {
             if (user.isBlocked()) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/login?msg=blocked");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/logIn.jsp?msg=blocked");
                 dispatcher.forward(request, response);
             }
             session.setAttribute("books", bookDao.getAll(lang));
@@ -51,8 +48,8 @@ public class LoginService implements Service {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/welcomeAdmin.jsp");
                 dispatcher.forward(request, response);
             } else {
-                session.setAttribute("current_user", user);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/index");
+                session.setAttribute("user", user);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
                 dispatcher.forward(request, response);
             }
         }

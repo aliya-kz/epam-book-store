@@ -10,7 +10,7 @@
         <title>admin-users</title>
     </head>
 <body>
-<jsp:include page="/admin/adminHeader"/>
+<jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
@@ -30,7 +30,7 @@
         <th class = "admin-th"><c:out value = "${phone_number}"/></th>
         <th class = "admin-th"> </th>
         <th class = "admin-th"> </th>
-            <c:forEach var="user"  items="${users_list}">
+            <c:forEach var="user"  items="${users}">
                 <tr class="book-row">
                     <td><c:out value="${user.id}"/></td>
                     <td><c:out value="${user.email}"/></td>

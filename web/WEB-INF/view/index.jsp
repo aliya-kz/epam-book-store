@@ -6,7 +6,7 @@
     <title>Index</title>
   </head>
   <body>
-  <jsp:include page ="/header"/>
+  <jsp:include page ="/WEB-INF/view/header.jsp"/>
   <fmt:setLocale value = "${sessionScope.locale}" />
   <fmt:setBundle basename = "content" var = "content" scope = "session"/>
   <fmt:message bundle="${content}" key="SEE_MORE" var="see_more"/>
@@ -19,12 +19,12 @@
           <c:forEach var="book" items="${books}" begin="1" end="12">
               <div class = "index-book">
                   <img src = "/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}"><br>
-                  <h3><a href = "/book?id=${book.id}" class="index-book-name"><c:out value = "${book.title}"/></a></h3>
+                  <h3><a href = "/WEB-INF/view/book.jsp?id=${book.id}" class="index-book-name"><c:out value = "${book.title}"/></a></h3>
                   <c:set var = "authorIds" value = "${book.authors}"/>
               <c:forEach var = "authorId" items = "${authorIds}">
                   <c:forEach var ="auth" items = "${authors}">
                       <c:if test = "${authorId == auth.id}">
-                          <h4><a href = "/author?id=${auth.id}" class="index-author-name">${auth.fullName}</a></h4>
+                          <h4><a href = "/WEB-INF/view/author.jsp?id=${auth.id}" class="index-author-name">${auth.fullName}</a></h4>
                       </c:if>
                   </c:forEach>
               </c:forEach>
@@ -32,8 +32,8 @@
               </div>
           </c:forEach>
       </section>
-      <button class = "see-more"><a href="/books"><c:out value="${see_more}"/></a></button>
+      <button class = "see-more"><a href="/WEB-INF/view/books.jsp"><c:out value="${see_more}"/></a></button>
   </main>
-  <jsp:include page="/footer"/>
+  <jsp:include page ="/WEB-INF/view/footer.jsp"/>
   </body>
 </html>

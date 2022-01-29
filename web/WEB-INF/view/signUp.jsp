@@ -25,10 +25,10 @@
 <fmt:message bundle="${content}" key="CREATE_ACCOUNT" var="create_account"/>
 <fmt:message bundle="${content}" key="CARD_NUMBER" var="card"/>
 <fmt:message bundle="${content}" key="ERROR_GEN" var="error_gen"/>
+<fmt:message bundle="${content}" key="ERROR_EMAIL_EXISTS" var="error_email"/>
+<fmt:message bundle="${content}" key="SIGN_UP_COMPLETED" var="successful"/>
 <fmt:message bundle="${content}" key="CONFIRM_PASSWORD" var="confirm_password"/>
-<%String msg = request.getParameter("msg");%>
-<c:set var="error" value="error"/>
-<c:set var="msg" value="<%=msg%>"/>
+<fmt:message bundle="${content}" key="LOG_IN" var="login"/>
 
 <header class = "header">
     <div class="bar">
@@ -41,14 +41,15 @@
                 <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
                 <input type = "hidden" name = "locale" value="ru_RU"/>
                 <input class="lang" id="rus" type="submit" name="service_name" value="change_language"/></form></li>
+            <li> <button> <a href="/login"><c:out value="${login}"/> </a></button></li>
         </ul>
     </div>
 </header>
-<main class = "main-container">
-<div class = "signup-container">
+<main class = "signup-main">
+<section class = "signup-container">
     <div class="signup-header">
-    <h3> <c:out value="${create_account}"/> </h3>
-</div>
+    <h1> <c:out value="${create_account}"/> </h1>
+    </div>
         <form class = "signup-form" id = "signup-id" onsubmit="return checkInputs(this)" action = "<%= request.getContextPath()%>/controller" method = "post">
             <div class = "form-control">
             <label for = "name"><c:out value = "${name}"/> </label>
@@ -124,7 +125,27 @@
             <input type = "hidden" name="service_name" value="sign_up"/>
             <button type="submit" id = "submit-btn" onclick="checkInputs()" ><c:out value = "${sign_up}"/></button>
         </form>
-</div>
+</section>
+    <section class = "msg-section">
+        <%String msg = request.getParameter("msg");
+            request.setAttribute("msg", msg);
+            ;%>
+        <p>
+        <c:choose>
+            <c:when test="${msg == 'error'}">
+                <c:out value="${error_gen}"/>
+            </c:when>
+            <c:when test = "${msg == 'user_exists'}">
+                <c:out value="${error_email}"/>
+            </c:when>
+            <c:when test = "${msg == 'success'}">
+                <c:out value="${successful}"/> <br>
+
+            </c:when>
+        </c:choose>
+        </p>
+    </section>
+
 </main>
 </body>
 </html>

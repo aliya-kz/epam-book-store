@@ -11,7 +11,7 @@
         <title>admin-categories</title>
     </head>
 <body>
-<jsp:include page="/admin/adminHeader"/>
+<jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
@@ -45,7 +45,7 @@
                     <td> <input type="text" placeholder="${insert_cat_id}" name="new_id"></td>
                     <td> <input type="text" placeholder="${insert_cat_name}" name="new_category"></td>
                     <td><select name = "cat_lang">
-                         <c:forEach var="lang" items="${langs_list}">
+                         <c:forEach var="lang" items="${langs}">
                         <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
                          </c:forEach>
                     </select></td>
@@ -62,7 +62,7 @@
                 <th><c:out value = "${cat}"/></th>
                 <th><c:out value = "${language}"/></th>
                 <th><c:out value = "${edit}"/></th>
-                    <c:forEach var="category" items="${categories_list}">
+                    <c:forEach var="category" items="${categories}">
                 <tr>
                     <td><c:out value ="${category.id}"/></td>
                     <td><c:out value = "${category.categoryName}"/></td>

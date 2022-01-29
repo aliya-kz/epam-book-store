@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SignUpService implements Service {
     private UserDaoImpl userDAO = new UserDaoImpl();
-    private CartDaoImpl cartDao = new CartDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("email");
@@ -27,9 +27,9 @@ public class SignUpService implements Service {
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             Date dateOfBirth = Date.valueOf(request.getParameter("date_of_birth"));
-            String phone = request.getParameter("phone");
+            String phone = request.getParameter("phone").replaceAll("[\\s\\-\\(\\)]","");
             String address = request.getParameter("address");
-            String card = request.getParameter("card");
+            String card = request.getParameter("card").replaceAll("[\\s\\-]","");
             String password = request.getParameter("password");
             User user = new User();
             user.setName(name);
@@ -44,9 +44,13 @@ public class SignUpService implements Service {
             cards.add(card);
             user.setCards(cards);
             user.setPassword(password);
-            userDAO.addEntity(user);
-            //cartDao.createCart(email);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/signup?msg=success");
+            int result = userDAO.addEntity(user);
+            RequestDispatcher dispatcher;
+            if (result == 0) {
+                dispatcher = request.getRequestDispatcher("/WEB-INF/view/signUp.jsp?msg=error");
+            } else {
+                dispatcher = request.getRequestDispatcher("/WEB-INF/view/signUp.jsp?msg=success");
+            }
             dispatcher.forward(request, response);
         }
     }

@@ -22,6 +22,9 @@ public class BookDaoImpl implements BookDao {
 
     private static String INSERT_AUTHORS_TO_BOOKS = "INSERT INTO authors_to_books (book_id, author_id) values (?,?);";
 
+
+    private static String DELETE_AUTHORS_TO_BOOKS = "DELETE from authors_to_books WHERE book_id = ?;";
+
     private static String UPDATE_BOOK_SQL = "UPDATE books set" +
             "(title, authors, isbn, publisher, quantity, price, category, description, language) " +
             "= " + "(?,?,?,?,?,?,?,?,?) where isbn = ?;";
@@ -124,7 +127,44 @@ public class BookDaoImpl implements BookDao {
         return books;
     }
 
+    public int deleteBookAuthors (int bookId) {
+        int result = 0;
+        Connection connection = connectionPool.takeConnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(DELETE_AUTHORS_TO_BOOKS);
+            statement.setInt(1, bookId);
+            result = statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } finally {
+            close(statement);
+            connectionPool.returnConnection(connection);
+        }
+        return result;
+    }
 
+    public int setBookAuthors (int bookId, List <Integer> authorIds) {
+        Connection connection = connectionPool.takeConnection();
+        int result = 0;
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);
+            for (int author: authorIds) {
+                statement.setInt(1, bookId);
+                statement.setInt(2, author);
+                statement.executeUpdate();
+            }
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } finally {
+            close(statement);
+            connectionPool.returnConnection(connection);
+        }
+        return result;
+    }
 
     @Override
     public int deleteById(int id) {
@@ -209,7 +249,7 @@ public class BookDaoImpl implements BookDao {
 
     public static void main(String[] args) throws IOException {
         BookDaoImpl impl = new BookDaoImpl();
-        impl.addEntity(new Book());
+
         /*byte[] result = impl.getByteImage(1, "authors");
         ByteArrayInputStream bis = new ByteArrayInputStream(result);
         BufferedImage bImage2 = null;

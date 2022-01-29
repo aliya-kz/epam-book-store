@@ -30,7 +30,7 @@ public class WelcomeService implements Service {
         session.setAttribute("categories", categoryDao.getAll(lang));
         session.setAttribute("langs", languageDao.getAll());
         session.setAttribute("users", userDao.getAll());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
         dispatcher.forward(request, response);
     }
 }

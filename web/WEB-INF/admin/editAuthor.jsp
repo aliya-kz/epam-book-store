@@ -5,11 +5,14 @@
 <html>
 <head>
     <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
-        <title>edit-category</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+        <title>edit-author</title>
     </head>
 <body>
 <% String id = request.getParameter("author_id");
@@ -17,7 +20,7 @@ request.setAttribute("id", id);
 %>
 
 <jsp:useBean id="author" class="entity.Author" scope="request"/>
-<c:forEach var="auth" items="${authors_list}">
+<c:forEach var="auth" items="${authors}">
     <c:if test = "${auth.id == id}">
         <jsp:setProperty name="author" property="id" value="${auth.id}"/>
         <jsp:setProperty name="author" property="name" value="${auth.name}"/>
@@ -43,7 +46,7 @@ request.setAttribute("id", id);
 
 <main class="edit-main">
 <section class="edit-info">
-<form action = "<%= request.getContextPath()%>/controller?id=${author.id}&lang=${author.lang}" method = "post">
+<form action = "<%= request.getContextPath()%>/controller?id=${author.id}&lang=${author.lang}" method = "post" id="edit-author">
     <table class="admin-table" id="edit-category">
         <th> </th>
         <th><c:out value="${current_value}"/></th>
@@ -82,7 +85,7 @@ request.setAttribute("id", id);
     <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>">
     <input type = "hidden" name = "service_name" value = "edit_author">
     <input class = "accept" type = "submit" name = "save" value = "${save}">
-</form>
+</form><br>
 
 <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&table=authors_lang&lang=${author.lang}" method = "post">
     <input type="hidden" name="service_name" value="delete_entity"/>
@@ -93,21 +96,20 @@ request.setAttribute("id", id);
 <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&table=authors" method = "post">
     <input type="hidden" name="service_name" value="delete_entity"/>
     <c:out value="${delete_in_all}"/>
-    <input id = "decline" type="submit" value="${delete}"/>
+    <input class = "decline" type="submit" value="${delete}"/>
 </form>
 </section>
 
 <section class="edit-image">
-
     <form action = "/image-servlet?uri=<%=request.getRequestURI()%>&id=${author.id}&table=authors&lang=${author.lang}"
           method="post" enctype="multipart/form-data">
-    <img src="/image-servlet?image_id=${author.id}&table=authors" alt="author" width="150px"/></a></td>
+    <img src="/image-servlet?image_id=${author.id}&table=authors" alt="author" width="220px"/></a></td>
 
         <c:out value="${update_image}"/>
     <input type="file" name="file" required/></td>
         <input type="hidden" name="uri" value="${uri}">
            <input type="hidden" name="service_name" value="edit_image">
-        <input id="accept" type="submit" class="submit-btn" value = "${save}"/>
+        <input class="accept" type="submit" class="submit-btn" value = "${save}"/>
     </form>
 </section>
 </main>

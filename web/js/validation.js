@@ -16,9 +16,11 @@ function checkInputs() {
     const surnameValue = surname.value.trim();
     const emailValue = email.value.trim();
     const addressValue = address.value.trim();
-    const phoneValue = phone.value.trim();
+    const phoneValue = phone.value.replace(/[\s\-\\(\\)]/g,'');
+    console.log(phoneValue);
     const dateValue = date.value;
-    const cardValue = card.value.replace(/[\\s\-]/g, '');
+    const cardValue = card.value.replace(/[\s\-]/g,'');
+    console.log(cardValue);
     const passValue = password.value.trim();
     const passValue1 = password1.value.trim();
 
@@ -60,7 +62,7 @@ function checkInputs() {
 
     if (cardValue === '')  {
         setErrorFor(card, 'Fill in the required field');
-    } else if (!cardValue.match(/\d/g) || cardValue.length < 13 || cardValue.length > 16) {
+    } else if (!/\d{13,16}$/.test(cardValue) || cardValue.length < 13 || cardValue.length > 16) {
         setErrorFor(card, 'Enter a valid card number');
     } else {
         setSuccessFor(card);
@@ -69,7 +71,7 @@ function checkInputs() {
 
     if (phoneValue === '') {
         setErrorFor(phone, 'Fill in the required field');
-    } else if (/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/.test(phoneValue)) {
+    } else if (!/\d{10,15}$/.test(phoneValue) || phoneValue.length < 10 || phoneValue.length > 15) {
         setErrorFor(phone, 'A phone number can contain from 10 to 15 digits and special character "+"');
     } else {
         setSuccessFor(phone);

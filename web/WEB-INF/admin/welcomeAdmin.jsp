@@ -12,7 +12,7 @@
     <title>WelcomeAdmin</title>
 </head>
 <body>
-<jsp:include page="/admin/adminHeader"/>
+<jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
 <fmt:message bundle="${content}" key="WELCOME_ADMIN" var="welcome_admin" />
 

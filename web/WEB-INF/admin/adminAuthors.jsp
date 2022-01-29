@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<jsp:include page="/admin/adminHeader"/>
+<jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
@@ -45,7 +45,7 @@
                      <td> <input type="text"  name="surname" required/></td>
                      <td> <input type="text"  name="biography" required/></td>
                      <td> <select name = "lang">
-                        <c:forEach var="lang" items="${langs_list}">
+                        <c:forEach var="lang" items="${langs}">
                         <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
                         </c:forEach>
                      </select></td>
@@ -74,7 +74,7 @@
                     <td> <input type="text"  name="surname" required/></td>
                     <td> <input type="text"  name="biography" required/></td>
                     <td><select name = "lang">
-                        <c:forEach var="lang"  items="${langs_list}">
+                        <c:forEach var="lang"  items="${langs}">
                         <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
                         </c:forEach>
                     </select></td>
@@ -101,8 +101,8 @@
                 <th><c:out value="${biography}"/></th>
                 <th><c:out value="${language}"/></th>
                 <th> </th>
-                <c:forEach var="author"  items="${authors_list}">
-                <tr>
+                <c:forEach var="author"  items="${authors}">
+                <tr id="author${author.id}">
                     <td class="td-image"><a href="#" class = "admin-image">
                         <img src="/image-servlet?image_id=${author.id}&table=authors" alt="author" width="90px"/></a></td>
                     <td><c:out value="${author.id}"/></td>

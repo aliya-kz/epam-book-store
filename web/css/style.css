@@ -7,6 +7,11 @@
     box-sizing: border-box;
     font-size: 12px;
     text-decoration: none;
+    z-index: 1;
+}
+
+html {
+    height: 100%;
 }
 
 .welcome-main {
@@ -87,6 +92,22 @@
     color: transparent;
 }
 
+.logout,
+.login {
+    width: 30px;
+    height: 40px;
+    border: none;
+    background-size: contain;
+}
+
+.login {
+    background: url("/images/icons/login.png") no-repeat;
+}
+
+.logout {
+    background: url("/images/icons/logout2.png") no-repeat;
+}
+
 #eng{
     background: url("/images/icons/usa.png") no-repeat;
     background-size: cover;
@@ -140,10 +161,9 @@
 
 .logo p {
     position: absolute;
-    width: 250px;
-    margin: auto;
+    width: 200px;
+    margin: 0 auto;
     top: 40%;
-    text-align: center;
 }
 
 .logo a {
@@ -151,6 +171,98 @@
     font-size: 42px;
     color: slategray;
 }
+
+#login-background {
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #808080;
+    opacity: 70%;
+    z-index: 5;
+}
+
+#login-form {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+    z-index:10;
+    display: none;
+    position:fixed;
+    top:10%;
+    left:42%;
+}
+
+#login-form input.msg-section,
+#login-page input.msg-section {
+    padding: 15px;
+    width: 100%;
+    border: none;
+    margin: 5px 0 22px 0;
+    background: #f1f1f1;
+}
+
+#login-form input,
+#login-page input {
+    width: 100%;
+    padding: 10px;
+    background-color: #ddd;
+    margin-bottom: 10px;
+}
+
+#login-form .btn,
+#login-page .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+
+#login-form h1,
+#login-page h1 {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#login-form .cancel,
+#login-page .cancel {
+    background-color: red;
+}
+
+#login-form .btn:hover, .open-button:hover,
+#login-page .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+
+#login-page {
+    width: 300px;
+    padding: 10px;
+    background-color: white;
+    display: block;
+    top:10%;
+    left:42%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .search {
     display: inline-block;
@@ -182,7 +294,33 @@
 
 
 
+.back {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 120px;
+    border: 2px solid #24575c;
+    border-radius: 5%;
+    background-color: white;
+    color: #24575c;
+}
 
+.back a {
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.back:active,
+.back:hover {
+    border: 2px solid white;
+    background-color: #24575c;
+    color: #24575c;
+}
+
+.back a:hover,
+.back a:active {
+    color: white;
+}
 
 .admin-main {
     position: relative;
@@ -229,7 +367,7 @@ h1 {
 .admin-menu-btn {
     background-color: transparent;
     border: none;
-    color: white;
+    color: #24575c;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
@@ -245,33 +383,47 @@ h1 {
     width: 150px;
 }
 
+.edit-info,
 .edit-image {
-    margin-left: 50px;
+    margin: 20px 30px;
 }
 
-.login-container {
-    margin: 0 auto;
-    width: 350px;
-    font-size: 24px;
-    border: 2px solid rgba(0,0,0,0.06);
-    border-radius: 10px;
+.edit-info input.accept,
+.edit-info input.decline,
+.edit-info input.accept,
+#save {
+    width: 120px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: none;
+    margin-top: 20px;
 }
+
+
+
 
 .td-image {
     width:100px;
     height: 180px;
 }
 
-.error {
+.error,
+.msg-section {
     color: #934139;
-    font-size: 32px;
+    font-size: 16px;
+    max-width: 300px;
+    max-width: 300px;
+    padding-top: 100px;
 }
 
-.main-container {
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
+h2 {
+    margin-bottom: 5px;
+}
+.signup-main,
+.form-container,
+.edit-main {
+    display: flex;
+    justify-content: space-between;
 }
 
 .signup-container {
@@ -372,7 +524,7 @@ h1 {
 }
 
 .accept {
-    background-color: #399341;
+    background-color: #04AA6D;
 }
 .msg-div {
     font-size: 42px;
@@ -404,10 +556,9 @@ h1 {
 
 h3 {
     color: #585858;
-}
-
-h3:hover {
-    text-decoration: underline;
+    font-size: 16px;
+    align-items: center;
+    margin: 10px auto;
 }
 
 h4 {
@@ -423,8 +574,7 @@ button {
 }
 
 .see-more {
-    width: 100px;
-    heigh: 30px;
+    height: 30px;
     text-transform: uppercase;
     background-color: #24575c;
     margin-left: 40px;

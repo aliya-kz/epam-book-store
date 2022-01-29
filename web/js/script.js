@@ -17,3 +17,13 @@ function tableSearch(id) {
 
     }
 }
+
+function openForm(id) {
+    document.getElementById(id).style.display = "block";
+    document.getElementById('login-background').style.display = "block";
+}
+
+function closeForm(id) {
+    document.getElementById(id).style.display = "none";
+    document.getElementById('login-background').style.display = "none";
+}

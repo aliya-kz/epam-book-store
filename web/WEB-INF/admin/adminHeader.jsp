@@ -3,10 +3,13 @@
 <%@ page contentType="text/html;charset=UTF-8"  %>
 <html>
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     <title>WelcomeAdmin</title>
 </head>
 <body>
@@ -34,7 +37,8 @@
                 <input type = "hidden" name = "locale" value = "ru_RU"/>
                 <input class="lang" id="rus" type="submit" name="service_name" value="change_language"/></form></li>
             <li class="logout"> <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <button class="logout" name="service_name" value="log_out">${log_out}</button></form></li>
+                <input type="hidden" name="service_name" value="log_out"/>
+                <button class="logout" ></button></form></li>
         </ul>
     </div>
     </header>

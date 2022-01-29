@@ -13,23 +13,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/web/images/icons/cart.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/images/icons/usa.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/images/icons/welcome.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/images/img/welcome.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/view/profile.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/view/wishlist.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/images/icons/logout.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/images/icons/logout2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BookDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BookDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditBookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LogoutService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LogoutService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/WelcomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/WelcomeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/content.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/content_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/book.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/book.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminBooks.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminBooks.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminHeader.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminHeader.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminMessages.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminMessages.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminOrders.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminUsers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminUsers.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/welcomeAdmin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/welcomeAdmin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/welcome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/welcome.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/images/icons/search.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/images/icons/search.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/images/icons/shopping-cart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/icons/log-out.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/icons/login.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/images/icons/login.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/validation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,10 +118,10 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\demo\web\images\icons" />
+      <recent name="D:\demo\web\WEB-INF\view" />
       <recent name="D:\demo\web\images\img" />
       <recent name="D:\demo\web\images" />
       <recent name="D:\demo\src\main\java" />
-      <recent name="D:\demo\web\WEB-INF" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -107,6 +130,19 @@
   <component name="RunManager" selected="Tomcat Server.Tomcat 8">
     <configuration name="AuthorDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAO.impl.AuthorDaoImpl" />
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DAO.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BookDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAO.impl.BookDaoImpl" />
       <module name="demo" />
       <extension name="coverage">
         <pattern>
@@ -207,6 +243,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BookDaoImpl" />
         <item itemvalue="Application.AuthorDaoImpl" />
       </list>
     </recent_temporary>
@@ -231,7 +268,9 @@
       <workItem from="1643170366222" duration="26173000" />
       <workItem from="1643214908348" duration="2418000" />
       <workItem from="1643253557693" duration="24337000" />
-      <workItem from="1643290356605" duration="10087000" />
+      <workItem from="1643290356605" duration="10656000" />
+      <workItem from="1643359044319" duration="19110000" />
+      <workItem from="1643432553759" duration="22084000" />
     </task>
     <servers />
   </component>
@@ -258,19 +297,19 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp</url>
-          <line>50</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp</url>
-          <line>46</line>
+          <line>47</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/web/WEB-INF/view/book.jsp</url>
           <line>18</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/web/WEB-INF/view/header.jsp</url>
+          <line>78</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/DAO/BaseDao.java</url>
@@ -280,6 +319,15 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java</url>
+          <line>37</line>
+          <properties class="DAO.impl.BookDaoImpl" method="addEntity">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

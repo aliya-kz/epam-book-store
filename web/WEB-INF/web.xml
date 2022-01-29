@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>controller.Controller</servlet-class>
@@ -44,7 +45,7 @@
 
     <servlet>
         <servlet-name>index</servlet-name>
-        <jsp-file>/WEB-INF/index.jsp</jsp-file>
+        <jsp-file>/WEB-INF/view/index.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>index</servlet-name>
@@ -184,7 +185,7 @@
 </servlet>
 <servlet-mapping>
 <servlet-name>editBook</servlet-name>
-<url-pattern>/editBook</url-pattern>
+<url-pattern>/edit-book</url-pattern>
 </servlet-mapping>
 
 <servlet>

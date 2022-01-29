@@ -1,4 +1,4 @@
-<%@ page import="java.util.Locale" %>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -8,15 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
-    <script src="/js/validation.js"> </script>
     <title>LogIn</title>
 </head>
 <body>
-
-<%String locale = (String) session.getAttribute("locale");
-if (locale == null) {
-    locale = "en_US";
-}%>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
@@ -27,11 +21,8 @@ if (locale == null) {
 <fmt:message bundle="${content}" key="FOR_NEW_USER" var="for_new_user"/>
 <fmt:message bundle="${content}" key="USER_IS_BLOCKED" var="is_blocked"/>
 <fmt:message bundle="${content}" key="ADMIN" var="admin"/>
-<fmt:message bundle="${content}" key="ERROR_GEN" var="error_gen"/>
-<%String msg = request.getParameter("msg");%>
-<c:set var="error" value="error"/>
-<c:set var="blocked" value="blocked"/>
-<c:set var="msg" value="<%=msg%>"/>
+<fmt:message bundle="${content}" key="WRONG" var="wrong"/>
+<fmt:message bundle="${content}" key="FORGOT_PASSWORD" var="forgot_pass"/>
 
 <header class = "header">
     <div class="bar">
@@ -48,34 +39,35 @@ if (locale == null) {
     </div>
 </header>
 
-<main class="login-main">
-    <div class = "login-container">
-        <h1> <c:out value="${log_in}"/> </h1>
-        <div class = "msg-div"></div>
+<main class = "login-main">
+    <div class="form-container">
+<form id = "login-page" action = "<%= request.getContextPath()%>/controller" method = "post">
+    <h1> <c:out value="${log_in}"/> </h1>
+    <div class = "msg-div"></div>
+    <label for="email"><c:out value="${email}"/></label>
+    <input id = "email" type = "email" name = "email" placeholder="${enter_email}" required/></br>
+    <label for="password"><c:out value="${password}"/></label>
+    <input id = "password" type = "password" name = "password" placeholder="${enter_password}" required/></br>
+    <input type="hidden" name="service_name" value="log_in">
+    <input type = "submit" class = "btn" value="${log_in}">
 
-        <form id = "login-form" action = "<%= request.getContextPath()%>/controller" method = "post">
-            <div id="error"></div>
-            <input id = "email" type = "email" name = "email" placeholder="${enter_email}" required/></br>
-        <input id = "password" type = "password" name = "password" placeholder="${enter_password}" required/></br>
-        <input type="hidden" name="service_name" value="log_in">
-        <input type = "submit" value="${log_in}">
-    </form>
-
-
-    <h2> <c:out value="${for_new_user}"/> </h2>
-    <a href="/signup"> <c:out value="${sign_up}"/> </a>
-    </div>
-
+    <h2><c:out value="${forgot_pass}"/> </h2>
+    <h2><c:out value="${for_new_user}"/> </h2>
+    <a href="/signup" id="sign-up-link"> <c:out value="${sign_up}"/> </a>
+</form>
     <div class="error">
-        <c:if test="${msg.equals(error)}">
-            <c:out value="${error_gen}"/>
+        <%String msg = request.getParameter("msg");
+        request.setAttribute("msg", msg);
+        ;%>
+        <c:if test="${msg eq 'wrong'}">
+            <c:out value="${wrong}"/>
         </c:if>
-        <c:if test="${msg.equals(blocked)}">
+        <c:if test="${msg eq 'blocked'}">
             <c:out value="${is_blocked}"/>
             <a href = "mailto@zhumagul100@gmail.com"><c:out value="${admin}"></c:out></a>
         </c:if>
     </div>
-
+    </div>
 </main>
 </body>
 </html>

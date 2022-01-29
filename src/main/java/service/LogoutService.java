@@ -12,9 +12,8 @@ public class LogoutService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        session.removeAttribute("current_user");
-        session.invalidate();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index");
+        session.removeAttribute("user");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
         dispatcher.forward(request, response);
     }
 }
