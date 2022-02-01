@@ -4,7 +4,9 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-
+<welcome-file-list>
+    <welcome-file>/WEB-INF/view/welcome.jsp</welcome-file>
+</welcome-file-list>
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>controller.Controller</servlet-class>
@@ -170,7 +172,54 @@
         <url-pattern>/header</url-pattern>
     </servlet-mapping>
 
-<servlet>
+    <servlet>
+        <servlet-name>addBook</servlet-name>
+        <jsp-file>/WEB-INF/admin/addBook.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addBook</servlet-name>
+        <url-pattern>/add-book</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>profile</servlet-name>
+        <jsp-file>/WEB-INF/view/profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>messages</servlet-name>
+        <jsp-file>/WEB-INF/view/messages.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>messages</servlet-name>
+        <url-pattern>/messages</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>wishList</servlet-name>
+        <jsp-file>/WEB-INF/view/wishlist.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>wishList</servlet-name>
+        <url-pattern>/wish-list</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>langBar</servlet-name>
+        <jsp-file>/WEB-INF/view/langBar.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>langBar</servlet-name>
+        <url-pattern>/lang-bar</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
 <servlet-name>editCategory</servlet-name>
 <jsp-file>/WEB-INF/admin/editCategory.jsp</jsp-file>
 </servlet>

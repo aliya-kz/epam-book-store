@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WishList extends Entity{
@@ -8,6 +9,11 @@ public class WishList extends Entity{
     private List<Book> books;
 
     public WishList() {
+        books = new ArrayList<>();
+    }
+
+    public WishList(int id) {
+        this.id = id;
     }
 
     public List<Book> getBooks() {

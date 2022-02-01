@@ -25,6 +25,7 @@
 <fmt:message bundle="${content}" key="TITLE" var="title" />
 <fmt:message bundle="${content}" key="CATEGORY" var="cat" />
 <fmt:message bundle="${content}" key="IMAGE" var="image" />
+<fmt:message bundle="${content}" key="ADD_BOOK" var="add_book" />
 
 
 <section class="admin-filter">
@@ -33,8 +34,7 @@
 </section>
 
 <section class="add-book">
-
-
+<a href = "/add-book"><c:out value="${add_book}"/></a>
 </section>
 
 <section>

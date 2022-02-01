@@ -53,7 +53,7 @@ public class EditBookService implements Service{
 
         String category = request.getParameter("new_category");
         if (category != null && category.length()>0) {
-            bookDao.setColumnValue("books", id, "category_id", category);
+            bookDao.setColumnValue("books", id, "category_id", Integer.parseInt(category));
         }
 
         String priceStr = request.getParameter("new_price").trim();

@@ -2,6 +2,8 @@ package service;
 
 import DAO.impl.CartDaoImpl;
 import DAO.impl.UserDaoImpl;
+import entity.Address;
+import entity.Card;
 import entity.User;
 
 import javax.servlet.RequestDispatcher;
@@ -28,7 +30,8 @@ public class SignUpService implements Service {
             String surname = request.getParameter("surname");
             Date dateOfBirth = Date.valueOf(request.getParameter("date_of_birth"));
             String phone = request.getParameter("phone").replaceAll("[\\s\\-\\(\\)]","");
-            String address = request.getParameter("address");
+            Address address = new Address();
+            address.setAddress(request.getParameter("address"));
             String card = request.getParameter("card").replaceAll("[\\s\\-]","");
             String password = request.getParameter("password");
             User user = new User();
@@ -37,11 +40,11 @@ public class SignUpService implements Service {
             user.setDateOfBirth(dateOfBirth);
             user.setEmail(email);
             user.setPhone(phone);
-            List<String> addresses = new ArrayList<>();
+            List<Address> addresses = new ArrayList<>();
             addresses.add(address);
             user.setAddresses(addresses);
-            List <String> cards = new ArrayList<>();
-            cards.add(card);
+            List <Card> cards = new ArrayList<>();
+            cards.add(new Card(card));
             user.setCards(cards);
             user.setPassword(password);
             int result = userDAO.addEntity(user);

@@ -11,6 +11,9 @@ public class SqlDaoFactory {
     private WishListDao wishListDao;
     private AuthorDao authorDao;
     private FormatDao formatDao;
+    private CartDao cartDao;
+    private CardDao cardDao;
+    private AddressDao addressDao;
 
  private SqlDaoFactory() {
      userDao = new UserDaoImpl();
@@ -21,10 +24,25 @@ public class SqlDaoFactory {
      wishListDao = new WishListDaoImpl();
      authorDao = new AuthorDaoImpl();
      formatDao = new FormatDaoImpl();
+     cartDao = new CartDaoImpl();
+     cardDao = new CardDaoImpl();
+     addressDao = new AddressDaoImpl();
  }
+
+    public AddressDao getAddressDao() {
+        return addressDao;
+    }
 
     public static SqlDaoFactory getInstance() {
         return instance;
+    }
+
+    public CardDao getCardDao() {
+        return cardDao;
+    }
+
+    public CartDao getCartDao() {
+        return cartDao;
     }
 
     public FormatDao getFormatDao() {

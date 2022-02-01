@@ -1,12 +1,11 @@
 package service;
 
-import DAO.AuthorDao;
-import DAO.BookDao;
-import DAO.CategoryDao;
-import DAO.SqlDaoFactory;
+import DAO.*;
 import entity.Author;
 import entity.Book;
 import entity.Category;
+import entity.Format;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +20,7 @@ public class ChangeLanguageService implements Service {
     CategoryDao categoryDao = SqlDaoFactory.getInstance().getCategoryDao();
     AuthorDao authorDao = SqlDaoFactory.getInstance().getAuthorDao();
     BookDao bookDao = SqlDaoFactory.getInstance().getBookDao();
+    FormatDao formatDao = SqlDaoFactory.getInstance().getFormatDao();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -34,6 +34,8 @@ public class ChangeLanguageService implements Service {
         session.setAttribute("books", books);
         List<Author> authors = authorDao.getAll(lang);
         session.setAttribute("authors", authors);
+        List<Format> formats = formatDao.getAll(lang);
+        session.setAttribute("formats", formats);
         String uri = request.getParameter("uri");
         RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);

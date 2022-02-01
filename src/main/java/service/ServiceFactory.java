@@ -30,6 +30,11 @@ public class ServiceFactory {
             SERVICE_MAP.put("edit_image", new EditImageService());
             SERVICE_MAP.put("welcome", new WelcomeService());
             SERVICE_MAP.put("add_to_cart", new AddToCartService());
+            SERVICE_MAP.put("add_book", new AddNewBookService());
+            SERVICE_MAP.put("add_to_wl", new AddToWishListService());
+            SERVICE_MAP.put("edit_profile", new EditProfileService());
+            SERVICE_MAP.put("add_card", new AddCardService());
+            SERVICE_MAP.put("add_address", new AddAddressService());
         }
 
         public static ServiceFactory getInstance() {

@@ -3,6 +3,7 @@ package service;
 import DAO.impl.CartDaoImpl;
 import entity.Book;
 import entity.Cart;
+import entity.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,23 +17,33 @@ import java.util.Map;
 
 public class AddToCartService implements Service {
     CartDaoImpl cartDao = new CartDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println("id " + id);
+        int bookId = Integer.parseInt(request.getParameter("id"));
         Cart cart = (Cart) session.getAttribute("cart");
+        Map<Book, Integer> items = cart.getCartItems();
         int qty = Integer.parseInt(request.getParameter("qty"));
-        System.out.println("q " + qty);
         List<Book> books = (List<Book>) session.getAttribute("books");
-        for (Book book: books) {
-            if (book.getId() == id) {
-                Map<Book, Integer> items = cart.getCartItems();
-                items.put(book, qty);
-                cart.setCartItems(items);
+        User user = (User) session.getAttribute("user");
+        for (Book book : books) {
+            if (book.getId() == bookId) {
+                if (items.containsKey(book)) {
+                    int oldQty = items.get(book);
+                    oldQty = items.replace(book, oldQty + qty);
+                } else {
+                    items.put(book, qty);
+                }
             }
         }
-        System.out.println("book size " + cart.getCartItems().size());
+
+        for (Book book: items.keySet()) {
+            System.out.println(book.getTitle());
+        }
+        if (user != null) {
+            cartDao.addToCart(user.getId(), bookId, qty);
+        }
         String uri = request.getParameter("uri");
         RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?msg=added");
         dispatcher.forward(request, response);

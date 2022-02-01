@@ -22,7 +22,7 @@
     <section id = "index-books">
         <c:forEach var="book" items="${books}">
             <div class = "index-book">
-                <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}">
+                <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="170px"/>
                 <a href="#" class="index-book-name">${book.title}</a>
                 <c:set var="authorIds" value="${book.authors}"/>
                 <c:forEach var="authorId" items="${authorIds}">

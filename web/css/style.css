@@ -1,11 +1,11 @@
 * {
     margin: 0 auto;
     padding: 0;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 300;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
-    font-size: 12px;
+    font-size: 16px;
     text-decoration: none;
     z-index: 1;
 }
@@ -66,13 +66,16 @@ html {
     padding-bottom: 20px;
     padding-top: 20px;
     background-color: #F2F2F2;
+
 }
 
 .bar-list {
     display: flex;
     justify-content: space-between;
-    max-width: 150px;
     list-style: none;
+    max-width: 200px;
+    margin-right: 40px;
+    margin-left: auto;
 }
 
 .bar ul li {
@@ -92,20 +95,80 @@ html {
     color: transparent;
 }
 
-.logout,
+.logout {
+    width: 30px;
+    height: 40px;
+    border: none;
+    background-size: contain;
+    background-image: url("/images/icons/logout2.png");
+    background-repeat: no-repeat;
+}
+
 .login {
     width: 30px;
     height: 40px;
     border: none;
     background-size: contain;
+    background-image: url("/images/icons/login.png");
+    background-repeat: no-repeat;
 }
 
-.login {
-    background: url("/images/icons/login.png") no-repeat;
+.main {
+    padding: 30px 30px;
 }
 
-.logout {
-    background: url("/images/icons/logout2.png") no-repeat;
+#profile {
+    width: 23px;
+    height: 30px;
+    border: none;
+    background-size: contain;
+    background-image: url("/images/icons/user.png");
+    background-repeat: no-repeat;
+}
+
+.profile-main li {
+    text-display: none;
+    padding: 20px 40px;
+    color: #0f0f0f;
+    height: 100%;
+
+}
+
+.profile-main li a:hover {
+    color: grey;
+}
+
+.profile-main aside {
+    position: fixed;
+    background-color: #Ae9678;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+#profile-msg {
+    width: 30px;
+    border: none;
+    background-size: cover;
+    background-image: url("/images/icons/msg.png");
+    background-repeat: no-repeat;
+}
+
+.to-be-amended {
+    display: none;
+}
+
+#add-to-wl {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-size: cover;
+    background-image: url("/images/icons/heart.png");
+    background-repeat: no-repeat;
+}
+
+.clicked {
+    background-image: url("/images/icons/heart-black.png");
 }
 
 #eng{
@@ -119,7 +182,7 @@ html {
 }
 
 .nav {
-    border-bottom:1px solid  rgb(190, 190, 190);
+    border-bottom:1px solid  rgb(220, 220, 220);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -130,15 +193,9 @@ html {
 }
 
 .nav-menu li {
+    padding: 15px 20px;
     width: 160px;
     display: inline;
-    padding-left: 15px;
-    padding-right: 15px;
-    height: 25px;
-    line-height: 25px;
-    font-size: 24px;
-    text-transform: uppercase;
-    font-weight: bold;
     border-right: 1px solid rgb(190, 190, 190);
 }
 
@@ -148,21 +205,20 @@ html {
 }
 
 .nav-menu ul li a {
-    text-decoration: none !important;
-    color: #33312C;
-    font-size: 24px;
+    text-decoration: none;
+    color: #585858;
+    font-size: 18px;
+    text-transform: uppercase;
+
 }
 
 .logo {
     height: 150px;
-    position: relative;
     border-bottom: 2px solid grey;
 }
 
 .logo p {
-    position: absolute;
-    width: 200px;
-    margin: 0 auto;
+    text-align: center;
     top: 40%;
 }
 
@@ -251,7 +307,9 @@ html {
     left:42%;
 }
 
-
+#book {
+    margin: 30px 20px;
+}
 
 
 
@@ -292,6 +350,14 @@ html {
     border: none;
 }
 
+.wish-list {
+    background: url("/images/icons/heart-black.png") no-repeat;
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    border: none;
+}
+
 
 
 .back {
@@ -328,8 +394,21 @@ html {
 }
 
 h1 {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    size: 1.5em;
+    color: black;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+}
+
+h2 {
+    size: 1.2em;
+    color: #Ae9678;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+h3 {
+    padding-bottom: 15px;
 }
 
 
@@ -421,7 +500,9 @@ h2 {
 }
 .signup-main,
 .form-container,
-.edit-main {
+.edit-main,
+.profile-main,
+.btns {
     display: flex;
     justify-content: space-between;
 }
@@ -527,13 +608,22 @@ h2 {
     background-color: #04AA6D;
 }
 .msg-div {
-    font-size: 42px;
+    font-size: 16px;
     color: #934139;
 }
 
+.profile-info {
+    padding: 20px 20px;
+}
 
+#pass-changed {
+    color: red;
+    font-size: 16px;
+}
 
-
+.prof-container section {
+    border-bottom: 1px solid #24575c;;
+}
 
 /*index*/
 #ads {
@@ -547,11 +637,12 @@ h2 {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    column-gap: 40px;
 }
 
 .index-book {
     width: 170px;
-    height: 320px;
+    padding-bottom: 20px;
 }
 
 h3 {
@@ -612,24 +703,62 @@ button {
 .books-main {
     display: flex;
     justify-content: space-between;
+    column-gap: 30px;
 }
 
 .filter {
     width: 150px;
 }
 
-.book-info-table td {
-    border: solid 1px #808080;
-}
 
-#book,
-.book-info-table td {
+#book {
     display: flex;
     justify-content: space-between;
+    padding: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    color: white;
+    margin-top: 20px;
+}
+
+.btn:hover,
+.btn:active {
+    font-weight: bold;
+}
+
+#view-cart {
+    background-color: #679186;
+    margin-right: 40px;
+}
+
+#checkout {
+    background-color: #AE9678;
+}
+
+.book-desc {
+    padding: 20px;
+    border: 1px solid #679186;
+    line-height: 1.2em;
 }
 
 .book-cover {
-    margin-right: 60px;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 5px;
+}
+
+#cart-form {
+    border: 1px solid lightblue;
+}
+
+#cart-form td {
+    padding-right: 40px;
 }
 
 

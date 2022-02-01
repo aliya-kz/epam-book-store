@@ -35,7 +35,6 @@
         <jsp:setProperty name="book" property="quantity" value="${b.quantity}"/>
         <jsp:setProperty name="book" property="price" value="${b.price}"/>
         <jsp:setProperty name="book" property="description" value="${b.description}"/>
-        <jsp:setProperty name="book" property="description" value="${b.description}"/>
     </c:if>
 </c:forEach>
 
@@ -54,13 +53,11 @@
 <fmt:message bundle="${content}" key="PUBLISHER" var="publisher"/>
 <fmt:message bundle="${content}" key="DESCRIPTION" var="descr"/>
 <fmt:message bundle="${content}" key="SAVE" var="save"/>
-<fmt:message bundle="${content}" key="DELETE_IN_ALL_LANG" var="delete_in_all"/>
-<fmt:message bundle="${content}" key="DELETE" var="delete"/>
 <fmt:message bundle="${content}" key="CANT_CHANGE" var="cant_change"/>
 <fmt:message bundle="${content}" key="BACK" var="back"/>
 
 <div class = "back">
-    <a href = "/admin-authors"><c:out value="${back}"/></a>
+    <a href = "/admin-books"><c:out value="${back}"/></a>
 </div>
 
 <main class="edit-main">
@@ -162,13 +159,6 @@
             <input type = "hidden" name = "service_name" value = "edit_book">
             <input class = "accept" type = "submit" name = "save" value = "${save}">
         </form><br>
-
-        <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&table=books" method = "post">
-            <input type="hidden" name="service_name" value="delete_entity"/>
-            <c:out value="${delete}"/>
-            <input class = "decline" type="submit" value="${delete}"/>
-        </form>
-        <br>
          </section>
 
     <section class="edit-image">

@@ -22,8 +22,11 @@ public class BookDaoImpl implements BookDao {
 
     private static String INSERT_AUTHORS_TO_BOOKS = "INSERT INTO authors_to_books (book_id, author_id) values (?,?);";
 
+    private static String SELECT_ID = "SELECT id from books WHERE isbn = ?;";
 
     private static String DELETE_AUTHORS_TO_BOOKS = "DELETE from authors_to_books WHERE book_id = ?;";
+
+    private static String INSERT_COVER = "INSERT into book_covers (id, image) values (?, ?)";
 
     private static String UPDATE_BOOK_SQL = "UPDATE books set" +
             "(title, authors, isbn, publisher, quantity, price, category, description, language) " +
@@ -41,6 +44,7 @@ public class BookDaoImpl implements BookDao {
         PreparedStatement statement = null;
         PreparedStatement statement1 = null;
         PreparedStatement statement2 = null;
+        PreparedStatement statement3 = null;
         try {
             statement = connection.prepareStatement(INSERT_BOOK);
             statement.setString(1, book.getTitle());
@@ -54,7 +58,8 @@ public class BookDaoImpl implements BookDao {
             statement.setInt(9, book.getFormatId());
             result = statement.executeUpdate();
 
-            statement1 = connection.prepareStatement("SELECT * from books WHERE isbn = ?;");
+            statement1 = connection.prepareStatement(SELECT_ID);
+            statement1.setString(1, book.getIsbn());
             ResultSet resultSet = statement1.executeQuery();
             int id = -1;
             while (resultSet.next()) {
@@ -64,15 +69,23 @@ public class BookDaoImpl implements BookDao {
             statement2 = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);
             List<Integer> authors = book.getAuthors();
             for (int i = 0; i < authors.size(); i++) {
-                statement.setInt(1, book.getId());
-                statement.setInt(2, authors.get(i));
+                statement2.setInt(1, id);
+                statement2.setInt(2, authors.get(i));
+                statement2.executeUpdate();
             }
+
+            statement3 = connection.prepareStatement(INSERT_COVER);
+            statement3.setInt(1, id);
+            statement3.setBytes(2, book.getImage());
+            result = statement3.executeUpdate();
         } catch (Exception e) {
             LOGGER.error(e);
             e.printStackTrace();
         } finally {
             close(statement);
             close(statement1);
+            close(statement2);
+            close(statement3);
             connectionPool.returnConnection(connection);
         }
         return result;

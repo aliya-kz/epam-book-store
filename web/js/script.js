@@ -27,3 +27,24 @@ function closeForm(id) {
     document.getElementById(id).style.display = "none";
     document.getElementById('login-background').style.display = "none";
 }
+
+function heartClicked() {
+    const heart = document.getElementById('add-to-wl');
+    if (heart.classList.contains('clicked')) {
+        heart.classList.remove('clicked');
+    } else {
+        heart.classList.add('clicked');
+    }
+}
+
+function editProfile() {
+    const inputs = document.getElementsByClassName('to-be-amended');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].style.display = 'block';
+    }
+}
+
+function selectQuantity(id) {
+    const option = document.getElementById('to-be-selected');
+    option.classList.add('selected');
+}

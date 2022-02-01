@@ -6,7 +6,11 @@ import java.util.Map;
 public class Cart extends Entity {
     private int id;
     private int userId;
-    private Map<Book, Integer> cartItems = new HashMap<>();
+    private Map<Book, Integer> cartItems;
+
+    public Cart(int userId) {
+        this.userId = userId;
+    }
 
     public Cart() {
         cartItems = new HashMap<>();
@@ -25,21 +29,22 @@ public class Cart extends Entity {
     }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
     public int getUserId() {
+
         return userId;
     }
 
     public void setUserId(int userId) {
+
         this.userId = userId;
     }
 
-
-
     @Override
     public int compareTo(Entity o) {
-        return this.id - ((Cart) o).getId();
+        return 0;
     }
 }

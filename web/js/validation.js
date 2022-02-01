@@ -1,3 +1,5 @@
+
+
 function checkInputs() {
     let result = false;
     const form = document.getElementById('signup-id');

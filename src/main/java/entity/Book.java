@@ -22,6 +22,21 @@ public class Book extends Entity {
     public Book() {
     }
 
+    public Book(String title, List<Integer> authors, String publisher, int quantity, double price, int categoryId,
+                 String isbn, String description, String language, int formatId, byte[] image) {
+        this.title = title;
+        this.authors = authors;
+        this.publisher = publisher;
+        this.quantity = quantity;
+        this.price = price;
+        this.categoryId = categoryId;
+        this.isbn = isbn;
+        this.description = description;
+        this.language = language;
+        this.formatId = formatId;
+        this.image = image;
+    }
+
     public Book (int id) {
         this.id = id;
     }
@@ -153,6 +168,6 @@ public class Book extends Entity {
 
     @Override
     public int compareTo(Entity o) {
-        return this.id - ((Book) o).getId();
+        return ((Book) o).getId()-this.id;
     }
 }

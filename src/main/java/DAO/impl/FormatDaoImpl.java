@@ -1,12 +1,9 @@
 package DAO.impl;
-
 import DAO.FormatDao;
 import DAO.db_connection.ConnectionPool;
-import entity.Author;
 import entity.Format;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,6 +33,7 @@ public class FormatDaoImpl implements FormatDao {
                 format.setId(resultSet.getInt("id"));
                 format.setFormatName(resultSet.getString("format_name"));
                 format.setLang(resultSet.getString("lang"));
+                formats.add(format);
             }
         } catch (Exception e) {
             LOGGER.warn(e);
@@ -51,5 +49,10 @@ public class FormatDaoImpl implements FormatDao {
     @Override
     public int deleteById(int id) {
         return 0;
+    }
+
+    public static void main (String [] args) {
+        FormatDao dao = new FormatDaoImpl();
+        System.out.println(dao.getAll("en").toString());
     }
 }

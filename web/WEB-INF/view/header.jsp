@@ -1,4 +1,3 @@
-<%@ page import="entity.User" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"  %>
@@ -12,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     <script src="/js/script.js"></script>
+    <script src="/js/validation.js"> </script>
     <title>header</title>
 </head>
 <div id="login-background"></div>
@@ -33,39 +33,16 @@
 <fmt:message bundle="${content}" key="USER_IS_BLOCKED" var="is_blocked"/>
 <fmt:message bundle="${content}" key="ADMIN" var="admin"/>
 <fmt:message bundle="${content}" key="ERROR_GEN" var="error_gen"/>
-<c:set var="user" value="${requestScope.user}"/>
+<fmt:message bundle="${content}" key="FORGOT_PASSWORD" var="forgot_pass"/>
+
+
 <header class = "header">
-    <div class="bar">
-        <ul class="bar-list">
-            <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "locale" value = "en_US"/>
-                <input type = "hidden" name = "uri" value="<%=request.getRequestURI()%>"/>
-                <input class="lang" id = "eng" type="submit" name = "service_name" value = "change_language"/> </form></li>
-            <li> <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
-                <input type = "hidden" name = "locale" value="ru_RU"/>
-                <input class="lang" id ="rus" type = "submit" name = "service_name" value = "change_language"/></form></li>
-            <li class = "logout"> <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type="hidden" name="service_name" value="log_out"/>
-                <button class="logout"/></form></li>
-            <li class = "log">
-                    <c:if test = "${user eq null}">
-                        <button class="login" onclick="openForm('login-form')"></button>
-                    </c:if>
-                    <c:if test = "${user ne null}">
-                <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                    <input type="hidden" name="service_name" value="log_out"/>
-                    <button class="logout" ></button></form></li>
-                </form>
-                    </c:if>
-            </li>
-        </ul>
-    </div>
+    <jsp:include page="/lang-bar"></jsp:include>
+</header>
 
     <div class = "logo">
         <p><a href="/index">The Reader</a></p>
     </div>
-
 
     <nav class = "nav" id = "header_nav">
         <ul class = "nav-menu">
@@ -83,33 +60,9 @@
         </form>
 
         <button class = "cart"><a href = "/cart"></a></button>
-
-
-        <form id = "login-form" action = "<%= request.getContextPath()%>/controller" method = "post">
-                <h1> <c:out value="${log_in}"/> </h1>
-            <label for="email"><c:out value="${email}"/></label>
-                    <input id = "email" type = "email" name = "email" placeholder="${enter_email}" required/></br>
-                    <label for="password"><c:out value="${password}"/></label>
-                    <input id = "password" type = "password" name = "password" placeholder="${enter_password}" required/></br>
-                    <input type="hidden" name="service_name" value="log_in">
-                    <input type = "submit" class = "btn" value="${log_in}">
-                    <button type="button" class="btn cancel" onclick="closeForm('login-form')">Close</button>
-            <h2><c:out value="${forgot_pass}"/> </h2>
-            <h2><c:out value="${for_new_user}"/> </h2>
-                <a href="/signup"> <c:out value="${sign_up}"/> </a>
-        </form>
-
-
-        <button class = "wish-list">
-               <c:if test="${user != null}">
-                   <a href = "/WEB-INF/view/wishlist.jsp?id=${user.id}"></a>
-               </c:if>
-               <c:if test="${user == null}">
-                   <button onclick="openForm(login)"/>
-               </c:if>
-        </button>
     </nav>
     </form>
+
 </header>
 </body>
 </html>

@@ -12,25 +12,25 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ChangePasswordService implements Service {
-    private UserDaoImpl userDAO = new UserDaoImpl();
+    private final UserDaoImpl userDAO = new UserDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
-        String email = (String) session.getAttribute("email");
-        String password = request.getParameter("password");
-        String encryptedPassword = passwordEncrypter.encrypt(password);
-        String newPassword = request.getParameter("new_password");
-        String newEncryptedPassword = passwordEncrypter.encrypt(newPassword);
-        User user = new User(email, encryptedPassword);
-        User userExists = userDAO.validateUser(email, encryptedPassword);
-        if (userExists != null) {
-            userDAO.changePassword(user, newEncryptedPassword);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/view/welcome.jsp");
+        User user = (User) session.getAttribute("user");
+        String email = user.getEmail();
+        String password = request.getParameter("password").trim();
+        String newPassword = request.getParameter("new_password").trim();
+        String uri = (String)request.getAttribute("uri");
+        int userId = userDAO.validateUser(email, password);
+        if (userId > 0) {
+            userDAO.changePassword(user.getId(), newPassword);
+            user = userDAO.getUser(userId);
+            session.setAttribute("user", user);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?pass-msg=success");
             dispatcher.forward(request, response);
         }
         else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/error.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?pass-msg=error");
             dispatcher.forward(request, response);
         }
     }

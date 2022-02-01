@@ -77,6 +77,6 @@ public class Author extends Entity {
 
     @Override
     public int compareTo(Entity o) {
-        return ((Author) o).getId() - this.id;
+        return (this.fullName.compareTo(((Author) o).getFullName()));
     }
 }

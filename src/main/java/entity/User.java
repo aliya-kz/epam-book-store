@@ -7,10 +7,10 @@ public class User extends Entity {
     private int id;
     private String name;
     private String surname;
-    private List <String> addresses;
+    private List <Address> addresses;
     private String email;
     private String phone;
-    private List <String> cards;
+    private List <Card> cards;
     private Date dateOfBirth;
     private String password;
     private List<Order> orders;
@@ -29,11 +29,11 @@ public class User extends Entity {
         this.password = password;
     }
 
-    public List<String> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<String> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
 
@@ -94,11 +94,11 @@ public class User extends Entity {
         this.phone = phone;
     }
 
-    public List<String> getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 
-    public void setCards(List<String> cards) {
+    public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 

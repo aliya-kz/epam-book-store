@@ -28,13 +28,13 @@
     <div class="bar">
         <ul class="bar-list">
             <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
+                <input type = "hidden" name = "locale" value = "en_US"/>
+                <input type = "hidden" name = "uri" value="<%=request.getRequestURI()%>"/>
+                <input class="lang" id = "eng" type="submit" name = "service_name" value = "change_language"/> </form></li>
+            <li> <form action = "<%= request.getContextPath()%>/controller" method = "post">
                 <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
-                <input type = "hidden" name = "locale" value ="en_US"/>
-                <input class="lang" id="eng" type="submit" name="service_name" value="change_language"/> </form></li>
-            <li> <form action = "<%=request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
-                <input type = "hidden" name = "locale" value = "ru_RU"/>
-                <input class="lang" id="rus" type="submit" name="service_name" value="change_language"/></form></li>
+                <input type = "hidden" name = "locale" value="ru_RU"/>
+                <input class="lang" id ="rus" type = "submit" name = "service_name" value = "change_language"/></form></li>
         </ul>
     </div>
 </header>
