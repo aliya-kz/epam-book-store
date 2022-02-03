@@ -5,7 +5,8 @@ import java.util.Objects;
 public class Address extends Entity {
 
     private String address;
-    private int id; private int userId;
+    private int id;
+    private int userId;
 
     public Address(int id, int userId, String address) {
         this.address = address;

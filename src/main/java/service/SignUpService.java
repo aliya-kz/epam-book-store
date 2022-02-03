@@ -1,6 +1,5 @@
 package service;
 
-import DAO.impl.CartDaoImpl;
 import DAO.impl.UserDaoImpl;
 import entity.Address;
 import entity.Card;

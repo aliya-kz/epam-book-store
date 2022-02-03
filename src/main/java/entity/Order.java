@@ -1,17 +1,26 @@
 package entity;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
+import java.util.Map;
 
 public class Order extends Entity {
     private int id;
     private int userId;
-    private List<Book> books;
+    private Map<Book, Integer> orderItems;
     private int statusId;
     private Date date;
-    private String address;
+    private Address address;
+    private int cost;
 
     public Order() {
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public int getId() {
@@ -30,12 +39,12 @@ public class Order extends Entity {
         this.userId = user;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public Map<Book, Integer> getOrderItems() {
+        return orderItems;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setOrderItems(Map<Book, Integer> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public int getStatusId() {
@@ -54,11 +63,11 @@ public class Order extends Entity {
         this.date = date;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

@@ -27,11 +27,13 @@ public class CartDaoImpl implements CartDao {
     private final static String SELECT_BOOK = "SELECT quantity FROM carts where user_id = ? and book_id = ?;";
     private final static String UPDATE_QTY = "UPDATE carts set quantity = ? WHERE book_id = ? and user_id = ?;";
 
-    private final static String DELETE_CARD = "DELETE from cards WHERE card_id = ?;";
+    private final static String DELETE_FROM_CART = "DELETE from carts WHERE book_id = ? AND user_id = ?;";
+    private final static String DELETE_CART = "DELETE from carts WHERE user_id = ?;";
     @Override
     public int addEntity(Cart cart) {
         return 0;
     }
+
 
     @Override
     public Cart getCart(int userId) {
@@ -58,18 +60,19 @@ public class CartDaoImpl implements CartDao {
         return cart;
     }
 
-    @Override
-    public int deleteById(int id) {
+    public int deleteById(int bookId, int userId) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         try {
-            PreparedStatement statement = connection.prepareStatement(DELETE_CARD);
-            statement.setInt(1, id);
+            PreparedStatement statement = connection.prepareStatement(DELETE_FROM_CART);
+            statement.setInt(1, bookId);
+            statement.setInt(2, userId);
             result = statement.executeUpdate();
             close(statement);
         } catch (Exception e) {
             e.printStackTrace();
+            LOGGER.info(e);
         } finally {
             connectionPool.returnConnection(connection);
         }
@@ -77,8 +80,22 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
-    public int createCart(String email) {
-        return 0;
+    public int deleteCart(int userId) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.takeConnection();
+        int result = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement(DELETE_CART);
+            statement.setInt(1, userId);
+            result = statement.executeUpdate();
+            close(statement);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.info(e);
+        } finally {
+            connectionPool.returnConnection(connection);
+        }
+        return result;
     }
 
 
@@ -126,6 +143,27 @@ public class CartDaoImpl implements CartDao {
     @Override
     public int getCartCost(int cartId) {
         return 0;
+    }
+
+    @Override
+    public int updateQuantity(int bookId, int userId, int quantity) {
+        Connection connection = connectionPool.takeConnection();
+        int result = 0;
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(UPDATE_QTY);
+            statement.setInt(1, quantity);
+            statement.setInt(2, bookId);
+            statement.setInt(3, userId);
+            result = statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } finally {
+            close(statement);
+            connectionPool.returnConnection(connection);
+        }
+        return result;
     }
 
     public static void main (String [] args) {

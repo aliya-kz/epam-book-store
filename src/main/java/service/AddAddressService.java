@@ -1,7 +1,9 @@
 package service;
 
+import DAO.AddressDao;
 import DAO.SqlDaoFactory;
 import DAO.UserDao;
+import entity.Address;
 import entity.User;
 
 import javax.servlet.RequestDispatcher;
@@ -14,14 +16,18 @@ import java.io.IOException;
 public class AddAddressService implements Service {
     private static final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     UserDao userDao = SqlDaoFactory.getInstance().getUserDao();
+    AddressDao addressDao = SqlDaoFactory.getInstance().getAddressDao();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String address = request.getParameter("address");
+        String addressString = request.getParameter("address");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         int userId = user.getId();
-        int result = userDao.addAddress(userId, address);
+        Address address = new Address();
+        address.setAddress(addressString);
+        address.setUserId(userId);
+        int result = addressDao.addEntity(address);
         String uri = request.getParameter("uri");
         RequestDispatcher dispatcher;
         if (result == 0) {

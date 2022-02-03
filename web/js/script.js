@@ -43,8 +43,3 @@ function editProfile() {
         inputs[i].style.display = 'block';
     }
 }
-
-function selectQuantity(id) {
-    const option = document.getElementById('to-be-selected');
-    option.classList.add('selected');
-}

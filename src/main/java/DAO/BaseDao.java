@@ -52,8 +52,6 @@ public interface BaseDao <T extends Entity> {
 
     int addEntity(T t);
 
-    int deleteById (int id);
-
     default Object getColumnValue(String table, int id, String columnName) {
         Object value = new Object();
         ConnectionPool connectionPool = ConnectionPool.getInstance();

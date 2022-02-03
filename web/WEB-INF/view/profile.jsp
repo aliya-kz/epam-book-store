@@ -12,7 +12,7 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
 <fmt:message bundle="${content}" key="PERSONAL" var="pers" />
-<fmt:message bundle="${content}" key="ORDERS" var="orders" />
+<fmt:message bundle="${content}" key="ORDERS" var="ords" />
 <fmt:message bundle="${content}" key="CARDS" var="cards" />
 <fmt:message bundle="${content}" key="CART" var="cart" />
 <fmt:message bundle="${content}" key="WISH_LIST" var="wl" />
@@ -23,7 +23,7 @@
 <fmt:message bundle="${content}" key="PASSWORD" var="password" />
 <fmt:message bundle="${content}" key="NAME" var="name" />
 <fmt:message bundle="${content}" key="SURNAME" var="surname" />
-<fmt:message bundle="${content}" key="ADDRESS" var="address" />
+<fmt:message bundle="${content}" key="ADDRESS" var="address" scope="session"/>
 <fmt:message bundle="${content}" key="PHONE_NUMBER" var="phone" />
 <fmt:message bundle="${content}" key="DATE_OF_BIRTH" var="date" />
 <fmt:message bundle="${content}" key="CARD_NUMBER" var="card"/>
@@ -49,7 +49,7 @@
             <li><a href = "/profile#prof-cards"><c:out value="${cards}"/></a></li>
             <li><a href = "/profile#prof-address"><c:out value="${address}"/></a></li>
             <li><a href = "/profile#prof-change-password"><c:out value="${change_pass}"/></a></li>
-            <li><a href = "/profile#prof-orders"><c:out value="${orders}"/></a></li>
+            <li><a href = "/profile#prof-orders"><c:out value="${ords}"/></a></li>
             <li><a href = "/cart"><c:out value="${cart}"/></a></li>
             <li><a href = "/wish-list"><c:out value="${wl}"/></a></li>
         </ul>
@@ -118,15 +118,66 @@
                 <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
                 <button name="service_name" value="change_password">${change_pass}</button>
                 <div id="pass-changed">
-                    <c:choose>
-                        <c:when test="${pass-msg == success}"> <c:out value="${pas_upd}"></c:out> </c:when>
-                        <c:when test="${pass-msg == error}"> <c:out value="${error_gen}"></c:out> </c:when>
-                    </c:choose>
+
                 </div>
                 <input class = "to-be-amended" id = "card" type = "text" name = "card"/>
             </form>
         </section>
+
     <section id="prof-orders">
+<table>
+    <th> orderid</th>
+    <th> date</th>
+    <th> address</th>
+    <th> status</th>
+    <th> cost</th>
+    <th> cancel </th>
+
+ <c:forEach var="order" items="${orders}">
+     <tr>
+         <td> <c:out value="${order.id}"/> </td>
+         <td> <c:out value="${order.date}"/> </td>
+         <td> <c:out value="${order.address.address}"/> </td>
+         <td>
+             <c:forEach var="stat" items="${statuses}">
+                 <c:if test="${order.statusId == stat.id}">
+                     <c:out value="${stat.statusName}"/>
+                 </c:if>
+             </c:forEach>
+         </td>
+         <td> <c:out value="${order.cost}"/> </td>
+         <td> cancel </td>
+     </tr>
+     <tr >
+         <td id="order-books" colspan="6">
+             <c:forEach var="entry" items="${order.orderItems}">
+                 <c:set var="book1" value="${entry.key}"/>
+                 <c:set var="qty" value="${entry.value}"/>
+                 <c:forEach var="book" items="${books}">
+                     <c:if test="${book.id == book1.id}">
+                         <div> <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="70px"/>
+                         </div>
+                         <div>
+                           <h3><c:out value = "${book.title}"/></h3>
+                         <c:forEach var="author_id" items="${book.authors}">
+                             <c:forEach var="auth" items="${authors}">
+                                 <c:if test="${author_id == auth.id}">
+                                     <a href="/author?id=${author_id}"> <h2><c:out value="${auth.fullName}"/></h2></a>
+                                 </c:if>
+                             </c:forEach>
+                         </c:forEach>
+                         <c:out value="${publisher}"/>: <c:out value="${book.publisher}"/><br>
+                         <c:out value="${format}"/> <c:out value="${book.format}"/><br>
+                         <h2> <c:out value="${book.price}"/> ₸</h2>
+                         </div>
+                     </c:if>
+                 </c:forEach>
+             </c:forEach>
+         </td>
+     </tr>
+ </c:forEach>
+
+</table>
 
     </section>
 
@@ -135,8 +186,18 @@
 
     </div>
 </main>
+<% String msg=request.getParameter("msg");
+request.setAttribute("msg", msg);%>
+<c:if test = "${msg eq 'success'}">
+<div id="pop-up-div">
+    Order successfully created.
+    Check orderStatus.
+    <a href = "/profile#prof-orders"><div class="btn" id="checkout"> Orders</div>
+        <button class="btn" id="decline" onclick="closeForm('pop-up-div')"> close</button>
+    </a>
+</div>
+</c:if>
 
-
-
+<jsp:include page="/footer"/>
 </body>
 </html>

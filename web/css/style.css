@@ -5,7 +5,6 @@
     font-weight: 300;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
-    font-size: 16px;
     text-decoration: none;
     z-index: 1;
 }
@@ -20,7 +19,6 @@ html {
     height: 100%;
     background-image: url("/images/img/welcome.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .welcome-form-container {
@@ -46,8 +44,11 @@ html {
     background-color: black;
     border: 2px solid white;
     color: white;
-    border: none;
     cursor: pointer;
+}
+
+.go-btn:active {
+    border: 1px solid white;
 }
 
 
@@ -126,16 +127,22 @@ html {
     background-repeat: no-repeat;
 }
 
+.profile-main ul {
+    width: 100%;
+}
+
 .profile-main li {
-    text-display: none;
+    text-decoration: none;
     padding: 20px 40px;
     color: #0f0f0f;
-    height: 100%;
-
 }
 
 .profile-main li a:hover {
     color: grey;
+}
+
+.invisible-input {
+    display: none;
 }
 
 .profile-main aside {
@@ -350,6 +357,10 @@ html {
     border: none;
 }
 
+#cart-table td {
+    border: 1px solid silver;
+}
+
 .wish-list {
     background: url("/images/icons/heart-black.png") no-repeat;
     background-size: cover;
@@ -491,7 +502,6 @@ h3 {
     color: #934139;
     font-size: 16px;
     max-width: 300px;
-    max-width: 300px;
     padding-top: 100px;
 }
 
@@ -600,7 +610,8 @@ h2 {
     width: 100%;
 }
 
-.decline {
+.decline,
+#decline{
     background-color: tomato;
 }
 
@@ -610,6 +621,17 @@ h2 {
 .msg-div {
     font-size: 16px;
     color: #934139;
+}
+
+#pop-up-div {
+    z-index: 10;
+    display: block;
+    position: fixed;
+    top: 20%;
+    left:40%;
+    border: solid 1px black;
+    color: red;
+    width: 250px;
 }
 
 .profile-info {
@@ -622,7 +644,8 @@ h2 {
 }
 
 .prof-container section {
-    border-bottom: 1px solid #24575c;;
+    padding: 20px;
+    border-bottom: 1px solid #24575c;
 }
 
 /*index*/
@@ -632,12 +655,19 @@ h2 {
     height: 350px;
 }
 
-#index-books {
+#index-books{
     padding: 40px 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     column-gap: 40px;
+}
+
+#order-books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 20px;
 }
 
 .index-book {
@@ -737,8 +767,17 @@ button {
     margin-right: 40px;
 }
 
+.checkout-main {
+    position: relative;
+    padding: 20px;
+}
+
 #checkout {
     background-color: #AE9678;
+}
+
+#checkout-form section {
+    padding: 30px;
 }
 
 .book-desc {
@@ -758,7 +797,8 @@ button {
 }
 
 #cart-form td {
-    padding-right: 40px;
+    padding: 20px;
+    text-align: left;
 }
 
 

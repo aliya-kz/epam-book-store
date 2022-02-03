@@ -1,3 +1,4 @@
+<%@ page import="entity.User" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -27,7 +28,7 @@
 <fmt:message bundle="${content}" key="ADMIN" var="admin"/>
 <fmt:message bundle="${content}" key="ERROR_GEN" var="error_gen"/>
 <fmt:message bundle="${content}" key="FORGOT_PASSWORD" var="forgot_pass"/>
-
+<% User user = (User) session.getAttribute("user");%>
 <body>
 <div class="bar">
     <ul class="bar-list">

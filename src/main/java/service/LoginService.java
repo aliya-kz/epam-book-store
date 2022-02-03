@@ -1,10 +1,7 @@
 package service;
 
 import DAO.*;
-import entity.Book;
-import entity.Cart;
-import entity.User;
-import entity.WishList;
+import entity.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 public class LoginService implements Service {
@@ -25,6 +23,8 @@ public class LoginService implements Service {
     private FormatDao formatDao = factory.getFormatDao();
     private CartDao cartDao = factory.getCartDao();
     private WishListDao wishListDao = factory.getWishListDao();
+    private OrderDao orderDao = factory.getOrderDao();
+    private StatusDao statusDao = factory.getStatusDao();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -51,8 +51,12 @@ public class LoginService implements Service {
                 session.setAttribute("user", user);
                 Cart cart = cartDao.getCart(userId);
                 session.setAttribute("cart", cart);
+                List <Order> orders = orderDao.getOrdersByUserId(userId);
+                session.setAttribute("orders", orders);
                 WishList wishList = wishListDao.getWishList(userId);
                 session.setAttribute("wishList", wishList);
+                List <Status> statuses = statusDao.getAll(lang);
+                session.setAttribute("statuses", statuses);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
                 dispatcher.forward(request, response);
             }

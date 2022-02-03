@@ -8,7 +8,6 @@ import entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import passwordEncr.PasswordEncrypter;
-
 import java.sql.*;
 import java.util.*;
 
@@ -113,11 +112,6 @@ public class UserDaoImpl implements UserDao {
             connectionPool.returnConnection(connection);
         }
         return users;
-    }
-
-    @Override
-    public int deleteById(int id) {
-        return 0;
     }
 
     public int addAddress (int id, String address) {

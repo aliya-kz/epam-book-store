@@ -16,7 +16,7 @@ public class GetAllOrdersService implements Service {
     OrderDaoImpl orderDao = new OrderDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<Order> orders = orderDao.getAllOrders();
+        List<Order> orders = orderDao.getAll();
         HttpSession session = request.getSession();
         session.setAttribute("orders", orders);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminOrders.jsp");

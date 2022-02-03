@@ -7,6 +7,7 @@ public class Cart extends Entity {
     private int id;
     private int userId;
     private Map<Book, Integer> cartItems;
+    private int cost;
 
     public Cart(int userId) {
         this.userId = userId;
@@ -31,6 +32,14 @@ public class Cart extends Entity {
     public void setId(int id) {
 
         this.id = id;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public int getUserId() {

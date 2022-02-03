@@ -7,7 +7,6 @@ import entity.WishList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,9 +91,5 @@ public class WishListDaoImpl implements WishListDao {
         return 0;
     }
 
-    @Override
-    public int deleteById(int id) {
-        return 0;
-    }
 }
 

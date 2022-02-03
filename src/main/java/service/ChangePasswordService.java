@@ -20,7 +20,7 @@ public class ChangePasswordService implements Service {
         String email = user.getEmail();
         String password = request.getParameter("password").trim();
         String newPassword = request.getParameter("new_password").trim();
-        String uri = (String)request.getAttribute("uri");
+        String uri = request.getParameter("uri");
         int userId = userDAO.validateUser(email, password);
         if (userId > 0) {
             userDAO.changePassword(user.getId(), newPassword);

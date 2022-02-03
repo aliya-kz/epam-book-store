@@ -1,9 +1,6 @@
 package DAO;
 
 import entity.User;
-import exception.DaoException;
-
-import java.sql.SQLException;
 import java.util.List;
 
 public interface UserDao extends BaseDao <User> {

@@ -59,7 +59,7 @@
         </div>
         </form>
 
-        <button class = "cart"><a href = "/cart"></a></button>
+        <a href = "/cart"><div class = "cart"></div></a>
     </nav>
     </form>
 

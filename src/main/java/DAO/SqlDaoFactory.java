@@ -1,5 +1,6 @@
 package DAO;
 import DAO.impl.*;
+import entity.Entity;
 
 public class SqlDaoFactory {
     private static SqlDaoFactory instance = new SqlDaoFactory();
@@ -14,6 +15,7 @@ public class SqlDaoFactory {
     private CartDao cartDao;
     private CardDao cardDao;
     private AddressDao addressDao;
+    private StatusDao statusDao;
 
  private SqlDaoFactory() {
      userDao = new UserDaoImpl();
@@ -27,7 +29,12 @@ public class SqlDaoFactory {
      cartDao = new CartDaoImpl();
      cardDao = new CardDaoImpl();
      addressDao = new AddressDaoImpl();
+     statusDao = new StatusDaoImpl();
  }
+
+    public StatusDao getStatusDao() {
+        return statusDao;
+    }
 
     public AddressDao getAddressDao() {
         return addressDao;
@@ -73,4 +80,5 @@ public class SqlDaoFactory {
     public WishListDao getWishListDao() {
         return wishListDao;
     }
+
 }
