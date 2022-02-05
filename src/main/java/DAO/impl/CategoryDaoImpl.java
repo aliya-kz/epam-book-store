@@ -3,6 +3,7 @@ package DAO.impl;
 import DAO.CategoryDao;
 import DAO.db_connection.ConnectionPool;
 import entity.Category;
+import entity.Order;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,10 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CategoryDaoImpl implements CategoryDao {
 
@@ -49,8 +48,10 @@ public class CategoryDaoImpl implements CategoryDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        Collections.sort(categories);
-        return categories;
+        List<Category> sortedList = categories.stream()
+                .sorted(Comparator.comparing(Category::getCategoryName))
+                .collect(Collectors.toList());
+        return sortedList;
     }
 
     @Override

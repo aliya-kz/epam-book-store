@@ -25,6 +25,7 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String serviceName = request.getParameter("service_name");
+        System.out.println("serv name " + serviceName);
         Service service = factory.getService(serviceName);
         service.execute(request, response);
     }

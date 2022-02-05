@@ -146,9 +146,4 @@ public class User extends Entity {
     public int hashCode() {
         return Objects.hash(id);
     }
-
-    @Override
-    public int compareTo(Entity o) {
-        return this.id - ((User) o).getId();
-    }
 }

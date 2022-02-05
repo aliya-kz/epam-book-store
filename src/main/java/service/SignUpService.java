@@ -1,26 +1,30 @@
 package service;
 
+import DAO.CartDao;
+import DAO.SqlDaoFactory;
+import DAO.UserDao;
 import DAO.impl.UserDaoImpl;
-import entity.Address;
-import entity.Card;
-import entity.User;
+import entity.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpService implements Service {
-    private UserDaoImpl userDAO = new UserDaoImpl();
+    private UserDao userDao = SqlDaoFactory.getInstance().getUserDao();
+    private CartDao cartDao = SqlDaoFactory.getInstance().getCartDao();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("email");
-        boolean userExists = userDAO.userExists(email);
+        HttpSession session = request.getSession();
+        boolean userExists = userDao.userExists(email);
         if (userExists) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/signup?msg=user_exists");
             dispatcher.forward(request, response);
@@ -46,11 +50,14 @@ public class SignUpService implements Service {
             cards.add(new Card(card));
             user.setCards(cards);
             user.setPassword(password);
-            int result = userDAO.addEntity(user);
+            int userId = userDao.addEntity(user);
             RequestDispatcher dispatcher;
-            if (result == 0) {
+            if (userId < 1) {
                 dispatcher = request.getRequestDispatcher("/WEB-INF/view/signUp.jsp?msg=error");
             } else {
+                Cart cart = (Cart) session.getAttribute("cart");
+                cart.setUserId(userId);
+                int result = cartDao.addEntity(cart);
                 dispatcher = request.getRequestDispatcher("/WEB-INF/view/signUp.jsp?msg=success");
             }
             dispatcher.forward(request, response);

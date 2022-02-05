@@ -30,9 +30,4 @@ public class Status extends Entity {
     public void setLang(String lang) {
         this.lang = lang;
     }
-
-    @Override
-    public int compareTo(Entity o) {
-        return 0;
-    }
 }

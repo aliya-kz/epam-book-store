@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 public class CreateOrderService implements Service {
     CartDao cartDao = SqlDaoFactory.getInstance().getCartDao();
@@ -42,7 +43,9 @@ public class CreateOrderService implements Service {
         int result = orderDao.addEntity(order);
         RequestDispatcher dispatcher;
         if (result > 0) {
-            cartDao.deleteCart(user.getId());
+            List<Order> orders = orderDao.getOrdersByUserId(user.getId());
+            session.setAttribute("myOrders", orders);
+            cartDao.deleteEntity(user.getId());
             cart = new Cart();
             session.setAttribute("cart", cart);
             dispatcher = request.getRequestDispatcher("/WEB-INF/view/profile.jsp#prof-orders?msg=success");

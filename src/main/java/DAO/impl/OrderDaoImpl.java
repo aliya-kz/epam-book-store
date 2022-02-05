@@ -11,10 +11,9 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Statement;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class OrderDaoImpl implements OrderDao {
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
@@ -31,19 +30,14 @@ public class OrderDaoImpl implements OrderDao {
 
     private static String INSERT_ORDER_BOOKS = "INSERT into order_books (order_id, book_id, quantity) values (?, ?, ?);";
 
-    private static String SELECT_ALL_ORDERS = "SELECT * from orders;";
+    private static String SELECT_ALL_ORDERS = "SELECT id from orders;";
 
 
-    private static String SELECT_QUANTITY_SQL = "SELECT id, status FROM orders where id = ?;";
 
-
-    private static String SET_STATUS_SQL = "UPDATE orders set status = ? WHERE id = ?;";
+    private static String SET_STATUS_SQL = "UPDATE orders set status_id = ? WHERE id = ?;";
 
     private static String SELECT_BOOKS_SQL = "SELECT book_id FROM order_books where order_id = ?;";
 
-    private static String SELECT_ALL_BY_ID_SQL = "SELECT * FROM order where order_id = ?;";
-
-    private static String ALL_ORDERS_SQL = "SELECT order_id FROM orders where user_id = ?;";
 
     private static String SELECT_USER_ORDERS = "SELECT id from orders WHERE user_id = ?;";
 
@@ -95,12 +89,13 @@ public class OrderDaoImpl implements OrderDao {
     public List<Order> getAll() {
         List <Order> orders = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
+        Statement statement = null;
         try {
-            statement = connection.prepareStatement(SELECT_ALL_ORDERS);
-            ResultSet resultSet = statement.executeQuery();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_ALL_ORDERS);
             while (resultSet.next()) {
-                Order order = getOrderById(resultSet.getInt("id"));
+                int id = resultSet.getInt("id");
+                Order order = getOrderById(id);
                 orders.add(order);
             }
         } catch (Exception ex) {
@@ -111,73 +106,31 @@ public class OrderDaoImpl implements OrderDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        return orders;
+        List<Order> sortedList = orders.stream()
+                .sorted(Comparator.comparingInt(Order::getId))
+                .collect(Collectors.toList());
+        return sortedList;
     }
 
-    @Override
-    public int deleteById(int id) {
-        return 0;
-    }
-
-    public String getStatus(int orderId) {
-        String status = "";
-        Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try { statement = connection.prepareStatement(SELECT_QUANTITY_SQL);
-            statement.setInt(1, orderId);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                status = resultSet.getString(1);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            close(statement);
-            connectionPool.returnConnection(connection);
-        }
-        return status;
-    }
-
-    public int setStatus(int orderId, String orderStatus) {
+     public int updateStatus(int orderId, int statusId) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
 
         PreparedStatement statement = null;
         try { statement = connection.prepareStatement(SET_STATUS_SQL);
-            statement.setString(1, orderStatus);
+            statement.setInt(1, statusId);
             statement.setInt(2, orderId);
             result = statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+            LOGGER.error(e);
         }
         finally {
             close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
-    }
-
-    public List <Integer> bookIds(int orderId) {
-        List <Integer> books = new ArrayList<>();
-        Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try { statement = connection.prepareStatement(SELECT_BOOKS_SQL);
-            statement.setInt(1, orderId);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int bookId = resultSet.getInt(1);
-                books.add(bookId);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            close(statement);
-            connectionPool.returnConnection(connection);
-        }
-        return books;
     }
 
     public Order getOrderById (int orderId) {
@@ -216,6 +169,7 @@ public class OrderDaoImpl implements OrderDao {
         finally {
             close(statement);
             connectionPool.returnConnection(connection);}
+        System.out.println(order.getAddress().getAddress());
         return order;
     }
 
@@ -242,8 +196,4 @@ public class OrderDaoImpl implements OrderDao {
         return orders;
     }
 
-
-    public  static void main (String [] args) {
-        OrderDao i =  new OrderDaoImpl();
-    }
 }

@@ -39,9 +39,4 @@ public class WishList extends Entity{
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
-    @Override
-    public int compareTo(Entity o) {
-        return this.id - ((WishList) o).getId();
-    }
 }

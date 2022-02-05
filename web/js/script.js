@@ -23,6 +23,15 @@ function openForm(id) {
     document.getElementById('login-background').style.display = "block";
 }
 
+function showEl(id) {
+    document.getElementById(id).style.display = "block";
+   }
+
+function hideEl(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+
 function closeForm(id) {
     document.getElementById(id).style.display = "none";
     document.getElementById('login-background').style.display = "none";

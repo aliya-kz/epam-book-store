@@ -27,9 +27,4 @@ public class Lang extends Entity{
     public void setTitle(String title) {
         this.title = title;
     }
-
-    @Override
-    public int compareTo(Entity o) {
-        return this.id - ((Lang) o).getId();
-    }
 }

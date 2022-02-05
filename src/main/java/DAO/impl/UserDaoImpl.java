@@ -4,12 +4,14 @@ import DAO.*;
 import DAO.db_connection.ConnectionPool;
 import entity.Address;
 import entity.Card;
+import entity.Category;
 import entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import passwordEncr.PasswordEncrypter;
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserDaoImpl implements UserDao {
 
@@ -43,10 +45,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int addEntity (User user) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
         int id = -1;
         PreparedStatement statement = null;
         PreparedStatement statement1 = null;
+        PreparedStatement statement2 = null;
         try {statement = connection.prepareStatement(INSERT_USER);
             statement.setString(1,user.getName());
             statement.setString(2,user.getSurname());
@@ -55,7 +57,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(5,user.getPhone());
             String encryptedPassword = passwordEncrypter.encrypt(user.getPassword());
             statement.setString(6,encryptedPassword);
-            result = statement.executeUpdate();
+            statement.executeUpdate();
 
             statement1 = connection.prepareStatement(GET_ID);
             statement1.setString(1, user.getEmail());
@@ -81,7 +83,7 @@ public class UserDaoImpl implements UserDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        return result;
+        return id;
     }
 
     @Override
@@ -111,7 +113,10 @@ public class UserDaoImpl implements UserDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        return users;
+        List<User> sortedList = users.stream()
+                .sorted(Comparator.comparingInt(User::getId))
+                .collect(Collectors.toList());
+        return sortedList;
     }
 
     public int addAddress (int id, String address) {
@@ -132,7 +137,6 @@ public class UserDaoImpl implements UserDao {
         }
         return result;
     }
-
 
     public boolean isAdmin(String email) {
          boolean status = false;

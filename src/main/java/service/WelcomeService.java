@@ -1,12 +1,17 @@
 package service;
 
 import DAO.*;
+import entity.Book;
+import entity.Cart;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class WelcomeService implements Service {
@@ -30,6 +35,8 @@ public class WelcomeService implements Service {
         session.setAttribute("categories", categoryDao.getAll(lang));
         session.setAttribute("langs", languageDao.getAll());
         session.setAttribute("users", userDao.getAll());
+        Cart cart = new Cart();
+        session.setAttribute("cart", cart);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
         dispatcher.forward(request, response);
     }

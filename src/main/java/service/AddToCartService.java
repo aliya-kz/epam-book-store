@@ -20,10 +20,13 @@ public class AddToCartService implements Service {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        System.out.println("addtocartserv");
         HttpSession session = request.getSession();
         int bookId = Integer.parseInt(request.getParameter("id"));
+        System.out.println("id " +bookId);
         Cart cart = (Cart) session.getAttribute("cart");
         Map<Book, Integer> items = cart.getCartItems();
+        System.out.println("cartitems "+ items);
         int qty = Integer.parseInt(request.getParameter("qty"));
         List<Book> books = (List<Book>) session.getAttribute("books");
         User user = (User) session.getAttribute("user");
@@ -36,10 +39,6 @@ public class AddToCartService implements Service {
                     items.put(book, qty);
                 }
             }
-        }
-
-        for (Book book: items.keySet()) {
-            System.out.println(book.getTitle());
         }
         if (user != null) {
             cartDao.addToCart(user.getId(), bookId, qty);

@@ -1,6 +1,7 @@
 package DAO.impl;
 import DAO.FormatDao;
 import DAO.db_connection.ConnectionPool;
+import entity.Category;
 import entity.Format;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,7 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FormatDaoImpl implements FormatDao {
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
@@ -43,7 +46,10 @@ public class FormatDaoImpl implements FormatDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        return formats;
+        List<Format> sortedList = formats.stream()
+                .sorted(Comparator.comparing(Format::getFormatName))
+                .collect(Collectors.toList());
+        return sortedList;
     }
 
     @Override

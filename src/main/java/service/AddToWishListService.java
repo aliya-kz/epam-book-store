@@ -26,18 +26,19 @@ private final WishListDao wishListDao = SqlDaoFactory.getInstance().getWishListD
     int bookId = Integer.parseInt(request.getParameter("id"));
     Book wlBook = new Book(bookId);
     WishList wishList = (WishList) session.getAttribute("wishList");
-
     if (!wishList.getBooks().contains(wlBook)) {
-        wishListDao.addToWishList(user.getId(), bookId);
         List<Book> allBooks = (List<Book>) session.getAttribute("books");
         for (Book book : wishList.getBooks()) {
             for (Book listBook : allBooks) {
                 if (book.getId() == listBook.getId()) {
                     book = listBook;
+                    wishListDao.addToWishList(user.getId(), bookId);
                 }
             }
         }
     }
+    wishList = wishListDao.getWishList(user.getId());
+    session.setAttribute("wishList", wishList);
     String uri = request.getParameter("uri");
     RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?msg=added");
     dispatcher.forward(request, response);

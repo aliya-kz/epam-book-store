@@ -1,10 +1,14 @@
 package service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class ServiceFactory {
+    private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
         private static final Map<String, Service> SERVICE_MAP = new HashMap<>();
         private static final ServiceFactory SERVICE_FACTORY = new ServiceFactory();
         static {
@@ -37,6 +41,7 @@ public class ServiceFactory {
             SERVICE_MAP.put("add_address", new AddAddressService());
             SERVICE_MAP.put("update_quantity", new UpdateQuantityService());
             SERVICE_MAP.put("create_order", new CreateOrderService());
+            SERVICE_MAP.put("update_status", new UpdateStatusService());
         }
 
         public static ServiceFactory getInstance() {
@@ -44,7 +49,13 @@ public class ServiceFactory {
         }
 
         public Service getService(String serviceName) {
-            Service service = SERVICE_MAP.get(serviceName);
+            Service service = null;
+            try {
+                service = SERVICE_MAP.get(serviceName);
+            }
+            catch (NullPointerException e) {
+                LOGGER.info(e);
+            }
             return service;
         }
     }

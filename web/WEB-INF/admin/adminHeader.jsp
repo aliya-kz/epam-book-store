@@ -21,7 +21,7 @@
 <fmt:message bundle="${content}" key="BOOKS" var="books" />
 <fmt:message bundle="${content}" key="CATEGORIES" var="categories" />
 <fmt:message bundle="${content}" key="USERS" var="users" />
-<fmt:message bundle="${content}" key="ORDERS" var="orders" />
+<fmt:message bundle="${content}" key="ORDERS" var="ords" />
 <fmt:message bundle="${content}" key="MESSAGES" var="messages" />
 <fmt:message bundle="${content}" key="AUTHORS" var="authors" />
 <fmt:message bundle="${content}" key="ANALYTICS" var="analytics" />
@@ -48,7 +48,7 @@
             <li> <button class="admin-menu-btn" name="service_name" value="get_all_books"><c:out value="${books}"/> </button></li>
             <li> <button class="admin-menu-btn" name="service_name" value="get_all_categories"><c:out value="${categories}"/> </button></li>
             <li> <button class="admin-menu-btn" name="service_name" value="get_all_users"><c:out value="${users}"/>  </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_orders"><c:out value="${orders}"/>  </button></li>
+            <li> <button class="admin-menu-btn" name="service_name" value="get_all_orders"><c:out value="${ords}"/>  </button></li>
             <li> <button class="admin-menu-btn" name="service_name" value="get_all_authors"><c:out value="${authors}"/>  </button></li>
             <li> <button class="admin-menu-btn" name="service_name" value="get_all_messages"><c:out value="${messages}"/>  </button></li>
             <li> <button class="admin-menu-btn" name="service_name" value="get_analytics"><c:out value="${analytics}"/>  </button></li>

@@ -166,8 +166,4 @@ public class Book extends Entity {
         return Objects.hash(id);
     }
 
-    @Override
-    public int compareTo(Entity o) {
-        return ((Book) o).getId()-this.id;
-    }
 }

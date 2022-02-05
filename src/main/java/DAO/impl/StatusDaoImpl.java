@@ -28,7 +28,7 @@ public class StatusDaoImpl implements StatusDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Status status = new Status();
-                status.setId(resultSet.getInt("id"));
+                status.setId(resultSet.getInt("status_id"));
                 status.setStatusName(resultSet.getString("status_name"));
                 status.setLang(resultSet.getString("lang"));
                 statuses.add(status);

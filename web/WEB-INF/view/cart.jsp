@@ -31,10 +31,12 @@
  %>
     <c:set var="total" value="0"/>
         <table id="cart-table">
+            <thead>
             <th></th>
             <th></th>
             <th></th>
             <th></th>
+            </thead>
             <c:forEach var="entry" items="${cart.cartItems}">
                 <c:set var="qty" value="${entry.value}"/>
                 <c:set var="cartBook" value="${entry.key}"/>
@@ -106,7 +108,14 @@
         </table>
 
     <div class="btn" id="view-cart"><a href="/index"><c:out value="${continue_shop}"/></a></div>
+   <c:choose>
+    <c:when test="${empty user}">
+    <div class="btn" id="checkout" onclick="openForm('login-form')"><c:out value="${checkout}"/></div>
+    </c:when>
+    <c:otherwise>
     <div class="btn" id="checkout"><a href="/checkout"><c:out value="${checkout}"/></a></div>
+    </c:otherwise>
+    </c:choose>
 </body>
 </html>
 

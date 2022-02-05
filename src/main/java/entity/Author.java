@@ -75,8 +75,4 @@ public class Author extends Entity {
         this.image = image;
     }
 
-    @Override
-    public int compareTo(Entity o) {
-        return (this.fullName.compareTo(((Author) o).getFullName()));
-    }
 }

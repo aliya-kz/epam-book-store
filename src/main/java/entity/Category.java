@@ -42,9 +42,4 @@ public class Category extends Entity {
     public String toString() {
         return categoryName;
     }
-
-    @Override
-    public int compareTo(Entity o) {
-        return ((Category) o).getId() - this.id;
-    }
 }

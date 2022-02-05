@@ -126,14 +126,16 @@
 
     <section id="prof-orders">
 <table>
+    <thead>
     <th> orderid</th>
     <th> date</th>
     <th> address</th>
     <th> status</th>
     <th> cost</th>
     <th> cancel </th>
-
- <c:forEach var="order" items="${orders}">
+    </thead>
+ <c:forEach var="order" items="${myOrders}">
+     <tbody>
      <tr>
          <td> <c:out value="${order.id}"/> </td>
          <td> <c:out value="${order.date}"/> </td>
@@ -176,7 +178,7 @@
          </td>
      </tr>
  </c:forEach>
-
+     </tbody>
 </table>
 
     </section>

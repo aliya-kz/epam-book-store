@@ -141,8 +141,15 @@ html {
     color: grey;
 }
 
-.invisible-input {
+.invisible-input,
+#admin-order-books {
     display: none;
+}
+
+#order-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .profile-main aside {
@@ -431,8 +438,9 @@ h3 {
 }
 
 .admin-table {
-    border-collapse: collapse;
     width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
 .admin-table td,
@@ -615,7 +623,8 @@ h2 {
     background-color: tomato;
 }
 
-.accept {
+.accept,
+#accept{
     background-color: #04AA6D;
 }
 .msg-div {
@@ -673,6 +682,7 @@ h2 {
 .index-book {
     width: 170px;
     padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 h3 {

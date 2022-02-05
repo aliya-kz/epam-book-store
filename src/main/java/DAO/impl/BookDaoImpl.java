@@ -5,11 +5,13 @@ import DAO.db_connection.ConnectionPool;
 import entity.Author;
 import entity.Book;
 import entity.Category;
+import entity.Order;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BookDaoImpl implements BookDao {
 
@@ -137,7 +139,10 @@ public class BookDaoImpl implements BookDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        return books;
+        List<Book> sortedList = books.stream()
+                .sorted(Comparator.comparingInt(Book::getId))
+                .collect(Collectors.toList());
+        return sortedList;
     }
 
     public int deleteBookAuthors (int bookId) {

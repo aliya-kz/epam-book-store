@@ -1,6 +1,5 @@
 package DAO;
 
-import entity.Cart;
 import entity.Order;
 
 import java.util.List;
@@ -8,11 +7,7 @@ import java.util.List;
 public interface OrderDao extends BaseDao <Order> {
     int addEntity(Order order);
     List <Order> getAll ();
-    int deleteById (int id);
-
-    String getStatus (int orderId);
-    int setStatus (int id, String orderStatus);
-    List <Integer> bookIds (int orderId);
+    int updateStatus (int orderId, int statusId);
     Order getOrderById (int id);
     List <Order> getOrdersByUserId(int userId);
 }

@@ -11,6 +11,7 @@ public class Cart extends Entity {
 
     public Cart(int userId) {
         this.userId = userId;
+        cartItems = new HashMap<>();
     }
 
     public Cart() {
@@ -50,10 +51,5 @@ public class Cart extends Entity {
     public void setUserId(int userId) {
 
         this.userId = userId;
-    }
-
-    @Override
-    public int compareTo(Entity o) {
-        return 0;
     }
 }

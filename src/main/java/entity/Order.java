@@ -8,6 +8,7 @@ public class Order extends Entity {
     private int userId;
     private Map<Book, Integer> orderItems;
     private int statusId;
+    private Map <Status, Date> statusHistory;
     private Date date;
     private Address address;
     private int cost;
@@ -63,16 +64,19 @@ public class Order extends Entity {
         this.date = date;
     }
 
+    public Map<Status, Date> getStatusHistory() {
+        return statusHistory;
+    }
+
+    public void setStatusHistory(Map<Status, Date> statusHistory) {
+        this.statusHistory = statusHistory;
+    }
+
     public Address getAddress() {
         return address;
     }
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    @Override
-    public int compareTo(Entity o) {
-        return this.id - ((Order) o).getId();
     }
 }

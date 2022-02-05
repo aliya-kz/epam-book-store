@@ -31,7 +31,7 @@
         <th class = "admin-th"> </th>
         <th class = "admin-th"> </th>
             <c:forEach var="user"  items="${users}">
-                <tr class="book-row">
+                <tr class="book-row" id="user${user.id}">
                     <td><c:out value="${user.id}"/></td>
                     <td><c:out value="${user.email}"/></td>
                     <td><c:out value="${user.name}"/></td>

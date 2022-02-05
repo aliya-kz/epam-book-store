@@ -31,8 +31,4 @@ public class Format extends Entity {
         this.lang = lang;
     }
 
-    @Override
-    public int compareTo(Entity o) {
-        return this.id - ((Format) o).getId();
-    }
 }

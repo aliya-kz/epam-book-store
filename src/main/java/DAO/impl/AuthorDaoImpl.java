@@ -5,18 +5,13 @@ import DAO.db_connection.ConnectionPool;
 import entity.Author;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AuthorDaoImpl implements AuthorDao {
 
@@ -102,22 +97,26 @@ public class AuthorDaoImpl implements AuthorDao {
                 authors.add(author);
             }
         } catch (Exception e) {
+            LOGGER.error(e);
             e.printStackTrace();
         }
         finally {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        Collections.sort(authors);
-        return authors;
+         List<Author> sortedList = authors.stream()
+                 .sorted(Comparator.comparing(Author::getSurname))
+                 .collect(Collectors.toList());
+        return sortedList;
     }
 
     @Override
     public int deleteById(int id) {
+
         return 0;
     }
 
     public  static  void main (String[] args) {
-
+ AuthorDao dao =new AuthorDaoImpl();
     }
 }

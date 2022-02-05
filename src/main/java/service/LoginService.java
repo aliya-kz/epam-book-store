@@ -43,8 +43,9 @@ public class LoginService implements Service {
             if (user.isBlocked()) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/logIn.jsp?msg=blocked");
                 dispatcher.forward(request, response);
-            }
-            if (user.isAdmin()) {
+            } else if (user.isAdmin()) {
+                List <Status> statuses = statusDao.getAll(lang);
+                session.setAttribute("statuses", statuses);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/welcomeAdmin.jsp");
                 dispatcher.forward(request, response);
             } else {
@@ -52,7 +53,7 @@ public class LoginService implements Service {
                 Cart cart = cartDao.getCart(userId);
                 session.setAttribute("cart", cart);
                 List <Order> orders = orderDao.getOrdersByUserId(userId);
-                session.setAttribute("orders", orders);
+                session.setAttribute("myOrders", orders);
                 WishList wishList = wishListDao.getWishList(userId);
                 session.setAttribute("wishList", wishList);
                 List <Status> statuses = statusDao.getAll(lang);

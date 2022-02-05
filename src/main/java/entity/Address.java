@@ -53,8 +53,4 @@ public class Address extends Entity {
         return Objects.hash(id);
     }
 
-    @Override
-    public int compareTo(Entity o) {
-        return 0;
-    }
 }
