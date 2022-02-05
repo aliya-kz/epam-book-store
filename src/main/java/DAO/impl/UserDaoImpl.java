@@ -2,6 +2,7 @@ package DAO.impl;
 
 import DAO.*;
 import DAO.db_connection.ConnectionPool;
+import com.lambdaworks.crypto.SCryptUtil;
 import entity.Address;
 import entity.Card;
 import entity.Category;
@@ -16,7 +17,9 @@ import java.util.stream.Collectors;
 public class UserDaoImpl implements UserDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
+
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
+
     private final static String INSERT_USER = "INSERT into users" +
             "(name, surname, date_of_birth, email, phone, password) " +
             "VALUES " + "(?,?,?,?,?,?);";
@@ -25,11 +28,9 @@ public class UserDaoImpl implements UserDao {
             "LEFT JOIN cards c ON u.id=c.user_id LEFT JOIN addresses a ON u.id=a.user_id " +
             "WHERE u.id = ?;";
 
-    private final static String VALIDATE_USER= "SELECT id from users where email = ? and password = ?;";
+    private final static String VALIDATE_USER= "SELECT id, password from users WHERE email = ?;";
 
     private final static String INSERT_ADDRESS = "INSERT into addresses (user_id, address) values (?, ?);";
-
-    private final static String INSERT_CARD = "INSERT into cards (user_id, card_number) values (?, ?);";
 
     private final static String SELECT_ALL_SQL = "SELECT * FROM users;";
 
@@ -41,7 +42,9 @@ public class UserDaoImpl implements UserDao {
 
     private final static String GET_ID = "SELECT id FROM users WHERE email = ?;";
 
+    private final static String SELECT_PASS = "SELECT password FROM users WHERE id = ?;";
     PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
+
     @Override
     public int addEntity (User user) {
         Connection connection = connectionPool.takeConnection();
@@ -73,7 +76,7 @@ public class UserDaoImpl implements UserDao {
             List <Card > cards = user.getCards();
             CardDao cardDao = SqlDaoFactory.getInstance().getCardDao();
             Card card = cards.get(0);
-            card.setId(id);
+            card.setUserId(id);
             cardDao.addEntity(card);
         } catch (Exception e) {
             LOGGER.info(e);
@@ -220,10 +223,12 @@ public class UserDaoImpl implements UserDao {
         try {
             statement = connection.prepareStatement(VALIDATE_USER);
             statement.setString(1, email);
-            statement.setString(2, passwordEncrypter.encrypt(password));
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-               id = resultSet.getInt("id");
+            String sqlPass = resultSet.getString("password");
+            if (SCryptUtil.check(password, sqlPass)) {
+                id = resultSet.getInt("id");
+            }
             }
         } catch (SQLException e) {
             LOGGER.warn(e);
@@ -253,15 +258,26 @@ public class UserDaoImpl implements UserDao {
         return status;
     }
 
-    public int changePassword(int id, String newPass) {
+    public int changePassword(int id, String oldPass, String newPass) {
         int result = 0;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
-        String newEncryptedPass = passwordEncrypter.encrypt(newPass);
-        try { statement = connection.prepareStatement(UPDATE_PASSWORD_SQL);
-            statement.setString(1, newEncryptedPass);
-            statement.setInt(2, id);
+        PreparedStatement statement1 = null;
+        try { statement = connection.prepareStatement(SELECT_PASS);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String sqlPassword = resultSet.getString("password");
+                if (SCryptUtil.check(sqlPassword, oldPass)) {
+                    String newEncrPass = PasswordEncrypter.encrypt(newPass);
+
+                    statement1 = connection.prepareStatement(UPDATE_PASSWORD_SQL);
+                    statement1.setString(1, newEncrPass);
+                    statement1.setInt(2, id);
+                    result = statement1.executeUpdate();
+                }
+            }
             result= statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -12,6 +12,6 @@ public interface UserDao extends BaseDao <User> {
   User getUser (int id);
   boolean userExists (String email);
    int blockUser(int id, boolean status);
-  int changePassword (int id, String newEmail);
+  int changePassword (int id, String oldPass, String newPass);
 
 }

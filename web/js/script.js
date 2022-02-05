@@ -21,6 +21,19 @@ function tableSearch(id) {
 function openForm(id) {
     document.getElementById(id).style.display = "block";
     document.getElementById('login-background').style.display = "block";
+    const html = document.querySelector('html');
+    const body = document.querySelector('body');
+    html.classList.add('unscrollable');
+    body.classList.add('unscrollable');
+}
+
+function closeForm(id) {
+    document.getElementById(id).style.display = "none";
+    document.getElementById('login-background').style.display = "none";
+    const html = document.querySelector('html');
+    const body = document.querySelector('body');
+    html.classList.remove('unscrollable');
+    body.classList.remove('unscrollable');
 }
 
 function showEl(id) {
@@ -32,10 +45,7 @@ function hideEl(id) {
 }
 
 
-function closeForm(id) {
-    document.getElementById(id).style.display = "none";
-    document.getElementById('login-background').style.display = "none";
-}
+
 
 function heartClicked() {
     const heart = document.getElementById('add-to-wl');

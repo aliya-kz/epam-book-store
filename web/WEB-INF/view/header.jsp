@@ -23,7 +23,7 @@
 <fmt:message bundle="${content}" key="LOG_OUT" var="log_out" />
 <fmt:message bundle="${content}" key="EMAIL" var="email" />
 <fmt:message bundle="${content}" key="PASSWORD" var="password" />
-<fmt:message bundle="${content}" key="CATEGORY" var="category" />
+<fmt:message bundle="${content}" key="CATEGORY" var="cat" />
 <fmt:message bundle="${content}" key="NEW_ARRIVALS" var="arrivals" />
 <fmt:message bundle="${content}" key="SALE" var="sale" />
 <fmt:message bundle="${content}" key="DELIVERY" var="delivery" />
@@ -46,7 +46,19 @@
 
     <nav class = "nav" id = "header_nav">
         <ul class = "nav-menu">
-            <li > <a href = "#"><c:out value = "${category}"/></a></li>
+            <li>
+                <div onmouseover="showEl('drop-down-categories')" onmouseleave="hideEl('drop-down-categories')" width="120px">
+                    <a href = "#"><c:out value = "${cat}"/></a>
+                    <div id="drop-down-categories">
+                        <ul>
+                            <c:forEach var="category" items="${categories}">
+                                <li><a href="/books/${categoryId}"><c:out value="${category.categoryName}"/></a></li>                  </a>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+
+            </li>
             <li> <a href = "#"><c:out value = "${arrivals}"/></a></li>
             <li> <a href = "#"><c:out value = "${sale}"/></a></li>
             <li> <a href = "#"><c:out value = "${delivery}"/></a></li>

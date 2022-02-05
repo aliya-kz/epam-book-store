@@ -64,22 +64,21 @@
     <section class="edit-info">
         <form action = "<%= request.getContextPath()%>/controller?id=${book.id}" method = "post" id="edit-author">
             <table class="admin-table" id="edit-book">
+                <thead>
                 <th> </th>
                 <th><c:out value="${current_value}"/></th>
                 <th><c:out value="${new_value}"/></th>
-
+                </thead>
                 <tr>
                     <td> ID </td>
                     <td><c:out value="${book.id}"/></td>
                     <td><c:out value="${cant_change}"/></td>
                 </tr>
-
                 <tr>
                     <td><c:out value="${title}"/></td>
                     <td><c:out value="${book.title}"/></td>
                     <td><input type="text" name ="new_title"/></td>
                 </tr>
-
                 <tr>
                     <td><c:out value="${auths}"/></td>
                     <td>
@@ -99,25 +98,21 @@
                         </select>
                     </td>
                 </tr>
-
                 <tr>
                     <td> <c:out value="${language}"/> </td>
                     <td><c:out value="${book.language}"/></td>
                     <td><c:out value="${cant_change}"/></td>
                 </tr>
-
                 <tr>
                     <td><c:out value="${publisher}"/></td>
                     <td><c:out value="${book.publisher}"/></td>
                     <td><input type="text" name ="new_publisher"/></td>
                 </tr>
-
                 <tr>
                     <td> ISBN </td>
                     <td><c:out value="${book.isbn}"/></td>
                     <td><input type="text" name ="new_isbn"/></td>
                 </tr>
-
                 <tr>
                     <td><c:out value="${cat}"/></td>
                     <td><c:out value="${book.category}"/></td>
@@ -129,29 +124,25 @@
                         </select>
                     </td>
                 </tr>
-
                 <tr>
                     <td> <c:out value="${format}"/> </td>
                     <td><c:out value="${book.format}"/></td>
                     <td><c:out value="${cant_change}"/></td>
                 </tr>
-
                 <tr>
                     <td><c:out value="${price}"/></td>
                     <td><c:out value="${book.price}"/></td>
                     <td><input type="text" name ="new_price"/></td>
                 </tr>
-
                 <tr>
                     <td><c:out value="${qty}"/></td>
                     <td><c:out value="${book.quantity}"/></td>
                     <td><input type="text" name ="new_quantity"/></td>
                 </tr>
-
                 <tr>
                     <td><c:out value="${descr}"/> </td>
                     <td><c:out value="${book.description}"/></td>
-                    <td><input type="text" name ="new_description"/></td>
+                    <td><textarea type="text" name ="new_description" placeholder="" width="220px" rows="20"></textarea></td>
                 </tr>
 
             </table>

@@ -1,6 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
   <head>
     <title>Index</title>
@@ -20,7 +20,7 @@
       <section id = "index-books">
           <c:forEach var="book" items="${books}" begin="1" end="12">
               <div class = "index-book" onmouseover="showEl('book-add${book.id}')" onmouseleave="hideEl('book-add${book.id}')">
-                  <img src = "/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" style="max-height: 230px; max-width: 170px"><br>
+                  <img src = "/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" style="height: 230px; max-width: 180px"><br>
                   <a href = "/book?id=${book.id}" class="index-book-name"><c:out value = "${book.title}"/></a>
                   <c:set var = "authorIds" value = "${book.authors}"/>
               <c:forEach var = "authorId" items = "${authorIds}">

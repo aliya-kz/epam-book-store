@@ -23,7 +23,7 @@ public class ChangePasswordService implements Service {
         String uri = request.getParameter("uri");
         int userId = userDAO.validateUser(email, password);
         if (userId > 0) {
-            userDAO.changePassword(user.getId(), newPassword);
+            userDAO.changePassword(user.getId(), password, newPassword);
             user = userDAO.getUser(userId);
             session.setAttribute("user", user);
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?pass-msg=success");

@@ -93,7 +93,7 @@
     <section class="all-entities">
         <form action = "<%=request.getContextPath()%>/controller" method = "post">
             <h3> <c:out value="${all_authors}"/> </h3>
-            <table class="admin-table">
+            <table class="admin-table" id="admin-authors">
                 <th><c:out value="${image}"/></th>
                 <th>ID</th>
                 <th><c:out value="${name}"/></th>

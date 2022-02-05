@@ -1,5 +1,7 @@
 package controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import service.Service;
 import service.ServiceFactory;
 import javax.servlet.ServletException;
@@ -9,8 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Controller extends HttpServlet {
+
+    private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     ServiceFactory factory = ServiceFactory.getInstance();
     public static final long serialVersionUID = 1L;
+
     public Controller() {
        super();
     }
@@ -25,7 +30,6 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String serviceName = request.getParameter("service_name");
-        System.out.println("serv name " + serviceName);
         Service service = factory.getService(serviceName);
         service.execute(request, response);
     }

@@ -43,7 +43,11 @@ request.setAttribute("id", id);
 <fmt:message bundle="${content}" key="SAVE" var="save"/>
 <fmt:message bundle="${content}" key="DELETE_IN_ALL_LANG" var="delete_in_all"/>
 <fmt:message bundle="${content}" key="DELETE" var="delete"/>
+<fmt:message bundle="${content}" key="BACK" var="back"/>
 
+<div class = "back">
+    <a href = "/admin-authors"><c:out value="${back}"/></a>
+</div>
 <main class="edit-main">
 <section class="edit-info">
 <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&lang=${author.lang}" method = "post" id="edit-author">
@@ -79,7 +83,7 @@ request.setAttribute("id", id);
         <tr>
             <td><c:out value="${biography}"/> </td>
             <td><c:out value="${author.biography}"/></td>
-            <td><input type="text" name ="new_biography"/></td>
+            <td><textarea type="text" name ="new_biography" placeholder="" width="220px" rows="15"></textarea></td>
         </tr>
     </table>
     <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>">
