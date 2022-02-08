@@ -16,7 +16,6 @@
 
 <jsp:useBean id="category" class="entity.Category" scope="request"></jsp:useBean>
 <jsp:setProperty name="category" property="*"/>
-
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
 <fmt:message bundle="${content}" key="CURRENT_VALUE" var="current_value"/>
@@ -26,6 +25,8 @@
 <fmt:message bundle="${content}" key="SAVE" var="save"/>
 <fmt:message bundle="${content}" key="DELETE_IN_ALL_LANG" var="delete_in_all"/>
 <fmt:message bundle="${content}" key="DELETE" var="delete"/>
+
+<a href = "/admin-categories"><div class = "back"><p><c:out value="${back}"/></p></div></a>
 
 <form action = "<%= request.getContextPath()%>/controller?category_id=${category.id}&lang=${category.lang}" method = "post">
 <table class="admin-table" id="edit-category">
@@ -46,7 +47,7 @@
         <td><c:out value="${category.categoryName}"/></td>
         <td><input type="text" name ="new_value" required/></td>
         <td><input type = "hidden" name="service_name" value="edit_category">
-        <input type="submit" value = "${save}"></td>
+        <input class="btn" id="accept" type="submit" value = "${save}"></td>
     </tr>
 
     <tr>
@@ -59,16 +60,14 @@
   </form>
 
   <form action = "<%= request.getContextPath()%>/controller?id=${category.id}&table=categories_lang&lang=${category.lang}" method = "post">
-    <input type="hidden" name="service_name" value="delete_entity"/>
+    <input type="hidden" name="service_name" value="delete_entity_admin"/>
       <c:out value="${delete}"/>
-    <input id = "decline" type="submit" value="${delete}"/>
+    <input class="btn" id = "decline" type="submit" value="${delete}"/>
   </form>
 <br>
   <form action = "<%= request.getContextPath()%>/controller?id=${category.id}&table=categories" method = "post">
-  <input type="hidden" name="service_name" value="delete_entity"/>
+  <input type="hidden" name="service_name" value="delete_entity_admin"/>
       <c:out value="${delete_in_all}"/>
-  <input id = "decline" type="submit" value="${delete}"/>
+  <input class="btn" id = "decline" type="submit" value="${delete}"/>
 </form>
-</main>
-</body>
 </html>

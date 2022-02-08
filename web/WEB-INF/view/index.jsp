@@ -12,10 +12,12 @@
   <fmt:message bundle="${content}" key="SEE_MORE" var="see_more"/>
   <fmt:message bundle="${content}" key="ADD_TO_CART" var="add"/>
   <fmt:message bundle="${content}" key="ADDED" var="added"/>
+  <fmt:message bundle="${content}" key="SHOP_NOW" var="shop_now"/>
   <jsp:useBean id = "cart" scope = "session" class = "entity.Cart"/>
 
   <main class = "index-main">
       <section id = "ads">
+          <a href="/books?id=23"><button class="btn"><c:out value="${shop_now}"/> </button> </a>
       </section>
       <section id = "index-books">
           <c:forEach var="book" items="${books}" begin="1" end="12">
@@ -30,6 +32,11 @@
                       </c:if>
                   </c:forEach>
               </c:forEach>
+                  <c:forEach var="format" items="${formats}">
+                      <c:if test="${format.id == book.formatId}">
+                          <c:out value="${format.formatName}"/>
+                      </c:if>
+                  </c:forEach>
                  <p class="index-book-price"><c:out value="${book.price}"/> ₸ </p>
                   <form id = "book-add${book.id}" style="display:none" onsubmit="showEl('grey-background${book.id}')"
                         action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1" method = "post">

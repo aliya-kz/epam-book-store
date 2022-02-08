@@ -9,6 +9,7 @@
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/admin" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/admin" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/admin" />
+        <entry key="file://$PROJECT_DIR$/web/WEB-INF/view/authors.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/view" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/view" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/view/header.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/view" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/view/index.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/view" />
@@ -16,6 +17,7 @@
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/view" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/view/profile.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/view" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/view" />
+        <entry key="file://$PROJECT_DIR$/web/WEB-INF/view/userProfile.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/view" />
       </map>
     </option>
   </component>

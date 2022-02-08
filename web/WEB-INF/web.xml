@@ -181,14 +181,6 @@
         <url-pattern>/add-book</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>profile</servlet-name>
-        <jsp-file>/WEB-INF/view/profile.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>profile</servlet-name>
-        <url-pattern>/profile</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>messages</servlet-name>
@@ -200,11 +192,20 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>wishList</servlet-name>
+        <servlet-name>profile</servlet-name>
+        <jsp-file>/WEB-INF/view/profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>wishlist</servlet-name>
         <jsp-file>/WEB-INF/view/wishlist.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>wishList</servlet-name>
+        <servlet-name>wishlist</servlet-name>
         <url-pattern>/wish-list</url-pattern>
     </servlet-mapping>
 
@@ -247,14 +248,6 @@
 </servlet-mapping>
 
 
-<servlet>
-<servlet-name>welcomeAdmin</servlet-name>
-<jsp-file>/WEB-INF/admin/welcomeAdmin.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>welcomeAdmin</servlet-name>
-<url-pattern>/welcome-admin</url-pattern>
-</servlet-mapping>
 
 <servlet>
 <servlet-name>adminUsers</servlet-name>

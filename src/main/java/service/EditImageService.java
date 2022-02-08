@@ -2,7 +2,8 @@ package service;
 
 import DAO.AuthorDao;
 import DAO.BookDao;
-import DAO.SqlDaoFactory;
+import DAO.impl.AuthorDaoImpl;
+import DAO.impl.BookDaoImpl;
 import entity.Author;
 import entity.Book;
 
@@ -15,12 +16,11 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Objects;
 
 
 public class EditImageService implements Service {
-    private final AuthorDao authorDao = SqlDaoFactory.getInstance().getAuthorDao();
-    private final BookDao bookDao = SqlDaoFactory.getInstance().getBookDao();
+    private final AuthorDao authorDao = new AuthorDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();

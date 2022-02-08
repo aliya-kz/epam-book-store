@@ -2,7 +2,7 @@ package service;
 
 
 import DAO.CartDao;
-import DAO.SqlDaoFactory;
+import DAO.impl.CartDaoImpl;
 import entity.Book;
 import entity.Cart;
 import entity.User;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 public class UpdateQuantityService implements Service {
-    CartDao cartDao = SqlDaoFactory.getInstance().getCartDao();
+    CartDao cartDao = new CartDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

@@ -19,7 +19,6 @@
 <fmt:message bundle="${content}" key="PHONE_NUMBER" var="phone_number" />
 <fmt:message bundle="${content}" key="BLOCK_USER" var="block_user" />
 <fmt:message bundle="${content}" key="UNBLOCK_USER" var="unblock_user" />
-<fmt:message bundle="${content}" key="VIEW_ORDERS" var="view_orders" />
 
 <main class="main">
     <table class="admin-table">
@@ -28,7 +27,6 @@
         <th class = "admin-th"><c:out value = "${name}"/></th>
         <th class = "admin-th"><c:out value = "${surname}"/></th>
         <th class = "admin-th"><c:out value = "${phone_number}"/></th>
-        <th class = "admin-th"> </th>
         <th class = "admin-th"> </th>
             <c:forEach var="user"  items="${users}">
                 <tr class="book-row" id="user${user.id}">
@@ -54,13 +52,9 @@
                     </form>
                     </c:if>
                 </td>
-                    <td> <form action="<%= request.getContextPath()%>/controller" method="post">
-                    <button name="service_name" value="view_orders"><c:out value="${view_orders}"/> </button>
-                    </form></td>
                 </tr>
             </c:forEach>>
     </table>
 </main>
-</form>
 </body>
 </html>

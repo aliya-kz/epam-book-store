@@ -1,8 +1,9 @@
 package service;
 
 import DAO.CardDao;
-import DAO.SqlDaoFactory;
 import DAO.UserDao;
+import DAO.impl.CardDaoImpl;
+import DAO.impl.UserDaoImpl;
 import entity.Card;
 import entity.User;
 import javax.servlet.RequestDispatcher;
@@ -13,9 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class AddCardService implements Service{
-    private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private final CardDao cardDao = SqlDaoFactory.getInstance().getCardDao();
-    UserDao userDao = SqlDaoFactory.getInstance().getUserDao();
+    private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final CardDao cardDao = new CardDaoImpl();
+    private static final UserDao userDao = new UserDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String cardNumber = request.getParameter("card");

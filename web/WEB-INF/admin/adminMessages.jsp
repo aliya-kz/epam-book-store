@@ -6,7 +6,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
     <head>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,10 +16,6 @@
 <body>
 <jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
 
-    <% Locale locale = (Locale) session.getAttribute("locale");
-    System.out.println("locale in adminmessages " + locale);
-    ResourceBundle bundle = ResourceBundle.getBundle("content", locale);
-%>
 <form action = "<%= request.getContextPath()%>/controller" method = "post">
 
 <body>

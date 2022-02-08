@@ -1,9 +1,8 @@
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
+
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,9 +45,10 @@
   <section class="edit-info">
     <form action = "/image-servlet?uri=<%=request.getRequestURI()%>" method="post" enctype="multipart/form-data">
       <table class="admin-table" id="edit-book">
+        <tr>
         <th> </th>
         <th><c:out value="${new_value}"/></th>
-
+        </tr>
         <tr>
           <td><c:out value="${title}"/></td>
           <td><input type="text" name ="title" required/></td>

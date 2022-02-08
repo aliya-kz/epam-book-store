@@ -20,17 +20,18 @@
 <fmt:message bundle = "${content}" key="CONTINUE_SHOPPING" var="continue"/>
 <fmt:message bundle = "${content}" key="PAY" var="pay"/>
 <fmt:message bundle = "${content}" key="PAYMENT_METHOD" var="payment_method"/>
-
+<fmt:message bundle = "${content}" key="DELIVERY" var="delivery"/>
+<fmt:message bundle = "${content}" key="ADD" var="add"/>
 <body>
 <main class="checkout-main">
     <form id="checkout-form" action = "<%= request.getContextPath()%>/controller" method = "post">
         <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
         <section id="delivery">
-            <h1> <c:out value = "${address}"/></h1>
+            <h1> <c:out value = "${delivery} ${address}"/></h1>
             <c:forEach var="addr" items="${user.addresses}">
-                <input type="radio" name="address" value="${addr.id}"><c:out value="${addr.address}"/>
+                <input type="radio" name="address" value="${addr.id}"><c:out value="${addr.address}"/><br>
             </c:forEach>
-            <a href="/profile#prof-address"><c:out value="${add}"/>
+            <a href="/profile#prof-address"><c:out value="${add}"/></a>
     </section>
 
     <table id="cart-table">
@@ -47,7 +48,6 @@
                         <td class = "book-cover">
                                 <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="120px"/>
                                 <input type="hidden" name="id" value="${book.id}"/>
-                                <button id="add-to-wl" name="service_name" value="add_to_wl" onclick="heartClicked()"></button>
                         </td>
                         <td class = "book-info">
                             <h1><c:out value = "${book.title}"/></h1>
@@ -68,8 +68,9 @@
                         <td id = "cost">
                             <c:set var="cost" value="${book.price * qty}"/>
                             <c:set var ="total" value="${total + cost}" scope="session"/>
-                            <c:out value="${cost}"></c:out>
-                        </td>
+                        <c:if test="${total > 0}">
+                        <c:out value="${cost}"></c:out></c:if>
+                </td>
                     </tr>
                 </c:if>
             </c:forEach>
@@ -80,16 +81,14 @@
             <td><c:out value="${total}"/></td>
         </tr>
     </table>
-         <button class="btn" id="card-btn" id="view-cart" onclick="openForm('card-form')"></button>
-            <div class="btn"><a href="/cart"><c:out value="${back}"/> </a></div>
-
 
    <h1><c:out value="${payment_method}"/> </h1>
     <c:forEach var="card" items="${user.cards}">
-        <input type="radio" name="card" value="${card.id}"><c:out value="${card.cardNumber}"/>
-    </c:forEach>
-    <a href="/profile#prof-address"><c:out value="${add}"/>
-        <input type="submit" name="service_name" value="create_order"/>
+        <input type="radio" name="card" value="${card.id}"><i class="fas fa-credit-card fa-2x"></i><c:out value="${card.cardNumber}"/>
+    </c:forEach><br>
+        <a href="/profile#prof-address"><div><c:out value="${add}"/></div></a>
+
+        <button class="btn accept" type="submit" name="service_name" value="create_order"><c:out value="${pay}"/></button>
     </form>
 
 

@@ -1,7 +1,6 @@
 package DAO.impl;
 import DAO.FormatDao;
 import DAO.db_connection.ConnectionPool;
-import entity.Category;
 import entity.Format;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,6 +53,11 @@ public class FormatDaoImpl implements FormatDao {
 
     @Override
     public int deleteById(int id) {
+        return 0;
+    }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
         return 0;
     }
 

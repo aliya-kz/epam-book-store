@@ -1,7 +1,6 @@
 package service;
 
 import DAO.BookDao;
-import DAO.SqlDaoFactory;
 import DAO.impl.BookDaoImpl;
 import entity.Book;
 import javax.servlet.RequestDispatcher;
@@ -11,12 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EditBookService implements Service{
 
-    BookDao bookDao = SqlDaoFactory.getInstance().getBookDao();
+    BookDao bookDao = new BookDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

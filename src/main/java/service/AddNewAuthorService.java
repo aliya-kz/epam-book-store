@@ -2,8 +2,7 @@ package service;
 
 import DAO.AuthorDao;
 
-import DAO.SqlDaoFactory;
-
+import DAO.impl.AuthorDaoImpl;
 import entity.Author;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +14,8 @@ import java.io.InputStream;
 
 
 public class AddNewAuthorService implements Service {
-    private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private final AuthorDao authorDao = SqlDaoFactory.getInstance().getAuthorDao();
+    private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private static final AuthorDao authorDao = new AuthorDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String name = request.getParameter("name");

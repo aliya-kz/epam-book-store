@@ -16,15 +16,18 @@ import java.util.stream.Collectors;
 public class AuthorDaoImpl implements AuthorDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static String GET_ALL_AUTHORS = "SELECT al.*, a.image FROM authors_lang al LEFT JOIN authors a ON a.id=al.id;";
-    private static String GET_ALL_AUTHORS_LANG = "SELECT al.*, a.image FROM authors_lang al LEFT JOIN authors a ON a.id=al.id WHERE lang = ?;";
-    private static String SELECT_MAX = "SELECT max(id) FROM authors;";
-    private static String INSERT_AUTHORS = "INSERT into authors (id, image) values (?,?);";
-    private static String INSERT_AUTHORS_LANG = "INSERT into authors_lang (id, name, surname, biography, lang) values " +
-            "(?, ?, ?, ?, ?);";
 
-    @Override
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+    private final static String GET_ALL_AUTHORS_LANG = "SELECT al.*, a.image FROM authors_lang al LEFT JOIN authors a ON a.id=al.id WHERE lang = ?;";
+    private final static String SELECT_MAX = "SELECT max(id) FROM authors;";
+    private final static String INSERT_AUTHORS = "INSERT into authors (id, image) values (?,?);";
+    private final static String INSERT_AUTHORS_LANG = "INSERT into authors_lang (id, name, surname, biography, lang) values " +
+            "(?, ?, ?, ?, ?);";
+    private final static String DELETE_AUTHORS_LANG ="DELETE from authors WHERE id = ? and lang = ?;";
+    private final static String DELETE_AUTHORS ="DELETE from authors WHERE id = ?;";
+    private final static String SELECT_ALL ="SELECT id, name, surname FROM authors_lang;";
+
     public int addEntity(Author author) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
@@ -112,8 +115,64 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public int deleteById(int id) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.takeConnection();
+        int result = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS);
+            statement.setInt(1, id);
+            result = statement.executeUpdate();
+            close(statement);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connectionPool.returnConnection(connection);
+        }
+        return result;
+    }
 
-        return 0;
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.takeConnection();
+        int result = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS_LANG);
+            statement.setInt(1, id);
+            statement.setString(2, lang);
+            result = statement.executeUpdate();
+            close(statement);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connectionPool.returnConnection(connection);
+        }
+        return result;
+    }
+
+    @Override
+    public List <Integer> searchAuthors(String search) {
+        List <Integer> authors = new ArrayList<>();
+        Connection connection = connectionPool.takeConnection();
+        PreparedStatement statement = null;
+        try { statement = connection.prepareStatement(SELECT_ALL);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String surname = resultSet.getString("surname");
+                String name = resultSet.getString("name");
+                if (surname.equalsIgnoreCase(search) || name.equalsIgnoreCase(search)) {
+                 authors.add(resultSet.getInt("id"));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        }
+        finally {
+            close(statement);
+            connectionPool.returnConnection(connection);
+        }
+        return authors;
     }
 
     public  static  void main (String[] args) {

@@ -51,7 +51,6 @@ html {
     border: 1px solid white;
 }
 
-
 /* header*/
 
 #logo {
@@ -63,28 +62,37 @@ html {
 }
 
 .bar {
-    border-bottom: 1px solid #000;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    background-color: #F2F2F2;
-
+    width: 100%;
+    padding: 10px 20px;
+    background: #FFFFFF;
+    float: right;
 }
 
-.bar-list {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-    max-width: 200px;
-    margin-right: 40px;
+input[type=radio] {
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-family: 'Cutive Mono', monospace;
+    font-size: 32px;
+    width: 250px;
+    margin: 0 auto;
+    color: dimgrey;
+    padding: 40px 0;
+}
+
+.bar ul {
+    width: 250px;
     margin-left: auto;
+    margin-right: 0;
 }
 
 .bar ul li {
-    margin-left: 20px;
-}
-
-.bar a {
-    text-decoration: none;
+    display: inline-block;
+    row-gap: 15px;
+    list-style: none;
+    margin: 0 15px;
+    color: #fff;
 }
 
 .lang {
@@ -96,53 +104,18 @@ html {
     color: transparent;
 }
 
-.logout {
-    width: 30px;
-    height: 40px;
-    border: none;
-    background-size: contain;
-    background-image: url("/images/icons/logout2.png");
-    background-repeat: no-repeat;
-}
-
-.login {
-    width: 30px;
-    height: 40px;
-    border: none;
-    background-size: contain;
-    background-image: url("/images/icons/login.png");
-    background-repeat: no-repeat;
-}
 
 .main {
     padding: 30px 30px;
 }
 
-#profile {
-    width: 23px;
-    height: 30px;
-    border: none;
-    background-size: contain;
-    background-image: url("/images/icons/user.png");
-    background-repeat: no-repeat;
+
+.fas,.far {
+    color: dimgrey;
 }
 
-.profile-main ul {
-    width: 100%;
-}
 
-.profile-main li {
-    text-decoration: none;
-    padding: 20px 40px;
-    color: #0f0f0f;
-}
-
-.profile-main li a:hover {
-    color: grey;
-}
-
-.invisible-input,
-#admin-order-books {
+.invisible-input {
     display: none;
 }
 
@@ -152,21 +125,7 @@ html {
     width: 100%;
 }
 
-.profile-main aside {
-    position: fixed;
-    background-color: #Ae9678;
-    top: 0;
-    left: 0;
-    height: 100%;
-}
 
-#profile-msg {
-    width: 30px;
-    border: none;
-    background-size: cover;
-    background-image: url("/images/icons/msg.png");
-    background-repeat: no-repeat;
-}
 
 .to-be-amended {
     display: none;
@@ -181,8 +140,13 @@ html {
     background-repeat: no-repeat;
 }
 
-.clicked {
+#delete-from-wl {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-size: cover;
     background-image: url("/images/icons/heart-black.png");
+    background-repeat: no-repeat;
 }
 
 #eng{
@@ -195,78 +159,143 @@ html {
     background-size: cover;
 }
 
+
+.header-header,
+.profile-header {
+    top: 0;
+    position: sticky;
+    left: 0;
+    width: 100%;
+    background: #FFFFFF;
+    z-index: 5;
+}
+
+.profile-main {
+    padding: 20px;
+}
+.fa-btn {
+    background: transparent;
+    border: none;
+}
+
+.profile-main h1 {
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-bottom: solid 1px lightgrey;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+#prof-orders table {
+    margin-left: 20px;
+    padding: 20px;
+}
+
+#prof-personal button {
+    margin: 20px 20px 20px auto;
+}
+
+.profile-info,
+#save-profile,
+#edit-profile-btn {
+    margin-left: 35%;
+    align-items: normal;
+    padding: 0 20px;
+}
+
+#save-profile {
+    display:none;
+}
+
 .nav {
-    border-bottom:1px solid  rgb(220, 220, 220);
+    border-top: 1px solid rgb(220, 220, 220);
+    border-bottom:1px solid rgb(220, 220, 220);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.nav-menu {
-    margin-left: 0;
-    position: relative;
+.nav-menu *{
+    margin: 0;
+    padding: 0;
 }
 
-#drop-down-categories {
-    position: absolute;
-    top: calc(100% + 0.75rem);
-    background-color: white;
-    padding: 0.75rem;
-    border-radius: 0.25rem;
-    display: none;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
-    pointer-events: none;
-    transform: translateY(-10px);
-    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+.nav-menu ul {
+    list-style: none;
 }
 
-.drop-down-categories ul li {
-    text-decoration: none;
-    line-height: 20px;
-    heigth: 20px;
+.nav-menu > ul,
+.nav-container,
+.profile-bar,
+.signup-main,
+.form-container,
+.edit-main,
+.btns,
+.cart-wl {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-menu > ul li a,
+.nav-menu > ul li button {
+    display: block;
+    background: #FFFFFF;
+    padding: 15px 30px 15px 40px;
     color: #24575c;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+.nav-menu > ul li {
+    position: relative;
+    border-right: 1px solid #c7c8c8;
 }
 
-.drop-down-categories ul li:hover {
-    background-color: #24575c;
+.nav-menu > ul li:first-child {
+    border-left: 1px solid #b3b3b3;
+}
+
+.nav-menu > ul li:last-child {
+    border-right: 1px solid #b3b3b3;
+}
+
+.nav-menu li a:hover,
+.nav-menu li button:hover{
+    background: #24575c;
     color: white;
+    transition: all 0.3s ease;
 }
 
-.nav-menu li {
-    padding: 15px 20px;
-    width: 160px;
-    display: inline;
-    border-right: 1px solid rgb(190, 190, 190);
-}
-
-.nav-menu a:hover,
-.nav-menu a:active {
-    color: #935e39;
-}
-
-.nav-menu ul li a {
+.nav-menu ul li a,
+.nav-menu ul li a{
     text-decoration: none;
     color: #585858;
     font-size: 18px;
     text-transform: uppercase;
-
 }
 
-.logo {
-    height: 150px;
-    border-bottom: 2px solid grey;
+.nav-menu li ul {
+    position: absolute;
+    min-width: 150px;
+    display: none;
 }
 
-.logo p {
-    text-align: center;
-    top: 40%;
+.nav-menu li > ul li {
+    border: 1px solid #c7c8ca;
 }
 
-.logo a {
-    font-family: 'Cutive Mono', monospace;
-    font-size: 42px;
-    color: slategray;
+.nav-menu li > ul li a {
+    padding: 7px;
+    text-transform: none;
+    background: #FFFFFF;
+    font-size: 12px;
 }
+
+.nav-menu li:hover > ul {
+    display: block;
+}
+
+
 
 #login-background {
     top: 0;
@@ -276,7 +305,7 @@ html {
     display: none;
     width: 100%;
     height: 100%;
-    background-color: #808080;
+    background-color: #FFFFFF;
     opacity: 70%;
     z-index: 5;
 }
@@ -287,87 +316,14 @@ html {
     height: 100%;
 }
 
-
-#login-form {
-    max-width: 300px;
+.authors-item {
     padding: 10px;
-    background-color: white;
-    z-index:10;
-    display: none;
-    position:fixed;
-    top:10%;
-    left:42%;
 }
 
-#login-form input.msg-section,
-#login-page input.msg-section {
-    padding: 15px;
-    width: 100%;
-    border: none;
-    margin: 5px 0 22px 0;
-    background: #f1f1f1;
-}
-
-#login-form input,
-#login-page input {
-    width: 100%;
-    padding: 10px;
-    background-color: #ddd;
-    margin-bottom: 10px;
-}
-
-#login-form .btn,
-#login-page .btn {
-    background-color: #04AA6D;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
-}
-
-#login-form h1,
-#login-page h1 {
-    font-size: 18px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-#login-form .cancel,
-#login-page .cancel {
-    background-color: red;
-}
-
-#login-form .btn:hover, .open-button:hover,
-#login-page .btn:hover, .open-button:hover {
-    opacity: 1;
-}
-
-#login-page {
-    width: 300px;
-    padding: 10px;
-    background-color: white;
-    display: block;
-    top:10%;
-    left:42%;
-}
-
-#book {
+#book,
+#author {
     margin: 30px 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .search {
     display: inline-block;
@@ -389,27 +345,51 @@ html {
     border: 2px solid black;
 }
 
-.cart {
-    background: url("/images/icons/cart.png") no-repeat;
-    background-size: cover;
-    width: 35px;
-    height: 35px;
-    border: none;
+.authors-search {
+    border-bottom: #Ae9678 1px solid;
+}
+
+#cart-table {
+    border-collapse: collapse;
+    padding: 40px 20px;
+    width: 100%;
+}
+
+.fa-plus-square {
+    position: relative;
+    top: unset;
+    right: unset;
+    visibility: visible;
 }
 
 #cart-table td {
-    border: 1px solid silver;
+    padding: 20px 40px;
+}
+
+#cart-table tr {
+    border-bottom: #24575c 1px solid;
 }
 
 .wish-list {
-    background: url("/images/icons/heart-black.png") no-repeat;
-    background-size: cover;
-    width: 25px;
-    height: 25px;
-    border: none;
+    margin-left: 20px;
 }
 
+#for-signed-user {
+    display: inline-block;
+}
 
+.btn-container,
+#author {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 40px;
+    padding: 30px;
+}
+
+.profile-order-items {
+    display: inline-block;
+    margin-left: 30px;
+}
 
 .back {
     padding-bottom: 10px;
@@ -446,10 +426,13 @@ html {
 
 h1 {
     size: 1.5em;
-    color: black;
+    color: #24575c;
+    font-weight: bold;
     text-transform: uppercase;
-    padding-bottom: 10px;
+    padding: 15px 20px;
 }
+
+
 
 h2 {
     size: 1.2em;
@@ -470,8 +453,30 @@ h3 {
     font-size: 48px;
 }
 
+input[type=text],
+#card {
+border: 1px solid slategrey;
+border-radius: 4px;
+font-family: inherit;
+font-size: 12px;
+width: 100%;
+padding: 7px;
+}
+
+.profile-main input[type=text],
+.profile-main input[type=password],
+#card {
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+#prof-cards form,
+#prof-address form {
+    margin-bottom: 20px;
+}
+
 .admin-table {
-    width: 100%;
+    margin: 20px;
     border-collapse: collapse;
 }
 
@@ -482,24 +487,17 @@ h3 {
 }
 
 .admin-table tr {
-    background-color: #f7fbfc;
+    background-color: white;
 }
 
 .admin-table tr:nth-child(even){
-    background-color: white;}
+    background-color: #f7fbfc;
+}
 
 .admin-table th {
     text-align: left;
     background-color: #5ab6bf;
     color: #24575c;
-}
-
-.admin-menu-btn {
-    background-color: transparent;
-    border: none;
-    color: #24575c;
-    letter-spacing: 2px;
-    text-transform: uppercase;
 }
 
 .admin-title {
@@ -511,6 +509,7 @@ h3 {
 
 .admin-filter {
     width: 150px;
+    margin: 30px auto;
 }
 
 .edit-info,
@@ -529,8 +528,11 @@ h3 {
     margin-top: 20px;
 }
 
-
-
+.title {
+    text-transform: uppercase;
+    font-size: 22px;
+    padding: 20px 0;
+}
 
 .td-image {
     width:100px;
@@ -542,123 +544,30 @@ h3 {
     color: #934139;
     font-size: 16px;
     max-width: 300px;
-    padding-top: 100px;
 }
 
 h2 {
     margin-bottom: 5px;
 }
-.signup-main,
-.form-container,
-.edit-main,
-.profile-main,
-.btns {
-    display: flex;
-    justify-content: space-between;
+
+
+.cart-wl > a {
+    margin-right: 20px;
 }
 
-.signup-container {
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px black;
-    width: 400px;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-.signup-header {
-    background-color: rgb(215, 215, 215);
-    border-bottom:  1px solid #f0f0f0;
-    padding: 20px 40px;
-}
-
-.signup-header h3 {
-    margin: 0;
-}
-
-.signup-form {
-    padding: 30px 40px;
-    background-color: #f7f7f7;
-}
-
-.form-control {
-    margin-bottom: 8px;
-    padding-bottom: 15px;
-    position: relative;
-}
-.form-control.success input {
-    border-color: #2ecc71;
-}
-
-.form-control.error input {
-    border-color: #e74c3c;
-}
-
-.form-control.success i.fas-fa-check-circle {
-    visibility: visible;
-    color: #2ecc71;
-}
-
-.form-control.success i.fas-fa-check-exclamation-circle {
-    visibility: visible;
-    color: #e74c3c;
-}
-
-.form-control.error small {
-    visibility: visible;
-    color: #e74c3c;
-    font-size: 10px;
-}
-
-.form-control label {
-    display: inline-block;
-    margin-bottom: 5px;
-}
-
-.form-control input {
-    border: 2px solid #0f0f0f;
-    border-radius: 4px;
-    display: block;
-    font-family: inherit;
-    font-size: 12px;
-    width: 100%;
-    padding: 7px;
-}
-
-.form-control i {
-    position: absolute;
-    top: 40px;
-    right: 10px;
-    visibility: hidden;
-}
-
-.form-control small {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    visibility: hidden;
-}
-
-.signup-form button {
-    background-color: red;
-    border: 2px solid red;
-    color: white;
-    display: block;
-    padding: 5px;
-    font-size: 14px;
-    font-family: inherit;
-    width: 100%;
-}
 
 .decline,
-#decline{
+#decline {
     background-color: tomato;
 }
 
 .accept,
-#accept{
+#accept,
+#save-profile,
+#save-pass {
     background-color: #04AA6D;
 }
+
 .msg-div {
     font-size: 16px;
     color: #934139;
@@ -675,28 +584,24 @@ h2 {
     width: 250px;
 }
 
-.profile-info {
-    padding: 20px 20px;
-}
-
 #pass-changed {
     color: red;
     font-size: 16px;
 }
 
-.prof-container section {
-    padding: 20px;
-    border-bottom: 1px solid #24575c;
-}
-
 /*index*/
 #ads {
-    background-image: url("/images/img/shelf.jpg");
+    background-image: url("/images/img/jamie.jpg");
     background-size: cover;
     height: 350px;
 }
+.index-main {
+    position: relative;
+    margin: 0 auto;
+}
 
-#index-books{
+#index-books,
+#authors {
     padding: 40px 30px;
     display: flex;
     flex-wrap: wrap;
@@ -714,7 +619,7 @@ h2 {
 .index-book {
     width: 170px;
     padding-bottom: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 h3 {
@@ -792,18 +697,40 @@ button {
 .btn {
     text-decoration: none;
     text-transform: uppercase;
-    width: 120px;
+    min-width: 120px;
+    max-width: 300px;
+    padding-left: 15px;
+    padding-right: 15px;
     height: 35px;
     line-height: 35px;
     color: white;
-    margin-top: 20px;
+    border-radius: 4px;
+}
+
+.add-book > a > div,
+.back > a {
+    max-width: 170px;
+    margin: 20px auto 20px 20px;
+    text-align: center;
 }
 
 .btn:hover,
 .btn:active {
     font-weight: bold;
+    cursor: pointer;
 }
 
+.fa-minus-circle {
+    color: tomato;
+}
+
+#total-cost {
+    padding: 15px 20px;
+    background: #24575c;
+    color: white;
+    text-transform: uppercase;
+    font-size: 16px;
+}
 #view-cart {
     background-color: #679186;
     margin-right: 40px;
@@ -812,6 +739,8 @@ button {
 .checkout-main {
     position: relative;
     padding: 20px;
+    background: #AE9678;
+    margin-left: 20px;
 }
 
 #checkout {
@@ -842,9 +771,6 @@ button {
     padding: 20px;
     text-align: left;
 }
-
-
-
 
 .footer {
     background-color: #24575c;

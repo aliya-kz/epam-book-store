@@ -12,10 +12,6 @@ public class WishList extends Entity{
         books = new ArrayList<>();
     }
 
-    public WishList(int id) {
-        this.id = id;
-    }
-
     public List<Book> getBooks() {
         return books;
     }

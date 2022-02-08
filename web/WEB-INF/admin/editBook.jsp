@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,9 +55,7 @@
 <fmt:message bundle="${content}" key="CANT_CHANGE" var="cant_change"/>
 <fmt:message bundle="${content}" key="BACK" var="back"/>
 
-<div class = "back">
-    <a href = "/admin-books"><c:out value="${back}"/></a>
-</div>
+    <a href = "/admin-books"><div class = "back"><p><c:out value="${back}"/></p></div></a>
 
 <main class="edit-main">
     <section class="edit-info">
@@ -142,7 +139,7 @@
                 <tr>
                     <td><c:out value="${descr}"/> </td>
                     <td><c:out value="${book.description}"/></td>
-                    <td><textarea type="text" name ="new_description" placeholder="" width="220px" rows="20"></textarea></td>
+                    <td><textarea name ="new_description" placeholder=""  rows="20"></textarea></td>
                 </tr>
 
             </table>
@@ -155,10 +152,10 @@
     <section class="edit-image">
         <form action = "/image-servlet?uri=<%=request.getRequestURI()%>&id=${book.id}&table=book_covers"
               method="post" enctype="multipart/form-data">
-            <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt="author" width="220px"/></a></td>
+            <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt="author" width="220px"/>
 
             <c:out value="${update_image}"/>
-            <input type="file" name="file" required/></td>
+            <input type="file" name="file" required/>
             <input type="hidden" name="uri" value="${uri}">
             <input type="hidden" name="service_name" value="edit_image">
             <input class = "accept" id="save" type="submit" class="submit-btn" value = "${save}"/>

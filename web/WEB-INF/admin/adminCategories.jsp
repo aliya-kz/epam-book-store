@@ -29,12 +29,11 @@
 <main class="admin-main">
 
     <section class="admin-filter">
-        <h1><c:out value = "${search}"/></h1>
-        <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-categories')"/>
+        <input class="search-input" type="text" id="search-text" placeholder="${search}"  onkeyup="tableSearch('admin-categories')"/>
     </section>
 
     <section>
-        <h3> <c:out value = "${add_new_cat}"/> </h3>
+        <h1> <c:out value = "${add_new_cat}"/> </h1>
             <form action = "<%= request.getContextPath()%>/controller" method = "post">
             <table class="admin-table">
                 <th>ID</th>
@@ -50,7 +49,7 @@
                          </c:forEach>
                     </select></td>
                     <td><input type="hidden" name="service_name" value="add_new_category">
-                        <input type="submit" class="submit-btn" value = "${add_cat}"> </td>
+                        <input type="submit" class="btn" id="accept" value = "${add_cat}"> </td>
                 </tr>
             </table>
         </form>

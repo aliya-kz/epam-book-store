@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8"  %>
 <html>
 <head>
+    <script src="https://kit.fontawesome.com/d45bb5fe4a.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
@@ -25,36 +26,40 @@
 <fmt:message bundle="${content}" key="MESSAGES" var="messages" />
 <fmt:message bundle="${content}" key="AUTHORS" var="authors" />
 <fmt:message bundle="${content}" key="ANALYTICS" var="analytics" />
-<header class = "header">
+<header class = "header-header">
     <div class="bar">
-        <ul class="bar-list">
-            <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
-                <input type = "hidden" name = "locale" value ="en_US"/>
-                <input class="lang" id="eng" type="submit" name="service_name" value="change_language"/> </form></li>
-            <li> <form action = "<%=request.getContextPath()%>/controller" method = "post">
-                <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
-                <input type = "hidden" name = "locale" value = "ru_RU"/>
-                <input class="lang" id="rus" type="submit" name="service_name" value="change_language"/></form></li>
-            <li class="logout"> <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                <input type="hidden" name="service_name" value="log_out"/>
-                <button class="logout" ></button></form></li>
-        </ul>
+    <ul class="bar-list">
+        <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
+            <input type = "hidden" name = "locale" value = "en_US"/>
+            <input type = "hidden" name = "uri" value="<%=request.getRequestURI()%>"/>
+            <input class="lang" id = "eng" type="submit" name = "service_name" value = "change_language"/> </form></li>
+        <li> <form action = "<%= request.getContextPath()%>/controller" method = "post">
+            <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
+            <input type = "hidden" name = "locale" value="ru_RU"/>
+            <input class="lang" id ="rus" type = "submit" name = "service_name" value = "change_language"/></form></li>
+        <li>
+            <form action = "<%= request.getContextPath()%>/controller" method = "post">
+                <button class="fa-btn" name="service_name" value="log_out">
+                    <i class="fas fa-sign-out-alt fa-lg"></i></button></form>
+        </li>
+    </ul>
     </div>
-    </header>
+
 <form action = "<%=request.getContextPath()%>/controller" method = "post">
-    <nav class="nav">
-        <ul class="nav-menu">
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_books"><c:out value="${books}"/> </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_categories"><c:out value="${categories}"/> </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_users"><c:out value="${users}"/>  </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_orders"><c:out value="${ords}"/>  </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_authors"><c:out value="${authors}"/>  </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_all_messages"><c:out value="${messages}"/>  </button></li>
-            <li> <button class="admin-menu-btn" name="service_name" value="get_analytics"><c:out value="${analytics}"/>  </button></li>
+    <div class="nav-container">
+    <nav class="nav-menu">
+        <ul>
+            <li> <button name="service_name" value="get_all_books"><c:out value="${books}"/> </button></li>
+            <li> <button name="service_name" value="get_all_categories"><c:out value="${categories}"/> </button></li>
+            <li> <button name="service_name" value="get_all_users"><c:out value="${users}"/>  </button></li>
+            <li> <button name="service_name" value="get_all_orders"><c:out value="${ords}"/>  </button></li>
+            <li> <button name="service_name" value="get_all_authors"><c:out value="${authors}"/>  </button></li>
+            <li> <button name="service_name" value="get_all_messages"><c:out value="${messages}"/>  </button></li>
+            <li> <button name="service_name" value="get_analytics"><c:out value="${analytics}"/>  </button></li>
         </ul>
     </nav>
+    </div>
 </form>
-    </header>
+</header>
 </body>
 </html>

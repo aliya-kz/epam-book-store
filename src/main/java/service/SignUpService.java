@@ -1,8 +1,8 @@
 package service;
 
 import DAO.CartDao;
-import DAO.SqlDaoFactory;
 import DAO.UserDao;
+import DAO.impl.CartDaoImpl;
 import DAO.impl.UserDaoImpl;
 import entity.*;
 
@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpService implements Service {
-    private UserDao userDao = SqlDaoFactory.getInstance().getUserDao();
-    private CartDao cartDao = SqlDaoFactory.getInstance().getCartDao();
+    private UserDao userDao = new UserDaoImpl();
+    private CartDao cartDao = new CartDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

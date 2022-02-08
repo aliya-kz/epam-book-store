@@ -55,4 +55,9 @@ public class CardDaoImpl implements CardDao {
         }
         return result;
     }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        return 0;
+    }
 }

@@ -2,7 +2,8 @@ package service;
 
 import DAO.CartDao;
 import DAO.OrderDao;
-import DAO.SqlDaoFactory;
+import DAO.impl.CartDaoImpl;
+import DAO.impl.OrderDaoImpl;
 import entity.Address;
 import entity.Cart;
 import entity.Order;
@@ -18,8 +19,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class CreateOrderService implements Service {
-    CartDao cartDao = SqlDaoFactory.getInstance().getCartDao();
-    OrderDao orderDao = SqlDaoFactory.getInstance().getOrderDao();
+    CartDao cartDao = new CartDaoImpl();
+    OrderDao orderDao = new OrderDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
@@ -45,10 +46,10 @@ public class CreateOrderService implements Service {
         if (result > 0) {
             List<Order> orders = orderDao.getOrdersByUserId(user.getId());
             session.setAttribute("myOrders", orders);
-            cartDao.deleteEntity(user.getId());
+            cartDao.deleteById(user.getId());
             cart = new Cart();
             session.setAttribute("cart", cart);
-            dispatcher = request.getRequestDispatcher("/WEB-INF/view/profile.jsp#prof-orders?msg=success");
+            dispatcher = request.getRequestDispatcher("/WEB-INF/view/userProfile.jsp#prof-orders");
         } else {
             dispatcher = request.getRequestDispatcher(uri + "?msg=error");
         }

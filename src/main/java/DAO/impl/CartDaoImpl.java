@@ -6,15 +6,13 @@ import entity.Book;
 import entity.Cart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 
 public class CartDaoImpl implements CartDao {
 
@@ -56,7 +54,7 @@ public class CartDaoImpl implements CartDao {
     }
 
 
-    public int deleteFromCart(int bookId, int userId) {
+    public int deleteFromTable(int bookId, int userId) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
@@ -64,25 +62,6 @@ public class CartDaoImpl implements CartDao {
             PreparedStatement statement = connection.prepareStatement(DELETE_FROM_CART);
             statement.setInt(1, bookId);
             statement.setInt(2, userId);
-            result = statement.executeUpdate();
-            close(statement);
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.info(e);
-        } finally {
-            connectionPool.returnConnection(connection);
-        }
-        return result;
-    }
-
-    @Override
-    public int deleteEntity(int userId) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        try {
-            PreparedStatement statement = connection.prepareStatement(DELETE_CART);
-            statement.setInt(1, userId);
             result = statement.executeUpdate();
             close(statement);
         } catch (Exception e) {
@@ -149,6 +128,30 @@ public class CartDaoImpl implements CartDao {
             connectionPool.returnConnection(connection);
         }
         return result;
+    }
+
+    @Override
+    public int deleteById(int id) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.takeConnection();
+        int result = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement(DELETE_CART);
+            statement.setInt(1, id);
+            result = statement.executeUpdate();
+            close(statement);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.info(e);
+        } finally {
+            connectionPool.returnConnection(connection);
+        }
+        return result;
+    }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        return 0;
     }
 
     @Override

@@ -42,7 +42,7 @@ public class WishListDaoImpl implements WishListDao {
     }
 
     @Override
-    public int deleteFromWishList(int userId, int bookId) {
+    public int deleteFromTable(int userId, int bookId) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         PreparedStatement statement = null;
@@ -63,7 +63,8 @@ public class WishListDaoImpl implements WishListDao {
 
     @Override
     public WishList getWishList(int userId) {
-        WishList wishList = new WishList(userId);
+        WishList wishList = new WishList();
+        wishList.setUserId(userId);
         List<Book> books = new ArrayList<>();
         wishList.setBooks(books);
         Connection connection = connectionPool.takeConnection();
@@ -84,6 +85,16 @@ public class WishListDaoImpl implements WishListDao {
             connectionPool.returnConnection(connection);
         }
         return wishList;
+    }
+
+    @Override
+    public int deleteById(int id) {
+        return 0;
+    }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        return 0;
     }
 
     @Override

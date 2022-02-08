@@ -5,7 +5,6 @@ import DAO.db_connection.ConnectionPool;
 import com.lambdaworks.crypto.SCryptUtil;
 import entity.Address;
 import entity.Card;
-import entity.Category;
 import entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,6 +45,16 @@ public class UserDaoImpl implements UserDao {
     PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
 
     @Override
+    public int deleteById(int id) {
+        return 0;
+    }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        return 0;
+    }
+
+    @Override
     public int addEntity (User user) {
         Connection connection = connectionPool.takeConnection();
         int id = -1;
@@ -69,12 +78,12 @@ public class UserDaoImpl implements UserDao {
                 id = resultSet.getInt("id");
             }
             List <Address> addresses = user.getAddresses();
-            AddressDao addressDao = SqlDaoFactory.getInstance().getAddressDao();
+            AddressDao addressDao = new AddressDaoImpl();
             Address address = addresses.get(0);
             address.setUserId(id);
             addressDao.addEntity(address);
             List <Card > cards = user.getCards();
-            CardDao cardDao = SqlDaoFactory.getInstance().getCardDao();
+            CardDao cardDao = new CardDaoImpl();
             Card card = cards.get(0);
             card.setUserId(id);
             cardDao.addEntity(card);
@@ -260,40 +269,37 @@ public class UserDaoImpl implements UserDao {
 
     public int changePassword(int id, String oldPass, String newPass) {
         int result = 0;
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        PreparedStatement statement1 = null;
-        try { statement = connection.prepareStatement(SELECT_PASS);
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                String sqlPassword = resultSet.getString("password");
-                if (SCryptUtil.check(sqlPassword, oldPass)) {
-                    String newEncrPass = PasswordEncrypter.encrypt(newPass);
-
-                    statement1 = connection.prepareStatement(UPDATE_PASSWORD_SQL);
-                    statement1.setString(1, newEncrPass);
-                    statement1.setInt(2, id);
-                    result = statement1.executeUpdate();
+            Connection connection = connectionPool.takeConnection();
+            PreparedStatement statement = null;
+            PreparedStatement statement1 = null;
+            try {
+                statement = connection.prepareStatement(SELECT_PASS);
+                statement.setInt(1, id);
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    String sqlPass = resultSet.getString("password");
+                    boolean pasCorrect = SCryptUtil.check(oldPass, sqlPass);
+                    if (pasCorrect) {
+                        String newEncrPas = PasswordEncrypter.encrypt(newPass);
+                        statement1 = connection.prepareStatement(UPDATE_PASSWORD_SQL);
+                        statement1.setInt(2, id);
+                        statement1.setString(1, newEncrPas);
+                        result = statement1.executeUpdate();
+                    }
                 }
+            } catch (SQLException e) {
+                LOGGER.info(e);
+                e.printStackTrace();
+            } finally {
+                close(statement);
+                connectionPool.returnConnection(connection);
             }
-            result= statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(statement);
-            connectionPool.returnConnection(connection);
-        }
         return result;
     }
 
     public static void main (String [] args) {
-        UserDaoImpl impl = new UserDaoImpl();
-        System.out.println(impl.isAdmin("qqqqqqa2aaaaaaa@ss"));
-        Locale locale = new Locale ("ru");
-        ResourceBundle bundle = ResourceBundle.getBundle("content", locale);
-        System.out.println("log in  + " + bundle.getString(  "LOG_IN"));
+        UserDaoImpl dao= new UserDaoImpl();
+        System.out.println(dao.changePassword(70, "12345", "1234"));
     }
 
 }

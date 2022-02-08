@@ -67,4 +67,9 @@ public class LanguageDaoImpl implements LanguageDao {
     public int deleteById(int id) {
         return 0;
     }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        return 0;
+    }
 }

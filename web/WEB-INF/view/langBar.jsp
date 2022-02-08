@@ -4,11 +4,13 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <script src="https://kit.fontawesome.com/d45bb5fe4a.js" crossorigin="anonymous"></script>
     <title>lang bar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
@@ -40,35 +42,34 @@
             <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
             <input type = "hidden" name = "locale" value="ru_RU"/>
             <input class="lang" id ="rus" type = "submit" name = "service_name" value = "change_language"/></form></li>
-
+        <li id="for-signed-user">
         <c:choose>
             <c:when test="${empty user}">
-                <button class="login" onclick="openForm('login-form')"></button>
+                <button class="fa-btn" onclick="openForm('login-form')"><i class="fas fa-user fa-lg"></i></button>
             </c:when>
             <c:otherwise>
-                <form action = "<%= request.getContextPath()%>/controller" method = "post">
-                    <input type="hidden" name="service_name" value="log_out"/>
-                    <button class="logout" ></button></form>
+                <a href="/profile"><i class="fas fa-user fa-lg"></i></a>
             </c:otherwise>
         </c:choose>
         </li>
         <c:if test="${not empty user}">
-            <li>
-                <a href="/profile"><div id="profile"></div></a>
-            </li>
+        <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
+            <button class="fa-btn" name="service_name" value="log_out"><i class="fas fa-sign-out-alt fa-lg"></i></button></form></li>
         </c:if>
     </ul>
 </div>
 
+<a href="/index"><div class = "logo">The Reader</div></a>
+
 <form id = "login-form" action = "<%= request.getContextPath()%>/controller" method = "post">
     <h1> <c:out value="${log_in}"/> </h1>
     <label for="email"><c:out value="${email}"/></label>
-    <input id = "email" type = "email" name = "email" placeholder="${enter_email}" required/></br>
+    <input id = "email" type = "email" name = "email" placeholder="${enter_email}" required/><br>
     <label for="password"><c:out value="${password}"/></label>
-    <input id = "password" type = "password" name = "password" placeholder="${enter_password}" required/></br>
+    <input id = "password" type = "password" name = "password" placeholder="${enter_password}" required/><br>
     <input type="hidden" name="service_name" value="log_in">
     <input type = "submit" class = "btn" value="${log_in}">
-    <button type="button" class="btn cancel" onclick="closeForm('login-form')">Close</button>
+    <button type="button" class="btn cancel" onclick="closeForm('login-form')" >Close</button>
     <h2><c:out value="${forgot_pass}"/> </h2>
     <h2><c:out value="${for_new_user}"/> </h2>
     <a href="/signup"> <c:out value="${sign_up}"/> </a>

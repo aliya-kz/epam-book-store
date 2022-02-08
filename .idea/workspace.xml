@@ -13,20 +13,100 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/lib/scrypt-1.4.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/entity/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/DeleteEntityAdmin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/SearchService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/lib/log4j-api-2.17.1 (1).jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/lib/log4j-core-2.17.1 (1).jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/view/userProfile.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/css/formStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/images/img/jamie.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/demo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AuthorDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/AuthorDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BaseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BookDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BookDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/CartDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/CartDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/FormatDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/FormatDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/SqlDaoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/SqlDaoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/WishListDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/WishListDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/AddressDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/AddressDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/AuthorDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/AuthorDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/CardDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/CardDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/CartDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/CartDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/CategoryDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/CategoryDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/FormatDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/FormatDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/LanguageDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/LanguageDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/StatusDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/StatusDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/WishListDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/WishListDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entity/WishList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/WishList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/passwordEncr/PasswordEncrypter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/passwordEncr/PasswordEncrypter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddAddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddAddressService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddCardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddCardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddNewAuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddNewAuthorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddNewBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddNewBookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddNewCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddNewCategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddToWishListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddToWishListService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChangeLanguageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ChangeLanguageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChangePasswordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ChangePasswordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/CreateOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CreateOrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/DeleteEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/DeleteEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditAuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditAuthorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditBookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/GetAllAuthorsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/GetAllAuthorsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ServiceFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ServiceFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/UpdateQuantityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UpdateQuantityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/UpdateStatusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UpdateStatusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/WelcomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/WelcomeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/addBook.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/addBook.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminBooks.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminBooks.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminHeader.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminHeader.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminMessages.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminMessages.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminOrders.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminUsers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminUsers.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/welcomeAdmin.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/lib/log4j-api-2.13.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/lib/log4j-core-2.13.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/author.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/author.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/authors.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/authors.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/book.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/book.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/books.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/books.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/checkout.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/langBar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/langBar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/messages.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/messages.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/profile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/wishlist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/wishlist.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/icons/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/img/logo.ai" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/validation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +116,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="Interface" />
+        <option value="Jsp File" />
         <option value="Class" />
       </list>
     </option>
@@ -52,6 +132,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/web/WEB-INF/view/userProfile.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_INSPECTION" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -92,10 +175,10 @@
       <recent name="D:\demo\web" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\demo\web\images\img" />
       <recent name="D:\demo\web\WEB-INF\lib" />
       <recent name="D:\demo\web\images\icons" />
       <recent name="D:\demo\web\WEB-INF\view" />
-      <recent name="D:\demo\web\images\img" />
       <recent name="D:\demo\web\images" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -103,6 +186,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 8">
+    <configuration name="AddressDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAO.impl.AddressDaoImpl" />
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DAO.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AuthorDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAO.impl.AuthorDaoImpl" />
       <module name="demo" />
@@ -116,47 +212,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BookDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAO.impl.BookDaoImpl" />
-      <module name="demo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DAO.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CartDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAO.impl.CartDaoImpl" />
-      <module name="demo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DAO.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FormatDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAO.impl.FormatDaoImpl" />
-      <module name="demo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DAO.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="OrderDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAO.impl.OrderDaoImpl" />
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DAO.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAO.impl.UserDaoImpl" />
       <module name="demo" />
       <extension name="coverage">
         <pattern>
@@ -255,13 +325,52 @@
         </option>
       </method>
     </configuration>
+    <configuration name="book.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/WEB-INF/view/book.jsp" />
+      <deployment>
+        <artifact name="demo:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/demo_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="2b06a093-fffd-40c3-bd10-5e1d3bc1d458" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="demo:war exploded" />
+        </option>
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.UserDaoImpl" />
+        <item itemvalue="Tomcat Server.book.jsp" />
+        <item itemvalue="Application.AddressDaoImpl" />
         <item itemvalue="Application.AuthorDaoImpl" />
         <item itemvalue="Application.OrderDaoImpl" />
-        <item itemvalue="Application.CartDaoImpl" />
-        <item itemvalue="Application.FormatDaoImpl" />
-        <item itemvalue="Application.BookDaoImpl" />
       </list>
     </recent_temporary>
   </component>
@@ -301,7 +410,12 @@
       <workItem from="1643964856749" duration="8040000" />
       <workItem from="1643984841247" duration="4882000" />
       <workItem from="1644034809185" duration="27056000" />
-      <workItem from="1644083259515" duration="6708000" />
+      <workItem from="1644083259515" duration="7731000" />
+      <workItem from="1644127879775" duration="20012000" />
+      <workItem from="1644167161212" duration="8237000" />
+      <workItem from="1644201714131" duration="35771000" />
+      <workItem from="1644298953778" duration="26524000" />
+      <workItem from="1644328951655" duration="16683000" />
     </task>
     <servers />
   </component>
@@ -324,59 +438,31 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp</url>
-          <line>35</line>
+          <line>34</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp</url>
-          <line>47</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/web/WEB-INF/view/book.jsp</url>
-          <line>19</line>
+          <line>20</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java</url>
-          <line>263</line>
-          <properties class="DAO.impl.UserDaoImpl" method="changePassword">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java</url>
-          <line>88</line>
-          <properties class="DAO.impl.OrderDaoImpl" method="getAll">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java</url>
-          <line>46</line>
-          <properties class="DAO.impl.OrderDaoImpl" method="addEntity">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/DAO/BaseDao.java</url>
-          <line>142</line>
+          <line>108</line>
           <properties class="DAO.BaseDao" method="close">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web/js/script.js</url>
-          <line>61</line>
-          <option name="timeStamp" value="12" />
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java</url>
+          <line>184</line>
+          <properties class="DAO.impl.OrderDaoImpl" method="getOrdersByUserId">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />

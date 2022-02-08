@@ -51,7 +51,7 @@
                      </select></td>
                      <td><input type="file" name="file" required/></td>
                      <td><input type="hidden" name="service_name" value="add_new_author">
-                         <input type="submit" class="submit-btn" value = "${add_author}"> </td>
+                         <input type="submit" class="btn accept" value = "${add_author}"> </td>
                  </tr>
             </table>
         </form>
@@ -79,15 +79,14 @@
                         </c:forEach>
                     </select></td>
                     <td><input type="hidden" name="service_name" value="add_new_author">
-                        <input type="submit" class="submit-btn" value = "${add_translation}"> </td>
+                        <input type="submit" class="btn accept" value = "${add_translation}"> </td>
                 </form>
             </tr>
         </table>
     </section>
 
     <section class="admin-filter">
-        <h1><c:out value="${search}"/></h1>
-        <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-authors')">
+        <input class="search-input" type="text" id="search-text" placeholder="${search}" onkeyup="tableSearch('admin-authors')">
     </section>
 
     <section class="all-entities">

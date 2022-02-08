@@ -3,7 +3,6 @@ package DAO.impl;
 import DAO.CategoryDao;
 import DAO.db_connection.ConnectionPool;
 import entity.Category;
-import entity.Order;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -93,14 +92,34 @@ public class CategoryDaoImpl implements CategoryDao {
     public int deleteById(int id) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
-        PreparedStatement statement = null;
+        //PreparedStatement statement = null;
         PreparedStatement statement1 = null;
         try {
-            statement = connection.prepareStatement(DELETE_CATEGORIES_LANG);
+            /*statement = connection.prepareStatement(DELETE_CATEGORIES_LANG);
             statement.setInt(1, id);
             result = statement.executeUpdate();
-
+*/
             statement1 = connection.prepareStatement(DELETE_CATEGORIES);
+            statement1.setInt(1, id);
+            result = statement1.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.info(e);
+        } finally {
+            //close(statement);
+            close(statement1);
+            connectionPool.returnConnection(connection);
+        }
+        return result;
+    }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        Connection connection = connectionPool.takeConnection();
+        int result = 0;
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(DELETE_CATEGORIES_LANG);
             statement.setInt(1, id);
             result = statement.executeUpdate();
         } catch (Exception e) {
@@ -108,7 +127,6 @@ public class CategoryDaoImpl implements CategoryDao {
             LOGGER.info(e);
         } finally {
             close(statement);
-            close(statement1);
             connectionPool.returnConnection(connection);
         }
         return result;

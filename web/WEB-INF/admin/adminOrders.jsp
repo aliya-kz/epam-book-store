@@ -27,11 +27,11 @@
 <fmt:message bundle="${content}" key="SAVE" var="save"/>
 <fmt:message bundle="${content}" key="CLOSE" var="close"/>
 <fmt:message bundle="${content}" key="EDIT" var="edit"/>
+<fmt:message bundle="${content}" key="SEARCH" var="search"/>
 
 
 <section class="admin-filter">
-    <h1><c:out value="${search}"/> </h1>
-    <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-orders')">
+    <input class="search-input" type="text" id="search-text" placeholder="${search}" onkeyup="tableSearch('admin-orders')">
 </section>
 
 <section>
@@ -113,7 +113,7 @@
                             </c:forEach>
                         </div>
                     </td>
-                    <td>  <button class="btn" onclick="closeForm('admin-order-books${order.id}')"> <c:out value="${close}"/> </button>
+                    <td>  <button class="btn" id="decline" onclick="closeForm('admin-order-books${order.id}')"> <c:out value="${close}"/> </button>
                     </td>
                 </tr>
                 </c:forEach>

@@ -1,10 +1,9 @@
 package service;
 
 import DAO.BookDao;
-import DAO.SqlDaoFactory;
+import DAO.impl.BookDaoImpl;
 import entity.Book;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class AddNewBookService implements Service {
 
-    BookDao bookDao = SqlDaoFactory.getInstance().getBookDao();
+    private static final BookDao bookDao = new BookDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

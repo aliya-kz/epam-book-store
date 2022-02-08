@@ -4,51 +4,17 @@ import DAO.db_connection.ConnectionPool;
 import entity.Entity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.util.List;
+
 
 public interface BaseDao <T extends Entity> {
 
-    default int deleteById(String table, int id) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        try {
-            String request = "DELETE from " + table + " WHERE id = ?;";
-            PreparedStatement statement = connection.prepareStatement(request);
-            statement.setInt(1, id);
-            result = statement.executeUpdate();
-            close(statement);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            connectionPool.returnConnection(connection);
-        }
-        return result;
-    }
+    int deleteById (int id);
 
-    default int deleteByIdLang(String table, int id, String lang) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        try {
-            String request = "DELETE from " + table + " WHERE id = ? and lang = ?;";
-            PreparedStatement statement = connection.prepareStatement(request);
-            statement.setInt(1, id);
-            statement.setString(2,lang);
-            result = statement.executeUpdate();
-            close(statement);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            connectionPool.returnConnection(connection);
-        }
-        return result;
-    }
+    int deleteByIdLang(int id, String lang);
 
     int addEntity(T t);
 

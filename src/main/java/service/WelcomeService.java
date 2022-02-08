@@ -1,27 +1,24 @@
 package service;
 
 import DAO.*;
-import entity.Book;
+import DAO.impl.*;
 import entity.Cart;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class WelcomeService implements Service {
     private static SqlDaoFactory factory = SqlDaoFactory.getInstance();
-    private LanguageDao languageDao = factory.getLanguageDao();
-    private UserDao userDao= factory.getUserDao();
-    private BookDao bookDao = factory.getBookDao();
-    private CategoryDao categoryDao = factory.getCategoryDao();
-    private AuthorDao authorDao = factory.getAuthorDao();
-    private FormatDao formatDao = factory.getFormatDao();
+    private LanguageDao languageDao = new LanguageDaoImpl();
+    private UserDao userDao= new UserDaoImpl();
+    private BookDao bookDao = new BookDaoImpl();
+    private CategoryDao categoryDao = new CategoryDaoImpl();
+    private AuthorDao authorDao = new AuthorDaoImpl();
+    private FormatDao formatDao = new FormatDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

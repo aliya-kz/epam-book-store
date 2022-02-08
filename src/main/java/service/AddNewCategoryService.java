@@ -1,7 +1,7 @@
 package service;
 
 import DAO.CategoryDao;
-import DAO.SqlDaoFactory;
+import DAO.impl.CategoryDaoImpl;
 import entity.Category;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +11,8 @@ import java.io.IOException;
 
 
 public class AddNewCategoryService implements Service {
-    private static ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private final CategoryDao categoryDao = SqlDaoFactory.getInstance().getCategoryDao();
+    private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private static final CategoryDao categoryDao = new CategoryDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String title = request.getParameter("new_category");

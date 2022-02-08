@@ -1,10 +1,8 @@
 package service;
 
-import DAO.SqlDaoFactory;
 import DAO.UserDao;
-import entity.Book;
+import DAO.impl.UserDaoImpl;
 import entity.User;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,7 @@ import java.io.IOException;
 
 public class EditProfileService implements Service {
 
-    UserDao userDao = SqlDaoFactory.getInstance().getUserDao();
+    UserDao userDao = new UserDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -33,8 +31,10 @@ public class EditProfileService implements Service {
             if (result > 0) user.setSurname(surname);
         }
 
-        String phone = request.getParameter("phone").trim();
+        String phone = request.getParameter("phone");
+
         if (phone != null && phone.length()>0) {
+            phone = phone.replaceAll("[\\s\\-\\(\\)]","");
             int result = userDao.setColumnValue("users", id, "phone", phone);
             if (result > 0) user.setPhone(phone);
         }

@@ -1,8 +1,137 @@
+function editProfile() {
+    const inputs = document.getElementsByClassName('to-be-amended');
+    const saveBtn = document.getElementById('save-profile');
+    const editBtn = document.getElementById('edit-profile-btn');
 
+    editBtn.style.display = 'none';
+    saveBtn.style.display = 'block';
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].style.display = 'block';
+    }
+
+}
+
+function checkPassword () {
+    let result = false;
+    const password = document.getElementById('password');
+    const newPassword = document.getElementById('new-password');
+    const newPassword1 = document.getElementById('new-password1');
+
+    const passValue = password.value.trim();
+    const newPassValue = newPassword.value.trim();
+    const newPassValue1 = newPassword1.value.trim();
+
+    var count = 0;
+
+    if (passValue === '')  {
+        setErrorFor(password, 'Fill in the required field');
+    } else if (!/[a-zA-Z0-9]+$/.test(passValue)) {
+        setErrorFor(password, 'Only latin characters and digits are acceptable');
+    } else {
+        setSuccessFor(password);
+        count++;
+    }
+
+    if (newPassValue === '')  {
+        setErrorFor(newPassword, 'Fill in the required field');
+    } else if (!/[a-zA-Z0-9]+$/.test(newPassValue)) {
+        setErrorFor(newPassword, 'Only latin characters and digits are acceptable');
+    } else {
+        setSuccessFor(newPassword);
+        count++;
+    }
+
+    if (newPassValue1 === '')  {
+        setErrorFor(newPassword1, 'Fill in the required field');
+    } else if (newPassValue !== newPassValue1) {
+        setErrorFor(newPassword1, 'Password does not match')
+    }  else {
+        setSuccessFor(newPassValue1);
+        count++;
+    }
+    if (count === 3) {
+        result = true;
+    }
+    return result;
+}
+
+function checkCard () {
+    let result = false;
+    const card = document.getElementById('card');
+    const cardValue = card.value.replace(/[\s\-]/g,'');
+
+    if (cardValue === '')  {
+        setErrorFor(card, 'Fill in the required field');
+        return false;
+    } else if (!/\d{13,16}$/.test(cardValue) || cardValue.length < 13 || cardValue.length > 16) {
+        setErrorFor(card, 'Enter a valid card number');
+        return false;
+    } else {
+        setSuccessFor(card);
+        result = true;
+    }
+    return result;
+}
+
+function checkName (name) {
+    const nameValue = name.value.trim();
+    if (nameValue === '') {
+       return true;
+    } else if (!/(^[\sa-zA-Z,.'-]+|^[\sа-яА-Я,.'-]+)$/.test(nameValue)) {
+        setErrorFor(name, 'Enter a valid name');
+        return false;
+    } else {
+        setSuccessFor(name);
+        return true;
+    }
+}
+
+function checkSurname (surname) {
+    const surnameValue = surname.value.trim();
+    if (surnameValue === '')  {
+        return true;
+    } else if (!/(^[\sa-zA-Z,.'-]+|^[\sа-яА-Я,.'-]+)$/.test(surnameValue)) {
+        setErrorFor(surname, 'Enter a valid surname');
+        return false;
+    } else {
+        setSuccessFor(surname);
+        return true;
+    }
+}
+
+function checkPhone(phone) {
+    const phoneValue = phone.value.replace(/[\s\-\\(\\)]/g,'');
+    if (phoneValue === '') {
+        return true;
+    } else if (!/\d{10,15}$/.test(phoneValue) || phoneValue.length < 10 || phoneValue.length > 15) {
+        setErrorFor(phone, 'A phone number can contain from 10 to 15 digits and special character "+"');
+        return false;
+    } else {
+        setSuccessFor(phone);
+        return true;
+    }
+}
+
+function checkPersonal(){
+    const name = document.getElementById('name');
+    const surname = document.getElementById('surname');
+    const phone = document.getElementById('phone');
+
+    if (name !== null && checkName(name) === false) {
+      return false;
+    }
+    if (surname !== null && checkSurname(surname) === false) {
+        return false;
+    }
+    if (phone !== null && checkPhone(phone) ===false) {
+        return false;
+    }
+    return true;
+}
 
 function checkInputs() {
     let result = false;
-    const form = document.getElementById('signup-id');
     const name = document.getElementById('name');
     const surname = document.getElementById('surname');
     const email = document.getElementById('email');
@@ -12,7 +141,6 @@ function checkInputs() {
     const address = document.getElementById('address');
     const phone = document.getElementById('phone');
     const date = document.getElementById('date');
-    const btn = document.getElementById('submit-btn');
 
     const nameValue = name.value.trim();
     const surnameValue = surname.value.trim();

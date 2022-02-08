@@ -1,6 +1,5 @@
 package DAO;
 
-import entity.Cart;
 import entity.Format;
 
 import java.util.List;

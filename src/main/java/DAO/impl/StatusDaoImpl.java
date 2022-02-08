@@ -2,7 +2,6 @@ package DAO.impl;
 
 import DAO.StatusDao;
 import DAO.db_connection.ConnectionPool;
-import entity.Lang;
 import entity.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,6 +41,16 @@ public class StatusDaoImpl implements StatusDao {
             connectionPool.returnConnection(connection);
         }
         return statuses;
+    }
+
+    @Override
+    public int deleteById(int id) {
+        return 0;
+    }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        return 0;
     }
 
     @Override

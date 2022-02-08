@@ -2,7 +2,6 @@ package service;
 
 import DAO.impl.UserDaoImpl;
 import entity.User;
-import passwordEncr.PasswordEncrypter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,21 +16,21 @@ public class ChangePasswordService implements Service {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        String email = user.getEmail();
         String password = request.getParameter("password").trim();
-        String newPassword = request.getParameter("new_password").trim();
+        System.out.println("pas " + password);
+        String newPassword = request.getParameter("new-password").trim();
+        System.out.println("newpas " + newPassword);
         String uri = request.getParameter("uri");
-        int userId = userDAO.validateUser(email, password);
-        if (userId > 0) {
-            userDAO.changePassword(user.getId(), password, newPassword);
+        int userId = user.getId();
+            int result = userDAO.changePassword(userId, password, newPassword);
+
+        if (result < 1) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?pass-msg=error");
+            dispatcher.forward(request, response);
+        }
             user = userDAO.getUser(userId);
             session.setAttribute("user", user);
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?pass-msg=success");
             dispatcher.forward(request, response);
-        }
-        else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?pass-msg=error");
-            dispatcher.forward(request, response);
-        }
     }
 }

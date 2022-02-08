@@ -2,7 +2,6 @@ package service;
 
 import DAO.AuthorDao;
 import DAO.impl.AuthorDaoImpl;
-import entity.Author;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,19 +11,20 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class GetAllAuthorsService implements Service {
-    AuthorDao authorDao = new AuthorDaoImpl();
+public class SearchService implements Service {
+
+    private static final AuthorDao authorDao = new AuthorDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String locale = (String) session.getAttribute("locale");
-        if (locale == null) {
-            locale = "en_US";
-        }
-        String lang = locale.substring(0, 2);
-        List<Author> authors = authorDao.getAll(lang);
-        session.setAttribute("authors", authors);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-authors");
+        String searchInput = request.getParameter("search").trim();
+        String table = request.getParameter("table");
+        List <Integer> foundAuthors = authorDao.searchAuthors(searchInput);
+        System.out.println("found " + foundAuthors.size());
+        request.setAttribute("found", foundAuthors);
+        String uri = request.getParameter("uri");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);
     }
 }

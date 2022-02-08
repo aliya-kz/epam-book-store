@@ -4,7 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
@@ -45,9 +46,9 @@
     <h1> <c:out value="${log_in}"/> </h1>
     <div class = "msg-div"></div>
     <label for="email"><c:out value="${email}"/></label>
-    <input id = "email" type = "email" name = "email" placeholder="${enter_email}" required/></br>
+    <input id = "email" type = "email" name = "email" placeholder="${enter_email}" required/><br>
     <label for="password"><c:out value="${password}"/></label>
-    <input id = "password" type = "password" name = "password" placeholder="${enter_password}" required/></br>
+    <input id = "password" type = "password" name = "password" placeholder="${enter_password}" required/><br>
     <input type="hidden" name="service_name" value="log_in">
     <input type = "submit" class = "btn" value="${log_in}">
 

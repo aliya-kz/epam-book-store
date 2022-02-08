@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
     <head>
         <script src="/js/script.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -13,6 +12,7 @@
     </head>
 <body>
 <jsp:include page="/admin/adminHeader"/>
+
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
 <fmt:message bundle="${content}" key="FORMAT" var="format" />
@@ -29,12 +29,11 @@
 
 
 <section class="admin-filter">
-    <h1><c:out value="${search}"/> </h1>
-    <input class="search-input" type="text" id="search-text" onkeyup="tableSearch('admin-books')">
+    <input class="search-input" type="text" id="search-text" placeholder="${search}"  onkeyup="tableSearch('admin-books')">
 </section>
 
 <section class="add-book">
-<a href = "/add-book"><c:out value="${add_book}"/></a>
+<a href = "/add-book"><div class = "btn"><h1><c:out value="${add_book}"/></h1></div></a>
 </section>
 
 <section>

@@ -1,8 +1,9 @@
 package service;
 
 import DAO.AddressDao;
-import DAO.SqlDaoFactory;
 import DAO.UserDao;
+import DAO.impl.AddressDaoImpl;
+import DAO.impl.UserDaoImpl;
 import entity.Address;
 import entity.User;
 
@@ -15,8 +16,8 @@ import java.io.IOException;
 
 public class AddAddressService implements Service {
     private static final ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    UserDao userDao = SqlDaoFactory.getInstance().getUserDao();
-    AddressDao addressDao = SqlDaoFactory.getInstance().getAddressDao();
+    private static final UserDao userDao = new UserDaoImpl();
+    private static final AddressDao addressDao = new AddressDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

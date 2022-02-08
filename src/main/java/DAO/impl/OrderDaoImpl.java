@@ -42,6 +42,15 @@ public class OrderDaoImpl implements OrderDao {
     private static String SELECT_USER_ORDERS = "SELECT id from orders WHERE user_id = ?;";
 
 
+    @Override
+    public int deleteById(int id) {
+        return 0;
+    }
+
+    @Override
+    public int deleteByIdLang(int id, String lang) {
+        return 0;
+    }
 
     @Override
     public int addEntity(Order order) {
@@ -112,7 +121,7 @@ public class OrderDaoImpl implements OrderDao {
         return sortedList;
     }
 
-     public int updateStatus(int orderId, int statusId) {
+    public int updateStatus(int orderId, int statusId) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
@@ -193,7 +202,10 @@ public class OrderDaoImpl implements OrderDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        return orders;
+        List<Order> sortedList = orders.stream()
+                .sorted(Comparator.comparingInt(Order::getId).reversed())
+                .collect(Collectors.toList());
+        return sortedList;
     }
 
 }

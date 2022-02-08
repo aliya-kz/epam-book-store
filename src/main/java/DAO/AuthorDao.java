@@ -7,4 +7,6 @@ public interface AuthorDao extends BaseDao <Author> {
     int addTranslation (Author author);
     List<Author> getAll (String lang);
     int deleteById (int id);
+    int deleteByIdLang (int id, String lang);
+    List <Integer> searchAuthors (String search);
 }

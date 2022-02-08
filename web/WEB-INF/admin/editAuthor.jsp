@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,22 +82,22 @@ request.setAttribute("id", id);
         <tr>
             <td><c:out value="${biography}"/> </td>
             <td><c:out value="${author.biography}"/></td>
-            <td><textarea type="text" name ="new_biography" placeholder="" width="220px" rows="15"></textarea></td>
+            <td><textarea name ="new_biography" placeholder="" rows="15"></textarea></td>
         </tr>
     </table>
     <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>">
     <input type = "hidden" name = "service_name" value = "edit_author">
-    <input class = "accept" type = "submit" name = "save" value = "${save}">
+    <input class = "btn" id = "accept" type = "submit" name = "save" value = "${save}">
 </form><br>
 
 <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&table=authors_lang&lang=${author.lang}" method = "post">
-    <input type="hidden" name="service_name" value="delete_entity"/>
+    <input type="hidden" name="service_name" value="delete_entity_admin"/>
     <c:out value="${delete}"/>
     <input class = "decline" type="submit" value="${delete}"/>
 </form>
 <br>
 <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&table=authors" method = "post">
-    <input type="hidden" name="service_name" value="delete_entity"/>
+    <input type="hidden" name="service_name" value="delete_entity_admin"/>
     <c:out value="${delete_in_all}"/>
     <input class = "decline" type="submit" value="${delete}"/>
 </form>
@@ -107,10 +106,10 @@ request.setAttribute("id", id);
 <section class="edit-image">
     <form action = "/image-servlet?uri=<%=request.getRequestURI()%>&id=${author.id}&table=authors&lang=${author.lang}"
           method="post" enctype="multipart/form-data">
-    <img src="/image-servlet?image_id=${author.id}&table=authors" alt="author" width="220px"/></a></td>
+    <img src="/image-servlet?image_id=${author.id}&table=authors" alt="author" width="220px"/>
 
         <c:out value="${update_image}"/>
-    <input type="file" name="file" required/></td>
+    <input type="file" name="file" required/>
         <input type="hidden" name="uri" value="${uri}">
            <input type="hidden" name="service_name" value="edit_image">
         <input class="accept" type="submit" class="submit-btn" value = "${save}"/>

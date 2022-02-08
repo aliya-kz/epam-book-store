@@ -1,6 +1,7 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
@@ -36,7 +37,15 @@ request.setAttribute("id", request.getParameter("id"));%>
                 <section id = "book">
                     <div class = "book-cover">
                         <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="250px"/>
-                        <button id="add-to-wl" name="service_name"  value="add_to_wl" onclick="heartClicked()"/>
+                        <input type="hidden" name ="table" value="wish_lists">
+                        <c:choose>
+                        <c:when test="${fn:contains(wishList.books,book)}" >
+                            <button id="delete-from-wl" name="service_name" value="delete_entity">delete</button>
+                        </c:when>
+                            <c:otherwise>
+                                <button id="add-to-wl" name="service_name" value="add_to_wl">add</button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
                     <div class = "book-info">

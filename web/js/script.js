@@ -46,19 +46,3 @@ function hideEl(id) {
 
 
 
-
-function heartClicked() {
-    const heart = document.getElementById('add-to-wl');
-    if (heart.classList.contains('clicked')) {
-        heart.classList.remove('clicked');
-    } else {
-        heart.classList.add('clicked');
-    }
-}
-
-function editProfile() {
-    const inputs = document.getElementsByClassName('to-be-amended');
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].style.display = 'block';
-    }
-}
