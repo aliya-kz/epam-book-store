@@ -46,11 +46,7 @@
                     <tr id = "book">
 
                         <td class = "book-cover">
-                            <form id = "cart-form" action = "<%=request.getContextPath()%>/controller " method = "post">
                                 <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="140px"/>
-                                <input type="hidden" name="id" value="${book.id}"/>
-                                <button id="add-to-wl" name="service_name" value="add_to_wl" onclick="heartClicked()"></button>
-                            </form>
                         </td>
                         <td class = "book-info">
                             <a href = "/book?id=${book.id}" class="index-book-name"><c:out value = "${book.title}"/></a>

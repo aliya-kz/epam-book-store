@@ -149,7 +149,7 @@
         <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
         <div class = "form-control">
           <label for = "card"></label>
-          <input id = "card" type = "text" name = "card" required />
+          <input id = "card" type = "text" name = "card" style="float: left" required />
           <button name="service_name" class="fa-btn" value="add_card" onclick="checkCard()">
             <i class="fas fa-plus-square fa-lg"></i></button>
           <small>Error message</small>

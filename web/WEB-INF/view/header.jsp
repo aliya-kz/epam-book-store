@@ -47,13 +47,13 @@
                 <li><a href = "#"><c:out value = "${cat}"/></a>
                     <ul>
                         <c:forEach var="category" items="${categories}">
-                            <li><a href="/books"><c:out value="${category.categoryName}"/> </a></li>
+                            <li><a href="/books#id=cat${category.id}"><c:out value="${category.categoryName}"/> </a></li>
                         </c:forEach>
                     </ul>
                 </li>
                 <li> <a href = "/authors"><c:out value = "${auths}"/></a></li>
-                <li> <a href = "#"><c:out value = "${delivery}"/></a></li>
-                <li> <a href = "#"><c:out value = "${contacts}"/></a></li>
+                <li> <a href = "/delivery"><c:out value = "${delivery}"/></a></li>
+                <li> <a href = "/contact"><c:out value = "${contacts}"/></a></li>
             </ul>
         </nav>
 
@@ -64,7 +64,7 @@
                     <a href = "/wish-list"><i class="fab fa-gratipay fa-2x"></i></a>
                 </c:when>
                 <c:otherwise>
-                    <button class = "fa-btn" onclick="openForm('login-form')"> <i class="fab fa-gratipay fa-2x"></i></button>
+                    <button class = "fa-btn" onclick="openForm('login-form')"><i class="fab fa-gratipay fa-2x"></i></button>
                 </c:otherwise>
             </c:choose>
         </div>

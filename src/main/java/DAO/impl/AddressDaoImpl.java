@@ -8,13 +8,15 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import static java.sql.Types.NULL;
+
 
 public class AddressDaoImpl implements AddressDao {
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private final static String INSERT_ADDRESS = "INSERT INTO addresses (user_id, address) VALUES (?,?);";
-    private final static String DELETE_ADDRESS = "DELETE from addresses where address_id = ?;";
+    private final static String DELETE_ADDRESS = "UPDATE addresses set user_id = ? where address_id = ?;";
 
     @Override
     public int addEntity(Address address) {
@@ -42,7 +44,8 @@ public class AddressDaoImpl implements AddressDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(DELETE_ADDRESS);
-            statement.setInt(1, id);
+            statement.setInt(1, 72);
+            statement.setInt(2, id);
             result = statement.executeUpdate();
             close(statement);
         } catch (Exception e) {

@@ -87,19 +87,19 @@ request.setAttribute("id", id);
     </table>
     <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>">
     <input type = "hidden" name = "service_name" value = "edit_author">
-    <input class = "btn" id = "accept" type = "submit" name = "save" value = "${save}">
+    <input class = "btn accept" type = "submit" name = "save" value = "${save}">
 </form><br>
 
 <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&table=authors_lang&lang=${author.lang}" method = "post">
     <input type="hidden" name="service_name" value="delete_entity_admin"/>
     <c:out value="${delete}"/>
-    <input class = "decline" type="submit" value="${delete}"/>
+    <input class = "btn decline" type="submit" value="${delete}"/>
 </form>
 <br>
 <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&table=authors" method = "post">
     <input type="hidden" name="service_name" value="delete_entity_admin"/>
     <c:out value="${delete_in_all}"/>
-    <input class = "decline" type="submit" value="${delete}"/>
+    <input class = "btn decline" type="submit" value="${delete}"/>
 </form>
 </section>
 
@@ -112,7 +112,7 @@ request.setAttribute("id", id);
     <input type="file" name="file" required/>
         <input type="hidden" name="uri" value="${uri}">
            <input type="hidden" name="service_name" value="edit_image">
-        <input class="accept" type="submit" class="submit-btn" value = "${save}"/>
+        <input class="btn accept" type="submit" class="submit-btn" value = "${save}"/>
     </form>
 </section>
 </main>

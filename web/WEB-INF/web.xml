@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-<welcome-file-list>
-    <welcome-file>/WEB-INF/view/welcome.jsp</welcome-file>
-</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>/WEB-INF/view/welcome.jsp</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>controller.Controller</servlet-class>
@@ -154,7 +154,7 @@
         <url-pattern>/footer</url-pattern>
     </servlet-mapping>
 
-     <servlet>
+    <servlet>
         <servlet-name>adminHeader</servlet-name>
         <jsp-file>/WEB-INF/admin/adminHeader.jsp</jsp-file>
     </servlet>
@@ -221,95 +221,102 @@
 
 
     <servlet>
-<servlet-name>editCategory</servlet-name>
-<jsp-file>/WEB-INF/admin/editCategory.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>editCategory</servlet-name>
-<url-pattern>/editCategory</url-pattern>
-</servlet-mapping>
+        <servlet-name>editCategory</servlet-name>
+        <jsp-file>/WEB-INF/admin/editCategory.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editCategory</servlet-name>
+        <url-pattern>/editCategory</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-<servlet-name>editBook</servlet-name>
-<jsp-file>/WEB-INF/admin/editBook.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>editBook</servlet-name>
-<url-pattern>/edit-book</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>editBook</servlet-name>
+        <jsp-file>/WEB-INF/admin/editBook.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editBook</servlet-name>
+        <url-pattern>/edit-book</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-<servlet-name>signUpSuccessful</servlet-name>
-<jsp-file>/WEB-INF/view/signUpSuccessful.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>signUpSuccessful</servlet-name>
-<url-pattern>/sign-up-successful</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>delivery</servlet-name>
+        <jsp-file>/WEB-INF/view/delivery.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delivery</servlet-name>
+        <url-pattern>/delivery</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>contact</servlet-name>
+        <jsp-file>/WEB-INF/view/contact.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>contact</servlet-name>
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>adminUsers</servlet-name>
+        <jsp-file>/WEB-INF/admin/adminUsers.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminUsers</servlet-name>
+        <url-pattern>/admin-users</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-<servlet-name>adminUsers</servlet-name>
-<jsp-file>/WEB-INF/admin/adminUsers.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>adminUsers</servlet-name>
-<url-pattern>/admin-users</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>adminBooks</servlet-name>
+        <jsp-file>/WEB-INF/admin/adminBooks.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminBooks</servlet-name>
+        <url-pattern>/admin-books</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-<servlet-name>adminBooks</servlet-name>
-<jsp-file>/WEB-INF/admin/adminBooks.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>adminBooks</servlet-name>
-<url-pattern>/admin-books</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>adminAuthors</servlet-name>
+        <jsp-file>/WEB-INF/admin/adminAuthors.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminAuthors</servlet-name>
+        <url-pattern>/admin-authors</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-<servlet-name>adminAuthors</servlet-name>
-<jsp-file>/WEB-INF/admin/adminAuthors.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>adminAuthors</servlet-name>
-<url-pattern>/admin-authors</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>adminCategories</servlet-name>
+        <jsp-file>/WEB-INF/admin/adminCategories.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminCategories</servlet-name>
+        <url-pattern>/admin-categories</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-<servlet-name>adminCategories</servlet-name>
-<jsp-file>/WEB-INF/admin/adminCategories.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>adminCategories</servlet-name>
-<url-pattern>/admin-categories</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>adminOrders</servlet-name>
+        <jsp-file>/WEB-INF/admin/adminOrders.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminOrders</servlet-name>
+        <url-pattern>/admin-orders</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-<servlet-name>adminOrders</servlet-name>
-<jsp-file>/WEB-INF/admin/adminOrders.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>adminOrders</servlet-name>
-<url-pattern>/admin-orders</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>adminMessages</servlet-name>
+        <jsp-file>/WEB-INF/admin/adminMessages.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminMessages</servlet-name>
+        <url-pattern>/admin-messages</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-<servlet-name>adminMessages</servlet-name>
-<jsp-file>/WEB-INF/admin/adminMessages.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>adminMessages</servlet-name>
-<url-pattern>/admin-messages</url-pattern>
-</servlet-mapping>
-
-<servlet>
-<servlet-name>editAuthor</servlet-name>
-<jsp-file>/WEB-INF/admin/editAuthor.jsp</jsp-file>
-</servlet>
-<servlet-mapping>
-<servlet-name>editAuthor</servlet-name>
-<url-pattern>/edit-author</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>editAuthor</servlet-name>
+        <jsp-file>/WEB-INF/admin/editAuthor.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editAuthor</servlet-name>
+        <url-pattern>/edit-author</url-pattern>
+    </servlet-mapping>
 
 </web-app>

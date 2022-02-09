@@ -2,7 +2,6 @@ package DAO.impl;
 
 import DAO.BookDao;
 import DAO.db_connection.ConnectionPool;
-import entity.Author;
 import entity.Book;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,29 +13,25 @@ import java.util.stream.Collectors;
 public class BookDaoImpl implements BookDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static String INSERT_BOOK = "INSERT INTO books" +
+    private final static String INSERT_BOOK = "INSERT INTO books" +
             "(title, description, publisher, quantity, price, category_id, isbn, publ_lang, format_id) " +
             "VALUES " + "(?,?,?,?,?,?,?,?,?);";
 
-    private static String INSERT_AUTHORS_TO_BOOKS = "INSERT INTO authors_to_books (book_id, author_id) values (?,?);";
+    private final static String INSERT_AUTHORS_TO_BOOKS = "INSERT INTO authors_to_books (book_id, author_id) values (?,?);";
 
-    private static String SELECT_ID = "SELECT id from books WHERE isbn = ?;";
+    private final static String SELECT_ID = "SELECT id from books WHERE isbn = ?;";
 
-    private static String DELETE_AUTHORS_TO_BOOKS = "DELETE from authors_to_books WHERE book_id = ?;";
+    private final static String DELETE_AUTHORS_TO_BOOKS = "DELETE from authors_to_books WHERE book_id = ?;";
 
-    private static String INSERT_COVER = "INSERT into book_covers (id, image) values (?, ?)";
+    private final static String INSERT_COVER = "INSERT into book_covers (id, image) values (?, ?)";
 
-    private static String UPDATE_BOOK_SQL = "UPDATE books set" +
-            "(title, authors, isbn, publisher, quantity, price, category, description, language) " +
-            "= " + "(?,?,?,?,?,?,?,?,?) where isbn = ?;";
 
-    private static String SELECT_BOOK_SQL = "select b.*, bl.description,bl.lang from books b left join books_lang bl on b.id=bl.book_id where b.id = ?;";
-
-    private static String SELECT_ALL_BOOKS = "select b.*, ab.author_id, cl.category_name, fl.format_name, bc.image from books b " +
+    private final static String SELECT_ALL_BOOKS = "SELECT b.*, ab.author_id, cl.category_name, fl.format_name, bc.image from books b " +
             "left join authors_to_books ab on b.id=ab.book_id left join categories_lang cl on cl.id=b.category_id left join " +
-            "formats_lang fl on fl.id=b.format_id left join book_covers bc on bc.id=b.id where fl.lang= ? and cl.lang=?;";
+            "formats_lang fl on fl.id=b.format_id left join book_covers bc on bc.id=b.id WHERE fl.lang= ? and cl.lang=?;";
+
     @Override
     public int addEntity(Book book) {
         Connection connection = connectionPool.takeConnection();
@@ -192,38 +187,6 @@ public class BookDaoImpl implements BookDao {
         return 0;
     }
 
-    public int addAuthor(Author author, String lang) {
-        Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        /*PreparedStatement statement = null;
-        PreparedStatement statement1 = null;
-        try {
-            statement = connection.prepareStatement("INSERT into authors (image) values (?)");
-            statement.setString(1, author.getImage()
-
-            result = statement.executeUpdate();
-
-            statement1 = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);
-            int [] author_ids = book.getAuthors();
-            for (int i = 0; i < author_ids.length; i++) {
-                statement.setInt(1, book.getId());
-                statement.setInt(2, author_ids[i]);
-            }
-        } catch (Exception e) {
-            LOGGER.error(e);
-            e.printStackTrace();
-        } finally {
-            close(statement);
-            close(statement1);
-            connectionPool.returnConnection(connection);
-        }*/
-        return result;
-    }
-
-    public List<Book> selectBooksByCategory(int categoryId, String lang) {
-        return null;
-    }
-
     public List<Book> findBooksByAuthorIsbnOrTitle(String search) {
         List<Book> books = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
@@ -249,23 +212,6 @@ public class BookDaoImpl implements BookDao {
             connectionPool.returnConnection(connection);
         }*/
         return books;
-    }
-
-    @Override
-    public Map<String, Object> getParamList(Book book) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", book.getId());
-        map.put("title", book.getTitle());
-        map.put("authors", book.getAuthors());
-        map.put("publisher", book.getPublisher());
-        map.put("isbn", book.getIsbn());
-        map.put("format", book.getFormatId());
-        map.put("language", book.getLanguage());
-        map.put("categoryId", book.getCategoryId());
-        map.put("price", book.getPrice());
-        map.put("quantity", book.getQuantity());
-        map.put("description", book.getDescription());
-        return map;
     }
 
     public static void main(String[] args) throws IOException {

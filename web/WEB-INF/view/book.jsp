@@ -40,10 +40,10 @@ request.setAttribute("id", request.getParameter("id"));%>
                         <input type="hidden" name ="table" value="wish_lists">
                         <c:choose>
                         <c:when test="${fn:contains(wishList.books,book)}" >
-                            <button id="delete-from-wl" name="service_name" value="delete_entity">delete</button>
+                            <button id="delete-from-wl" name="service_name" value="delete_entity"></button>
                         </c:when>
                             <c:otherwise>
-                                <button id="add-to-wl" name="service_name" value="add_to_wl">add</button>
+                                <button id="add-to-wl" name="service_name" value="add_to_wl"></button>
                             </c:otherwise>
                         </c:choose>
                     </div>

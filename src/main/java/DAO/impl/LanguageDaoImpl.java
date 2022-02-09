@@ -14,7 +14,7 @@ import java.util.List;
 
 public class LanguageDaoImpl implements LanguageDao {
 
-   private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
+    private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String INSERT_LANG = "INSERT into lang (title) values (?);";
     private static final String GET_ALL_LANG = "SELECT * from lang;";
@@ -30,7 +30,7 @@ public class LanguageDaoImpl implements LanguageDao {
             result = statement.executeUpdate();
             close(statement);
         } catch (Exception e) {
-            //  LOGGER.info(e);
+            LOGGER.info(e);
             e.printStackTrace();
         }
         finally {
@@ -55,6 +55,7 @@ public class LanguageDaoImpl implements LanguageDao {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            LOGGER.info(e);
         }
         finally {
             close(statement);

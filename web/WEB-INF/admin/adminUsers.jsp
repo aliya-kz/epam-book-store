@@ -40,7 +40,7 @@
                             <input type="hidden" name="user_id" value="${user.id}"/>
                             <input type = "hidden" name = "blocked_status" value = "true"/>
                             <input type = "hidden" name="service_name" value="block_user"/>
-                            <input class= "submit-btn" id ="decline" type = "submit" value ="${block_user}">
+                            <input class= "btn decline"  type = "submit" value ="${block_user}">
                         </form>
                     </c:if>
                     <c:if test="${user.isBlocked()}">
@@ -48,7 +48,7 @@
                         <input type="hidden" name="user_id" value="${user.id}"/>
                         <input type = "hidden" name = "blocked_status" value = "false"/>
                         <input type = "hidden" name="service_name" value="block_user"/>
-                        <input class= "submit-btn" id = "accept" type = "submit" value ="${unblock_user}">
+                        <input class= "btn accept"  type = "submit" value ="${unblock_user}">
                     </form>
                     </c:if>
                 </td>

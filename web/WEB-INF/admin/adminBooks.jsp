@@ -33,7 +33,7 @@
 </section>
 
 <section class="add-book">
-<a href = "/add-book"><div class = "btn"><h1><c:out value="${add_book}"/></h1></div></a>
+<a href = "/add-book"><div class = "btn" id="checkout"><c:out value="${add_book}"/></div></a>
 </section>
 
 <section>

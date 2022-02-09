@@ -125,8 +125,6 @@ input[type=radio] {
     width: 100%;
 }
 
-
-
 .to-be-amended {
     display: none;
 }
@@ -147,6 +145,23 @@ input[type=radio] {
     background-size: cover;
     background-image: url("/images/icons/heart-black.png");
     background-repeat: no-repeat;
+}
+
+.books-filter {
+    padding: 40px 20px;
+    float: left;
+    width: 300px;
+    margin-top: 30px;
+    border: 1px darkgoldenrod solid;
+}
+
+.selected {
+    background: darkgoldenrod;
+    font-weight: bold;
+}
+
+.books-filter form {
+    padding: 20px;
 }
 
 #eng{
@@ -231,7 +246,8 @@ input[type=radio] {
 .form-container,
 .edit-main,
 .btns,
-.cart-wl {
+.cart-wl,
+.admin-header {
     display: flex;
     justify-content: space-between;
 }
@@ -355,13 +371,6 @@ input[type=radio] {
     width: 100%;
 }
 
-.fa-plus-square {
-    position: relative;
-    top: unset;
-    right: unset;
-    visibility: visible;
-}
-
 #cart-table td {
     padding: 20px 40px;
 }
@@ -391,34 +400,6 @@ input[type=radio] {
     margin-left: 30px;
 }
 
-.back {
-    padding-bottom: 10px;
-    padding-top: 10px;
-    width: 120px;
-    border: 2px solid #24575c;
-    border-radius: 5%;
-    background-color: white;
-    color: #24575c;
-}
-
-.back a {
-    margin: 0 auto;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.back:active,
-.back:hover {
-    border: 2px solid white;
-    background-color: #24575c;
-    color: #24575c;
-}
-
-.back a:hover,
-.back a:active {
-    color: white;
-}
-
 .admin-main {
     position: relative;
     background-color: #F3F3F3;
@@ -432,8 +413,6 @@ h1 {
     padding: 15px 20px;
 }
 
-
-
 h2 {
     size: 1.2em;
     color: #Ae9678;
@@ -445,7 +424,6 @@ h3 {
     padding-bottom: 15px;
 }
 
-
 .admin-main p {
     position: absolute;
     text-align: center;
@@ -455,12 +433,12 @@ h3 {
 
 input[type=text],
 #card {
-border: 1px solid slategrey;
-border-radius: 4px;
-font-family: inherit;
-font-size: 12px;
-width: 100%;
-padding: 7px;
+    border: 1px solid slategrey;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 12px;
+    width: 100%;
+    padding: 7px;
 }
 
 .profile-main input[type=text],
@@ -478,6 +456,7 @@ padding: 7px;
 .admin-table {
     margin: 20px;
     border-collapse: collapse;
+    width: 100%;
 }
 
 .admin-table td,
@@ -591,22 +570,34 @@ h2 {
 
 /*index*/
 #ads {
+    position: relative;
     background-image: url("/images/img/jamie.jpg");
     background-size: cover;
     height: 350px;
 }
+
+#ads button {
+    position: absolute;
+    margin: 0 auto;
+}
+
 .index-main {
     position: relative;
     margin: 0 auto;
 }
 
 #index-books,
+#filtered-books,
 #authors {
     padding: 40px 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     column-gap: 40px;
+}
+
+#filtered-books {
+    border-bottom: 5px sandybrown solid;
 }
 
 #order-books {
@@ -635,22 +626,6 @@ h4 {
 
 h4:hover {
     color: #663300;
-}
-
-button {
-    cursor: pointer;
-}
-
-.see-more {
-    height: 30px;
-    text-transform: uppercase;
-    background-color: #24575c;
-    margin-left: 40px;
-}
-
-.see-more a {
-    color: white;
-    font-size: 24px;
 }
 
 .index-book img {
@@ -687,7 +662,6 @@ button {
     width: 150px;
 }
 
-
 #book {
     display: flex;
     justify-content: space-between;
@@ -695,12 +669,12 @@ button {
 }
 
 .btn {
+    cursor: pointer;
     text-decoration: none;
     text-transform: uppercase;
     min-width: 120px;
     max-width: 300px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0 15px;
     height: 35px;
     line-height: 35px;
     color: white;
@@ -731,6 +705,7 @@ button {
     text-transform: uppercase;
     font-size: 16px;
 }
+
 #view-cart {
     background-color: #679186;
     margin-right: 40px;
@@ -743,7 +718,8 @@ button {
     margin-left: 20px;
 }
 
-#checkout {
+#checkout,
+.checkout {
     background-color: #AE9678;
 }
 

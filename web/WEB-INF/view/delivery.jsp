@@ -1,16 +1,18 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zhuma_rprmwfo
-  Date: 02.02.2022
-  Time: 22:34
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>delivery</title>
 </head>
 <body>
-
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="content" var="content" scope="session"/>
+<fmt:message bundle="${content}" key="DELIVERY_PAGE" var="del" />
+<jsp:include page="/header"/>
+<h3>
+    <c:out value="${del}"/>
+</h3>
 </body>
 </html>

@@ -36,10 +36,7 @@
 <fmt:message bundle="${content}" key="BACK" var="back"/>
 <fmt:message bundle="${content}" key="ADD_BOOK" var="add_book"/>
 
-
-<div class = "back">
-  <a href = "/admin-books"><c:out value="${back}"/></a>
-</div>
+ <a href = "/admin-books"><div class = "btn" id="view-cart"><c:out value="${back}"/></div></a>
 
 <main class="edit-main">
   <section class="edit-info">
@@ -127,7 +124,7 @@
       </table>
       <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>">
       <input type = "hidden" name = "service_name" value = "add_book">
-      <input class = "accept" type = "submit" value = "${add_book}">
+      <input class = "btn accept" type = "submit" value = "${add_book}">
     </form>
     <br>
   </section>

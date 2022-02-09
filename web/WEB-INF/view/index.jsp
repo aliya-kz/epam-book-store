@@ -17,7 +17,7 @@
 
   <main class = "index-main">
       <section id = "ads">
-          <a href="/books?id=23"><button class="btn"><c:out value="${shop_now}"/> </button> </a>
+          <a href="/books?id=23"><button class="btn checkout"><c:out value="${shop_now}"/> </button> </a>
       </section>
       <section id = "index-books">
           <c:forEach var="book" items="${books}" begin="1" end="12">
@@ -47,7 +47,7 @@
               </div>
                   </c:forEach>
       </section>
-      <button class = "see-more"><a href="/books"><c:out value="${see_more}"/></a></button>
+      <button class = "btn checkout" style="margin: 0 20px 0 auto"><a href="/books"><c:out value="${see_more}"/></a></button>
   </main>
   <jsp:include page ="/footer"/>
   </body>

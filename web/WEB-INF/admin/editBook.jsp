@@ -145,7 +145,7 @@
             </table>
             <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>">
             <input type = "hidden" name = "service_name" value = "edit_book">
-            <input class = "accept" type = "submit" name = "save" value = "${save}">
+            <input class = "btn accept" type = "submit" name = "save" value = "${save}">
         </form><br>
          </section>
 
@@ -158,7 +158,7 @@
             <input type="file" name="file" required/>
             <input type="hidden" name="uri" value="${uri}">
             <input type="hidden" name="service_name" value="edit_image">
-            <input class = "accept" id="save" type="submit" class="submit-btn" value = "${save}"/>
+            <input class = "btn accept" type="submit" class="submit-btn" value = "${save}"/>
         </form>
     </section>
 </main>

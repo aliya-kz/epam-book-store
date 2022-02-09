@@ -49,7 +49,7 @@ public class CreateOrderService implements Service {
             cartDao.deleteById(user.getId());
             cart = new Cart();
             session.setAttribute("cart", cart);
-            dispatcher = request.getRequestDispatcher("/WEB-INF/view/userProfile.jsp#prof-orders");
+            dispatcher = request.getRequestDispatcher("/profile#prof-orders");
         } else {
             dispatcher = request.getRequestDispatcher(uri + "?msg=error");
         }

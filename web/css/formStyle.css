@@ -15,9 +15,9 @@
     background-color: white;
     z-index:10;
     display: none;
-    position:fixed;
-    top:10%;
-    left:42%;
+    position: fixed;
+    top: 10%;
+    left: 42%;
 }
 
 #login-form input.msg-section,
@@ -104,8 +104,6 @@
     background-color: #f7f7f7;
 }
 
-
-
 .form-control {
     margin-bottom: 8px;
     padding-bottom: 15px;
@@ -150,7 +148,8 @@
     padding: 7px;
 }
 
-.form-control i {
+.form-control i.fas-fa-check-circle,
+.form-control i.fas-fa-check-exclamation-circle {
     position: absolute;
     top: 40px;
     right: 10px;
@@ -175,10 +174,4 @@
     width: 100%;
 }
 
-.fa-plus-square {
-    position: relative;
-    top: unset;
-    right: unset;
-    visibility: visible;
-}
 

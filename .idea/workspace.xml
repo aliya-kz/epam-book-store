@@ -13,100 +13,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/entity/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/service/DeleteEntityAdmin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/service/SearchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/lib/log4j-api-2.17.1 (1).jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/lib/log4j-core-2.17.1 (1).jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/view/userProfile.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/css/formStyle.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/images/img/jamie.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/BookFilterService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/view/contact.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/demo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AuthorDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/AuthorDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BaseDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BookDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BookDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/CartDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/CartDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/FormatDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/FormatDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/SqlDaoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/SqlDaoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/WishListDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/WishListDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/AddressDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/AddressDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/AuthorDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/AuthorDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/CardDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/CardDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/CartDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/CartDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/CategoryDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/CategoryDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/FormatDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/FormatDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/LanguageDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/LanguageDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/StatusDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/StatusDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/WishListDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/WishListDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entity/WishList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/WishList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/passwordEncr/PasswordEncrypter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/passwordEncr/PasswordEncrypter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddAddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddAddressService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddCardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddCardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddNewAuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddNewAuthorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddNewBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddNewBookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddNewCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddNewCategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/AddToWishListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddToWishListService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChangeLanguageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ChangeLanguageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChangePasswordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ChangePasswordService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/CreateOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CreateOrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/DeleteEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/DeleteEntityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditAuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditAuthorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditBookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditImageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditProfileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/GetAllAuthorsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/GetAllAuthorsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoginService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ServiceFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ServiceFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/UpdateQuantityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UpdateQuantityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/UpdateStatusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UpdateStatusService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/WelcomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/WelcomeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/content.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/content_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/addBook.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/addBook.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminBooks.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminBooks.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminHeader.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminHeader.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminMessages.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminMessages.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminOrders.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminUsers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminUsers.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/welcomeAdmin.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/lib/log4j-api-2.13.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/lib/log4j-core-2.13.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/author.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/author.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/authors.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/authors.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/book.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/book.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/books.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/books.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/delivery.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/delivery.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/langBar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/langBar.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/logIn.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/messages.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/messages.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/profile.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/signUp.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/wishlist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/wishlist.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/signUpSuccessful.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/formStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/formStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/images/icons/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/images/img/logo.ai" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/validation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,8 +55,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -150,18 +88,21 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="243JeK5tlc90GwVpAVKN9QaxX0U" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/WEB-INF/view" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -171,15 +112,15 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\demo\web\WEB-INF\view" />
       <recent name="D:\demo\web" />
+      <recent name="D:\demo\web\WEB-INF\view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\demo\web\css" />
+      <recent name="D:\demo\web\css\fonts" />
       <recent name="D:\demo\web\images\img" />
       <recent name="D:\demo\web\WEB-INF\lib" />
       <recent name="D:\demo\web\images\icons" />
-      <recent name="D:\demo\web\WEB-INF\view" />
-      <recent name="D:\demo\web\images" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -416,6 +357,8 @@
       <workItem from="1644201714131" duration="35771000" />
       <workItem from="1644298953778" duration="26524000" />
       <workItem from="1644328951655" duration="16683000" />
+      <workItem from="1644350719702" duration="379000" />
+      <workItem from="1644376848737" duration="44051000" />
     </task>
     <servers />
   </component>
@@ -433,6 +376,9 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -440,11 +386,6 @@
           <url>file://$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp</url>
           <line>34</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/web/WEB-INF/view/book.jsp</url>
-          <line>20</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/DAO/BaseDao.java</url>

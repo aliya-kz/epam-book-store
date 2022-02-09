@@ -2,6 +2,7 @@ package service;
 
 import DAO.WishListDao;
 import DAO.impl.WishListDaoImpl;
+import entity.Book;
 import entity.User;
 import entity.WishList;
 import javax.servlet.RequestDispatcher;
@@ -17,15 +18,22 @@ private final WishListDao wishListDao = new WishListDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    HttpSession session = request.getSession();
-    User user = (User) session.getAttribute("user");
-    int bookId = Integer.parseInt(request.getParameter("id"));
-    System.out.println("id " + bookId);
-    wishListDao.addToWishList(user.getId(), bookId);
-    WishList wishList = wishListDao.getWishList(user.getId());
-    session.setAttribute("wishList", wishList);
-    String uri = request.getParameter("uri");
-    RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?msg=added");
-    dispatcher.forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        int bookId = Integer.parseInt(request.getParameter("id"));
+        WishList wishList = (WishList) session.getAttribute("wishList");
+        String uri = request.getParameter("uri");
+        for (Book book : wishList.getBooks()) {
+            if (wishList.getBooks().indexOf(book) > -1) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
+                dispatcher.forward(request, response);
+            }
+        }
+        wishListDao.addToWishList(user.getId(), bookId);
+        wishList = wishListDao.getWishList(user.getId());
+        session.setAttribute("wishList", wishList);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?msg=added");
+        dispatcher.forward(request, response);
+        }
     }
-}

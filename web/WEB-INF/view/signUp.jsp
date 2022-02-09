@@ -1,7 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8"%>
-<html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <head>
     <link rel = "stylesheet" href="/css/style.css"/>
     <link rel = "stylesheet" href="/css/formStyle.css"/>
@@ -47,13 +47,13 @@
     </div>
 </header>
 <main class = "signup-main">
-<section class = "signup-container">
-    <div class="signup-header">
-    <h1> <c:out value="${create_account}"/> </h1>
-    </div>
+    <section class = "signup-container">
+        <div class="signup-header">
+            <h1> <c:out value="${create_account}"/> </h1>
+        </div>
         <form class = "signup-form" id = "signup-id" onsubmit="return checkInputs(this)" action = "<%= request.getContextPath()%>/controller" method = "post">
             <div class = "form-control">
-            <label for = "name"><c:out value = "${name}"/> </label>
+                <label for = "name"><c:out value = "${name}"/> </label>
                 <input id = "name" type = "text" name = "name" required>
                 <i class = "fas-fa-check-circle"></i>
                 <i class = "fas-fa-check-exclamation-circle"></i>
@@ -126,24 +126,23 @@
             <input type = "hidden" name="service_name" value="sign_up"/>
             <button type="submit" id = "submit-btn" onclick="checkInputs()" ><c:out value = "${sign_up}"/></button>
         </form>
-</section>
+    </section>
     <section class = "msg-section">
         <%String msg = request.getParameter("msg");
             request.setAttribute("msg", msg);
             ;%>
         <p>
-        <c:choose>
-            <c:when test="${msg == 'error'}">
-                <c:out value="${error_gen}"/>
-            </c:when>
-            <c:when test = "${msg == 'user_exists'}">
-                <c:out value="${error_email}"/>
-            </c:when>
-            <c:when test = "${msg == 'success'}">
-                <c:out value="${successful}"/> <br>
-
-            </c:when>
-        </c:choose>
+            <c:choose>
+                <c:when test="${msg == 'error'}">
+                    <c:out value="${error_gen}"/>
+                </c:when>
+                <c:when test = "${msg == 'user_exists'}">
+                    <c:out value="${error_email}"/>
+                </c:when>
+                <c:when test = "${msg == 'success'}">
+                    <c:out value="${successful}"/> <br>
+                </c:when>
+            </c:choose>
         </p>
     </section>
 

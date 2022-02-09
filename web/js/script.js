@@ -44,5 +44,13 @@ function hideEl(id) {
     document.getElementById(id).style.display = "none";
 }
 
-
-
+function selectStyle(className, id) {
+    const items = document.getElementsByClassName(className);
+    const selectedItem = document.getElementById(id);
+    selectedItem.classList.add('selected');
+    for (let i = 0; i < items.length; i++) {
+        if (items[i] !== selectedItem) {
+            items[i].classList.remove('selected');
+        }
+    }
+}
