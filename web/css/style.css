@@ -129,7 +129,7 @@ input[type=radio] {
     display: none;
 }
 
-#add-to-wl {
+.add-to-wl {
     width: 30px;
     height: 30px;
     border: none;
@@ -432,7 +432,7 @@ h3 {
 }
 
 input[type=text],
-#card {
+#prof-card {
     border: 1px solid slategrey;
     border-radius: 4px;
     font-family: inherit;
@@ -443,7 +443,7 @@ input[type=text],
 
 .profile-main input[type=text],
 .profile-main input[type=password],
-#card {
+#prof-card {
     width: 250px;
     margin-bottom: 20px;
 }
@@ -520,7 +520,7 @@ input[type=text],
 
 .error,
 .msg-section {
-    color: #934139;
+    color: red;
     font-size: 16px;
     max-width: 300px;
 }
@@ -549,7 +549,7 @@ h2 {
 
 .msg-div {
     font-size: 16px;
-    color: #934139;
+    color: red;
 }
 
 #pop-up-div {
@@ -596,8 +596,13 @@ h2 {
     column-gap: 40px;
 }
 
-#filtered-books {
-    border-bottom: 5px sandybrown solid;
+.big-title {
+    background: sandybrown;
+    padding: 20px 0;
+    width: 100%;
+    color: white;
+    font-size: 28px;
+    text-transform: uppercase;
 }
 
 #order-books {

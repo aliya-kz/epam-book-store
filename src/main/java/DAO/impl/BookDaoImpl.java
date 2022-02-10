@@ -27,8 +27,7 @@ public class BookDaoImpl implements BookDao {
 
     private final static String INSERT_COVER = "INSERT into book_covers (id, image) values (?, ?)";
 
-
-    private final static String SELECT_ALL_BOOKS = "SELECT b.*, ab.author_id, cl.category_name, fl.format_name, bc.image from books b " +
+       private final static String SELECT_ALL_BOOKS = "SELECT b.*, ab.author_id, cl.category_name, fl.format_name, bc.image from books b " +
             "left join authors_to_books ab on b.id=ab.book_id left join categories_lang cl on cl.id=b.category_id left join " +
             "formats_lang fl on fl.id=b.format_id left join book_covers bc on bc.id=b.id WHERE fl.lang= ? and cl.lang=?;";
 
@@ -212,6 +211,45 @@ public class BookDaoImpl implements BookDao {
             connectionPool.returnConnection(connection);
         }*/
         return books;
+    }
+
+    public List<Book> filterByCategory (List<Book> books, int [] categoryIds) {
+      List <Book> result = new ArrayList<>();
+        for (Book book: books) {
+            for (int categoryId : categoryIds) {
+                if (book.getCategoryId() == categoryId) {
+                    result.add(book);
+                    continue;
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<Book> filterByFormat (List<Book> books, int[] formatIds) {
+            List <Book> result = new ArrayList<>();
+            for (Book book: books) {
+                for (int formatId : formatIds) {
+                    if (book.getFormatId() == formatId) {
+                        result.add(book);
+                        continue;
+                    }
+                }
+            }
+            return result;
+    }
+
+    public List<Book> filterByPublLang (List<Book> books, String [] publLangs) {
+        List <Book> result = new ArrayList<>();
+        for (Book book: books) {
+            for (String lang : publLangs) {
+                if (book.getLanguage().equals(lang)) {
+                    result.add(book);
+                    continue;
+                }
+            }
+        }
+        return result;
     }
 
     public static void main(String[] args) throws IOException {

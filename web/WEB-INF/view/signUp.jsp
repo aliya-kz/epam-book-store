@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <head>
     <link rel = "stylesheet" href="/css/style.css"/>
-    <link rel = "stylesheet" href="/css/formStyle.css"/>
     <script src="/js/validation.js"> </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +41,7 @@
                 <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
                 <input type = "hidden" name = "locale" value="ru_RU"/>
                 <input class="lang" id="rus" type="submit" name="service_name" value="change_language"/></form></li>
-            <li> <button> <a href="/login"><c:out value="${login}"/> </a></button></li>
+            <li> <a href="/login"><c:out value="${login}"/><button><i class="fas fa-user fa-lg"></i></button></a></li>
         </ul>
     </div>
 </header>

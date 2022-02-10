@@ -3,6 +3,8 @@ package service;
 import DAO.*;
 import DAO.impl.*;
 import entity.Cart;
+import entity.WishList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

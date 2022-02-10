@@ -17,33 +17,46 @@
 <fmt:message bundle = "${content}" key="ALL" var="all"/>
 <fmt:message bundle = "${content}" key="CATEGORY" var="cat"/>
 <fmt:message bundle = "${content}" key="FORMAT" var="formt"/>
+<fmt:message bundle = "${content}" key="LANGUAGE" var="language"/>
+<fmt:message bundle = "${content}" key="RESET" var="reset"/>
+<fmt:message bundle = "${content}" key="APPLY" var="apply"/>
+<fmt:message bundle = "${content}" key="NOTHING" var="nothing"/>
+<fmt:message bundle = "${content}" key="OTHER_BOOKS" var="other_books"/>
 <jsp:include page="/header"/>
 
 <main class = "books-main">
     <section class="books-filter">
-        <h1><c:out value="${cat}"/> </h1>
         <form action = "<%=request.getContextPath()%>/controller?service_name=filter_books" method = "post">
-        <input type="hidden" name="paramName" value="category" >
-            <select name="id" onchange="this.form.submit()" multiple="multiple">
+            <h1><c:out value="${cat}"/> </h1>
+            <select name="category" multiple>
             <c:forEach var="category" items="${categories}">
-                <option class="option-cat" value="${category.id}" onselect="selectOption('option-cat')">
-                    <c:out value="${category.categoryName}"/></option>
+                <option id = "cat${category.id}" value="${category.id}" onselect="selectStyle('cat${category.id}')">
+                <c:out value="${category.categoryName}"/></option>
             </c:forEach>
         </select>
-        </form>
 
-        <form action = "<%=request.getContextPath()%>/controller?service_name=filter_books" method = "post">
-           <h1> <c:out value="${formt}"/> </h1>
-            <input type="hidden" name="paramName" value="format">
-        <select name="id" onchange="this.form.submit()" multiple="multiple">
+            <h1> <c:out value="${formt}"/> </h1>
+        <select name="format" multiple>
             <c:forEach var="format" items="${formats}">
-                <option class="format" id="format${format.id}" value="${format.id}" onselect="selectStyle('format', 'format${format.id}')">
+                <option id="format${format.id}" value="${format.id}" onselect="selectStyle('format${format.id}')">
                     <c:out value="${format.formatName}"/> </option>
             </c:forEach>
         </select>
+
+            <h1> <c:out value="${language}"/> </h1>
+            <select name="publang"  multiple>
+                <c:forEach var="publang" items="${langs}">
+                    <option id="lang${lang.id}" value="${publang.title}" onselect="selectStyle('publang${lang.id}')">
+                        <c:out value="${publang.title}"/> </option>
+                </c:forEach>
+            </select>
+
+            <br/>
+            <button class="btn checkout"><c:out value="${apply}"/> </button>
+
+            <button class="btn decline" name="reset" value="reset"><c:out value="${reset}"/> </button>
+            </button>
         </form>
-        <button>
-      </button>
     </section>
 
 <% List<Book> filteredBooks = (List<Book>) session.getAttribute("filteredBooks");
@@ -53,6 +66,9 @@ if (filteredBooks == null) {
 request.setAttribute("filteredBooks", filteredBooks);%>
 <div>
     <section id = "filtered-books">
+        <c:if test="${filteredBooks.size() == 0}">
+            <h1><c:out value="${nothing}"></c:out></h1>
+        </c:if>
         <c:forEach var="book" items="${filteredBooks}">
             <div class = "index-book" onmouseover="showEl('book-add${book.id}')" onmouseleave="hideEl('book-add${book.id}')">
                 <img src = "/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" style="height: 230px; max-width: 180px"><br>
@@ -83,8 +99,10 @@ request.setAttribute("filteredBooks", filteredBooks);%>
     </section>
 
     <section>
+        <div class="big-title"><c:out value="${other_books}"/> </div>
+        <br/>
         <c:forEach var="category" items="${categories}">
-        <div class="title" id="cat${category.id}"><c:out value="${category.categoryName}"></c:out></div>
+        <div class="title" id="${category.id}"><c:out value="${category.categoryName}"></c:out></div>
             <div id="index-books">
                 <c:forEach var="book" items="${books}">
                     <c:if test="${book.categoryId == category.id}">

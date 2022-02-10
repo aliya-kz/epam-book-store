@@ -55,7 +55,6 @@
             <li> <button name="service_name" value="get_all_orders"><c:out value="${ords}"/>  </button></li>
             <li> <button name="service_name" value="get_all_authors"><c:out value="${authors}"/>  </button></li>
             <li> <button name="service_name" value="get_all_messages"><c:out value="${messages}"/>  </button></li>
-            <li> <button name="service_name" value="get_analytics"><c:out value="${analytics}"/>  </button></li>
         </ul>
     </nav>
     </div>

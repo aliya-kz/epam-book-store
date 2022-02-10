@@ -1,17 +1,17 @@
 package DAO.db_connection;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-
 import static java.lang.Integer.parseInt;
 
 public final class ConnectionPool {
-   // private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
+    private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private static volatile ConnectionPool instance;
     private String url;
     private String user;
@@ -43,7 +43,7 @@ public final class ConnectionPool {
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
-         //   LOGGER.error(e);
+            LOGGER.error(e);
             e.printStackTrace();
         }
     }
@@ -69,7 +69,7 @@ public final class ConnectionPool {
                 connection = DriverManager.getConnection(url, user, password);
                 connectionQueue.put(connection);
             } catch (InterruptedException | SQLException e) {
-             //   LOGGER.warn(e);
+                LOGGER.warn(e);
                 e.printStackTrace();
             }
         }
@@ -80,7 +80,7 @@ public final class ConnectionPool {
         try {
             connection = connectionQueue.take();
         } catch (InterruptedException e) {
-          //  LOGGER.error(e);
+            LOGGER.error(e);
         }
         return connection;
     }
@@ -90,7 +90,7 @@ public final class ConnectionPool {
             try {
                 connectionQueue.put(connection);
             } catch (InterruptedException e) {
-              //  LOGGER.error(e);
+                LOGGER.error(e);
             }
         }
     }

@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -28,24 +27,37 @@
 
 <% int [] numbers = new int []{1,2,3,4,5,6,7,8,9,10};
     request.setAttribute("numbers", numbers);
-request.setAttribute("id", request.getParameter("id"));%>
+    request.setAttribute("id", request.getParameter("id"));%>
 
 <c:forEach var="book" items="${books}">
-        <c:if test = "${book.id == id}">
-            <form action = "<%=request.getContextPath()%>/controller?id=${book.id}" method = "post">
+    <c:if test = "${book.id == id}">
+
             <main class = "main">
                 <section id = "book">
                     <div class = "book-cover">
                         <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="250px"/>
-                        <input type="hidden" name ="table" value="wish_lists">
+
+                       <c:if test="${empty user}">
+                           <button class="add-to-wl" onclick="openForm('login-form')"></button>
+                       </c:if>
+                        <c:if test="${not empty user}">
                         <c:choose>
-                        <c:when test="${fn:contains(wishList.books,book)}" >
+                            <c:when test="${fn:contains(wishList.books,book)}" >
+                        <form action = "<%=request.getContextPath()%>/controller?id=${book.id}" method = "post">
+                            <input type="hidden" name ="table" value="wish_lists">
+                            <input type = "hidden" name="uri" value="<%=request.getRequestURI()%>"/>
                             <button id="delete-from-wl" name="service_name" value="delete_entity"></button>
-                        </c:when>
+                        </form>
+                            </c:when>
                             <c:otherwise>
-                                <button id="add-to-wl" name="service_name" value="add_to_wl"></button>
+                        <form action = "<%=request.getContextPath()%>/controller?id=${book.id}" method = "post">
+                            <input type="hidden" name ="table" value="wish_lists">
+                            <input type = "hidden" name="uri" value="<%=request.getRequestURI()%>"/>
+                                <button class="add-to-wl" name="service_name" value="add_to_wl"></button>
+                        </form>
                             </c:otherwise>
                         </c:choose>
+                        </c:if>
                     </div>
 
                     <div class = "book-info">
@@ -57,43 +69,42 @@ request.setAttribute("id", request.getParameter("id"));%>
                                 </c:if>
                             </c:forEach>
                         </c:forEach>
-                           <section class = "book-info-table">
-                                <c:out value="${cat}"/>: <c:out value="${book.category}"/><br>
-                                <c:out value="${publisher}"/>: <c:out value="${book.publisher}"/><br>
-                                <c:out value="${format}"/> <c:out value="${book.format}"/><br>
-                                <h3> ISBN: <c:out value="${book.isbn}"/> </h3><br>
-                                <h2> <c:out value="${book.price}"/> ₸</h2>
-                                <c:out value="${quantity}"/>
-                                <select name ="qty">
-                                    <c:forEach var="number" items="${numbers}" >
-                                        <option value="${number}"><c:out value="${number}"/> </option>
-                                    </c:forEach>
-                                </select>
+                        <section class = "book-info-table">
+                            <c:out value="${cat}"/>: <c:out value="${book.category}"/><br>
+                            <c:out value="${publisher}"/>: <c:out value="${book.publisher}"/><br>
+                            <c:out value="${format}"/> <c:out value="${book.format}"/><br>
+                            <h3> ISBN: <c:out value="${book.isbn}"/> </h3><br>
+                            <h2> <c:out value="${book.price}"/> ₸</h2>
+                            <c:out value="${quantity}"/>
+                            <select name ="qty">
+                                <c:forEach var="number" items="${numbers}" >
+                                    <option value="${number}"><c:out value="${number}"/> </option>
+                                </c:forEach>
+                            </select>
 
-                                <input type = "hidden" name="uri" value="<%=request.getRequestURI()%>"/>
-                                <button class="add-book-btn" name="service_name"  value="add_to_cart"><c:out value="${add_to_cart}"/>
-                                </button><br>
+                            <input type = "hidden" name="uri" value="<%=request.getRequestURI()%>"/>
+                            <button class="add-book-btn" name="service_name"  value="add_to_cart"><c:out value="${add_to_cart}"/>
+                            </button><br>
 
-                                <% request.setAttribute("msg", request.getParameter("msg"));
+                            <% request.setAttribute("msg", request.getParameter("msg"));
                                 request.setAttribute("added", "added");%>
-                                <c:if test="${msg != null && msg == added}">
-                                    <div class="btns">
+                            <c:if test="${msg != null && msg == added}">
+                                <div class="btns">
                                     <a href="/cart"><div id="view-cart" class="btn"><c:out value="${view_cart}"/></div></a>
                                     <a href="/checkout"><div id="checkout" class="btn"><c:out value="${checkout}"/></div></a>
-                                    </div>
-                                </c:if>
-                            </section>
+                                </div>
+                            </c:if>
+                        </section>
 
                     </div>
                 </section>
                 <div class="book-desc"><c:out value="${book.description}"/> </div>
             </main>
-            </form>
-        </c:if>
+        </form>
+    </c:if>
 </c:forEach>
 
 
 <jsp:include page="/footer"/>
 </body>
 </html>
-

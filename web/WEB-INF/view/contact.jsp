@@ -14,8 +14,8 @@
 <fmt:message bundle="${content}" key="PHONE_NUMBER" var="phone" />
 <fmt:message bundle="${content}" key="MESSAGE" var="message" />
 
-<main>
-  <form action="mailto:funnybox@list.ru" method="get" enctype="text/plain">
+<main id="contact-main">
+  <form id="contact-form" action="mailto:funnybox@list.ru" method="get" enctype="text/plain">
     <div>
       <label for="name"><c:out value="${name}"/></label>
         <input type="text" name="name" id="name" />
@@ -30,8 +30,8 @@
       <textarea name="comments" rows="12" cols="35"></textarea>
     </div>
     <div>
-      <input type="submit" name="submit" value="Send" />
-      <input type="reset" name="reset" value="Clear Form" />
+      <input class="btn accept" type="submit" name="submit" value="Send" />
+      <input class="btn decline" type="reset" name="reset" value="Clear Form" />
     </div>
   </form>
   </main>

@@ -58,7 +58,7 @@ function checkPassword () {
 
 function checkCard () {
     let result = false;
-    const card = document.getElementById('card');
+    const card = document.getElementById('prof-card');
     const cardValue = card.value.replace(/[\s\-]/g,'');
 
     if (cardValue === '')  {

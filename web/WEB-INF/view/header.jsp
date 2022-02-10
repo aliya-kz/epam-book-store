@@ -47,7 +47,7 @@
                 <li><a href = "#"><c:out value = "${cat}"/></a>
                     <ul>
                         <c:forEach var="category" items="${categories}">
-                            <li><a href="/books#id=cat${category.id}"><c:out value="${category.categoryName}"/> </a></li>
+                            <li><a href="/books#id=${category.id}"><c:out value="${category.categoryName}"/> </a></li>
                         </c:forEach>
                     </ul>
                 </li>
@@ -61,7 +61,7 @@
             <a href = "/cart"><i class="fas fa-shopping-cart fa-2x"></i></a>
             <c:choose>
                 <c:when test="${not empty user}">
-                    <a href = "/wish-list"><i class="fab fa-gratipay fa-2x"></i></a>
+                    <a href = "/wish-list"><i class="fab fa-gratipay fa-2x" style="vertical-align: super"></i></a>
                 </c:when>
                 <c:otherwise>
                     <button class = "fa-btn" onclick="openForm('login-form')"><i class="fab fa-gratipay fa-2x"></i></button>

@@ -24,7 +24,7 @@ private final WishListDao wishListDao = new WishListDaoImpl();
         WishList wishList = (WishList) session.getAttribute("wishList");
         String uri = request.getParameter("uri");
         for (Book book : wishList.getBooks()) {
-            if (wishList.getBooks().indexOf(book) > -1) {
+            if (wishList.getBooks().indexOf(new Book (bookId)) > -1) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
                 dispatcher.forward(request, response);
             }

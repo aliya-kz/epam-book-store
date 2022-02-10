@@ -32,7 +32,6 @@
 <fmt:message bundle="${content}" key="SURNAME" var="surname" />
 <fmt:message bundle="${content}" key="ADDRESS" var="address" scope="session"/>
 <fmt:message bundle="${content}" key="PHONE_NUMBER" var="phone" />
-<fmt:message bundle="${content}" key="DATE_OF_BIRTH" var="date" />
 <fmt:message bundle="${content}" key="CARD_NUMBER" var="card"/>
 <fmt:message bundle="${content}" key="CONFIRM_PASSWORD" var="confirm_password"/>
 <fmt:message bundle="${content}" key="EDIT" var="edit"/>
@@ -148,8 +147,8 @@
       <form action = "<%= request.getContextPath()%>/controller" method = "post" onsubmit="return checkCard(this)">
         <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
         <div class = "form-control">
-          <label for = "card"></label>
-          <input id = "card" type = "text" name = "card" style="float: left" required />
+          <label for = "prof-card"></label>
+          <input id = "prof-card" type = "text" name = "prof-card" style="float: left" required />
           <button name="service_name" class="fa-btn" value="add_card" onclick="checkCard()">
             <i class="fas fa-plus-square fa-lg"></i></button>
           <small>Error message</small>
@@ -272,7 +271,7 @@
                     <div> <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="70px"/>
                     </div>
                     <div>
-                      <h3><c:out value = "${book.title}"/></h3>
+                      <a href = "/book?id=${book.id}" class="index-book-name"><c:out value = "${book.title}"/></a>
                       <c:forEach var="author_id" items="${book.authors}">
                         <c:forEach var="auth" items="${authors}">
                           <c:if test="${author_id == auth.id}">
