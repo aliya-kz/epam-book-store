@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpService implements Service {
+
     private UserDao userDao = new UserDaoImpl();
     private CartDao cartDao = new CartDaoImpl();
 
@@ -57,7 +58,7 @@ public class SignUpService implements Service {
             } else {
                 Cart cart = (Cart) session.getAttribute("cart");
                 cart.setUserId(userId);
-                int result = cartDao.addEntity(cart);
+                cartDao.addEntity(cart);
                 dispatcher = request.getRequestDispatcher("/WEB-INF/view/signUp.jsp?msg=success");
             }
             dispatcher.forward(request, response);

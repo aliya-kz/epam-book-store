@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import passwordEncr.PasswordEncrypter;
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -60,7 +61,6 @@ public class UserDaoImpl implements UserDao {
         int id = -1;
         PreparedStatement statement = null;
         PreparedStatement statement1 = null;
-        PreparedStatement statement2 = null;
         try {statement = connection.prepareStatement(INSERT_USER);
             statement.setString(1,user.getName());
             statement.setString(2,user.getSurname());
@@ -93,6 +93,7 @@ public class UserDaoImpl implements UserDao {
         }
         finally {
             close(statement);
+            close(statement1);
             connectionPool.returnConnection(connection);
         }
         return id;
@@ -299,7 +300,22 @@ public class UserDaoImpl implements UserDao {
 
     public static void main (String [] args) {
         UserDaoImpl dao= new UserDaoImpl();
-        System.out.println(dao.changePassword(70, "12345", "1234"));
-    }
+        User admin = new User("admin", "admin", "admin@admin.com", "87771111111", new Date(2000/04/05), "12345", true);
+        admin.setId(1);
+        List <Address> addresses = new ArrayList<>();
+        Address address = new Address(1, 1, "Gogol 2");
+        addresses.add(address);
+        admin.setAddresses(addresses);
+        List <Card> cards = new ArrayList<>();
+        Card card = new Card(1,2, "123412341234");
+        cards.add(card);
+        admin.setCards(cards);
+        dao.addEntity(admin);
 
+        User user = new User ("user", "ivanov", "user@user.com", "87775556644", new Date(2000/04/05), "12345", false);
+        user.setId(2);
+        user.setCards(cards);
+        user.setAddresses(addresses);
+        dao.addEntity(user);
+    }
 }

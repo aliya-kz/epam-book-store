@@ -1,0 +1,11 @@
+2022-02-11 01:15:15.435 [main] INFO  DAO.impl.UserDaoImpl - java.lang.NullPointerException
+2022-02-11 01:15:15.465 [main] INFO  DAO.impl.UserDaoImpl - java.lang.NullPointerException
+2022-02-11 01:18:41.834 [main] INFO  DAO.impl.UserDaoImpl - org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "users_email_key"
+  Подробности: Key (email)=(admin@admin.com) already exists.
+2022-02-11 01:18:41.883 [main] INFO  DAO.impl.UserDaoImpl - org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "users_email_key"
+  Подробности: Key (email)=(user@user.com) already exists.
+2022-02-11 01:20:31.231 [main] INFO  DAO.impl.UserDaoImpl - java.lang.NullPointerException
+2022-02-11 01:22:01.454 [main] INFO  DAO.impl.UserDaoImpl - org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "users_email_key"
+  Подробности: Key (email)=(admin@admin.com) already exists.
+2022-02-11 01:22:01.541 [main] INFO  DAO.impl.UserDaoImpl - org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "users_email_key"
+  Подробности: Key (email)=(user@user.com) already exists.

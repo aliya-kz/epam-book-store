@@ -76,16 +76,16 @@
                             <h3> ISBN: <c:out value="${book.isbn}"/> </h3><br>
                             <h2> <c:out value="${book.price}"/> ₸</h2>
                             <c:out value="${quantity}"/>
+                            <form action = "<%=request.getContextPath()%>/controller?id=${book.id}" method = "post">
                             <select name ="qty">
                                 <c:forEach var="number" items="${numbers}" >
                                     <option value="${number}"><c:out value="${number}"/> </option>
                                 </c:forEach>
                             </select>
-
-                            <input type = "hidden" name="uri" value="<%=request.getRequestURI()%>"/>
+                                <input type = "hidden" name="uri" value="<%=request.getRequestURI()%>"/>
                             <button class="add-book-btn" name="service_name"  value="add_to_cart"><c:out value="${add_to_cart}"/>
                             </button><br>
-
+                            </form>
                             <% request.setAttribute("msg", request.getParameter("msg"));
                                 request.setAttribute("added", "added");%>
                             <c:if test="${msg != null && msg == added}">
@@ -100,7 +100,6 @@
                 </section>
                 <div class="book-desc"><c:out value="${book.description}"/> </div>
             </main>
-        </form>
     </c:if>
 </c:forEach>
 

@@ -14,7 +14,6 @@ public class CardDaoImpl implements CardDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
-
     private static String INSERT_CARD = "INSERT INTO cards (user_id, card_number) VALUES (?,?);";
     private static String DELETE_CARD = "DELETE from cards WHERE card_id = ?;";
 

@@ -15,6 +15,7 @@ import java.util.List;
 
 
 public class WishListDaoImpl implements WishListDao {
+
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static String INSERT_WL = "INSERT into wish_lists (user_id, book_id) values (?,?);";

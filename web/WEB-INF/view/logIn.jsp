@@ -23,10 +23,12 @@
 <fmt:message bundle="${content}" key="ADMIN" var="admin"/>
 <fmt:message bundle="${content}" key="WRONG" var="wrong"/>
 <fmt:message bundle="${content}" key="FORGOT_PASSWORD" var="forgot_pass"/>
+<fmt:message bundle="${content}" key="HOME" var="home"/>
 
 <header class = "header">
     <div class="bar">
         <ul class="bar-list">
+            <li> <a href="/index"><c:out value="${home}"/></a> </li>
             <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
                 <input type = "hidden" name = "locale" value = "en_US"/>
                 <input type = "hidden" name = "uri" value="<%=request.getRequestURI()%>"/>

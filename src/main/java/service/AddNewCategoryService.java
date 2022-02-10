@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 public class AddNewCategoryService implements Service {
+
     private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static final CategoryDao categoryDao = new CategoryDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String title = request.getParameter("new_category");

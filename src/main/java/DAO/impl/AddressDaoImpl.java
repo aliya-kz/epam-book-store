@@ -8,13 +8,10 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import static java.sql.Types.NULL;
-
-
 public class AddressDaoImpl implements AddressDao {
+
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-
     private final static String INSERT_ADDRESS = "INSERT INTO addresses (user_id, address) VALUES (?,?);";
     private final static String DELETE_ADDRESS = "UPDATE addresses set user_id = ? where address_id = ?;";
 
@@ -59,10 +56,5 @@ public class AddressDaoImpl implements AddressDao {
     @Override
     public int deleteByIdLang(int id, String lang) {
         return 0;
-    }
-
-    public static void main (String []args) {
-        String a="categories";
-        System.out.println(a.substring(0, a.indexOf("_")));
     }
 }

@@ -1,10 +1,10 @@
 package filter;
 
-
 import javax.servlet.*;
 import java.io.IOException;
 
 public class EncodingFilter implements Filter {
+
     private String encoding;
     private ServletContext context;
 

@@ -3,7 +3,8 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WishList extends Entity{
+public class WishList extends Entity {
+
     private int id;
     private int userId;
     private List<Book> books;

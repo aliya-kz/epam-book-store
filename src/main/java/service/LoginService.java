@@ -14,6 +14,7 @@ import java.util.List;
 
 
 public class LoginService implements Service {
+
     private static SqlDaoFactory factory = SqlDaoFactory.getInstance();
     private LanguageDao languageDao = new LanguageDaoImpl();
     private UserDao userDao= new UserDaoImpl();

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ChangePasswordService implements Service {
+
     private final UserDaoImpl userDAO = new UserDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
@@ -23,7 +25,6 @@ public class ChangePasswordService implements Service {
         String uri = request.getParameter("uri");
         int userId = user.getId();
             int result = userDAO.changePassword(userId, password, newPassword);
-
         if (result < 1) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?pass-msg=error");
             dispatcher.forward(request, response);

@@ -19,8 +19,10 @@ import java.util.List;
 
 
 public class EditImageService implements Service {
+
     private final AuthorDao authorDao = new AuthorDaoImpl();
     private final BookDao bookDao = new BookDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();

@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EditCategoryService implements Service{
+
     private static ServiceFactory factory = ServiceFactory.getInstance();
+
     CategoryDao categoryDao = new CategoryDaoImpl();
 
     @Override

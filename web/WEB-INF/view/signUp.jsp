@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <head>
-    <link rel = "stylesheet" href="/css/style.css"/>
+    <link rel = "stylesheet" href="/css/formStyle.css"/>
     <script src="/js/validation.js"> </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +29,12 @@
 <fmt:message bundle="${content}" key="SIGN_UP_COMPLETED" var="successful"/>
 <fmt:message bundle="${content}" key="CONFIRM_PASSWORD" var="confirm_password"/>
 <fmt:message bundle="${content}" key="LOG_IN" var="login"/>
+<fmt:message bundle="${content}" key="HOME" var="home"/>
 
 <header class = "header">
     <div class="bar">
         <ul class="bar-list">
+            <li> <a href="/index"><c:out value="${home}"/></a> </li>
             <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
                 <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
                 <input type = "hidden" name = "locale" value="en_US"/>

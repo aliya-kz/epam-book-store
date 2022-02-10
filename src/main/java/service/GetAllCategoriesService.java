@@ -13,7 +13,9 @@ import java.util.List;
 
 
 public class GetAllCategoriesService implements Service{
+
     CategoryDaoImpl categoryDao = new CategoryDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();

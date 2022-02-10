@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetAllBooksService implements Service {
+
     BookDaoImpl bookDao = new BookDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();

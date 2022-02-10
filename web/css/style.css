@@ -572,7 +572,7 @@ h2 {
 #ads {
     position: relative;
     background-image: url("/images/img/jamie.jpg");
-    background-size: cover;
+    background-size: contain;
     height: 350px;
 }
 

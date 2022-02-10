@@ -24,7 +24,7 @@ public class AuthorDaoImpl implements AuthorDao {
     private final static String INSERT_AUTHORS = "INSERT into authors (id, image) values (?,?);";
     private final static String INSERT_AUTHORS_LANG = "INSERT into authors_lang (id, name, surname, biography, lang) values " +
             "(?, ?, ?, ?, ?);";
-    private final static String DELETE_AUTHORS_LANG ="DELETE from authors WHERE id = ? and lang = ?;";
+    private final static String DELETE_AUTHORS_LANG ="DELETE from authors_lang WHERE id = ? and lang = ?;";
     private final static String DELETE_AUTHORS ="DELETE from authors WHERE id = ?;";
     private final static String SELECT_ALL ="SELECT id, name, surname FROM authors_lang;";
 
@@ -34,8 +34,6 @@ public class AuthorDaoImpl implements AuthorDao {
         int id = 0;
         PreparedStatement statement = null;
         PreparedStatement statement1 = null;
-        PreparedStatement statement2 = null;
-
         try {
             statement = connection.prepareStatement(SELECT_MAX);
             ResultSet resultSet = statement.executeQuery();
@@ -173,9 +171,5 @@ public class AuthorDaoImpl implements AuthorDao {
             connectionPool.returnConnection(connection);
         }
         return authors;
-    }
-
-    public  static  void main (String[] args) {
- AuthorDao dao =new AuthorDaoImpl();
     }
 }

@@ -18,51 +18,6 @@ public interface BaseDao <T extends Entity> {
 
     int addEntity(T t);
 
-    default Object getColumnValue(String table, int id, String columnName) {
-        Object value = new Object();
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        String sqlRequest = "SELECT " + columnName + " from " + table + " WHERE id = ?;";
-        try {
-            statement = connection.prepareStatement(sqlRequest);
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                value = resultSet.getObject(1);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            close(statement);
-            connectionPool.returnConnection(connection);
-        }
-        return value;
-    }
-
-    default Object getColumnValueLang(String table, int id, String columnName, String lang) {
-        Object value = new Object();
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        String sqlRequest = "SELECT " + columnName + " from " + table + " WHERE id = ? and lang = ?;";
-        try {
-            statement = connection.prepareStatement(sqlRequest);
-            statement.setInt(1, id);
-            statement.setString(2, lang);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                value = resultSet.getObject(1);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            close(statement);
-            connectionPool.returnConnection(connection);
-        }
-        return value;
-    }
-
     default int setColumnValue(String table, int id, String columnName, Object value) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();

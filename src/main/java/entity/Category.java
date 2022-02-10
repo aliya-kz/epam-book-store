@@ -37,7 +37,6 @@ public class Category extends Entity {
         this.id = id;
     }
 
-
     @Override
     public String toString() {
         return categoryName;

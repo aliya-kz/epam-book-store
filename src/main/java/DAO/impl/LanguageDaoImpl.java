@@ -15,9 +15,12 @@ import java.util.List;
 public class LanguageDaoImpl implements LanguageDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
+
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String INSERT_LANG = "INSERT into lang (title) values (?);";
-    private static final String GET_ALL_LANG = "SELECT * from lang;";
+
+    private static final String INSERT_LANG = "INSERT into langs (title) values (?);";
+
+    private static final String GET_ALL_LANG = "SELECT * from langs;";
 
     @Override
     public int addEntity(Lang lang) {
@@ -50,7 +53,7 @@ public class LanguageDaoImpl implements LanguageDao {
             while (resultSet.next()) {
                 Lang lang = new Lang();
                 lang.setId(resultSet.getInt("id"));
-                lang.setTitle(resultSet.getString("lang"));
+                lang.setTitle(resultSet.getString("title"));
                 langs.add(lang);
             }
         } catch (Exception e) {

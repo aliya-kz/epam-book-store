@@ -60,13 +60,14 @@
     <section class="add-translation">
         <h3> <c:out value="${add_translation}"/></h3>
         <table class="admin-table">
+            <tr>
             <th>ID</th>
             <th><c:out value="${name}"/></th>
             <th><c:out value="${surname}"/></th>
             <th><c:out value="${biography}"/></th>
             <th><c:out value="${language}"/></th>
             <th> </th>
-
+            </tr>
             <tr>
                 <form action = "/controller?uri=<%=request.getRequestURI()%>" method="post">
                     <td> <input type="text"  name="id" required/></td>

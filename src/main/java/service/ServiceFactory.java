@@ -22,7 +22,6 @@ public class ServiceFactory {
             SERVICE_MAP.put("get_all_books", new GetAllBooksService());
             SERVICE_MAP.put("get_all_users", new GetAllUsersService());
             SERVICE_MAP.put("get_all_orders", new GetAllOrdersService());
-            SERVICE_MAP.put("get_all_messages", new GetAllMessagesService());
             SERVICE_MAP.put("get_all_categories", new GetAllCategoriesService());
             SERVICE_MAP.put("get_all_authors", new GetAllAuthorsService());
             SERVICE_MAP.put("change_language", new ChangeLanguageService());
@@ -30,7 +29,7 @@ public class ServiceFactory {
             SERVICE_MAP.put("edit_category", new EditCategoryService());
             SERVICE_MAP.put("edit_book", new EditBookService());
             SERVICE_MAP.put("delete_entity", new DeleteEntityService());
-            SERVICE_MAP.put("delete_entity_admin", new DeleteEntityService());
+            SERVICE_MAP.put("delete_entity_admin", new DeleteEntityAdmin());
             SERVICE_MAP.put("add_new_author", new AddNewAuthorService());
             SERVICE_MAP.put("edit_author", new EditAuthorService());
             SERVICE_MAP.put("edit_image", new EditImageService());

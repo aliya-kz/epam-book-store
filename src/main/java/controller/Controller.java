@@ -12,8 +12,8 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
 
-    private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     ServiceFactory factory = ServiceFactory.getInstance();
+
     public static final long serialVersionUID = 1L;
 
     public Controller() {
@@ -30,7 +30,6 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String serviceName = request.getParameter("service_name");
-        System.out.println(serviceName);
         Service service = factory.getService(serviceName);
         service.execute(request, response);
     }

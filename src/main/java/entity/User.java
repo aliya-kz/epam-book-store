@@ -29,6 +29,16 @@ public class User extends Entity {
         this.password = password;
     }
 
+    public User(String name, String surname, String email, String phone, Date dateOfBirth, String password, boolean isAdmin) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
+
     public List<Address> getAddresses() {
         return addresses;
     }

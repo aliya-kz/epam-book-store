@@ -17,9 +17,7 @@ import java.util.Map;
 public class CartDaoImpl implements CartDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
-
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-
     private final static String SELECT_CART = "SELECT * FROM carts where user_id = ?";
     private final static String INSERT_CART = "INSERT into carts (user_id, book_id, quantity) values (?, ?, ?);";
     private final static String SELECT_BOOK = "SELECT quantity FROM carts where user_id = ? and book_id = ?;";

@@ -11,6 +11,7 @@ import java.util.concurrent.BlockingQueue;
 import static java.lang.Integer.parseInt;
 
 public final class ConnectionPool {
+
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private static volatile ConnectionPool instance;
     private String url;

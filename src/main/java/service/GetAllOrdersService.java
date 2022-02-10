@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetAllOrdersService implements Service {
+
     OrderDaoImpl orderDao = new OrderDaoImpl();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<Order> orders = orderDao.getAll();

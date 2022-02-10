@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
 public class AddToWishListService implements Service {
+
 private final WishListDao wishListDao = new WishListDaoImpl();
 
     @Override
@@ -23,11 +23,9 @@ private final WishListDao wishListDao = new WishListDaoImpl();
         int bookId = Integer.parseInt(request.getParameter("id"));
         WishList wishList = (WishList) session.getAttribute("wishList");
         String uri = request.getParameter("uri");
-        for (Book book : wishList.getBooks()) {
-            if (wishList.getBooks().indexOf(new Book (bookId)) > -1) {
+        if (wishList.getBooks().indexOf(new Book (bookId)) > -1) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
                 dispatcher.forward(request, response);
-            }
         }
         wishListDao.addToWishList(user.getId(), bookId);
         wishList = wishListDao.getWishList(user.getId());

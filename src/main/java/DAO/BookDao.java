@@ -12,8 +12,7 @@ public interface BookDao extends BaseDao <Book> {
         int deleteBookAuthors (int bookId);
         int setBookAuthors (int bookId, List <Integer> authorIds);
         List<Book> filterByCategory (List<Book> books, int[] categoryId);
-
+        int setByteImage (int id, String url);
         List<Book> filterByFormat (List<Book> books, int[] formatId);
-
         List<Book> filterByPublLang (List<Book> books, String[] publLang);
 }

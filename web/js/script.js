@@ -1,11 +1,11 @@
 function tableSearch(id) {
-    var phrase = document.getElementById('search-text');
-    var table = document.getElementById(id);
-    var regPhrase = new RegExp(phrase.value, 'i');
-    var flag = false;
-    for (var i = 1; i < table.rows.length; i++) {
+    let phrase = document.getElementById('search-text');
+    let table = document.getElementById(id);
+    let regPhrase = new RegExp(phrase.value, 'i');
+    let flag = false;
+    for (let i = 1; i < table.rows.length; i++) {
         flag = false;
-        for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+        for (let j = table.rows[i].cells.length - 1; j >= 0; j--) {
             flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
             if (flag) break;
         }

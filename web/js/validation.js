@@ -6,7 +6,7 @@ function editProfile() {
     editBtn.style.display = 'none';
     saveBtn.style.display = 'block';
 
-    for (var i = 0; i < inputs.length; i++) {
+    for (let i = 0; i < inputs.length; i++) {
         inputs[i].style.display = 'block';
     }
 
@@ -22,7 +22,7 @@ function checkPassword () {
     const newPassValue = newPassword.value.trim();
     const newPassValue1 = newPassword1.value.trim();
 
-    var count = 0;
+    let count = 0;
 
     if (passValue === '')  {
         setErrorFor(password, 'Fill in the required field');
@@ -154,7 +154,7 @@ function checkInputs() {
     const passValue = password.value.trim();
     const passValue1 = password1.value.trim();
 
-     var count = 0;
+     let count = 0;
 
     if (nameValue === '') {
         setErrorFor(name, 'Fill in the required field');

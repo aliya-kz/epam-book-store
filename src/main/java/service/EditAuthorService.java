@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EditAuthorService implements Service {
+
     private static ServiceFactory factory = ServiceFactory.getInstance();
     AuthorDao authorDao = new AuthorDaoImpl();
 

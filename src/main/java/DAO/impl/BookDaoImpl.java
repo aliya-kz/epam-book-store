@@ -219,7 +219,6 @@ public class BookDaoImpl implements BookDao {
             for (int categoryId : categoryIds) {
                 if (book.getCategoryId() == categoryId) {
                     result.add(book);
-                    continue;
                 }
             }
         }
@@ -232,7 +231,6 @@ public class BookDaoImpl implements BookDao {
                 for (int formatId : formatIds) {
                     if (book.getFormatId() == formatId) {
                         result.add(book);
-                        continue;
                     }
                 }
             }
@@ -252,23 +250,82 @@ public class BookDaoImpl implements BookDao {
         return result;
     }
 
-    public static void main(String[] args) throws IOException {
-        BookDaoImpl impl = new BookDaoImpl();
-
-        /*byte[] result = impl.getByteImage(1, "authors");
-        ByteArrayInputStream bis = new ByteArrayInputStream(result);
-        BufferedImage bImage2 = null;
+    public int setByteImage (int id, String url) {
+        Connection connection = connectionPool.takeConnection();
+        int result = 0;
+        PreparedStatement statement = null;
         try {
-            bImage2 = ImageIO.read(bis);
-        } catch (IOException e) {
+            File file = new File(url);
+            FileInputStream fis = new FileInputStream(file);
+            statement = connection.prepareStatement(INSERT_COVER);
+            statement.setInt(1, id);
+            statement.setBinaryStream(2, fis, file.length());
+            result = statement.executeUpdate();
+            fis.close();
+            statement.close();
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
+        } finally {
+            connectionPool.returnConnection(connection);
         }
-        boolean jpg = false;
-        try {
-            jpg = ImageIO.write(bImage2, "jpeg", new File("D:/test8.jpeg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        return result;
+    }
 
+    public static void main(String[] args) throws IOException {
+
+        BookDao impl = new BookDaoImpl();
+
+        impl.setByteImage(1, "D:/cover/волки_у_дверей.jpg");
+        impl.setByteImage(2, "D:/cover/head_first.jpg");
+        impl.setByteImage(3, "D:/cover/все_для_праздника.jpg");
+        impl.setByteImage(4, "D:/cover/японский.jpg");
+        impl.setByteImage(5, "D:/cover/sherlock.jpg");
+        impl.setByteImage(6, "D:/cover/до_встречи_с_тобой.jpg");
+        impl.setByteImage(7, "D:/cover/я_познаю.jpg");
+        impl.setByteImage(8, "D:/cover/воспитание_таланта.jpg");
+        impl.setByteImage(9, "D:/cover/pinocchio.jpg");
+        impl.setByteImage(10, "D:/cover/дюймовочка.jpg");
+        impl.setByteImage(11, "D:/cover/ekkel.jpeg");
+        impl.setByteImage(12, "D:/cover/1q84.jpg");
+        impl.setByteImage(13, "D:/cover/norwegian_wood.jpg");
+        impl.setByteImage(14, "D:/cover/hr_phylosopher_stone.jpg");
+        impl.setByteImage(15, "D:/cover/hp_dealthy_hallows.jpg");
+        impl.setByteImage(16, "D:/cover/hp_azkaban.jpg");
+        impl.setByteImage(17, "D:/cover/rich_dad.jpg");
+        impl.setByteImage(18, "D:/cover/dovlatov.jpg");
+        impl.setByteImage(19, "D:/cover/master.jpg");
+        impl.setByteImage(20, "D:/cover/sobache.jpg");
+        impl.setByteImage(21, "D:/cover/london_favourite.jpg");
+        impl.setByteImage(22, "D:/cover/londonc.jpg");
+        impl.setByteImage(23, "D:/cover/jamie.jpg");
+        impl.setByteImage(24, "D:/cover/5ingr.jpg");
+        impl.setByteImage(25, "D:/cover/earth.jpg");
+        impl.setByteImage(26, "D:/cover/will.jpg");
+        impl.setByteImage(27, "D:/cover/hp_audio.jpg");
+
+        impl.updateByteImage("authors", 1, "D:/authors/fel.jpg");
+        impl.updateByteImage("authors", 2, "D:/authors/profile.jpg" );
+        impl.updateByteImage("authors", 3, "D:/authors/profile.jpg" );
+        impl.updateByteImage("authors", 4, "D:/authors/profile.jpg" );
+        impl.updateByteImage("authors", 5, "D:/authors/profile.jpg" );
+        impl.updateByteImage("authors", 6, "D:/authors/doyle.jpg" );
+        impl.updateByteImage("authors", 7, "D:/authors/moyes.jpg" );
+        impl.updateByteImage("authors", 8, "D:/authors/profile.jpg" );
+        impl.updateByteImage("authors", 9,  "D:/authors/jose.jpg" );
+        impl.updateByteImage("authors", 10, "D:/authors/profile.jpg" );
+        impl.updateByteImage("authors", 11, "D:/authors/andersen.jpg" );
+        impl.updateByteImage("authors", 12, "D:/authors/eckel.jpg" );
+        impl.updateByteImage("authors", 13, "D:/authors/bulgakov.jpg" );
+        impl.updateByteImage("authors", 14, "D:/authors/london.jpg" );
+        impl.updateByteImage("authors", 15,  "D:/authors/murakami.jpg" );
+        impl.updateByteImage("authors", 16,  "D:/authors/kiyosaki.jpg" );
+        impl.updateByteImage("authors", 17,  "D:/authors/dovlatov.jpg" );
+        impl.updateByteImage("authors", 18, "D:/authors/rowling.jpg" );
+        impl.updateByteImage("authors", 19,  "D:/authors/oliver.jpg" );
+        impl.updateByteImage("authors", 20, "D:/authors/smith.jpg");
+        impl.updateByteImage("authors", 21, "D:/authors/profile.jpg" );
+        impl.updateByteImage("authors", 22,  "D:/authors/wells.jpg" );
     }
 }
+
+
