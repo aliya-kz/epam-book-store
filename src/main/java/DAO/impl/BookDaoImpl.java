@@ -275,16 +275,16 @@ public class BookDaoImpl implements BookDao {
 
         BookDao impl = new BookDaoImpl();
 
-        impl.setByteImage(1, "D:/cover/волки_у_дверей.jpg");
+        impl.setByteImage(1, "D:/cover/volki.jpg");
         impl.setByteImage(2, "D:/cover/head_first.jpg");
-        impl.setByteImage(3, "D:/cover/все_для_праздника.jpg");
-        impl.setByteImage(4, "D:/cover/японский.jpg");
+        impl.setByteImage(3, "D:/cover/vse_dlya_prazdnika.jpg");
+        impl.setByteImage(4, "D:/cover/yaponskiy.jpg");
         impl.setByteImage(5, "D:/cover/sherlock.jpg");
-        impl.setByteImage(6, "D:/cover/до_встречи_с_тобой.jpg");
-        impl.setByteImage(7, "D:/cover/я_познаю.jpg");
-        impl.setByteImage(8, "D:/cover/воспитание_таланта.jpg");
+        impl.setByteImage(6, "D:/cover/do_vstrechi.jpg");
+        impl.setByteImage(7, "D:/cover/pozhayu.jpg");
+        impl.setByteImage(8, "D:/cover/vospitanie.jpg");
         impl.setByteImage(9, "D:/cover/pinocchio.jpg");
-        impl.setByteImage(10, "D:/cover/дюймовочка.jpg");
+        impl.setByteImage(10, "D:/cover/dumovochka.jpg");
         impl.setByteImage(11, "D:/cover/ekkel.jpeg");
         impl.setByteImage(12, "D:/cover/1q84.jpg");
         impl.setByteImage(13, "D:/cover/norwegian_wood.jpg");
