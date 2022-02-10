@@ -29,7 +29,7 @@
         <section id="delivery">
             <h1> <c:out value = "${delivery} ${address}"/></h1>
             <c:forEach var="addr" items="${user.addresses}">
-                <input type="radio" name="address" value="${addr.id}"><c:out value="${addr.address}"/><br>
+                <input type="radio" name="address" value="${addr.id}" required><c:out value="${addr.address}"/><br>
             </c:forEach>
             <a href="/profile#prof-address"><c:out value="${add}"/></a>
     </section>
@@ -84,9 +84,9 @@
 
    <h1><c:out value="${payment_method}"/> </h1>
     <c:forEach var="card" items="${user.cards}">
-        <input type="radio" name="card" value="${card.id}"><i class="fas fa-credit-card fa-2x"></i><c:out value="${card.cardNumber}"/>
+        <input type="radio" name="card" value="${card.id}" required><i class="fas fa-credit-card fa-2x"></i><c:out value="${card.cardNumber}"/>
     </c:forEach><br>
-        <a href="/profile#prof-address"><div><c:out value="${add}"/></div></a>
+        <a href="/profile#prof-cards"><div><c:out value="${add}"/></div></a>
 
         <button class="btn accept" type="submit" name="service_name" value="create_order"><c:out value="${pay}"/></button>
     </form>

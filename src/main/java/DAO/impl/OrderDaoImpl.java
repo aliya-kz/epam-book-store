@@ -16,7 +16,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class OrderDaoImpl implements OrderDao {
+
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
+
     ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static String GET_ID = "SELECT max(id) FROM orders where user_id = ?;";
@@ -32,12 +34,7 @@ public class OrderDaoImpl implements OrderDao {
 
     private static String SELECT_ALL_ORDERS = "SELECT id from orders;";
 
-
-
     private static String SET_STATUS_SQL = "UPDATE orders set status_id = ? WHERE id = ?;";
-
-    private static String SELECT_BOOKS_SQL = "SELECT book_id FROM order_books where order_id = ?;";
-
 
     private static String SELECT_USER_ORDERS = "SELECT id from orders WHERE user_id = ?;";
 
@@ -178,7 +175,6 @@ public class OrderDaoImpl implements OrderDao {
         finally {
             close(statement);
             connectionPool.returnConnection(connection);}
-        System.out.println(order.getAddress().getAddress());
         return order;
     }
 

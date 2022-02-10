@@ -19,7 +19,6 @@ public class AddToCartService implements Service {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.out.println("addtocartserv");
         HttpSession session = request.getSession();
         int bookId = Integer.parseInt(request.getParameter("id"));
         Cart cart = (Cart) session.getAttribute("cart");
