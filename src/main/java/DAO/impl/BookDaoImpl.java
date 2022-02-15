@@ -302,7 +302,7 @@ public class BookDaoImpl implements BookDao {
         impl.setByteImage(25, "D:/cover/earth.jpg");
         impl.setByteImage(26, "D:/cover/will.jpg");
         impl.setByteImage(27, "D:/cover/hp_audio.jpg");
-/*
+
         impl.updateByteImage("authors", 1, "D:/authors/fel.jpg");
         impl.updateByteImage("authors", 2, "D:/authors/profile.jpg" );
         impl.updateByteImage("authors", 3, "D:/authors/profile.jpg" );
@@ -324,7 +324,7 @@ public class BookDaoImpl implements BookDao {
         impl.updateByteImage("authors", 19,  "D:/authors/oliver.jpg" );
         impl.updateByteImage("authors", 20, "D:/authors/smith.jpg");
         impl.updateByteImage("authors", 21, "D:/authors/profile.jpg" );
-        impl.updateByteImage("authors", 22,  "D:/authors/wells.jpg" );*/
+        impl.updateByteImage("authors", 22,  "D:/authors/wells.jpg" );
     }
 }
 
