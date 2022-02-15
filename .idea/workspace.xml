@@ -13,7 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -333,7 +333,7 @@
       <workItem from="1644526963331" duration="855000" />
       <workItem from="1644527908848" duration="133000" />
       <workItem from="1644828999166" duration="1585000" />
-      <workItem from="1644897128094" duration="17994000" />
+      <workItem from="1644897128094" duration="18603000" />
     </task>
     <servers />
   </component>

@@ -38,10 +38,10 @@ function isFileImage(file) {
 }
 
 function checkAuthorTranslation() {
-    const id = document.getElementById('id');
-    const name = document.getElementById('name');
-    const surname = document.getElementById('surname');
-    const bio = document.getElementById('biography');
+    const id = document.getElementById('transl-id');
+    const name = document.getElementById('transl-name');
+    const surname = document.getElementById('transl-surname');
+    const bio = document.getElementById('transl-biography');
 
     if (id !== null && !checkQty(id)) {
         return false;
