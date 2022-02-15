@@ -14,10 +14,24 @@
   <component name="ChangeListManager">
     <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/OrderDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddToCartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddToCartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/checkout.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/BookDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/AddNewAuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AddNewAuthorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/EditBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EditBookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/addBook.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/addBook.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/addImage.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminAuthors.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/icons/credit-card (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/icons/delivery.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/icons/menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/icons/msg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/images/icons/private-account.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/validation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +95,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.45781776" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="service.view.auto.scroll.to.source" value="true" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
   </component>
   <component name="RecentsManager">
@@ -126,8 +141,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAO.impl.OrderDaoImpl" />
+    <configuration name="BookDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAO.impl.BookDaoImpl" />
       <module name="demo" />
       <extension name="coverage">
         <pattern>
@@ -280,11 +295,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BookDaoImpl" />
         <item itemvalue="Application.UserDaoImpl" />
         <item itemvalue="Tomcat Server.book.jsp" />
         <item itemvalue="Application.AddressDaoImpl" />
         <item itemvalue="Application.AuthorDaoImpl" />
-        <item itemvalue="Application.OrderDaoImpl" />
       </list>
     </recent_temporary>
   </component>
@@ -333,6 +348,10 @@
       <workItem from="1644350719702" duration="379000" />
       <workItem from="1644376848737" duration="44331000" />
       <workItem from="1644463643635" duration="22115000" />
+      <workItem from="1644526963331" duration="855000" />
+      <workItem from="1644527908848" duration="133000" />
+      <workItem from="1644828999166" duration="1585000" />
+      <workItem from="1644897128094" duration="17537000" />
     </task>
     <servers />
   </component>

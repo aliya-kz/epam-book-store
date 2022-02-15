@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -7,7 +6,9 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
+        <script src="/js/validation.js"> </script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
@@ -59,7 +60,8 @@
 
 <main class="edit-main">
     <section class="edit-info">
-        <form action = "<%= request.getContextPath()%>/controller?id=${book.id}" method = "post" id="edit-author">
+        <form action = "<%= request.getContextPath()%>/controller?id=${book.id}" method = "post" id="edit-author"
+        onsubmit="return checkBook(this)">
             <table class="admin-table" id="edit-book">
                 <thead>
                 <th> </th>
@@ -74,7 +76,12 @@
                 <tr>
                     <td><c:out value="${title}"/></td>
                     <td><c:out value="${book.title}"/></td>
-                    <td><input type="text" name ="new_title"/></td>
+                    <td><div class = "form-control">
+                        <input id = "title" type = "text" name = "new_title">
+                        <i class = "fas-fa-check-circle"></i>
+                        <i class = "fas-fa-check-exclamation-circle"></i>
+                        <small>Error message</small>
+                    </div></td>
                 </tr>
                 <tr>
                     <td><c:out value="${auths}"/></td>
@@ -103,12 +110,22 @@
                 <tr>
                     <td><c:out value="${publisher}"/></td>
                     <td><c:out value="${book.publisher}"/></td>
-                    <td><input type="text" name ="new_publisher"/></td>
+                    <td><div class = "form-control">
+                        <input id = "publisher" type = "text" name = "new_publisher" >
+                        <i class = "fas-fa-check-circle"></i>
+                        <i class = "fas-fa-check-exclamation-circle"></i>
+                        <small>Error message</small>
+                    </div></td>
                 </tr>
                 <tr>
                     <td> ISBN </td>
                     <td><c:out value="${book.isbn}"/></td>
-                    <td><input type="text" name ="new_isbn"/></td>
+                    <td><div class = "form-control">
+                        <input id = "isbn" type = "text" name = "new_isbn" >
+                        <i class = "fas-fa-check-circle"></i>
+                        <i class = "fas-fa-check-exclamation-circle"></i>
+                        <small>Error message</small>
+                    </div></td>
                 </tr>
                 <tr>
                     <td><c:out value="${cat}"/></td>
@@ -129,17 +146,32 @@
                 <tr>
                     <td><c:out value="${price}"/></td>
                     <td><c:out value="${book.price}"/></td>
-                    <td><input type="text" name ="new_price"/></td>
+                    <td><div class = "form-control">
+                        <input id = "price" type = "text" name = "new_price">
+                        <i class = "fas-fa-check-circle"></i>
+                        <i class = "fas-fa-check-exclamation-circle"></i>
+                        <small>Error message</small>
+                    </div></td>
                 </tr>
                 <tr>
                     <td><c:out value="${qty}"/></td>
                     <td><c:out value="${book.quantity}"/></td>
-                    <td><input type="text" name ="new_quantity"/></td>
+                    <td><div class = "form-control">
+                        <input id = "quantity" type = "text" name = "new_quantity">
+                        <i class = "fas-fa-check-circle"></i>
+                        <i class = "fas-fa-check-exclamation-circle"></i>
+                        <small>Error message</small>
+                    </div></td>
                 </tr>
                 <tr>
                     <td><c:out value="${descr}"/> </td>
                     <td><c:out value="${book.description}"/></td>
-                    <td><textarea name ="new_description" placeholder=""  rows="20"></textarea></td>
+                    <td><div class = "form-control">
+                        <textarea id = "description" name ="new_description" placeholder=""  rows="20"></textarea>
+                        <i class = "fas-fa-check-circle"></i>
+                        <i class = "fas-fa-check-exclamation-circle"></i>
+                        <small>Error message</small>
+                    </div></td>
                 </tr>
 
             </table>
@@ -158,7 +190,7 @@
             <input type="file" name="file" required/>
             <input type="hidden" name="uri" value="${uri}">
             <input type="hidden" name="service_name" value="edit_image">
-            <input class = "btn accept" type="submit" class="submit-btn" value = "${save}"/>
+            <input class = "btn accept" type="submit" class="submit-btn" onclick="checkBook()" value = "${save}"/>
         </form>
     </section>
 </main>

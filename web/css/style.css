@@ -465,6 +465,11 @@ input[type=text],
     padding: 8px;
 }
 
+.admin-table tr td input,
+.admin-table tr td textarea {
+    margin-bottom: 30px;
+}
+
 .admin-table tr {
     background-color: white;
 }

@@ -1,3 +1,154 @@
+function checkBook() {
+    const title = document.getElementById('title');
+    const publisher = document.getElementById('publisher');
+    const isbn = document.getElementById('isbn');
+    const price = document.getElementById('price');
+    const description = document.getElementById('description');
+    const quantity = document.getElementById('quantity');
+
+    if (title !== null && !checkItem(title,200)) {
+        return false;
+    }
+    if (publisher !== null && !checkItem(publisher,200)){
+        return false;
+    }
+    if (description !== null && !checkItem(description,1500)){
+        return false;
+    }
+    if (isbn !== null && !checkISBN(isbn)) {
+        return false;
+    }
+    if (quantity !== null && !checkQty(quantity)) {
+        return false;
+    }
+    if (price !== null && !checkPrice(price)) {
+        return false;
+    }
+    return true;
+}
+
+function isFileImage(file) {
+    if (!file || file['type'].split('/')[0] !== 'image') {
+        setErrorFor(file,  'Please download a valid image');
+        return false;
+    } else {
+        setSuccessFor(file);
+        return true;
+    }
+}
+
+function checkAuthorTranslation() {
+    const id = document.getElementById('id');
+    const name = document.getElementById('name');
+    const surname = document.getElementById('surname');
+    const bio = document.getElementById('biography');
+
+    if (id !== null && !checkQty(id)) {
+        return false;
+    }
+    if (name !== null && !checkName(name)) {
+        return false;
+    }
+    if (surname !== null && !checkSurname(surname)) {
+        return false;
+    }
+    if (bio !== null && !checkItem(bio, 1500)) {
+        return false;
+    }
+    return true;
+}
+
+function checkAuthor() {
+    const name = document.getElementById('name');
+    const surname = document.getElementById('surname');
+    const bio = document.getElementById('biography');
+    const file = document.getElementById('file');
+
+    if (name !== null && !checkName(name)) {
+        return false;
+    }
+    if (surname !== null && !checkSurname(surname)) {
+        return false;
+    }
+    if (bio !== null && !checkItem(bio, 1500)) {
+        return false;
+    }
+    if (file!== null && !isFileImage(file)) {
+        return false;
+    }
+    return true;
+}
+
+function checkCategory () {
+    const item = document.getElementById('category');
+    const itemValue = item.value.trim();
+    if (itemValue === '') {
+        return true;
+    } else if (!/[a-zA-Z\s\.\,\']+|[а-яА-Я\s\.\,\']+$/.test(itemValue) || itemValue.length > 50) {
+        setErrorFor(item, 'Category name cannot be longer than 50 characters');
+        return false;
+    } else {
+        setSuccessFor(item);
+        return true;
+    }
+}
+
+function checkItem (item, length) {
+    const itemValue = item.value.trim();
+    if (itemValue === '') {
+        return true;
+    } else if (itemValue.length > length) {
+        setErrorFor(item,  item.id + ' cannot be longer than ' + length + ' characters');
+        return false;
+    } else {
+        setSuccessFor(item);
+        return true;
+    }
+}
+
+function checkISBN (item) {
+    const itemValue = item.value.trim();
+    if (itemValue === '') {
+        return true;
+    } else if (!/\d{10}$/.test(itemValue) || !/\d{13}$/.test(itemValue)) {
+        setErrorFor(item, 'Please enter 10 or 13 digits long number. No other characters are acceptable.');
+        return false;
+    }  else {
+        setSuccessFor(item);
+        return true;
+    }
+}
+
+function checkQty (item) {
+    const itemValue = item.value.trim();
+    const itemNumber = Number(itemValue);
+    if (itemValue === '') {
+        return true;
+    } else
+        if (!Number.isInteger(itemNumber) || itemNumber < 0) {
+        setErrorFor(item, 'Please enter a valid quantity.');
+        return false;
+    }  else {
+        setSuccessFor(item);
+        return true;
+    }
+}
+
+function checkPrice (item) {
+    const itemValue = item.value.trim();
+    const itemNumber = Number(itemValue);
+    if (itemValue === '') {
+        return true;
+    } else
+    if (isNaN(itemNumber) || itemValue < 0) {
+        setErrorFor(item, 'Please enter a valid price.');
+        return false;
+    }  else {
+        setSuccessFor(item);
+        return true;
+    }
+}
+
 function editProfile() {
     const inputs = document.getElementsByClassName('to-be-amended');
     const saveBtn = document.getElementById('save-profile');
@@ -81,6 +232,9 @@ function checkName (name) {
     } else if (!/(^[\sa-zA-Z,.'-]+|^[\sа-яА-Я,.'-]+)$/.test(nameValue)) {
         setErrorFor(name, 'Enter a valid name');
         return false;
+    } else if (nameValue.length > 50) {
+        setErrorFor(name, name.id + ' cannot be longer than 50 characters');
+        return false;
     } else {
         setSuccessFor(name);
         return true;
@@ -93,6 +247,9 @@ function checkSurname (surname) {
         return true;
     } else if (!/(^[\sa-zA-Z,.'-]+|^[\sа-яА-Я,.'-]+)$/.test(surnameValue)) {
         setErrorFor(surname, 'Enter a valid surname');
+        return false;
+    } else if (surnameValue.length > 50) {
+        setErrorFor(surname, 'Surname cannot be longer than 50 characters');
         return false;
     } else {
         setSuccessFor(surname);
@@ -160,6 +317,8 @@ function checkInputs() {
         setErrorFor(name, 'Fill in the required field');
     } else if (!/(^[\sa-zA-Z,.'-]+|^[\sа-яА-Я,.'-]+)$/.test(nameValue)) {
         setErrorFor(name, 'Enter a valid name');
+    } else if (nameValue.length > 100) {
+        setErrorFor(name, 'Name cannot be longer than 100 characters');
     } else {
         setSuccessFor(name);
         count++;
@@ -169,6 +328,8 @@ function checkInputs() {
         setErrorFor(surname, 'Fill in the required field');
     } else if (!/(^[\sa-zA-Z,.'-]+|^[\sа-яА-Я,.'-]+)$/.test(surnameValue)) {
         setErrorFor(surname, 'Enter a valid surname');
+    } else if (surnameValue.length > 100) {
+        setErrorFor(name, 'Surname cannot be longer than 100 characters');
     } else {
         setSuccessFor(surname);
         count++;
@@ -178,6 +339,8 @@ function checkInputs() {
         setErrorFor(email, 'Fill in the required field');
     } else if (!isEmail(emailValue)) {
         setErrorFor(email, 'Email is not valid');
+    } else if (emailValue.length > 100) {
+        setErrorFor(email, 'Email cannot be longer than 100 characters');
     } else {
         setSuccessFor(email);
         count++;
@@ -185,7 +348,9 @@ function checkInputs() {
 
     if (addressValue === '')  {
         setErrorFor(address, 'Fill in the required field');
-    } else {
+    } else if (addressValue.length > 100) {
+        setErrorFor(email, 'Address must be not longer than 100 characters');
+    }  else {
         setSuccessFor(address);
         count++;
     }
@@ -222,6 +387,8 @@ function checkInputs() {
         setErrorFor(password, 'Fill in the required field');
     } else if (!/[a-zA-Z0-9]+$/.test(passValue)) {
         setErrorFor(password, 'Only latin characters and digits are acceptable');
+    } else if (passValue.length < 4 || passValue.length > 12) {
+        setErrorFor(password, 'Password must be at least 4 and at most 12 characters long');
     } else {
         setSuccessFor(password);
         count++;

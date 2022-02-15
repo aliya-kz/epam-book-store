@@ -56,7 +56,7 @@ public class EditBookService implements Service{
 
         String priceStr = request.getParameter("new_price").trim();
         if (priceStr.length() > 0) {
-           int price = Integer.parseInt(priceStr);
+           double price = Double.parseDouble(priceStr);
             bookDao.setColumnValue("books", id, "price", price);
         }
 

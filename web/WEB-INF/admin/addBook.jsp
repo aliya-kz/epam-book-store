@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
+    <script src="/js/validation.js"> </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
@@ -40,7 +42,8 @@
 
 <main class="edit-main">
   <section class="edit-info">
-    <form action = "/image-servlet?uri=<%=request.getRequestURI()%>" method="post" enctype="multipart/form-data">
+    <form action = "/image-servlet?uri=<%=request.getRequestURI()%>" method="post" enctype="multipart/form-data"
+    onsubmit="return checkBook(this)">
       <table class="admin-table" id="edit-book">
         <tr>
         <th> </th>
@@ -48,7 +51,12 @@
         </tr>
         <tr>
           <td><c:out value="${title}"/></td>
-          <td><input type="text" name ="title" required/></td>
+          <td><div class = "form-control">
+            <input id = "title" type = "text" name = "title" required>
+            <i class = "fas-fa-check-circle"></i>
+            <i class = "fas-fa-check-exclamation-circle"></i>
+            <small>Error message</small>
+          </div></td>
         </tr>
 
         <tr>
@@ -75,12 +83,22 @@
 
         <tr>
           <td><c:out value="${publisher}"/></td>
-          <td><input type="text" name ="publisher" required/></td>
+          <td><div class = "form-control">
+            <input id = "publisher" type = "text" name = "publisher" required >
+            <i class = "fas-fa-check-circle"></i>
+            <i class = "fas-fa-check-exclamation-circle"></i>
+            <small>Error message</small>
+          </div></td>
         </tr>
 
         <tr>
           <td> ISBN </td>
-          <td><input type="text" name ="isbn" required/></td>
+          <td><div class = "form-control">
+            <input id = "isbn" type = "text" name = "isbn" required>
+            <i class = "fas-fa-check-circle"></i>
+            <i class = "fas-fa-check-exclamation-circle"></i>
+            <small>Error message</small>
+          </div></td>
         </tr>
 
         <tr>
@@ -105,17 +123,32 @@
 
         <tr>
           <td><c:out value="${price}"/></td>
-          <td><input type="text" name ="price" required/></td>
+          <td><div class = "form-control">
+            <input id = "price" type = "text" name = "price" required >
+            <i class = "fas-fa-check-circle"></i>
+            <i class = "fas-fa-check-exclamation-circle"></i>
+            <small>Error message</small>
+          </div></td>
         </tr>
 
         <tr>
           <td><c:out value="${qty}"/></td>
-          <td><input type="text" name ="quantity" required/></td>
+          <td><div class = "form-control">
+            <input id = "quantity" type = "text" name = "quantity" required>
+            <i class = "fas-fa-check-circle"></i>
+            <i class = "fas-fa-check-exclamation-circle"></i>
+            <small>Error message</small>
+          </div></td>
         </tr>
 
         <tr>
           <td><c:out value="${descr}"/> </td>
-          <td><input type="text" name ="description" required/></td>
+          <td><div class = "form-control">
+            <textarea id = "description" name ="description" placeholder=""  rows="20" required></textarea>
+            <i class = "fas-fa-check-circle"></i>
+            <i class = "fas-fa-check-exclamation-circle"></i>
+            <small>Error message</small>
+          </div></td>
         </tr>
         <tr>
         <td><input type="file" name="file" required/></td>
@@ -124,7 +157,7 @@
       </table>
       <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>">
       <input type = "hidden" name = "service_name" value = "add_book">
-      <input class = "btn accept" type = "submit" value = "${add_book}">
+      <input class = "btn accept" type = "submit" value = "${add_book}" onclick="checkBook()">
     </form>
     <br>
   </section>

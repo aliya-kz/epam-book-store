@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script src="/js/validation.js"> </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
@@ -28,7 +29,8 @@
 
 <a href = "/admin-categories"><div class = "back"><p><c:out value="${back}"/></p></div></a>
 
-<form action = "<%= request.getContextPath()%>/controller?category_id=${category.id}&lang=${category.lang}" method = "post">
+<form action = "<%= request.getContextPath()%>/controller?category_id=${category.id}&lang=${category.lang}"
+      method = "post" onsubmit="return checkCategory(this)">
 <table class="admin-table" id="edit-category">
     <th> </th>
     <th><c:out value="${current_value}"/></th>
@@ -45,9 +47,13 @@
     <tr>
       <td><c:out value="${title}"/></td>
         <td><c:out value="${category.categoryName}"/></td>
-        <td><input type="text" name ="new_value" required/></td>
+        <td><div class = "form-control">
+            <input id = "category" type = "text" name = "new_value" required >
+            <i class = "fas-fa-check-circle"></i>
+            <i class = "fas-fa-check-exclamation-circle"></i>
+            <small>Error message</small></div></td>
         <td><input type = "hidden" name="service_name" value="edit_category">
-        <input class="btn" id="accept" type="submit" value = "${save}"></td>
+        <input class="btn" id="accept" type="submit" value = "${save}" onclick="checkCategory()"></td>
     </tr>
 
     <tr>

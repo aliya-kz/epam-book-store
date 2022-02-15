@@ -4,6 +4,9 @@ import DAO.AuthorDao;
 
 import DAO.impl.AuthorDaoImpl;
 import entity.Author;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +17,8 @@ import java.io.InputStream;
 
 
 public class AddNewAuthorService implements Service {
+
+    private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static final AuthorDao authorDao = new AuthorDaoImpl();
     @Override
@@ -32,6 +37,7 @@ public class AddNewAuthorService implements Service {
             try {
                 part = request.getPart("file");
             } catch (ServletException e) {
+                LOGGER.info(e);
                 e.printStackTrace();
             }
             InputStream is = ((Part) part).getInputStream();
