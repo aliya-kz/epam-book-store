@@ -56,7 +56,7 @@
 <fmt:message bundle="${content}" key="CANT_CHANGE" var="cant_change"/>
 <fmt:message bundle="${content}" key="BACK" var="back"/>
 
-    <a href = "/admin-books"><div class = "back"><p><c:out value="${back}"/></p></div></a>
+    <a href = "/admin-books"><div class = "btn checkout"><p><c:out value="${back}"/></p></div></a>
 
 <main class="edit-main">
     <section class="edit-info">

@@ -15,8 +15,16 @@
     <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/CategoryDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/CategoryDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/content_ru_RU.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/adminCategories.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editAuthor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editBook.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/editCategory.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/admin/sendBeanToDb.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/validation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +107,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.UserDaoImpl">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 8">
     <configuration name="AddressDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAO.impl.AddressDaoImpl" />
       <module name="demo" />
@@ -339,7 +347,7 @@
       <workItem from="1644897128094" duration="18987000" />
       <workItem from="1644998574060" duration="1405000" />
       <workItem from="1645001252123" duration="1106000" />
-      <workItem from="1645026522679" duration="1389000" />
+      <workItem from="1645026522679" duration="4499000" />
     </task>
     <servers />
   </component>

@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
     <script src="/js/validation.js"> </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,8 +27,9 @@
 <fmt:message bundle="${content}" key="SAVE" var="save"/>
 <fmt:message bundle="${content}" key="DELETE_IN_ALL_LANG" var="delete_in_all"/>
 <fmt:message bundle="${content}" key="DELETE" var="delete"/>
+<fmt:message bundle="${content}" key="BACK" var="back"/>
 
-<a href = "/admin-categories"><div class = "back"><p><c:out value="${back}"/></p></div></a>
+<a href = "/admin-categories"><div class = "btn checkout"><p><c:out value="${back}"/></p></div></a>
 
 <form action = "<%= request.getContextPath()%>/controller?category_id=${category.id}&lang=${category.lang}"
       method = "post" onsubmit="return checkCategory(this)">

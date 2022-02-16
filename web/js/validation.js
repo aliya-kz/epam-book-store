@@ -79,15 +79,43 @@ function checkAuthor() {
     return true;
 }
 
+function checkImage() {
+    const file = document.getElementById('file');
+    if (file!== null && !isFileImage(file)) {
+        return false;
+    }
+    return true;
+}
+
+function editAuthor() {
+    const name = document.getElementById('name');
+    const surname = document.getElementById('surname');
+    const bio = document.getElementById('biography');
+
+    if (name !== null && !checkName(name)) {
+        return false;
+    }
+    if (surname !== null && !checkSurname(surname)) {
+        return false;
+    }
+    if (bio !== null && !checkItem(bio, 1500)) {
+        return false;
+    }
+    return true;
+}
+
 function checkCategory () {
     const item = document.getElementById('category');
     const itemValue = item.value.trim();
     if (itemValue === '') {
         return true;
-    } else if (!/[a-zA-Z\s\.\,\']+|[а-яА-Я\s\.\,\']+$/.test(itemValue) || itemValue.length > 50) {
+    } else if (!/[a-zA-Z\s\.\,\']+|[а-яА-Я\s\.\,\']+$/.test(itemValue)) {
+        setErrorFor(item, 'Enter a valid category title');
+        return false;
+    } else if (itemValue.length > 50) {
         setErrorFor(item, 'Category name cannot be longer than 50 characters');
         return false;
-    } else {
+    }else {
         setSuccessFor(item);
         return true;
     }

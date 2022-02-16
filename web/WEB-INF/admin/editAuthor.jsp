@@ -8,6 +8,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
+        <script src="/js/validation.js"> </script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
@@ -49,7 +51,8 @@ request.setAttribute("id", id);
 </div>
 <main class="edit-main">
 <section class="edit-info">
-<form action = "<%= request.getContextPath()%>/controller?id=${author.id}&lang=${author.lang}" method = "post" id="edit-author">
+<form action = "<%= request.getContextPath()%>/controller?id=${author.id}&lang=${author.lang}" method = "post"
+      id="edit-author" onsubmit="return editAuthor(this)">
     <table class="admin-table" id="edit-category">
         <th> </th>
         <th><c:out value="${current_value}"/></th>
@@ -70,24 +73,36 @@ request.setAttribute("id", id);
         <tr>
             <td><c:out value="${name}"/></td>
             <td><c:out value="${author.name}"/></td>
-            <td><input type="text" name ="new_name"/></td>
+            <td><div class = "form-control">
+                <input id = "name" type = "text" name = "new_name" >
+                <i class = "fas-fa-check-circle"></i>
+                <i class = "fas-fa-check-exclamation-circle"></i>
+                <small>Error message</small></div></td>
         </tr>
 
         <tr>
             <td><c:out value="${surname}"/></td>
             <td><c:out value="${author.surname}"/></td>
-            <td><input type="text" name ="new_surname"/></td>
+            <td><div class = "form-control">
+                <input id = "surname" type = "text" name = "new_surname" >
+                <i class = "fas-fa-check-circle"></i>
+                <i class = "fas-fa-check-exclamation-circle"></i>
+                <small>Error message</small></div></td>
         </tr>
 
         <tr>
             <td><c:out value="${biography}"/> </td>
             <td><c:out value="${author.biography}"/></td>
-            <td><textarea name ="new_biography" placeholder="" rows="15"></textarea></td>
+            <td><div class = "form-control">
+                <input id = "biography" type = "text" name = "new_biography" >
+                <i class = "fas-fa-check-circle"></i>
+                <i class = "fas-fa-check-exclamation-circle"></i>
+                <small>Error message</small></div></td>
         </tr>
     </table>
     <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>">
     <input type = "hidden" name = "service_name" value = "edit_author">
-    <input class = "btn accept" type = "submit" name = "save" value = "${save}">
+    <input class = "btn accept" type = "submit" onclick="editAuthor()" name = "save" value = "${save}">
 </form><br>
 
 <form action = "<%= request.getContextPath()%>/controller?id=${author.id}&table=authors_lang&lang=${author.lang}" method = "post">
@@ -105,14 +120,17 @@ request.setAttribute("id", id);
 
 <section class="edit-image">
     <form action = "/image-servlet?uri=<%=request.getRequestURI()%>&id=${author.id}&table=authors&lang=${author.lang}"
-          method="post" enctype="multipart/form-data">
+          method="post" enctype="multipart/form-data" onsubmit="return checkImage(this)">
     <img src="/image-servlet?image_id=${author.id}&table=authors" alt="author" width="220px"/>
 
         <c:out value="${update_image}"/>
-    <input type="file" name="file" required/>
         <input type="hidden" name="uri" value="${uri}">
-           <input type="hidden" name="service_name" value="edit_image">
-        <input class="btn accept" type="submit" class="submit-btn" value = "${save}"/>
+        <div class = "form-control">
+            <input id = "file" type = "file" name = "file" >
+            <i class = "fas-fa-check-circle"></i>
+            <i class = "fas-fa-check-exclamation-circle"></i>
+            <small>Error message</small></div>
+        <input class="btn accept" type="submit" class="submit-btn" value = "${save}" onclick="checkImage()"/>
     </form>
 </section>
 </main>

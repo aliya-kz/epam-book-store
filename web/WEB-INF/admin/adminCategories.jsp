@@ -24,7 +24,7 @@
 <fmt:message bundle="${content}" key="INSERT_CATEGORY_NAME" var="insert_cat_name" />
 <fmt:message bundle="${content}" key="ALL_CATEGORIES" var="all_cat" />
 <fmt:message bundle="${content}" key="EDIT" var="edit" />
-<fmt:message bundle="${content}" key="ERROR_GEN" var="error" />
+<fmt:message bundle="${content}" key="CAT_EXISTS" var="cat_exists" />
 
 <main class="admin-main">
 
@@ -49,9 +49,18 @@
                          </c:forEach>
                     </select></td>
                     <td><input type="hidden" name="service_name" value="add_new_category">
+                        <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
                         <input type="submit" class="btn" id="accept" value = "${add_cat}"> </td>
                 </tr>
             </table>
+                <%String msg = request.getParameter("msg");
+                    request.setAttribute("msg", msg);
+                %>
+                <c:if test="${msg eq 'error'}">
+                    <div class="msg-div">
+                        <c:out value="${cat_exists}"></c:out>
+                    </div>
+                </c:if>
         </form>
 
         <h3> <c:out value = "${all_cat}"/> </h3>
