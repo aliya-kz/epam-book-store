@@ -107,10 +107,15 @@ function editAuthor() {
 function checkCategory () {
     const item = document.getElementById('category');
     const itemValue = item.value.trim();
+    const id = document.getElementById('id');
+
+    if (id !== null && !checkQty(id)) {
+        return false;
+    }
     if (itemValue === '') {
         return true;
     } else if (!/[a-zA-Z\s\.\,\']+|[а-яА-Я\s\.\,\']+$/.test(itemValue)) {
-        setErrorFor(item, 'Enter a valid category title');
+        setErrorFor(item, 'Enter a valid category name');
         return false;
     } else if (itemValue.length > 50) {
         setErrorFor(item, 'Category name cannot be longer than 50 characters');
@@ -154,7 +159,7 @@ function checkQty (item) {
         return true;
     } else
         if (!Number.isInteger(itemNumber) || itemNumber < 0) {
-        setErrorFor(item, 'Please enter a valid quantity.');
+        setErrorFor(item, 'Please enter a valid ' + item.id);
         return false;
     }  else {
         setSuccessFor(item);

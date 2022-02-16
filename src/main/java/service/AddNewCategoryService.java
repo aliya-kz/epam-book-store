@@ -16,7 +16,7 @@ public class AddNewCategoryService implements Service {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String title = request.getParameter("new_category");
+        String title = request.getParameter("new_value");
         int id = Integer.parseInt(request.getParameter("new_id"));
         String lang = request.getParameter("cat_lang");
         Category category = new Category(id, title, lang);

@@ -5,6 +5,8 @@
     <head>
         <script src="/js/script.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
+        <script src="/js/validation.js"> </script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
@@ -34,15 +36,23 @@
 
     <section>
         <h1> <c:out value = "${add_new_cat}"/> </h1>
-            <form action = "<%= request.getContextPath()%>/controller" method = "post">
+            <form action = "<%= request.getContextPath()%>/controller" method = "post" onsubmit="return checkCategory(this)">
             <table class="admin-table">
                 <th>ID</th>
                 <th><c:out value = "${cat}"/></th>
                 <th><c:out value = "${language}"/></th>
                 <th> </th>
                 <tr>
-                    <td> <input type="text" placeholder="${insert_cat_id}" name="new_id"></td>
-                    <td> <input type="text" placeholder="${insert_cat_name}" name="new_category"></td>
+                    <td><div class = "form-control">
+                        <input id = "id" type = "text" placeholder="${insert_cat_id}" name = "new_id" required >
+                        <i class = "fas-fa-check-circle"></i>
+                        <i class = "fas-fa-check-exclamation-circle"></i>
+                        <small>Error message</small></div></td>
+                    <td><div class = "form-control">
+                        <input id = "category" type = "text" placeholder="${insert_cat_name}" name = "new_value" required >
+                        <i class = "fas-fa-check-circle"></i>
+                        <i class = "fas-fa-check-exclamation-circle"></i>
+                        <small>Error message</small></div></td>
                     <td><select name = "cat_lang">
                          <c:forEach var="lang" items="${langs}">
                         <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
@@ -50,7 +60,7 @@
                     </select></td>
                     <td><input type="hidden" name="service_name" value="add_new_category">
                         <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
-                        <input type="submit" class="btn" id="accept" value = "${add_cat}"> </td>
+                        <input type="submit" class="btn" id="accept" value = "${add_cat}" onclick="checkCategory()"> </td>
                 </tr>
             </table>
                 <%String msg = request.getParameter("msg");

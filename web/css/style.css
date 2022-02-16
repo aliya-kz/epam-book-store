@@ -454,9 +454,9 @@ input[type=text],
 }
 
 .admin-table {
-    margin: 20px;
+    margin: 20px auto;
     border-collapse: collapse;
-    width: 100%;
+    width: 90%;
 }
 
 .admin-table td,
