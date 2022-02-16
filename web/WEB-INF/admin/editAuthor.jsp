@@ -47,7 +47,7 @@ request.setAttribute("id", id);
 <fmt:message bundle="${content}" key="BACK" var="back"/>
 
 <div class = "back">
-    <a href = "/admin-authors"><c:out value="${back}"/></a>
+    <a href = "/admin-authors"><div class="btn checkout"> <c:out value="${back}"/></div></a>
 </div>
 <main class="edit-main">
 <section class="edit-info">
@@ -120,17 +120,14 @@ request.setAttribute("id", id);
 
 <section class="edit-image">
     <form action = "/image-servlet?uri=<%=request.getRequestURI()%>&id=${author.id}&table=authors&lang=${author.lang}"
-          method="post" enctype="multipart/form-data" onsubmit="return checkImage(this)">
+          method="post" enctype="multipart/form-data">
     <img src="/image-servlet?image_id=${author.id}&table=authors" alt="author" width="220px"/>
 
         <c:out value="${update_image}"/>
         <input type="hidden" name="uri" value="${uri}">
-        <div class = "form-control">
-            <input id = "file" type = "file" name = "file" >
-            <i class = "fas-fa-check-circle"></i>
-            <i class = "fas-fa-check-exclamation-circle"></i>
-            <small>Error message</small></div>
-        <input class="btn accept" type="submit" class="submit-btn" value = "${save}" onclick="checkImage()"/>
+        <input type="hidden" name="service_name" value="edit_image">
+        <input id = "file" type = "file" name = "file" >
+        <input class="btn accept" type="submit" class="submit-btn" value = "${save}" />
     </form>
 </section>
 </main>

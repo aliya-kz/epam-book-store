@@ -27,15 +27,6 @@ function checkBook() {
     return true;
 }
 
-function isFileImage(file) {
-    if (!file || file['type'].split('/')[0] !== 'image') {
-        setErrorFor(file,  'Please download a valid image');
-        return false;
-    } else {
-        setSuccessFor(file);
-        return true;
-    }
-}
 
 function checkAuthorTranslation() {
     const id = document.getElementById('transl-id');
@@ -62,7 +53,6 @@ function checkAuthor() {
     const name = document.getElementById('name');
     const surname = document.getElementById('surname');
     const bio = document.getElementById('biography');
-    const file = document.getElementById('file');
 
     if (name !== null && !checkName(name)) {
         return false;
@@ -71,17 +61,6 @@ function checkAuthor() {
         return false;
     }
     if (bio !== null && !checkItem(bio, 1500)) {
-        return false;
-    }
-    if (file!== null && !isFileImage(file)) {
-        return false;
-    }
-    return true;
-}
-
-function checkImage() {
-    const file = document.getElementById('file');
-    if (file!== null && !isFileImage(file)) {
         return false;
     }
     return true;

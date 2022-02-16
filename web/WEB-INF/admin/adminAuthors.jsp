@@ -63,11 +63,9 @@
                             <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
                         </c:forEach>
                     </select></td>
-                    <td><div class = "form-control">
+                    <td>
                         <input id = "file" type = "file" name = "file" required >
-                        <i class = "fas-fa-check-circle"></i>
-                        <i class = "fas-fa-check-exclamation-circle"></i>
-                        <small>Error message</small></div></td>
+                      </td>
                     <td><input type="hidden" name="service_name" value="add_new_author">
                         <input type="submit" class="btn accept" value = "${add_author}" onclick="checkAuthor()"> </td>
                 </tr>

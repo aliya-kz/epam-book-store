@@ -184,13 +184,12 @@
     <section class="edit-image">
         <form action = "/image-servlet?uri=<%=request.getRequestURI()%>&id=${book.id}&table=book_covers"
               method="post" enctype="multipart/form-data">
-            <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt="author" width="220px"/>
-
+            <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt="book cover" width="220px"/>
             <c:out value="${update_image}"/>
-            <input type="file" name="file" required/>
-            <input type="hidden" name="uri" value="${uri}">
-            <input type="hidden" name="service_name" value="edit_image">
-            <input class = "btn accept" type="submit" class="submit-btn" onclick="checkBook()" value = "${save}"/>
+                <input type="hidden" name="service_name" value="edit_image">
+                <input type="hidden" name="uri" value="${uri}">
+                <input id = "file" type = "file" name = "file" required>
+            <input class="btn accept" type="submit" class="submit-btn" value = "${save}" />
         </form>
     </section>
 </main>
