@@ -47,6 +47,7 @@ public class SignUpService implements Service {
             List<Address> addresses = new ArrayList<>();
             addresses.add(address);
             user.setAddresses(addresses);
+            user.setAdmin(false);
             List <Card> cards = new ArrayList<>();
             cards.add(new Card(card));
             user.setCards(cards);

@@ -21,8 +21,8 @@ public class UserDaoImpl implements UserDao {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private final static String INSERT_USER = "INSERT into users" +
-            "(name, surname, date_of_birth, email, phone, password) " +
-            "VALUES " + "(?,?,?,?,?,?);";
+            "(name, surname, date_of_birth, email, phone, password, is_admin) " +
+            "VALUES " + "(?,?,?,?,?,?,?);";
 
     private final static String GET_USER= "SELECT u.*, c.card_number, c.card_id, a.address, a.address_id FROM users u " +
             "LEFT JOIN cards c ON u.id=c.user_id LEFT JOIN addresses a ON u.id=a.user_id " +
@@ -69,6 +69,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(5,user.getPhone());
             String encryptedPassword = passwordEncrypter.encrypt(user.getPassword());
             statement.setString(6,encryptedPassword);
+            statement.setBoolean(7, user.getIsAdmin());
             statement.executeUpdate();
 
             statement1 = connection.prepareStatement(GET_ID);

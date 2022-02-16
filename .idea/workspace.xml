@@ -14,6 +14,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/log.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/impl/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/SignUpService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +99,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 8">
+  <component name="RunManager" selected="Application.UserDaoImpl">
     <configuration name="AddressDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAO.impl.AddressDaoImpl" />
       <module name="demo" />
@@ -277,8 +280,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BookDaoImpl" />
         <item itemvalue="Application.UserDaoImpl" />
+        <item itemvalue="Application.BookDaoImpl" />
         <item itemvalue="Tomcat Server.book.jsp" />
         <item itemvalue="Application.AddressDaoImpl" />
         <item itemvalue="Application.AuthorDaoImpl" />
@@ -333,7 +336,10 @@
       <workItem from="1644526963331" duration="855000" />
       <workItem from="1644527908848" duration="133000" />
       <workItem from="1644828999166" duration="1585000" />
-      <workItem from="1644897128094" duration="18603000" />
+      <workItem from="1644897128094" duration="18987000" />
+      <workItem from="1644998574060" duration="1405000" />
+      <workItem from="1645001252123" duration="1106000" />
+      <workItem from="1645026522679" duration="1389000" />
     </task>
     <servers />
   </component>
