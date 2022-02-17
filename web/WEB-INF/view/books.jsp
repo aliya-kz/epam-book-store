@@ -22,6 +22,7 @@
 <fmt:message bundle = "${content}" key="APPLY" var="apply"/>
 <fmt:message bundle = "${content}" key="NOTHING" var="nothing"/>
 <fmt:message bundle = "${content}" key="OTHER_BOOKS" var="other_books"/>
+<fmt:message bundle="${content}" key="OUT_OF_STOCK" var="out_of_stock"/>
 <jsp:include page="/header"/>
 
 <main class = "books-main">
@@ -88,12 +89,18 @@ request.setAttribute("filteredBooks", filteredBooks);%>
 
                 </c:forEach>
                 <p class="index-book-price"><c:out value="${book.price}"/> ₸ </p>
-                <form id = "book-add${book.id}" style="display:none" onsubmit="showEl('grey-background${book.id}')"
-                      action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1" method = "post">
-                    <input type="hidden" name="service_name" value="add_to_cart">
-                    <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
-                    <input type="submit" class="btn" style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add_to_cart}"/>
-                </form>
+                <c:if test="${book.quantity < 1}">
+                    <div id = "book-add${book.id}" type="submit" class="btn checkout" style="margin-top: 5px; width: 170px">
+                        <c:out value="${out_of_stock}"/></div>
+                </c:if>
+                <c:if test="${book.quantity > 0}">
+                    <form id = "book-add${book.id}" style="display:none" onsubmit="showEl('grey-background${book.id}')"
+                          action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1" method = "post">
+                        <input type="hidden" name="service_name" value="add_to_cart">
+                        <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
+                        <input type="submit" class="btn" style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add_to_cart}"/>
+                    </form>
+                </c:if>
             </div>
         </c:forEach>
     </section>
@@ -106,7 +113,7 @@ request.setAttribute("filteredBooks", filteredBooks);%>
             <div id="index-books">
                 <c:forEach var="book" items="${books}">
                     <c:if test="${book.categoryId == category.id}">
-                    <div class = "index-book" onmouseover="showEl('book-add${book.id}')" onmouseleave="hideEl('book-add${book.id}')">
+                    <div class = "index-book" onmouseover="showEl('book${book.id}')" onmouseleave="hideEl('book${book.id}')">
                         <img src = "/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" style="height: 230px; max-width: 180px"><br>
                         <a href = "/book?id=${book.id}" class="index-book-name"><c:out value = "${book.title}"/></a>
                         <c:set var = "authorIds" value = "${book.authors}"/>
@@ -123,12 +130,18 @@ request.setAttribute("filteredBooks", filteredBooks);%>
                             </c:if>
                         </c:forEach>
                         <p class="index-book-price"><c:out value="${book.price}"/> ₸ </p>
-                        <form id = "book-add${book.id}" style="display:none" onsubmit="showEl('grey-background${book.id}')"
-                              action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1" method = "post">
-                            <input type="hidden" name="service_name" value="add_to_cart">
-                            <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
-                            <input type="submit" class="btn" style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add_to_cart}"/>
-                        </form>
+                        <c:if test="${book.quantity < 1}">
+                            <div id = "book${book.id}" type="submit" class="btn checkout" style="margin-top: 5px; width: 170px">
+                                <c:out value="${out_of_stock}"/></div>
+                        </c:if>
+                        <c:if test="${book.quantity > 0}">
+                            <form id = "book${book.id}" style="display:none" onsubmit="showEl('grey-background${book.id}')"
+                                  action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1" method = "post">
+                                <input type="hidden" name="service_name" value="add_to_cart">
+                                <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
+                                <input type="submit" class="btn" style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add_to_cart}"/>
+                            </form>
+                        </c:if>
                     </div>
                     </c:if>
                 </c:forEach>

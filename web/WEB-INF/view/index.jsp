@@ -10,9 +10,10 @@
   <fmt:setLocale value = "${sessionScope.locale}" />
   <fmt:setBundle basename = "content" var = "content" scope = "session"/>
   <fmt:message bundle="${content}" key="SEE_MORE" var="see_more"/>
-  <fmt:message bundle="${content}" key="ADD_TO_CART" var="add"/>
+  <fmt:message bundle="${content}" key="ADD_TO_CART" var="add_to_cart"/>
   <fmt:message bundle="${content}" key="ADDED" var="added"/>
   <fmt:message bundle="${content}" key="SHOP_NOW" var="shop_now"/>
+  <fmt:message bundle="${content}" key="OUT_OF_STOCK" var="out_of_stock"/>
   <jsp:useBean id = "cart" scope = "session" class = "entity.Cart"/>
 
   <main class = "index-main">
@@ -39,12 +40,18 @@
                       </c:if>
                   </c:forEach>
                  <p class="index-book-price"><c:out value="${book.price}"/> ₸ </p>
+                 <c:if test="${book.quantity < 1}">
+                     <div id = "book-add${book.id}" type="submit" class="btn checkout" style="margin-top: 5px; width: 170px">
+                         <c:out value="${out_of_stock}"/></div>
+                 </c:if>
+                  <c:if test="${book.quantity > 0}">
                   <form id = "book-add${book.id}" style="display:none" onsubmit="showEl('grey-background${book.id}')"
                         action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1" method = "post">
                   <input type="hidden" name="service_name" value="add_to_cart">
                       <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
-                  <input type="submit" class="btn" style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add}"/>
+                  <input type="submit" class="btn" style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add_to_cart}"/>
               </form>
+                  </c:if>
               </div>
                   </c:forEach>
       </section>

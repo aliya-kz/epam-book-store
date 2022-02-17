@@ -8,8 +8,6 @@
     <title>Cart</title>
 </head>
 <body>
-<form action = "<%=request.getContextPath()%>/controller?uri=<%=request.getRequestURI()%>" method = "post">
-
     <fmt:setLocale value="${sessionScope.locale}" />
     <fmt:setBundle basename="content" var="content" scope="session"/>
     <fmt:message bundle = "${content}" key="CATEGORY" var="cat"/>
@@ -26,7 +24,7 @@
     <fmt:message bundle = "${content}" key="CART_EMPTY" var="cart_empty"/>
     <fmt:message bundle = "${content}" key="QTY_CHANGED" var="qty_changed"/>
     <jsp:include page="/header"/>
-
+    <form action = "<%=request.getContextPath()%>/controller?uri=<%=request.getRequestURI()%>" method = "post">
     <% int [] numbers = new int []{1,2,3,4,5,6,7,8};
         request.setAttribute("numbers", numbers);
         String msg = request.getParameter("msg");
