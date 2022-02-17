@@ -45,6 +45,7 @@ public class ServiceFactory {
             SERVICE_MAP.put("update_status", new UpdateStatusService());
             SERVICE_MAP.put("search", new SearchService());
             SERVICE_MAP.put("filter_books", new BookFilterService());
+            SERVICE_MAP.put("checkout", new CheckoutService());
         }
 
         public static ServiceFactory getInstance() {

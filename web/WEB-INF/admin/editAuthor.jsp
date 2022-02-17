@@ -47,7 +47,7 @@ request.setAttribute("id", id);
 <fmt:message bundle="${content}" key="BACK" var="back"/>
 
 <div class = "back">
-    <a href = "/admin-authors"><div class="btn checkout"> <c:out value="${back}"/></div></a>
+    <a href = "/admin-authors"><btn class="btn checkout"> <c:out value="${back}"/></btn></a>
 </div>
 <main class="edit-main">
 <section class="edit-info">

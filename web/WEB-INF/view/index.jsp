@@ -16,9 +16,10 @@
   <jsp:useBean id = "cart" scope = "session" class = "entity.Cart"/>
 
   <main class = "index-main">
+      <div class="ads-container">
       <section id = "ads">
           <a href="/books?id=23"><button class="btn checkout"><c:out value="${shop_now}"/> </button> </a>
-      </section>
+      </section></div>
       <section id = "index-books">
           <c:forEach var="book" items="${books}" begin="1" end="12">
               <div class = "index-book" onmouseover="showEl('book-add${book.id}')" onmouseleave="hideEl('book-add${book.id}')">

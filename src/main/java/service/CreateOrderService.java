@@ -1,13 +1,12 @@
 package service;
 
+import DAO.BookDao;
 import DAO.CartDao;
 import DAO.OrderDao;
+import DAO.impl.BookDaoImpl;
 import DAO.impl.CartDaoImpl;
 import DAO.impl.OrderDaoImpl;
-import entity.Address;
-import entity.Cart;
-import entity.Order;
-import entity.User;
+import entity.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,10 +16,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class CreateOrderService implements Service {
 
     CartDao cartDao = new CartDaoImpl();
+    BookDao bookDao = new BookDaoImpl();
     OrderDao orderDao = new OrderDaoImpl();
 
     @Override
@@ -43,9 +44,11 @@ public class CreateOrderService implements Service {
         order.setDate(date);
         order.setStatusId(1);
         order.setCost(cost);
-        int result = orderDao.addEntity(order);
+        Map<Book, Integer> cartItems = cart.getCartItems();
+        int errorBook = bookDao.purchaseBooks(cartItems);
         RequestDispatcher dispatcher;
-        if (result > 0) {
+        if (errorBook <= 0) {
+            orderDao.addEntity(order);
             List<Order> orders = orderDao.getOrdersByUserId(user.getId());
             session.setAttribute("myOrders", orders);
             cartDao.deleteById(user.getId());
@@ -53,7 +56,8 @@ public class CreateOrderService implements Service {
             session.setAttribute("cart", cart);
             dispatcher = request.getRequestDispatcher("/profile#prof-orders");
         } else {
-            dispatcher = request.getRequestDispatcher(uri + "?msg=error");
+            int result = bookDao.returnBooks(cartItems, errorBook);
+            dispatcher = request.getRequestDispatcher("/WEB-INF/view/cart.jsp?msg=error");
         }
         dispatcher.forward(request, response);
     }

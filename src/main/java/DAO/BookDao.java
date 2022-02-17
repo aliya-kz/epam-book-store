@@ -1,12 +1,16 @@
 package DAO;
 
 import entity.Book;
+import entity.Cart;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BookDao extends BaseDao <Book> {
         int addEntity (Book book);
         int deleteById (int id);
+        int purchaseBooks(Map<Book, Integer> items);
+        int returnBooks(Map<Book, Integer> cartItems, int errorBookId);
         List<Book> getAll(String lang);
         List <Book> findBooksByAuthorIsbnOrTitle (String search);
         int deleteBookAuthors (int bookId);

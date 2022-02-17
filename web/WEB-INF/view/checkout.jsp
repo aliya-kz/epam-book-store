@@ -24,8 +24,8 @@
 <fmt:message bundle = "${content}" key="ADD" var="add"/>
 <body>
 <main class="checkout-main">
+
     <form id="checkout-form" action = "<%= request.getContextPath()%>/controller" method = "post">
-        <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
         <section id="delivery">
             <h1> <c:out value = "${delivery} ${address}"/></h1>
             <c:forEach var="addr" items="${user.addresses}">
@@ -87,7 +87,6 @@
         <input type="radio" name="card" value="${card.id}" required><i class="fas fa-credit-card fa-2x"></i><c:out value="${card.cardNumber}"/>
     </c:forEach><br>
         <a href="/profile#prof-cards"><div><c:out value="${add}"/></div></a>
-
         <button class="btn accept" type="submit" name="service_name" value="create_order"><c:out value="${pay}"/></button>
     </form>
 

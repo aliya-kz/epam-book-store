@@ -51,8 +51,6 @@ html {
     border: 1px solid white;
 }
 
-/* header*/
-
 #logo {
     font-family: 'Cutive Mono', monospace;
     font-size: 42px;
@@ -104,6 +102,9 @@ input[type=radio] {
     color: transparent;
 }
 
+.fa-shopping-cart {
+    margin: 0 auto;
+}
 
 .main {
     padding: 30px 30px;
@@ -468,6 +469,7 @@ input[type=text],
 .admin-table tr td input,
 .admin-table tr td textarea {
     margin-bottom: 30px;
+    min-width: 200px;
 }
 
 .admin-table tr {
@@ -505,7 +507,6 @@ input[type=text],
 .edit-info input.decline,
 .edit-info input.accept,
 #save {
-    width: 120px;
     padding-top: 8px;
     padding-bottom: 8px;
     border: none;
@@ -528,12 +529,12 @@ input[type=text],
     color: red;
     font-size: 16px;
     max-width: 300px;
+    margin: 20px auto;
 }
 
 h2 {
     margin-bottom: 5px;
 }
-
 
 .cart-wl > a {
     margin-right: 20px;
@@ -573,12 +574,18 @@ h2 {
     font-size: 16px;
 }
 
-/*index*/
+.ads-container {
+    background-color: #Ae9678;
+    height: 350px;
+}
+
 #ads {
-    position: relative;
+    position: absolute;
     background-image: url("/images/img/jamie.jpg");
     background-size: contain;
-    height: 350px;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    height: 100%;
 }
 
 #ads button {
@@ -684,7 +691,7 @@ h4:hover {
     text-transform: uppercase;
     min-width: 120px;
     max-width: 250px;
-    padding: 0 15px;
+    max-width: 250px;
     height: 35px;
     line-height: 35px;
     color: white;

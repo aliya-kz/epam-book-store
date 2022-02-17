@@ -3,6 +3,7 @@ package DAO.impl;
 import DAO.BookDao;
 import DAO.db_connection.ConnectionPool;
 import entity.Book;
+import entity.Cart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.*;
@@ -27,7 +28,9 @@ public class BookDaoImpl implements BookDao {
 
     private final static String INSERT_COVER = "INSERT into book_covers (id, image) values (?, ?)";
 
-       private final static String SELECT_ALL_BOOKS = "SELECT b.*, ab.author_id, cl.category_name, fl.format_name, bc.image from books b " +
+    private final static String GET_QTY = "SELECT quantity from books where id = ?;";
+
+    private final static String SELECT_ALL_BOOKS = "SELECT b.*, ab.author_id, cl.category_name, fl.format_name, bc.image from books b " +
             "left join authors_to_books ab on b.id=ab.book_id left join categories_lang cl on cl.id=b.category_id left join " +
             "formats_lang fl on fl.id=b.format_id left join book_covers bc on bc.id=b.id WHERE fl.lang= ? and cl.lang=?;";
 
@@ -182,6 +185,70 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
+    public int purchaseBooks(Map<Book, Integer> cartItems) {
+        int errorBookId = 0;
+        for (Book book : cartItems.keySet()) {
+            int bookId = book.getId();
+            int qty = cartItems.get(book);
+            Connection connection = connectionPool.takeConnection();
+            PreparedStatement statement = null;
+            try {
+                statement = connection.prepareStatement(GET_QTY);
+                statement.setInt(1, bookId);
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    int sqlQuantity = resultSet.getInt("quantity");
+                    if (sqlQuantity >= qty) {
+                        int newQty = sqlQuantity - qty;
+                        setColumnValue("books", bookId, "quantity", newQty);
+                    } else {
+                        errorBookId = bookId;
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.error(e);
+                e.printStackTrace();
+            } finally {
+                close(statement);
+                connectionPool.returnConnection(connection);
+            }
+        } return errorBookId;
+    }
+
+    public int returnBooks(Map<Book, Integer> cartItems, int errorBookId) {
+        int result = 0;
+        for (Book book : cartItems.keySet()) {
+            int bookId = book.getId();
+            if (bookId == errorBookId) {
+                break;
+            } else {
+                int qty = cartItems.get(book);
+                Connection connection = connectionPool.takeConnection();
+                PreparedStatement statement = null;
+                try {
+                    statement = connection.prepareStatement(GET_QTY);
+                    statement.setInt(1, bookId);
+                    ResultSet resultSet = statement.executeQuery();
+                    if (resultSet.next()) {
+                        int sqlQuantity = resultSet.getInt("quantity");
+                        int newQty = sqlQuantity + qty;
+                        result = setColumnValue("books", bookId, "quantity", newQty);
+                    }
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                    e.printStackTrace();
+                } finally {
+                    close(statement);
+                    connectionPool.returnConnection(connection);
+                }
+
+            }
+        }
+        return result;
+    }
+
+    @Override
     public int deleteByIdLang(int id, String lang) {
         return 0;
     }
@@ -270,6 +337,8 @@ public class BookDaoImpl implements BookDao {
         }
         return result;
     }
+
+
 
     public static void main(String[] args) throws IOException {
 

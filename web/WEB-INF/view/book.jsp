@@ -23,9 +23,11 @@
 <fmt:message bundle = "${content}" key="CHECKOUT" var="checkout"/>
 <fmt:message bundle = "${content}" key="PUBLISHER" var="publisher"/>
 <fmt:message bundle = "${content}" key="FORMAT" var="format"/>
+<fmt:message bundle = "${content}" key="OUT_OF_STOCK" var="out_of_stock"/>
+<fmt:message bundle = "${content}" key="ADD_TO_WL" var="add_wl"/>
 <jsp:include page="/header"/>
 
-<% int [] numbers = new int []{1,2,3,4,5,6,7,8,9,10};
+<% int [] numbers = new int []{1,2,3,4,5,6,7,8};
     request.setAttribute("numbers", numbers);
     request.setAttribute("id", request.getParameter("id"));%>
 
@@ -77,14 +79,34 @@
                             <h2> <c:out value="${book.price}"/> ₸</h2>
                             <c:out value="${quantity}"/>
                             <form action = "<%=request.getContextPath()%>/controller?id=${book.id}" method = "post">
-                            <select name ="qty">
-                                <c:forEach var="number" items="${numbers}" >
-                                    <option value="${number}"><c:out value="${number}"/> </option>
-                                </c:forEach>
-                            </select>
-                                <input type = "hidden" name="uri" value="<%=request.getRequestURI()%>"/>
-                            <button class="add-book-btn" name="service_name"  value="add_to_cart"><c:out value="${add_to_cart}"/>
-                            </button><br>
+
+                                <c:choose>
+                                    <c:when test="${book.quantity < 1}">
+                                       <h1> <c:out value="${out_of_stock}"></c:out></h1>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:if test="${book.quantity > 0 && book.quantity < 8}">
+                                            <h2> <c:out value="${book.quantity}"/> <c:out value="${available}"/></h2>
+                                            <select name ="qty">
+                                                <c:forEach var="number" items="${numbers}" >
+                                                    <c:if test="${number <= book.quantity}">
+                                                        <option value="${number}"><c:out value="${number}"/> </option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+                                        </c:if>
+                                        <c:if test="${book.quantity > 7}">
+                                            <select name ="qty">
+                                                <c:forEach var="number" items="${numbers}" >
+                                                    <option value="${number}"><c:out value="${number}"/> </option>
+                                                </c:forEach>
+                                            </select>
+                                        </c:if>
+                                        <input type = "hidden" name="uri" value="<%=request.getRequestURI()%>"/>
+                                        <button class="add-book-btn" name="service_name"  value="add_to_cart"><c:out value="${add_to_cart}"/>
+                                        </button><br>
+                                    </c:otherwise>
+                                </c:choose>
                             </form>
                             <% request.setAttribute("msg", request.getParameter("msg"));
                                 request.setAttribute("added", "added");%>

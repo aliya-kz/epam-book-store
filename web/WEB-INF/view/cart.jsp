@@ -24,11 +24,21 @@
     <fmt:message bundle = "${content}" key="DELETE" var="delete"/>
     <fmt:message bundle = "${content}" key="CONTINUE_SHOPPING" var="continue_shop"/>
     <fmt:message bundle = "${content}" key="CART_EMPTY" var="cart_empty"/>
+    <fmt:message bundle = "${content}" key="QTY_CHANGED" var="qty_changed"/>
     <jsp:include page="/header"/>
 
-            <% int [] numbers = new int []{1,2,3,4,5,6,7,8,9,10};
-            request.setAttribute("numbers", numbers);
-%>
+    <% int [] numbers = new int []{1,2,3,4,5,6,7,8};
+        request.setAttribute("numbers", numbers);
+        String msg = request.getParameter("msg");
+        request.setAttribute("msg", msg);
+    %>
+    <section class = "msg-section">
+        <p>
+            <c:if test="${msg == 'error'}">
+                <c:out value="${qty_changed}"/>
+            </c:if>
+        </p>
+    </section>
 
     <c:set var="total" value="0"/>
     <table id="cart-table">
@@ -46,7 +56,7 @@
                     <tr id = "book">
 
                         <td class = "book-cover">
-                                <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="140px"/>
+                            <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="140px"/>
                         </td>
                         <td class = "book-info">
                             <a href = "/book?id=${book.id}" class="index-book-name"><c:out value = "${book.title}"/></a>
@@ -64,18 +74,44 @@
                         </td>
                         <td>
                             <form action = "<%=request.getContextPath()%>/controller?id=${book.id}" method = "post">
-                                <select name ="qty" onchange="this.form.submit()">
-                                    <c:forEach var="number" items="${numbers}">
-                                        <c:choose>
-                                            <c:when test="${number == qty}">
-                                                <option value="${number}" selected><c:out value="${number}"/> </option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${number}"><c:out value="${number}"/> </option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
+                                <c:choose>
+                                    <c:when test="${book.quantity < 1}">
+                                        <c:out value="${out_of_stock}"></c:out>
+                                    </c:when>
+
+                                    <c:when test="${ book.quantity > 0 && book.quantity < 9}">
+                                        <h2> <c:out value="${book.quantity}"/> <c:out value="${available}"/></h2>
+                                        <select name ="qty" onchange="this.form.submit()">
+                                            <c:forEach var="number" items="${numbers}" >
+                                                <c:if test="${number <= book.quantity}">
+                                                    <c:choose>
+                                                        <c:when test="${number == qty}">
+                                                            <option value="${number}" selected><c:out value="${number}"/> </option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="${number}"><c:out value="${number}"/> </option>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:if>
+                                            </c:forEach>
+                                        </select>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <select name ="qty" onchange="this.form.submit()">
+                                            <c:forEach var="number" items="${numbers}">
+                                                <c:choose>
+                                                    <c:when test="${number == qty}">
+                                                        <option value="${number}" selected><c:out value="${number}"/> </option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${number}"><c:out value="${number}"/> </option>
+                                                    </c:otherwise>
+                                                </c:choose>
+
+                                            </c:forEach>
+                                        </select>
+                                    </c:otherwise>
+                                </c:choose>
                                 <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
                                 <input type="hidden" name="service_name" value="update_quantity"/>
                                 <input class="invisible-input" type="submit" />
@@ -108,22 +144,27 @@
         </tr>
 
     </table>
+</form>
+<div class = "btn-container">
+    <a href="/index"><button class="btn" id="view-cart"><c:out value="${continue_shop}"/></button></a>
 
-    <div class = "btn-container">
-        <div class="btn" id="view-cart"><a href="/index"><c:out value="${continue_shop}"/></a></div><br>
+    <c:choose>
+        <c:when test="${empty user}">
+            <div class="btn" id="checkout" onclick="openForm('login-form')"><c:out value="${checkout}"/></div>
+        </c:when>
+        <c:otherwise>
+            <c:if test="${cart.cartItems.size() > 0}">
+                <form action = "<%=request.getContextPath()%>/controller" method = "post">
+                    <input type="hidden" name="service_name" value="checkout">
+                    <button class="btn checkout"><c:out value="${checkout}"/></button>
+                </form>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+</div>
 
-        <c:choose>
-            <c:when test="${empty user}">
-                <div class="btn" id="checkout" onclick="openForm('login-form')"><c:out value="${checkout}"/></div>
-            </c:when>
-            <c:otherwise>
-                <c:if test="${cart.cartItems.size() > 0}">
-                    <div class="btn" id="checkout"><a href="/checkout"><c:out value="${checkout}"/></a></div>
-                </c:if>
-            </c:otherwise>
-        </c:choose>
-    </div>
-    <jsp:include page="/footer"/>
+
+<jsp:include page="/footer"/>
 </body>
 </html>
 
