@@ -23,6 +23,8 @@ public class UpdateQuantityService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        System.out.println(request.getParameter("id"));
+
         int bookId = Integer.parseInt(request.getParameter("id"));
         int qty = Integer.parseInt(request.getParameter("qty"));
         String uri = request.getParameter("uri");

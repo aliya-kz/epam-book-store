@@ -200,7 +200,7 @@ function checkPassword () {
         setErrorFor(newPassword, 'Fill in the required field');
     } else if (!/[a-zA-Z0-9]+$/.test(newPassValue)) {
         setErrorFor(newPassword, 'Only latin characters and digits are acceptable');
-    }  else if (passValue.length < 4 || passValue.length > 12) {
+    }  else if (newPassValue.length < 4 || newPassValue.length > 12) {
         setErrorFor(password, 'Password must be at least 4 and at most 12 characters long');
     } else {
         setSuccessFor(newPassword);

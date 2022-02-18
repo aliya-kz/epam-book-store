@@ -52,7 +52,6 @@
             <c:forEach var="book" items="${books}">
                 <c:if test="${book == cartBook}">
                     <tr id = "book">
-
                         <td class = "book-cover">
                             <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="140px"/>
                         </td>
@@ -110,6 +109,7 @@
                                         </select>
                                     </c:otherwise>
                                 </c:choose>
+                                <input type="hidden" name="id" value="${book.id}"/>
                                 <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
                                 <input type="hidden" name="service_name" value="update_quantity"/>
                                 <input class="invisible-input" type="submit" />
