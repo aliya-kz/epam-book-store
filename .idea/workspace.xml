@@ -14,9 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7c0fe0a5-f95a-407c-a068-ff5b8e7a0840" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/books.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/books.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/cart.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/view/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/view/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -343,7 +340,9 @@
       <workItem from="1645026522679" duration="9936000" />
       <workItem from="1645075584535" duration="641000" />
       <workItem from="1645077684399" duration="1756000" />
-      <workItem from="1645088813150" duration="23301000" />
+      <workItem from="1645088813150" duration="23433000" />
+      <workItem from="1645174478607" duration="707000" />
+      <workItem from="1645176252083" duration="1316000" />
     </task>
     <servers />
   </component>
