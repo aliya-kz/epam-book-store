@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class AddCardService implements Service{
     private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
@@ -20,18 +21,14 @@ public class AddCardService implements Service{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        String cardNumber = request.getParameter("card_number");
-        System.out.println ("card " + cardNumber);
-
+        String cardNumber = request.getParameter("prof-card");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         int userId = user.getId();
-        System.out.println("user id " + userId);
         Card card = new Card(cardNumber);
         card.setUserId(userId);
         String uri = request.getParameter("uri");
         int result = cardDao.addEntity(card);
-        System.out.println("resu;t " +result);
         RequestDispatcher dispatcher;
         user = userDao.getUser(userId);
         session.setAttribute("user", user);

@@ -134,7 +134,6 @@
     </section>
 
     <section id="prof-cards">
-
         <h1> <c:out value = "${cards}"/></h1>
         <div class="profile-info">
             <c:forEach var="card" items="${user.cards}">
@@ -149,8 +148,8 @@
             <form action = "<%= request.getContextPath()%>/controller" method = "post" onsubmit="return checkCard(this)">
                 <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
                 <div class = "form-control">
-                    <label for = "card"></label>
-                    <input id = "card" type = "text" name = "card_number" required >
+                    <label for = "prof-card"></label>
+                    <input type="text" name="prof-card" id="prof-card">
                     <button name="service_name" value="add_card" onclick="checkCard()">
                         <i class="fas fa-plus-square fa-lg"></i></button>
                     <small>Error message</small>
