@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GetAllOrdersService implements Service {
 
-    OrderDaoImpl orderDao = new OrderDaoImpl();
+    private final OrderDaoImpl orderDao = new OrderDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

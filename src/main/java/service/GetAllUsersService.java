@@ -15,7 +15,7 @@ import java.util.List;
 
 public class GetAllUsersService implements Service {
 
-    UserDaoImpl userDao = new UserDaoImpl();
+    private final UserDaoImpl userDao = new UserDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

@@ -65,7 +65,7 @@
                     </select></td>
                     <td>
                         <input id = "file" type = "file" name = "file" required >
-                      </td>
+                    </td>
                     <td><input type="hidden" name="service_name" value="add_new_author">
                         <input type="submit" class="btn accept" value = "${add_author}" onclick="checkAuthor()"> </td>
                 </tr>
@@ -75,17 +75,17 @@
 
     <section class="add-translation">
         <h3> <c:out value="${add_translation}"/></h3>
-        <table class="admin-table">
-            <tr>
-                <th>ID</th>
-                <th><c:out value="${name}"/></th>
-                <th><c:out value="${surname}"/></th>
-                <th><c:out value="${biography}"/></th>
-                <th><c:out value="${language}"/></th>
-                <th> </th>
-            </tr>
-            <tr>
-                <form action = "/controller?uri=<%=request.getRequestURI()%>" method="post" onsubmit="return checkAuthorTranslation(this)">
+        <form action = "/controller?uri=<%=request.getRequestURI()%>" method="post" onsubmit="return checkAuthorTranslation(this)">
+            <table class="admin-table">
+                <tr>
+                    <th>ID</th>
+                    <th><c:out value="${name}"/></th>
+                    <th><c:out value="${surname}"/></th>
+                    <th><c:out value="${biography}"/></th>
+                    <th><c:out value="${language}"/></th>
+                    <th> </th>
+                </tr>
+                <tr>
                     <td><div class = "form-control">
                         <input id = "transl-id" type = "text" name = "id" required >
                         <i class = "fas-fa-check-circle"></i>
@@ -113,9 +113,10 @@
                     </select></td>
                     <td><input type="hidden" name="service_name" value="add_new_author">
                         <input type="submit" class="btn accept" value = "${add_translation}" onclick="checkAuthorTranslation()"> </td>
-                </form>
-            </tr>
-        </table>
+
+                </tr>
+            </table>
+        </form>
         <%String msg = request.getParameter("msg");
             request.setAttribute("msg", msg);
         %>

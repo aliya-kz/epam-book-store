@@ -7,7 +7,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/style.css"/>
         <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
         <script src="/js/validation.js"> </script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +47,7 @@ request.setAttribute("id", id);
 <fmt:message bundle="${content}" key="BACK" var="back"/>
 
 <div class = "back">
-    <a href = "/admin-authors"><btn class="btn checkout"> <c:out value="${back}"/></btn></a>
+    <a href = "/admin-authors"><button class="btn checkout"> <c:out value="${back}"/></button></a>
 </div>
 <main class="edit-main">
 <section class="edit-info">

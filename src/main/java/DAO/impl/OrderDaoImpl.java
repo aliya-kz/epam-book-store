@@ -21,22 +21,22 @@ public class OrderDaoImpl implements OrderDao {
 
     ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static String GET_ID = "SELECT max(id) FROM orders where user_id = ?;";
+    private final static String GET_ID = "SELECT max(id) FROM orders where user_id = ?;";
 
-    private static String SELECT_ORDER = "SELECT o.*, ob.book_id, ob.quantity, a.address from orders o " +
+    private final static String SELECT_ORDER = "SELECT o.*, ob.book_id, ob.quantity, a.address from orders o " +
             "left join order_books ob on o.id = ob.order_id left join addresses a " +
             "on a.address_id=o.address_id where o.id = ?";
 
-    private static String INSERT_ORDER = "INSERT into orders (user_id, cost, status_id, date, address_id) values " +
+    private final  static String INSERT_ORDER = "INSERT into orders (user_id, cost, status_id, date, address_id) values " +
             "(?, ?, ?, ?, ?);";
 
-    private static String INSERT_ORDER_BOOKS = "INSERT into order_books (order_id, book_id, quantity) values (?, ?, ?);";
+    private final static String INSERT_ORDER_BOOKS = "INSERT into order_books (order_id, book_id, quantity) values (?, ?, ?);";
 
-    private static String SELECT_ALL_ORDERS = "SELECT id from orders;";
+    private final static String SELECT_ALL_ORDERS = "SELECT id from orders;";
 
-    private static String SET_STATUS_SQL = "UPDATE orders set status_id = ? WHERE id = ?;";
+    private final static String SET_STATUS_SQL = "UPDATE orders set status_id = ? WHERE id = ?;";
 
-    private static String SELECT_USER_ORDERS = "SELECT id from orders WHERE user_id = ?;";
+    private final static String SELECT_USER_ORDERS = "SELECT id from orders WHERE user_id = ?;";
 
 
     @Override
@@ -112,10 +112,9 @@ public class OrderDaoImpl implements OrderDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        List<Order> sortedList = orders.stream()
+        return orders.stream()
                 .sorted(Comparator.comparingInt(Order::getId))
                 .collect(Collectors.toList());
-        return sortedList;
     }
 
     public int updateStatus(int orderId, int statusId) {

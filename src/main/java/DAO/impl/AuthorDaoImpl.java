@@ -105,15 +105,13 @@ public class AuthorDaoImpl implements AuthorDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-         List<Author> sortedList = authors.stream()
+         return authors.stream()
                  .sorted(Comparator.comparing(Author::getSurname))
                  .collect(Collectors.toList());
-        return sortedList;
     }
 
     @Override
     public int deleteById(int id) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         try {
@@ -131,7 +129,6 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public int deleteByIdLang(int id, String lang) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         try {

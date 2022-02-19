@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class BookFilterService implements Service {
 
-    private BookDao bookDao = new BookDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

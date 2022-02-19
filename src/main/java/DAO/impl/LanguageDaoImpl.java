@@ -16,7 +16,7 @@ public class LanguageDaoImpl implements LanguageDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
 
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String INSERT_LANG = "INSERT into langs (title) values (?);";
 

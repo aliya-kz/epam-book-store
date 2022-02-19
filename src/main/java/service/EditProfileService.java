@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class EditProfileService implements Service {
 
-    UserDao userDao = new UserDaoImpl();
+    private final UserDao userDao = new UserDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

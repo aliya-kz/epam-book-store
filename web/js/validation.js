@@ -27,7 +27,6 @@ function checkBook() {
     return true;
 }
 
-
 function checkAuthorTranslation() {
     const id = document.getElementById('transl-id');
     const name = document.getElementById('transl-name');

@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 public class FormatDaoImpl implements FormatDao {
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static String GET_ALL_FORMATS= "SELECT * FROM formats_lang where lang = ?";
+    private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final static String GET_ALL_FORMATS= "SELECT * FROM formats_lang where lang = ?";
 
     @Override
     public int addEntity(Format format) {
@@ -45,10 +45,9 @@ public class FormatDaoImpl implements FormatDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        List<Format> sortedList = formats.stream()
+        return formats.stream()
                 .sorted(Comparator.comparing(Format::getFormatName))
                 .collect(Collectors.toList());
-        return sortedList;
     }
 
     @Override

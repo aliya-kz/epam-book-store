@@ -7,16 +7,7 @@ public class Card extends Entity {
     private int userId;
     String cardNumber;
 
-    public Card(int id) {
-        this.id = id;
-    }
-
     public Card(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public Card(int id, String cardNumber) {
-        this.id = id;
         this.cardNumber = cardNumber;
     }
 

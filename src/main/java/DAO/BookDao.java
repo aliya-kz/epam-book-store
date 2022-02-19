@@ -12,7 +12,6 @@ public interface BookDao extends BaseDao <Book> {
         int purchaseBooks(Map<Book, Integer> items);
         int returnBooks(Map<Book, Integer> cartItems, int errorBookId);
         List<Book> getAll(String lang);
-        List <Book> findBooksByAuthorIsbnOrTitle (String search);
         int deleteBookAuthors (int bookId);
         int setBookAuthors (int bookId, List <Integer> authorIds);
         List<Book> filterByCategory (List<Book> books, int[] categoryId);

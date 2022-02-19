@@ -23,7 +23,7 @@ private final WishListDao wishListDao = new WishListDaoImpl();
         int bookId = Integer.parseInt(request.getParameter("id"));
         WishList wishList = (WishList) session.getAttribute("wishList");
         String uri = request.getParameter("uri");
-        if (wishList.getBooks().indexOf(new Book (bookId)) > -1) {
+        if (wishList.getBooks().contains(new Book (bookId))) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
                 dispatcher.forward(request, response);
         }

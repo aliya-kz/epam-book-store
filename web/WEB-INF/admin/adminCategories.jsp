@@ -4,7 +4,7 @@
 <html>
     <head>
         <script src="/js/script.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/style.css"/>
         <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
         <script src="/js/validation.js"> </script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,6 +63,8 @@
                         <input type="submit" class="btn" id="accept" value = "${add_cat}" onclick="checkCategory()"> </td>
                 </tr>
             </table>
+            </form>
+
                 <%String msg = request.getParameter("msg");
                     request.setAttribute("msg", msg);
                 %>
@@ -71,7 +73,6 @@
                         <c:out value="${cat_exists}"></c:out>
                     </div>
                 </c:if>
-        </form>
 
         <h3> <c:out value = "${all_cat}"/> </h3>
         <form action = "<%= request.getContextPath()%>/controller" method = "post">

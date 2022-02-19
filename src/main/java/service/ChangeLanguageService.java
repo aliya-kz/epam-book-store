@@ -21,10 +21,10 @@ import java.util.List;
 
 public class ChangeLanguageService implements Service {
 
-    CategoryDao categoryDao = new CategoryDaoImpl();
-    AuthorDao authorDao = new AuthorDaoImpl();
-    BookDao bookDao = new BookDaoImpl();
-    FormatDao formatDao = new FormatDaoImpl();
+    private final CategoryDao categoryDao = new CategoryDaoImpl();
+    private final AuthorDao authorDao = new AuthorDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
+    private final FormatDao formatDao = new FormatDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

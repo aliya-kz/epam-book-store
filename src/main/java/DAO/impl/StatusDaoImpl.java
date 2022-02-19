@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StatusDaoImpl implements StatusDao {
+
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     ConnectionPool connectionPool = ConnectionPool.getInstance();
-
     private static String GET_ALL_STATUSES = "SELECT * FROM statuses_lang WHERE lang = ?;";
+
     @Override
     public List<Status> getAll(String lang) {
         List <Status> statuses = new ArrayList<>();

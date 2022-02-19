@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class AddToCartService implements Service {
 
-    CartDaoImpl cartDao = new CartDaoImpl();
-    BookDao bookDao = new BookDaoImpl();
+    private final CartDaoImpl cartDao = new CartDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

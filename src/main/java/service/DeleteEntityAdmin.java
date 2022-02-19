@@ -9,9 +9,9 @@ import java.io.IOException;
 
 public class DeleteEntityAdmin implements Service {
 
-    ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
 
-    SqlDaoFactory daoFactory = SqlDaoFactory.getInstance();
+    private final SqlDaoFactory daoFactory = SqlDaoFactory.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

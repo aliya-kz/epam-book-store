@@ -47,7 +47,6 @@ public class UserDaoImpl implements UserDao {
     private final static String GET_ID = "SELECT id FROM users WHERE email = ?;";
 
     private final static String SELECT_PASS = "SELECT password FROM users WHERE id = ?;";
-    PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
 
     @Override
     public int deleteById(int id) {
@@ -71,7 +70,7 @@ public class UserDaoImpl implements UserDao {
             statement.setDate(3, user.getDateOfBirth());
             statement.setString(4,user.getEmail());
             statement.setString(5,user.getPhone());
-            String encryptedPassword = passwordEncrypter.encrypt(user.getPassword());
+            String encryptedPassword = PasswordEncrypter.encrypt(user.getPassword());
             statement.setString(6,encryptedPassword);
             statement.setBoolean(7, user.getIsAdmin());
             statement.executeUpdate();
@@ -115,7 +114,7 @@ public class UserDaoImpl implements UserDao {
             statement.setDate(3, user.getDateOfBirth());
             statement.setString(4,user.getEmail());
             statement.setString(5,user.getPhone());
-            String encryptedPassword = passwordEncrypter.encrypt(user.getPassword());
+            String encryptedPassword = PasswordEncrypter.encrypt(user.getPassword());
             statement.setString(6,encryptedPassword);
             statement.setBoolean(7, user.getIsAdmin());
             statement.setInt(8, user.getId());
@@ -176,10 +175,9 @@ public class UserDaoImpl implements UserDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        List<User> sortedList = users.stream()
+        return users.stream()
                 .sorted(Comparator.comparingInt(User::getId))
                 .collect(Collectors.toList());
-        return sortedList;
     }
 
     public int addAddress (int id, String address) {
@@ -224,8 +222,7 @@ public class UserDaoImpl implements UserDao {
 
     public int blockUser(int id, boolean status) {
         BaseDao dao = new UserDaoImpl();
-        int result = dao.setColumnValue("users", id, "is_blocked", status);
-        return result;
+        return dao.setColumnValue("users", id, "is_blocked", status);
     }
 
     public User getUser (int id) {

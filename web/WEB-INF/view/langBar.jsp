@@ -30,7 +30,7 @@
 <fmt:message bundle="${content}" key="ADMIN" var="admin"/>
 <fmt:message bundle="${content}" key="ERROR_GEN" var="error_gen"/>
 <fmt:message bundle="${content}" key="FORGOT_PASSWORD" var="forgot_pass"/>
-<% User user = (User) session.getAttribute("user");%>
+
 <body>
 <div class="bar">
     <ul class="bar-list">

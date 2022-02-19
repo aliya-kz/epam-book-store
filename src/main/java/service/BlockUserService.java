@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class BlockUserService implements Service {
 
-    private UserDaoImpl userDAO = new UserDaoImpl();
+    private final UserDaoImpl userDAO = new UserDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

@@ -41,7 +41,7 @@
                   </c:forEach>
                  <p class="index-book-price"><c:out value="${book.price}"/> ₸ </p>
                  <c:if test="${book.quantity < 1}">
-                     <div id = "book-add${book.id}" type="submit" class="btn checkout" style="margin-top: 5px; width: 170px">
+                     <div id = "book-add${book.id}" class="btn checkout" style="margin-top: 5px; width: 170px">
                          <c:out value="${out_of_stock}"/></div>
                  </c:if>
                   <c:if test="${book.quantity > 0}">

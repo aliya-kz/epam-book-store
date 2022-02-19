@@ -15,7 +15,7 @@ import java.util.List;
 
 public class UpdateStatusService implements Service {
 
-    OrderDao orderDao = new OrderDaoImpl();
+    private final OrderDao orderDao = new OrderDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

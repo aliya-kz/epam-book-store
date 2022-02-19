@@ -20,9 +20,9 @@ import java.util.Map;
 
 public class CreateOrderService implements Service {
 
-    CartDao cartDao = new CartDaoImpl();
-    BookDao bookDao = new BookDaoImpl();
-    OrderDao orderDao = new OrderDaoImpl();
+    private final CartDao cartDao = new CartDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
+    private final OrderDao orderDao = new OrderDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -37,7 +37,6 @@ public class CreateOrderService implements Service {
                 order.setAddress(address);
             }
         }
-        String uri = request.getParameter("uri");
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         order.setOrderItems(cart.getCartItems());
         order.setUserId(user.getId());
@@ -56,7 +55,7 @@ public class CreateOrderService implements Service {
             session.setAttribute("cart", cart);
             dispatcher = request.getRequestDispatcher("/profile#prof-orders");
         } else {
-            int result = bookDao.returnBooks(cartItems, errorBook);
+            bookDao.returnBooks(cartItems, errorBook);
             dispatcher = request.getRequestDispatcher("/WEB-INF/view/cart.jsp?msg=error");
         }
         dispatcher.forward(request, response);

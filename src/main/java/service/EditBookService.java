@@ -14,7 +14,7 @@ import java.util.List;
 
 public class EditBookService implements Service{
 
-    BookDao bookDao = new BookDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -28,7 +28,7 @@ public class EditBookService implements Service{
             bookDao.setColumnValue("books", id, "title", title);
         }
 
-        String authIds[] = request.getParameterValues("new_authors");
+        String [] authIds= request.getParameterValues("new_authors");
         if (authIds != null) {
             List<Integer> authors = new ArrayList<>();
             for (String idString : authIds) {

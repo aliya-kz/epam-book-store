@@ -84,16 +84,15 @@ public class CartDaoImpl implements CartDao {
             statement.setInt(2, bookId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int oldQuantity = resultSet.getInt("quantity");
-                    statement1 = connection.prepareStatement(UPDATE_QTY);
-                    if (quantity > 8) {
-                        statement1.setInt(1, 8);
-                    } else {
-                        statement1.setInt(1, quantity);
-                    }
-                        statement1.setInt(2, bookId);
-                        statement1.setInt(3, userId);
-                        result = statement1.executeUpdate();
+                statement1 = connection.prepareStatement(UPDATE_QTY);
+                if (quantity > 8) {
+                    statement1.setInt(1, 8);
+                } else {
+                    statement1.setInt(1, quantity);
+                }
+                statement1.setInt(2, bookId);
+                statement1.setInt(3, userId);
+                result = statement1.executeUpdate();
             } else {
                 statement2 = connection.prepareStatement(INSERT_CART);
                 statement2.setInt(1, userId);

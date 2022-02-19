@@ -134,10 +134,9 @@ public class BookDaoImpl implements BookDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        List<Book> sortedList = books.stream()
+        return books.stream()
                 .sorted(Comparator.comparingInt(Book::getId))
                 .collect(Collectors.toList());
-        return sortedList;
     }
 
     public int deleteBookAuthors (int bookId) {
@@ -251,33 +250,6 @@ public class BookDaoImpl implements BookDao {
     @Override
     public int deleteByIdLang(int id, String lang) {
         return 0;
-    }
-
-    public List<Book> findBooksByAuthorIsbnOrTitle(String search) {
-        List<Book> books = new ArrayList<>();
-        Connection connection = connectionPool.takeConnection();
-       /* Statement statement = null;
-        search = search.toLowerCase();
-        try {statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT title, isbn, authors FROM books");
-            while (resultSet.next()) {
-                String authors = resultSet.getString("authors").toLowerCase();
-                String title = resultSet.getString("title").toLowerCase();
-                String isbn = resultSet.getString("isbn").toLowerCase();
-                if (authors.contains(search) || title.contains(search) || isbn.contains(search)) {
-                    Book book = new Book(isbn, title, authors);
-                    book.setIsbn(isbn);
-                    books.add(book);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            close(statement);
-            connectionPool.returnConnection(connection);
-        }*/
-        return books;
     }
 
     public List<Book> filterByCategory (List<Book> books, int [] categoryIds) {

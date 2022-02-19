@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class EditCategoryService implements Service{
 
-    private static ServiceFactory factory = ServiceFactory.getInstance();
-    CategoryDao categoryDao = new CategoryDaoImpl();
+    private final static ServiceFactory factory = ServiceFactory.getInstance();
+    private final CategoryDao categoryDao = new CategoryDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

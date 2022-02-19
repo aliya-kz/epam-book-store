@@ -5,7 +5,6 @@ import DAO.db_connection.ConnectionPool;
 import entity.Card;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -13,9 +12,9 @@ import java.sql.PreparedStatement;
 public class CardDaoImpl implements CardDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static String INSERT_CARD = "INSERT INTO cards (user_id, card_number) VALUES (?,?);";
-    private static String DELETE_CARD = "DELETE from cards WHERE card_id = ?;";
+    private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final static String INSERT_CARD = "INSERT INTO cards (user_id, card_number) VALUES (?,?);";
+    private final static String DELETE_CARD = "DELETE from cards WHERE card_id = ?;";
 
     @Override
     public int addEntity(Card card) {

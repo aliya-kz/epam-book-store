@@ -15,24 +15,17 @@ import java.util.List;
 
 public class LoginService implements Service {
 
-    private static SqlDaoFactory factory = SqlDaoFactory.getInstance();
-    private LanguageDao languageDao = new LanguageDaoImpl();
-    private UserDao userDao= new UserDaoImpl();
-    private BookDao bookDao = new BookDaoImpl();
-    private CategoryDao categoryDao = new CategoryDaoImpl();
-    private AuthorDao authorDao = new AuthorDaoImpl();
-    private FormatDao formatDao = new FormatDaoImpl();
-    private CartDao cartDao = new CartDaoImpl();
-    private WishListDao wishListDao = new WishListDaoImpl();
-    private OrderDao orderDao = new OrderDaoImpl();
-    private StatusDao statusDao = new StatusDaoImpl();
+    private final UserDao userDao= new UserDaoImpl();
+    private final CartDao cartDao = new CartDaoImpl();
+    private final WishListDao wishListDao = new WishListDaoImpl();
+    private final OrderDao orderDao = new OrderDaoImpl();
+    private final StatusDao statusDao = new StatusDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-        String uri = request.getRequestURI();
         String locale = (String) session.getAttribute("locale");
         String lang = locale.substring(0, 2);
         int userId = userDao.validateUser(email, password);

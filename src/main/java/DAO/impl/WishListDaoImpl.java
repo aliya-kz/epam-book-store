@@ -18,9 +18,9 @@ public class WishListDaoImpl implements WishListDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static String INSERT_WL = "INSERT into wish_lists (user_id, book_id) values (?,?);";
-    private static String DELETE_BOOK = "DELETE from wish_lists WHERE user_id = ? AND book_id = ?;";
-    private static String GET_WL = "SELECT book_id from wish_lists WHERE user_id = ?;";
+    private final static String INSERT_WL = "INSERT into wish_lists (user_id, book_id) values (?,?);";
+    private final static String DELETE_BOOK = "DELETE from wish_lists WHERE user_id = ? AND book_id = ?;";
+    private final static String GET_WL = "SELECT book_id from wish_lists WHERE user_id = ?;";
 
     @Override
     public int addToWishList(int userId, int bookId) {

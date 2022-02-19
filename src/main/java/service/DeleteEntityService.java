@@ -19,10 +19,10 @@ import java.util.Map;
 
 public class DeleteEntityService implements Service{
 
-    SqlDaoFactory daoFactory = SqlDaoFactory.getInstance();
-    UserDao userDao = new UserDaoImpl();
-    CartDao cartDao = new CartDaoImpl();
-    WishListDao wishListDao = new WishListDaoImpl();
+    private final SqlDaoFactory daoFactory = SqlDaoFactory.getInstance();
+    private final UserDao userDao = new UserDaoImpl();
+    private final CartDao cartDao = new CartDaoImpl();
+    private final WishListDao wishListDao = new WishListDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

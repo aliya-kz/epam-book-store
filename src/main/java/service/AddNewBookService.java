@@ -22,12 +22,11 @@ public class AddNewBookService implements Service {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         String locale = (String) session.getAttribute("locale");
-        String lang = locale.substring(0, 2);
         String title = request.getParameter("title").trim();
         String bookLanguage = request.getParameter("language");
         int formatId = Integer.parseInt(request.getParameter("format"));
         int categoryId = Integer.parseInt(request.getParameter("category"));
-        String authIds[] = request.getParameterValues("author_ids");
+        String [] authIds = request.getParameterValues("author_ids");
         List<Integer> authors = new ArrayList<>();
             for (String idString : authIds) {
                 int authorId = Integer.parseInt(idString);

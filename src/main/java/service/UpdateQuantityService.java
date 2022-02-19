@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class UpdateQuantityService implements Service {
 
-    CartDao cartDao = new CartDaoImpl();
+    private final CartDao cartDao = new CartDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
 
-    ServiceFactory factory = ServiceFactory.getInstance();
+    private final ServiceFactory factory = ServiceFactory.getInstance();
 
     public static final long serialVersionUID = 1L;
 

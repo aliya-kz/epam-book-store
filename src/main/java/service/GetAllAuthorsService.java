@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GetAllAuthorsService implements Service {
 
-    AuthorDao authorDao = new AuthorDaoImpl();
+    private final AuthorDao authorDao = new AuthorDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

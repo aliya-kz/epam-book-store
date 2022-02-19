@@ -18,8 +18,8 @@ import java.util.List;
 
 public class SignUpService implements Service {
 
-    private UserDao userDao = new UserDaoImpl();
-    private CartDao cartDao = new CartDaoImpl();
+    private final UserDao userDao = new UserDaoImpl();
+    private final  CartDao cartDao = new CartDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

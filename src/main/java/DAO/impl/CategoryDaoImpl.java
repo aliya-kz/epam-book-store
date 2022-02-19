@@ -17,14 +17,14 @@ import java.util.stream.Collectors;
 public class CategoryDaoImpl implements CategoryDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static String INSERT_CATEGORIES = "INSERT into categories (id) values (?);";
-    private static String INSERT_CATEGORIES_LANG = "INSERT into categories_lang (id, category_name, lang) values (?,?,?);";
-    private static String SELECT_ALL_CATEGORIES_LANG = "SELECT * FROM categories_lang WHERE lang = ?;";
-    private static String DELETE_CATEGORIES_LANG = "DELETE from categories_lang WHERE id = ?;";
-    private static String DELETE_CATEGORIES = "DELETE from categories WHERE id = ?;";
-    private static String SELECT_CATEGORY_LANG = "SELECT * from categories_lang where id = ? and lang = ?;";
-    private static String SELECT_CATEGORY = "SELECT * from categories where id = ?;";
+    private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final static String INSERT_CATEGORIES = "INSERT into categories (id) values (?);";
+    private final static String INSERT_CATEGORIES_LANG = "INSERT into categories_lang (id, category_name, lang) values (?,?,?);";
+    private final static String SELECT_ALL_CATEGORIES_LANG = "SELECT * FROM categories_lang WHERE lang = ?;";
+    private final static String DELETE_CATEGORIES_LANG = "DELETE from categories_lang WHERE id = ?;";
+    private final static String DELETE_CATEGORIES = "DELETE from categories WHERE id = ?;";
+    private final static String SELECT_CATEGORY_LANG = "SELECT * from categories_lang where id = ? and lang = ?;";
+    private final static String SELECT_CATEGORY = "SELECT * from categories where id = ?;";
 
     public List<Category> getAll(String lang) {
         List<Category> categories = new ArrayList<>();
@@ -48,10 +48,9 @@ public class CategoryDaoImpl implements CategoryDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        List<Category> sortedList = categories.stream()
+        return categories.stream()
                 .sorted(Comparator.comparing(Category::getCategoryName))
                 .collect(Collectors.toList());
-        return sortedList;
     }
 
     @Override

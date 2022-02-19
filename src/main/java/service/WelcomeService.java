@@ -12,13 +12,12 @@ import java.io.IOException;
 
 
 public class WelcomeService implements Service {
-    private static SqlDaoFactory factory = SqlDaoFactory.getInstance();
-    private LanguageDao languageDao = new LanguageDaoImpl();
-    private UserDao userDao= new UserDaoImpl();
-    private BookDao bookDao = new BookDaoImpl();
-    private CategoryDao categoryDao = new CategoryDaoImpl();
-    private AuthorDao authorDao = new AuthorDaoImpl();
-    private FormatDao formatDao = new FormatDaoImpl();
+    private final LanguageDao languageDao = new LanguageDaoImpl();
+    private final UserDao userDao= new UserDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
+    private final CategoryDao categoryDao = new CategoryDaoImpl();
+    private final AuthorDao authorDao = new AuthorDaoImpl();
+    private final FormatDao formatDao = new FormatDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

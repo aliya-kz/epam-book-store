@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class ImageServlet extends HttpServlet {
 
-    ServiceFactory factory = ServiceFactory.getInstance();
+    private final ServiceFactory factory = ServiceFactory.getInstance();
 
     public static final long serialVersionUID = 1L;
 

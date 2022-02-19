@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class EditAuthorService implements Service {
 
-    private static ServiceFactory factory = ServiceFactory.getInstance();
-    AuthorDao authorDao = new AuthorDaoImpl();
+    private final static ServiceFactory factory = ServiceFactory.getInstance();
+    private final AuthorDao authorDao = new AuthorDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

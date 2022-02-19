@@ -18,7 +18,7 @@ public final class ConnectionPool {
     private String user;
     private String password;
     private String driverName;
-    private ResourceBundle properties = ResourceBundle.getBundle("connection");
+    private final ResourceBundle properties = ResourceBundle.getBundle("connection");
     private final int POOL_SIZE = parseInt(properties.getString("db.poolSize"));
 
     private BlockingQueue<Connection> connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);

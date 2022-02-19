@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class CheckoutService implements Service {
 
-    BookDao bookDao = new BookDaoImpl();
-    CartDao cartDao = new CartDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
+    private final CartDao cartDao = new CartDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
