@@ -19,14 +19,19 @@ public class AddCardService implements Service{
     private static final UserDao userDao = new UserDaoImpl();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String cardNumber = request.getParameter("card");
+
+        String cardNumber = request.getParameter("card_number");
+        System.out.println ("card " + cardNumber);
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         int userId = user.getId();
+        System.out.println("user id " + userId);
         Card card = new Card(cardNumber);
         card.setUserId(userId);
         String uri = request.getParameter("uri");
         int result = cardDao.addEntity(card);
+        System.out.println("resu;t " +result);
         RequestDispatcher dispatcher;
         user = userDao.getUser(userId);
         session.setAttribute("user", user);

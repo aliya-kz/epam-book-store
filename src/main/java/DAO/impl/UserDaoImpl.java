@@ -24,6 +24,10 @@ public class UserDaoImpl implements UserDao {
             "(name, surname, date_of_birth, email, phone, password, is_admin) " +
             "VALUES " + "(?,?,?,?,?,?,?);";
 
+    private final static String INSERT_FOR_CHECK = "INSERT into users" +
+            "(name, surname, date_of_birth, email, phone, password, is_admin, id) " +
+            "VALUES " + "(?, ?,?,?,?,?,?,?);";
+
     private final static String GET_USER= "SELECT u.*, c.card_number, c.card_id, a.address, a.address_id FROM users u " +
             "LEFT JOIN cards c ON u.id=c.user_id LEFT JOIN addresses a ON u.id=a.user_id " +
             "WHERE u.id = ?;";
@@ -70,6 +74,51 @@ public class UserDaoImpl implements UserDao {
             String encryptedPassword = passwordEncrypter.encrypt(user.getPassword());
             statement.setString(6,encryptedPassword);
             statement.setBoolean(7, user.getIsAdmin());
+            statement.executeUpdate();
+
+            statement1 = connection.prepareStatement(GET_ID);
+            statement1.setString(1, user.getEmail());
+            ResultSet resultSet = statement1.executeQuery();
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+            List <Address> addresses = user.getAddresses();
+            AddressDao addressDao = new AddressDaoImpl();
+            Address address = addresses.get(0);
+            address.setUserId(id);
+            addressDao.addEntity(address);
+            List <Card > cards = user.getCards();
+            CardDao cardDao = new CardDaoImpl();
+            Card card = cards.get(0);
+            card.setUserId(id);
+            cardDao.addEntity(card);
+        } catch (Exception e) {
+            LOGGER.info(e);
+            e.printStackTrace();
+        }
+        finally {
+            close(statement);
+            close(statement1);
+            connectionPool.returnConnection(connection);
+        }
+        return id;
+    }
+
+    public int addForDbCheck (User user) {
+        Connection connection = connectionPool.takeConnection();
+        int id = -1;
+        PreparedStatement statement = null;
+        PreparedStatement statement1 = null;
+        try {statement = connection.prepareStatement(INSERT_FOR_CHECK);
+            statement.setString(1,user.getName());
+            statement.setString(2,user.getSurname());
+            statement.setDate(3, user.getDateOfBirth());
+            statement.setString(4,user.getEmail());
+            statement.setString(5,user.getPhone());
+            String encryptedPassword = passwordEncrypter.encrypt(user.getPassword());
+            statement.setString(6,encryptedPassword);
+            statement.setBoolean(7, user.getIsAdmin());
+            statement.setInt(8, user.getId());
             statement.executeUpdate();
 
             statement1 = connection.prepareStatement(GET_ID);
@@ -311,12 +360,12 @@ public class UserDaoImpl implements UserDao {
         Card card = new Card(1,2, "123412341234");
         cards.add(card);
         admin.setCards(cards);
-        dao.addEntity(admin);
+        dao.addForDbCheck(admin);
 
         User user = new User ("user", "ivanov", "user@user.com", "87775556644", new Date(2000/04/05), "12345", false);
         user.setId(2);
         user.setCards(cards);
         user.setAddresses(addresses);
-        dao.addEntity(user);
+        dao.addForDbCheck(user);
     }
 }

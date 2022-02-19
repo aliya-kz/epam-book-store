@@ -33,7 +33,6 @@
 <fmt:message bundle="${content}" key="ADDRESS" var="address" scope="session"/>
 <fmt:message bundle="${content}" key="PHONE_NUMBER" var="phone" />
 <fmt:message bundle="${content}" key="DATE_OF_BIRTH" var="date" />
-<fmt:message bundle="${content}" key="CARD_NUMBER" var="card"/>
 <fmt:message bundle="${content}" key="CONFIRM_PASSWORD" var="confirm_password"/>
 <fmt:message bundle="${content}" key="EDIT" var="edit"/>
 <fmt:message bundle="${content}" key="SAVE" var="save"/>
@@ -94,7 +93,8 @@
 <main class="profile-main">
     <section id="prof-personal">
         <h1><c:out value="${pers}"/>
-            <button class="fa-btn" id="edit-profile-btn" onclick ="editProfile()" style="background: transparent; color:darkblue">
+            <button class="fa-btn" id="edit-profile-btn" onclick ="editProfile()"
+                    style="background: transparent; color:darkblue; cursor:pointer">
                 <i class="fas fa-user-edit fa-lg"></i></button></h1>
         <div class="profile-info">
 
@@ -147,10 +147,10 @@
             </c:forEach><br>
 
             <form action = "<%= request.getContextPath()%>/controller" method = "post" onsubmit="return checkCard(this)">
-                <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
+                <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
                 <div class = "form-control">
                     <label for = "card"></label>
-                    <input id = "card" type = "text" name = "card" required />
+                    <input id = "card" type = "text" name = "card_number" required >
                     <button name="service_name" value="add_card" onclick="checkCard()">
                         <i class="fas fa-plus-square fa-lg"></i></button>
                     <small>Error message</small>
