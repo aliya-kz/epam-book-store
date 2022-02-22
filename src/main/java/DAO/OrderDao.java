@@ -1,7 +1,6 @@
 package DAO;
 
 import entity.Order;
-
 import java.util.List;
 
 public interface OrderDao extends BaseDao <Order> {

@@ -121,9 +121,11 @@
                         </td>
 
                         <td id = "cost">
+                            <c:if test="${book.quantity > 0}">
                             <c:set var="book_cost" value="${book.price * qty}"/>
                             <c:set var="total" value="${total + book_cost}"/>
                             <c:out value="${book_cost}"/> ₸
+                            </c:if>
                         </td>
                     </tr>
                 </c:if>

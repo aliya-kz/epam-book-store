@@ -48,6 +48,8 @@ public class AddToCartService implements Service {
                 }
             }
         }
+
+
         if (user != null) {
             cartDao.addToCart(user.getId(), bookId, oldQty);
             cart = cartDao.getCart(user.getId());

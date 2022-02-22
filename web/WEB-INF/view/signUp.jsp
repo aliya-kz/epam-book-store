@@ -2,12 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+<html>
 <head>
     <link rel = "stylesheet" href="/css/formStyle.css"/>
     <script src="/js/validation.js"> </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d45bb5fe4a.js" crossorigin="anonymous"></script>
     <title>Registration</title>
 </head>
 <body>
@@ -34,7 +36,8 @@
 <header class = "header">
     <div class="bar">
         <ul class="bar-list">
-            <li> <a href="/index"><c:out value="${home}"/></a> </li>
+            <li><a href="/index"><i class="fas fa-home fa-2x"></i></a></li>
+            <li> <a href="/login"><i class="fas fa-user fa-lg"></i></a></li>
             <li><form action = "<%= request.getContextPath()%>/controller" method = "post">
                 <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
                 <input type = "hidden" name = "locale" value="en_US"/>
@@ -43,7 +46,7 @@
                 <input type = "hidden" name = "uri" value = "<%=request.getRequestURI()%>"/>
                 <input type = "hidden" name = "locale" value="ru_RU"/>
                 <input class="lang" id="rus" type="submit" name="service_name" value="change_language"/></form></li>
-            <li> <a href="/login"><c:out value="${login}"/><button><i class="fas fa-user fa-lg"></i></button></a></li>
+
         </ul>
     </div>
 </header>
@@ -146,7 +149,6 @@
             </c:choose>
         </p>
     </section>
-
 </main>
 </body>
 </html>

@@ -37,6 +37,7 @@ public class CreateOrderService implements Service {
                 order.setAddress(address);
             }
         }
+
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         order.setOrderItems(cart.getCartItems());
         order.setUserId(user.getId());
@@ -53,6 +54,10 @@ public class CreateOrderService implements Service {
             cartDao.deleteById(user.getId());
             cart = new Cart();
             session.setAttribute("cart", cart);
+            String locale = (String) session.getAttribute("locale");
+            String lang = locale.substring(0, 2);
+            List <Book> books = bookDao.getAll(lang);
+            session.setAttribute("books", books);
             dispatcher = request.getRequestDispatcher("/profile#prof-orders");
         } else {
             bookDao.returnBooks(cartItems, errorBook);

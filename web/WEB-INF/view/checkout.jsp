@@ -43,7 +43,7 @@
             <c:set var="qty" value="${entry.value}"/>
             <c:set var="cartBook" value="${entry.key}"/>
             <c:forEach var="book" items="${books}">
-                <c:if test="${book == cartBook}">
+                <c:if test="${book == cartBook && book.quantity > 0}">
                     <tr id = "book">
                         <td class = "book-cover">
                                 <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt = "${book.title}" width="120px"/>

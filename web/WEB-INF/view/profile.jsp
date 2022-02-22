@@ -37,7 +37,6 @@
 <fmt:message bundle="${content}" key="EDIT" var="edit"/>
 <fmt:message bundle="${content}" key="SAVE" var="save"/>
 <fmt:message bundle="${content}" key="DELETE" var="delete"/>
-<fmt:message bundle="${content}" key="ERROR_GEN" var="error_gen"/>
 <fmt:message bundle="${content}" key="ADD" var="add"/>
 <fmt:message bundle="${content}" key="ADDRESS" var="address"/>
 <fmt:message bundle="${content}" key="STATUS" var="status"/>
@@ -47,7 +46,6 @@
 <fmt:message bundle="${content}" key="REFUND" var="refund"/>
 <fmt:message bundle="${content}" key="CURRENT_PAS_WRONG" var="wrong"/>
 <fmt:message bundle="${content}" key="ORDER_DATE" var="order_date"/>
-<fmt:message bundle="${content}" key="DELIVERY_DATE" var="del_date"/>
 
 <body>
 <header class="profile-header">
@@ -285,7 +283,6 @@
                     </div>
                   </c:if>
                 </c:forEach>
-              </div>
               </div>
             </c:forEach>
           </td>

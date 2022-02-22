@@ -13,6 +13,7 @@
 <fmt:message bundle="${content}" key="ADDED" var="added"/>
 <fmt:message bundle="${content}" key="DELETE" var="delete"/>
 <fmt:message bundle="${content}" key="CONTINUE_SHOPPING" var="continue_shop"/>
+<fmt:message bundle="${content}" key="OUT_OF_STOCK" var="out_of_stock"/>
 
 <section id = "index-books">
     <c:forEach var="wl_book" items="${wishList.books}">
@@ -35,12 +36,18 @@
                         </c:if>
                     </c:forEach>
                     <p class="index-book-price"><c:out value="${book.price}"/> ₸ </p>
-                    <form id = "book-add${book.id}"
-                          action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1" method = "post">
+                    <c:if test="${book.quantity < 1}">
+                        <div id = "book-add${book.id}" class="btn checkout" style="margin-top: 5px; width: 170px; pointer-events: none">
+                            <c:out value="${out_of_stock}"/></div>
+                    </c:if>
+                    <c:if test="${book.quantity > 0}">
+                        <form id = "book-add${book.id}" action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1"
+                              method = "post">
                         <input type="hidden" name="service_name" value="add_to_cart">
                         <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
                         <input type="submit" class="btn" style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add}"/>
                     </form>
+                    </c:if>
                     <form action = "<%=request.getContextPath()%>/controller?id=${book.id}&table=wish_lists" method = "post">
                         <input type="hidden" name="service_name" value="delete_entity">
                         <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">

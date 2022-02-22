@@ -4,7 +4,7 @@
 <html>
 <head>
     <script src="/js/script.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="/css/formStyle.css"/>
     <script src="/js/validation.js"> </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -122,7 +122,7 @@
         %>
         <c:if test="${msg eq 'error'}">
             <div class="msg-div">
-                <c:out value="${invalid_id}"></c:out>
+                <c:out value="${invalid_id}"/>
             </div>
         </c:if>
     </section>

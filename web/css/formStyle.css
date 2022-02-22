@@ -70,6 +70,7 @@
     color: red;
     font-size: 16px;
     max-width: 300px;
+    margin: 30px auto;
 }
 
 .msg-div {
@@ -134,8 +135,8 @@
     width: 100%;
 }
 
-#login-form .btn:hover, .open-button:hover,
-#login-page .btn:hover, .open-button:hover {
+#login-form .btn:hover,
+#login-page .btn:hover {
     opacity: 1;
 }
 
@@ -150,11 +151,6 @@
 
 .signup-main {
     width: 60%;
-}
-
-.login-form-container {
-    position: relative;
-    width: 100%;
 }
 
 .login-form-container > form {

@@ -247,8 +247,7 @@ input[type=radio] {
 .form-container,
 .edit-main,
 .btns,
-.cart-wl,
-.admin-header {
+.cart-wl {
     display: flex;
     justify-content: space-between;
 }
@@ -620,13 +619,6 @@ h2 {
     text-transform: uppercase;
 }
 
-#order-books {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    column-gap: 20px;
-}
-
 .index-book {
     width: 170px;
     padding-bottom: 20px;
@@ -689,7 +681,6 @@ h4:hover {
 }
 
 .btn {
-    cursor: pointer;
     text-decoration: none;
     text-transform: uppercase;
     min-width: 120px;
@@ -712,6 +703,10 @@ h4:hover {
     cursor: pointer;
 }
 
+.fa-user-edit:hover {
+    cursor: pointer;
+    color: #f2c594;
+}
 .fa-minus-circle {
     color: tomato;
 }

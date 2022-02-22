@@ -70,7 +70,7 @@
                 %>
                 <c:if test="${msg eq 'error'}">
                     <div class="msg-div">
-                        <c:out value="${cat_exists}"></c:out>
+                        <c:out value="${cat_exists}"/>
                     </div>
                 </c:if>
 

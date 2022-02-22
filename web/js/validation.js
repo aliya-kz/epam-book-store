@@ -5,7 +5,7 @@ function checkBook() {
     const price = document.getElementById('price');
     const description = document.getElementById('description');
     const quantity = document.getElementById('quantity');
-
+    console.log ('1: ' + isbn.value);
     if (title !== null && !checkItem(title,200)) {
         return false;
     }
@@ -119,9 +119,10 @@ function checkItem (item, length) {
 
 function checkISBN (item) {
     const itemValue = item.value.trim();
+    console.log (itemValue);
     if (itemValue === '') {
         return true;
-    } else if (!/\d{10}$/.test(itemValue) || !/\d{13}$/.test(itemValue)) {
+    } else if (isNaN(Number(itemValue)) && (itemValue.length !== 10 || itemValue.length !== 13)) {
         setErrorFor(item, 'Please enter 10 or 13 digits long number. No other characters are acceptable.');
         return false;
     }  else {
