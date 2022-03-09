@@ -1,6 +1,6 @@
 package service;
 
-import DAO.impl.UserDaoImpl;
+import dao.impl.UserDaoImpl;
 import entity.User;
 
 import javax.servlet.RequestDispatcher;

@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 import entity.Author;
 import java.util.List;
 

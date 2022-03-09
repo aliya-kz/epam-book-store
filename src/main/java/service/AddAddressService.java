@@ -1,9 +1,9 @@
 package service;
 
-import DAO.AddressDao;
-import DAO.UserDao;
-import DAO.impl.AddressDaoImpl;
-import DAO.impl.UserDaoImpl;
+import dao.AddressDao;
+import dao.UserDao;
+import dao.impl.AddressDaoImpl;
+import dao.impl.UserDaoImpl;
 import entity.Address;
 import entity.User;
 

@@ -1,7 +1,7 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.AddressDao;
-import DAO.db_connection.ConnectionPool;
+import dao.AddressDao;
+import dao.db_connection.ConnectionPool;
 import entity.Address;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,6 +1,6 @@
 package service;
 
-import DAO.impl.OrderDaoImpl;
+import dao.impl.OrderDaoImpl;
 import entity.Order;
 
 import javax.servlet.RequestDispatcher;

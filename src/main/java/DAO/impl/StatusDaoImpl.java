@@ -1,7 +1,7 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.StatusDao;
-import DAO.db_connection.ConnectionPool;
+import dao.StatusDao;
+import dao.db_connection.ConnectionPool;
 import entity.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

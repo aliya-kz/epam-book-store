@@ -1,7 +1,7 @@
 package service;
 
-import DAO.OrderDao;
-import DAO.impl.OrderDaoImpl;
+import dao.OrderDao;
+import dao.impl.OrderDaoImpl;
 import entity.Order;
 import entity.User;
 

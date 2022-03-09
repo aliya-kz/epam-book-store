@@ -1,10 +1,7 @@
 package service;
 
-import DAO.*;
-import DAO.impl.AuthorDaoImpl;
-import DAO.impl.BookDaoImpl;
-import DAO.impl.CategoryDaoImpl;
-import DAO.impl.FormatDaoImpl;
+import dao.*;
+import dao.impl.*;
 import entity.Author;
 import entity.Book;
 import entity.Category;

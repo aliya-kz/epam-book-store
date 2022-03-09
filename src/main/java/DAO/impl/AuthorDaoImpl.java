@@ -1,7 +1,7 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.AuthorDao;
-import DAO.db_connection.ConnectionPool;
+import dao.AuthorDao;
+import dao.db_connection.ConnectionPool;
 import entity.Author;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

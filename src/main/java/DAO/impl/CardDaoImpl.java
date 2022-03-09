@@ -1,7 +1,7 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.CardDao;
-import DAO.db_connection.ConnectionPool;
+import dao.CardDao;
+import dao.db_connection.ConnectionPool;
 import entity.Card;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

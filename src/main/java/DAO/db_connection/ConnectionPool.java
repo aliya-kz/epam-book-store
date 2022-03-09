@@ -1,4 +1,4 @@
-package DAO.db_connection;
+package dao.db_connection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

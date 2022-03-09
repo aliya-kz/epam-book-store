@@ -1,7 +1,7 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.OrderDao;
-import DAO.db_connection.ConnectionPool;
+import dao.OrderDao;
+import dao.db_connection.ConnectionPool;
 import entity.Address;
 import entity.Book;
 import entity.Order;

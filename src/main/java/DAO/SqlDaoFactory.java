@@ -1,5 +1,5 @@
-package DAO;
-import DAO.impl.*;
+package dao;
+import dao.impl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.HashMap;

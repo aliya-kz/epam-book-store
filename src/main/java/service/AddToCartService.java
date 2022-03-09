@@ -1,8 +1,8 @@
 package service;
 
-import DAO.BookDao;
-import DAO.impl.BookDaoImpl;
-import DAO.impl.CartDaoImpl;
+import dao.BookDao;
+import dao.impl.BookDaoImpl;
+import dao.impl.CartDaoImpl;
 import entity.Book;
 import entity.Cart;
 import entity.User;
@@ -30,24 +30,24 @@ public class AddToCartService implements Service {
         int bookId = Integer.parseInt(request.getParameter(ID));
         Cart cart = (Cart) session.getAttribute(CART);
         Map<Book, Integer> items = cart.getCartItems();
-        int qty = Integer.parseInt(request.getParameter(QUANTITY));
+        int quantity = Integer.parseInt(request.getParameter(QUANTITY));
         String locale = (String) session.getAttribute(LOCALE);
         String languageCode = locale.substring(0, 2);
         List<Book> books = bookDao.getAll(languageCode);
         User user = (User) session.getAttribute(USER);
-        int oldQty = qty;
+        int oldQty = quantity;
         for (Book book : books) {
             if (book.getId() == bookId) {
                 if (items.containsKey(book)) {
                     oldQty = items.get(book);
-                    int newQty = oldQty + qty;
+                    int newQty = oldQty + quantity;
                     if (newQty <= book.getQuantity()) {
-                        oldQty = items.replace(book, oldQty + qty);
+                        oldQty = items.replace(book, oldQty + quantity);
                     } else {
                         oldQty = items.replace(book, book.getQuantity());
                     }
                 } else {
-                    items.put(book, qty);
+                    items.put(book, quantity);
                 }
             }
         }

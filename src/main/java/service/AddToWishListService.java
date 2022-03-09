@@ -1,7 +1,7 @@
 package service;
 
-import DAO.WishListDao;
-import DAO.impl.WishListDaoImpl;
+import dao.WishListDao;
+import dao.impl.WishListDaoImpl;
 import entity.Book;
 import entity.User;
 import entity.WishList;

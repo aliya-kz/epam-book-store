@@ -1,7 +1,7 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.CartDao;
-import DAO.db_connection.ConnectionPool;
+import dao.CartDao;
+import dao.db_connection.ConnectionPool;
 import entity.Book;
 import entity.Cart;
 import org.apache.logging.log4j.LogManager;

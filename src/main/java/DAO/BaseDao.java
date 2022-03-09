@@ -1,6 +1,6 @@
-package DAO;
+package dao;
 
-import DAO.db_connection.ConnectionPool;
+import dao.db_connection.ConnectionPool;
 import entity.Entity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

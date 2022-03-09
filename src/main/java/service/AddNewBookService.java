@@ -1,7 +1,7 @@
 package service;
 
-import DAO.BookDao;
-import DAO.impl.BookDaoImpl;
+import dao.BookDao;
+import dao.impl.BookDaoImpl;
 import entity.Book;
 
 import javax.servlet.ServletException;
@@ -36,8 +36,8 @@ public class AddNewBookService implements Service {
         String isbn = request.getParameter(ISBN);
         String priceStr = request.getParameter(PRICE).trim();
         double price = Double.parseDouble(priceStr);
-        String qty = request.getParameter(QUANTITY).trim();
-        int quantity = Integer.parseInt(qty);
+        String quantityString = request.getParameter(QUANTITY).trim();
+        int quantity = Integer.parseInt(quantityString);
         String description = request.getParameter(DESCRIPTION).trim();
 
         Part part = null;

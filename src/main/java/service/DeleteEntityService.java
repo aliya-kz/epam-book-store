@@ -1,9 +1,9 @@
 package service;
 
-import DAO.*;
-import DAO.impl.CartDaoImpl;
-import DAO.impl.UserDaoImpl;
-import DAO.impl.WishListDaoImpl;
+import dao.*;
+import dao.impl.CartDaoImpl;
+import dao.impl.UserDaoImpl;
+import dao.impl.WishListDaoImpl;
 import entity.Book;
 import entity.Cart;
 import entity.User;

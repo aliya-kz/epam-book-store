@@ -1,7 +1,7 @@
 package service;
 
-import DAO.CartDao;
-import DAO.impl.CartDaoImpl;
+import dao.CartDao;
+import dao.impl.CartDaoImpl;
 import entity.Book;
 import entity.Cart;
 import entity.User;

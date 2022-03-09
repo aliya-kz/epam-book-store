@@ -1,7 +1,7 @@
 package service;
 
-import DAO.CategoryDao;
-import DAO.impl.CategoryDaoImpl;
+import dao.CategoryDao;
+import dao.impl.CategoryDaoImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,9 +1,9 @@
 package service;
 
-import DAO.AuthorDao;
-import DAO.BookDao;
-import DAO.impl.AuthorDaoImpl;
-import DAO.impl.BookDaoImpl;
+import dao.AuthorDao;
+import dao.BookDao;
+import dao.impl.AuthorDaoImpl;
+import dao.impl.BookDaoImpl;
 import entity.Author;
 import entity.Book;
 

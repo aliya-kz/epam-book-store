@@ -1,7 +1,7 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.*;
-import DAO.db_connection.ConnectionPool;
+import dao.*;
+import dao.db_connection.ConnectionPool;
 import com.lambdaworks.crypto.SCryptUtil;
 import entity.Address;
 import entity.Card;

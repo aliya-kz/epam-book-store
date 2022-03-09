@@ -1,7 +1,7 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.WishListDao;
-import DAO.db_connection.ConnectionPool;
+import dao.WishListDao;
+import dao.db_connection.ConnectionPool;
 import entity.Book;
 import entity.WishList;
 import org.apache.logging.log4j.LogManager;

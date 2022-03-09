@@ -1,7 +1,6 @@
-package DAO;
+package dao;
 
 import entity.Book;
-import entity.Cart;
 
 import java.util.List;
 import java.util.Map;

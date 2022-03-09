@@ -1,7 +1,7 @@
 package service;
 
-import DAO.BookDao;
-import DAO.impl.BookDaoImpl;
+import dao.BookDao;
+import dao.impl.BookDaoImpl;
 import entity.Book;
 
 import javax.servlet.RequestDispatcher;

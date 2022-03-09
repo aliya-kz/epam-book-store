@@ -1,12 +1,11 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.CategoryDao;
-import DAO.db_connection.ConnectionPool;
+import dao.CategoryDao;
+import dao.db_connection.ConnectionPool;
 import entity.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

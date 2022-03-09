@@ -1,7 +1,7 @@
 package service;
 
-import DAO.BaseDao;
-import DAO.SqlDaoFactory;
+import dao.BaseDao;
+import dao.SqlDaoFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

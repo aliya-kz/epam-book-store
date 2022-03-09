@@ -1,7 +1,7 @@
 package service;
 
-import DAO.BookDao;
-import DAO.impl.BookDaoImpl;
+import dao.BookDao;
+import dao.impl.BookDaoImpl;
 import entity.Book;
 
 import javax.servlet.RequestDispatcher;
@@ -63,9 +63,9 @@ public class EditBookService implements Service {
             bookDao.setColumnValue(BOOKS, id, PRICE, price);
         }
 
-        String qty = request.getParameter(NEW_QUANTITY).trim();
-        if (qty.length() > 0) {
-            int quantity = Integer.parseInt(qty);
+        String quantityString = request.getParameter(NEW_QUANTITY).trim();
+        if (quantityString.length() > 0) {
+            int quantity = Integer.parseInt(quantityString);
             bookDao.setColumnValue(BOOKS, id, QUANTITY, quantity);
         }
 

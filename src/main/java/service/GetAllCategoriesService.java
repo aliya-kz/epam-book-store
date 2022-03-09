@@ -1,6 +1,6 @@
 package service;
 
-import DAO.impl.CategoryDaoImpl;
+import dao.impl.CategoryDaoImpl;
 import entity.Category;
 
 import javax.servlet.RequestDispatcher;

@@ -1,8 +1,7 @@
 package service;
 
-import DAO.AuthorDao;
-
-import DAO.impl.AuthorDaoImpl;
+import dao.AuthorDao;
+import dao.impl.AuthorDaoImpl;
 import entity.Author;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

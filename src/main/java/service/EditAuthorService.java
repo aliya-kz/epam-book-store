@@ -1,7 +1,7 @@
 package service;
 
-import DAO.AuthorDao;
-import DAO.impl.AuthorDaoImpl;
+import dao.AuthorDao;
+import dao.impl.AuthorDaoImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
 package service;
 
-import DAO.BaseDao;
-import DAO.impl.BookDaoImpl;
+import dao.BaseDao;
+import dao.impl.BookDaoImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

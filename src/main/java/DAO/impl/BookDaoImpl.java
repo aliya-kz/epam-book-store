@@ -1,9 +1,8 @@
-package DAO.impl;
+package dao.impl;
 
-import DAO.BookDao;
-import DAO.db_connection.ConnectionPool;
+import dao.BookDao;
+import dao.db_connection.ConnectionPool;
 import entity.Book;
-import entity.Cart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.*;
@@ -188,7 +187,7 @@ public class BookDaoImpl implements BookDao {
         long errorBookId = 0;
         for (Book book : cartItems.keySet()) {
             long bookId = book.getId();
-            int qty = cartItems.get(book);
+            int quantity = cartItems.get(book);
             Connection connection = connectionPool.takeConnection();
             PreparedStatement statement = null;
             try {
@@ -197,8 +196,8 @@ public class BookDaoImpl implements BookDao {
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     int sqlQuantity = resultSet.getInt("quantity");
-                    if (sqlQuantity >= qty) {
-                        int newQty = sqlQuantity - qty;
+                    if (sqlQuantity >= quantity) {
+                        int newQty = sqlQuantity - quantity;
                         setColumnValue("books", bookId, "quantity", newQty);
                     } else {
                         errorBookId = bookId;
@@ -222,7 +221,7 @@ public class BookDaoImpl implements BookDao {
             if (bookId == errorBookId) {
                 break;
             } else {
-                int qty = cartItems.get(book);
+                int quantity = cartItems.get(book);
                 Connection connection = connectionPool.takeConnection();
                 PreparedStatement statement = null;
                 try {
@@ -231,7 +230,7 @@ public class BookDaoImpl implements BookDao {
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
                         int sqlQuantity = resultSet.getInt("quantity");
-                        int newQty = sqlQuantity + qty;
+                        int newQty = sqlQuantity + quantity;
                         result = setColumnValue("books", bookId, "quantity", newQty);
                     }
                 } catch (Exception e) {

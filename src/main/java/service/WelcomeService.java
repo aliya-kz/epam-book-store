@@ -1,7 +1,7 @@
 package service;
 
-import DAO.*;
-import DAO.impl.*;
+import dao.*;
+import dao.impl.*;
 import entity.Cart;
 
 import javax.servlet.RequestDispatcher;
