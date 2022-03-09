@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
 public class LogoutService implements Service {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        session.removeAttribute("cart");
-        session.removeAttribute("user");
+        session.invalidate();
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
         dispatcher.forward(request, response);
     }

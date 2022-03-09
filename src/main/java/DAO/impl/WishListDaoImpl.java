@@ -23,14 +23,14 @@ public class WishListDaoImpl implements WishListDao {
     private final static String GET_WL = "SELECT book_id from wish_lists WHERE user_id = ?;";
 
     @Override
-    public int addToWishList(int userId, int bookId) {
+    public int addToWishList(long userId, long bookId) {
     Connection connection = connectionPool.takeConnection();
     int result = 0;
     PreparedStatement statement = null;
         try {
         statement = connection.prepareStatement(INSERT_WL);
-        statement.setInt(1, userId);
-        statement.setInt(2, bookId);
+        statement.setLong(1, userId);
+        statement.setLong(2, bookId);
         result = statement.executeUpdate();
     } catch (Exception e) {
         LOGGER.error(e);
@@ -43,14 +43,14 @@ public class WishListDaoImpl implements WishListDao {
     }
 
     @Override
-    public int deleteFromTable(int userId, int bookId) {
+    public int deleteFromTable(long userId, long bookId) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(DELETE_BOOK);
-            statement.setInt(1, userId);
-            statement.setInt(2, bookId);
+            statement.setLong(1, userId);
+            statement.setLong(2, bookId);
             result = statement.executeUpdate();
         } catch (Exception e) {
             LOGGER.error(e);
@@ -63,7 +63,7 @@ public class WishListDaoImpl implements WishListDao {
     }
 
     @Override
-    public WishList getWishList(int userId) {
+    public WishList getWishList(long userId) {
         WishList wishList = new WishList();
         wishList.setUserId(userId);
         List<Book> books = new ArrayList<>();
@@ -72,10 +72,10 @@ public class WishListDaoImpl implements WishListDao {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(GET_WL);
-            statement.setInt(1, userId);
+            statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Book book = new Book (resultSet.getInt("book_id"));
+                Book book = new Book (resultSet.getLong("book_id"));
                 books.add(book);
             }
         } catch (Exception e) {
@@ -89,12 +89,12 @@ public class WishListDaoImpl implements WishListDao {
     }
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         return 0;
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         return 0;
     }
 

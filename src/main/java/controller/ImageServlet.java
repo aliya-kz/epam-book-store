@@ -1,10 +1,7 @@
 package controller;
 
-import DAO.BaseDao;
-import DAO.impl.BookDaoImpl;
 import service.Service;
 import service.ServiceFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,23 +12,17 @@ import java.io.IOException;
 public class ImageServlet extends HttpServlet {
 
     private final ServiceFactory factory = ServiceFactory.getInstance();
-
+    public static final String SERVICE_NAME = "service_name";
+    public static final String GET_IMAGE = "get_image";
     public static final long serialVersionUID = 1L;
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int imageId = Integer.parseInt(request.getParameter("image_id"));
-        String table = request.getParameter("table");
-        BaseDao dao = new BookDaoImpl();
-        byte[] imageBytes = dao.getByteImage(imageId, table);
-        response.setContentType("image/jpeg");
-        response.setContentLength(imageBytes.length);
-        response.getOutputStream().write(imageBytes);
+        Service service = factory.getService(GET_IMAGE);
+        service.execute(request, response);
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String serviceName = request.getParameter("service_name");
+        String serviceName = request.getParameter(SERVICE_NAME);
         Service service = factory.getService(serviceName);
         service.execute(request, response);
     }

@@ -1,17 +1,17 @@
 package entity;
 
 public class Format extends Entity {
-    private int id;
+    private long id;
     private String formatName;
     private String lang;
 
     public Format () {}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import static service.GeneralConstants.*;
+
 
 public class GetAllUsersService implements Service {
 
@@ -21,7 +23,7 @@ public class GetAllUsersService implements Service {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<User> users = userDao.getAll();
         HttpSession session = request.getSession();
-        session.setAttribute("users", users);
+        session.setAttribute(USER, users);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminUsers.jsp");
         dispatcher.forward(request, response);
     }

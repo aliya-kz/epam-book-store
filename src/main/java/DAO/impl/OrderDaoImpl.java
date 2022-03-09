@@ -40,12 +40,12 @@ public class OrderDaoImpl implements OrderDao {
 
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         return 0;
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         return 0;
     }
 
@@ -58,16 +58,16 @@ public class OrderDaoImpl implements OrderDao {
         PreparedStatement statement2 = null;
         try {
             statement = connection.prepareStatement(INSERT_ORDER);
-            statement.setInt(1, order.getUserId());
+            statement.setLong(1, order.getUserId());
             statement.setInt(2, order.getCost());
-            statement.setInt(3, order.getStatusId());
+            statement.setLong(3, order.getStatusId());
             statement.setDate(4, order.getDate());
-            statement.setInt(5, order.getAddress().getId());
+            statement.setLong(5, order.getAddress().getId());
             statement.executeUpdate();
             int orderId = 0;
 
             statement1 = connection.prepareStatement(GET_ID);
-            statement1.setInt(1, order.getUserId());
+            statement1.setLong(1, order.getUserId());
             ResultSet resultSet = statement1.executeQuery();
             while (resultSet.next()) {
                 orderId = resultSet.getInt("max");
@@ -76,8 +76,8 @@ public class OrderDaoImpl implements OrderDao {
             Map<Book, Integer> orderItems = order.getOrderItems();
             for (Book book: orderItems.keySet()) {
                 statement2 = connection.prepareStatement(INSERT_ORDER_BOOKS);
-                statement2.setInt(1, orderId);
-                statement2.setInt(2, book.getId());
+                statement2.setLong(1, orderId);
+                statement2.setLong(2, book.getId());
                 statement2.setInt(3, orderItems.get(book));
                 result = statement2.executeUpdate();
             }
@@ -100,7 +100,7 @@ public class OrderDaoImpl implements OrderDao {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_ORDERS);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                long id = resultSet.getLong("id");
                 Order order = getOrderById(id);
                 orders.add(order);
             }
@@ -113,19 +113,19 @@ public class OrderDaoImpl implements OrderDao {
             connectionPool.returnConnection(connection);
         }
         return orders.stream()
-                .sorted(Comparator.comparingInt(Order::getId))
+                .sorted(Comparator.comparingLong(Order::getId))
                 .collect(Collectors.toList());
     }
 
-    public int updateStatus(int orderId, int statusId) {
+    public int updateStatus(long orderId, long statusId) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
 
         PreparedStatement statement = null;
         try { statement = connection.prepareStatement(SET_STATUS_SQL);
-            statement.setInt(1, statusId);
-            statement.setInt(2, orderId);
+            statement.setLong(1, statusId);
+            statement.setLong(2, orderId);
             result = statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class OrderDaoImpl implements OrderDao {
         return result;
     }
 
-    public Order getOrderById (int orderId) {
+    public Order getOrderById (long orderId) {
         Order order = new Order();
         Map <Book, Integer> items = new HashMap<>();
         order.setId(orderId);
@@ -146,7 +146,7 @@ public class OrderDaoImpl implements OrderDao {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SELECT_ORDER);
-            statement.setInt(1, orderId);
+            statement.setLong(1, orderId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 if (order.getUserId() < 1) {
@@ -177,13 +177,13 @@ public class OrderDaoImpl implements OrderDao {
         return order;
     }
 
-    public List <Order> getOrdersByUserId(int userId) {
+    public List <Order> getOrdersByUserId(long userId) {
         List <Order> orders = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SELECT_USER_ORDERS);
-            statement.setInt(1, userId);
+            statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Order order = getOrderById(resultSet.getInt("id"));
@@ -198,7 +198,7 @@ public class OrderDaoImpl implements OrderDao {
             connectionPool.returnConnection(connection);
         }
         List<Order> sortedList = orders.stream()
-                .sorted(Comparator.comparingInt(Order::getId).reversed())
+                .sorted(Comparator.comparingLong(Order::getId).reversed())
                 .collect(Collectors.toList());
         return sortedList;
     }

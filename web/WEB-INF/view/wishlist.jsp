@@ -41,7 +41,7 @@
                             <c:out value="${out_of_stock}"/></div>
                     </c:if>
                     <c:if test="${book.quantity > 0}">
-                        <form id = "book-add${book.id}" action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1"
+                        <form id = "book-add${book.id}" action = "<%=request.getContextPath()%>/controller?id=${book.id}&quantity=1"
                               method = "post">
                         <input type="hidden" name="service_name" value="add_to_cart">
                         <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">

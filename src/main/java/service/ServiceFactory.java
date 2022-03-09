@@ -2,65 +2,66 @@ package service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 
 
+import static service.ServiceConstants.*;
+
 public class ServiceFactory {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
-        private static final Map<String, Service> SERVICE_MAP = new HashMap<>();
-        private static final ServiceFactory SERVICE_FACTORY = new ServiceFactory();
+    private static final Map<String, Service> SERVICE_MAP = new HashMap<>();
+    private static final ServiceFactory SERVICE_FACTORY = new ServiceFactory();
 
-        static {
-            SERVICE_MAP.put("sign_up", new SignUpService());
-            SERVICE_MAP.put("log_in", new LoginService());
-            SERVICE_MAP.put("log_out", new LogoutService());
-            SERVICE_MAP.put("block_user", new BlockUserService());
-            SERVICE_MAP.put("change_password", new ChangePasswordService());
-            SERVICE_MAP.put("get_all_books", new GetAllBooksService());
-            SERVICE_MAP.put("get_all_users", new GetAllUsersService());
-            SERVICE_MAP.put("get_all_orders", new GetAllOrdersService());
-            SERVICE_MAP.put("get_all_categories", new GetAllCategoriesService());
-            SERVICE_MAP.put("get_all_authors", new GetAllAuthorsService());
-            SERVICE_MAP.put("change_language", new ChangeLanguageService());
-            SERVICE_MAP.put("add_new_category", new AddNewCategoryService());
-            SERVICE_MAP.put("edit_category", new EditCategoryService());
-            SERVICE_MAP.put("edit_book", new EditBookService());
-            SERVICE_MAP.put("delete_entity", new DeleteEntityService());
-            SERVICE_MAP.put("delete_entity_admin", new DeleteEntityAdmin());
-            SERVICE_MAP.put("add_new_author", new AddNewAuthorService());
-            SERVICE_MAP.put("edit_author", new EditAuthorService());
-            SERVICE_MAP.put("edit_image", new EditImageService());
-            SERVICE_MAP.put("welcome", new WelcomeService());
-            SERVICE_MAP.put("add_to_cart", new AddToCartService());
-            SERVICE_MAP.put("add_book", new AddNewBookService());
-            SERVICE_MAP.put("add_to_wl", new AddToWishListService());
-            SERVICE_MAP.put("edit_profile", new EditProfileService());
-            SERVICE_MAP.put("add_card", new AddCardService());
-            SERVICE_MAP.put("add_address", new AddAddressService());
-            SERVICE_MAP.put("update_quantity", new UpdateQuantityService());
-            SERVICE_MAP.put("create_order", new CreateOrderService());
-            SERVICE_MAP.put("update_status", new UpdateStatusService());
-            SERVICE_MAP.put("search", new SearchService());
-            SERVICE_MAP.put("filter_books", new BookFilterService());
-            SERVICE_MAP.put("checkout", new CheckoutService());
-        }
-
-        public static ServiceFactory getInstance() {
-            return SERVICE_FACTORY;
-        }
-
-        public Service getService(String serviceName) {
-            Service service = null;
-            try {
-                service = SERVICE_MAP.get(serviceName);
-            }
-            catch (NullPointerException e) {
-                LOGGER.info(e);
-            }
-            return service;
-        }
+    static {
+        SERVICE_MAP.put(SIGN_UP_SERVICE, new SignUpService());
+        SERVICE_MAP.put(LOG_IN_SERVICE, new LoginService());
+        SERVICE_MAP.put(LOG_OUT_SERVICE, new LogoutService());
+        SERVICE_MAP.put(BLOCK_USER_SERVICE, new BlockUserService());
+        SERVICE_MAP.put(CHANGE_PASSWORD_SERVICE, new ChangePasswordService());
+        SERVICE_MAP.put(GET_ALL_BOOKS_SERVICE, new GetAllBooksService());
+        SERVICE_MAP.put(GET_ALL_USERS_SERVICE, new GetAllUsersService());
+        SERVICE_MAP.put(GET_ALL_ORDERS_SERVICE, new GetAllOrdersService());
+        SERVICE_MAP.put(GET_ALL_CATEGORIES_SERVICE, new GetAllCategoriesService());
+        SERVICE_MAP.put(GET_ALL_AUTHORS_SERVICE, new GetAllAuthorsService());
+        SERVICE_MAP.put(CHANGE_LANGUAGE_SERVICE, new ChangeLanguageService());
+        SERVICE_MAP.put(ADD_NEW_CATEGORY_SERVICE, new AddNewCategoryService());
+        SERVICE_MAP.put(EDIT_CATEGORY_SERVICE, new EditCategoryService());
+        SERVICE_MAP.put(EDIT_BOOK_SERVICE, new EditBookService());
+        SERVICE_MAP.put(DELETE_ENTITY_SERVICE, new DeleteEntityService());
+        SERVICE_MAP.put(DELETE_ENTITY_ADMIN_SERVICE, new DeleteEntityAdmin());
+        SERVICE_MAP.put(ADD_NEW_AUTHOR_SERVICE, new AddNewAuthorService());
+        SERVICE_MAP.put(EDIT_AUTHOR_SERVICE, new EditAuthorService());
+        SERVICE_MAP.put(EDIT_IMAGE_SERVICE, new EditImageService());
+        SERVICE_MAP.put(WELCOME_SERVICE, new WelcomeService());
+        SERVICE_MAP.put(ADD_TO_CART_SERVICE, new AddToCartService());
+        SERVICE_MAP.put(ADD_BOOK_SERVICE, new AddNewBookService());
+        SERVICE_MAP.put(ADD_TO_WISHLIST_SERVICE, new AddToWishListService());
+        SERVICE_MAP.put(EDIT_PROFILE_SERVICE, new EditProfileService());
+        SERVICE_MAP.put(ADD_CART_SERVICE, new AddCardService());
+        SERVICE_MAP.put(ADD_ADDRESS_SERVICE, new AddAddressService());
+        SERVICE_MAP.put(UPDATE_QUANTITY_SERVICE, new UpdateQuantityService());
+        SERVICE_MAP.put(CREATE_ORDER_SERVICE, new CreateOrderService());
+        SERVICE_MAP.put(UPDATE_STATUS_SERVICE, new UpdateStatusService());
+        SERVICE_MAP.put(SEARCH_SERVICE, new SearchService());
+        SERVICE_MAP.put(FILTER_BOOKS_SERVICE, new BookFilterService());
+        SERVICE_MAP.put(CHECKOUT_SERVICE, new CheckoutService());
+        SERVICE_MAP.put(GET_IMAGE_SERVICE, new GetImageService());
     }
+
+    public static ServiceFactory getInstance() {
+        return SERVICE_FACTORY;
+    }
+
+    public Service getService(String serviceName) {
+        Service service = null;
+        try {
+            service = SERVICE_MAP.get(serviceName);
+        } catch (NullPointerException e) {
+            LOGGER.info(e);
+        }
+        return service;
+    }
+}
 

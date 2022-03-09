@@ -4,10 +4,10 @@ import java.sql.Date;
 import java.util.Map;
 
 public class Order extends Entity {
-    private int id;
-    private int userId;
+    private long id;
+    private long userId;
     private Map<Book, Integer> orderItems;
-    private int statusId;
+    private long statusId;
     private Map <Status, Date> statusHistory;
     private Date date;
     private Address address;
@@ -24,20 +24,20 @@ public class Order extends Entity {
         this.cost = cost;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int orderID) {
+    public void setId(long orderID) {
         this.id = orderID;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int user) {
-        this.userId = user;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public Map<Book, Integer> getOrderItems() {
@@ -48,7 +48,7 @@ public class Order extends Entity {
         this.orderItems = orderItems;
     }
 
-    public int getStatusId() {
+    public long getStatusId() {
         return statusId;
     }
 

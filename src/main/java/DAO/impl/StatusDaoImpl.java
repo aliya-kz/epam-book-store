@@ -28,7 +28,7 @@ public class StatusDaoImpl implements StatusDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Status status = new Status();
-                status.setId(resultSet.getInt("status_id"));
+                status.setId(resultSet.getLong("status_id"));
                 status.setStatusName(resultSet.getString("status_name"));
                 status.setLang(resultSet.getString("lang"));
                 statuses.add(status);
@@ -45,12 +45,12 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         return 0;
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         return 0;
     }
 

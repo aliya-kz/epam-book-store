@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static service.GeneralConstants.*;
+
 
 public class EditImageService implements Service {
 
@@ -26,28 +28,28 @@ public class EditImageService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String locale = (String) session.getAttribute("locale");
-        String lang = locale.substring(0, 2);
-        int id = Integer.parseInt(request.getParameter("id"));
-        String table = request.getParameter("table");
+        String locale = (String) session.getAttribute(LOCALE);
+        String languageCode = locale.substring(0, 2);
+        int id = Integer.parseInt(request.getParameter(ID));
+        String table = request.getParameter(TABLE);
         Part part = null;
         try {
-            part = request.getPart("file");
+            part = request.getPart(FILE);
         } catch (ServletException e) {
             e.printStackTrace();
         }
         InputStream is = ((Part) part).getInputStream();
         byte[] bytes = is.readAllBytes();
-        if (table.equals("authors")) {
-            authorDao.setColumnValue(table, id, "image", bytes);
-            List<Author> authors= authorDao.getAll(lang);
-            session.setAttribute("authors", authors);
+        if (table.equals(AUTHORS)) {
+            authorDao.setColumnValue(table, id, IMAGE, bytes);
+            List<Author> authors = authorDao.getAll(languageCode);
+            session.setAttribute(AUTHORS, authors);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/editAuthor.jsp?author_id=" + id);
             dispatcher.forward(request, response);
-        } else if (table.equals("book_covers")) {
-            bookDao.setColumnValue(table, id, "image", bytes);
-            List<Book> books= bookDao.getAll(lang);
-            session.setAttribute("books", books);
+        } else if (table.equals(BOOK_COVERS)) {
+            bookDao.setColumnValue(table, id, IMAGE, bytes);
+            List<Book> books = bookDao.getAll(languageCode);
+            session.setAttribute(BOOKS, books);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/editBook.jsp?author_id=" + id);
             dispatcher.forward(request, response);
         }

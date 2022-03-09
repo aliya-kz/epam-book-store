@@ -53,7 +53,7 @@
                         <i class = "fas-fa-check-circle"></i>
                         <i class = "fas-fa-check-exclamation-circle"></i>
                         <small>Error message</small></div></td>
-                    <td><select name = "cat_lang">
+                    <td><select name = "category_language">
                          <c:forEach var="lang" items="${langs}">
                         <option value ="${lang.title}"><c:out value="${lang.title}"/></option>
                          </c:forEach>

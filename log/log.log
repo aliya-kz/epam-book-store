@@ -1,6 +1,0 @@
-2022-02-19 14:04:28.097 [main] INFO  DAO.impl.UserDaoImpl - org.postgresql.util.PSQLException: ОШИБКА: столбец "id" имеет тип integer, а выражение - character varying
-  Подсказка: Перепишите выражение или преобразуйте его тип.
-  Позиция: 95
-2022-02-19 14:04:28.162 [main] INFO  DAO.impl.UserDaoImpl - org.postgresql.util.PSQLException: ОШИБКА: столбец "id" имеет тип integer, а выражение - character varying
-  Подсказка: Перепишите выражение или преобразуйте его тип.
-  Позиция: 95

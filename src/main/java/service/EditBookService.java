@@ -3,6 +3,7 @@ package service;
 import DAO.BookDao;
 import DAO.impl.BookDaoImpl;
 import entity.Book;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,23 +13,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditBookService implements Service{
+import static service.GeneralConstants.*;
+
+public class EditBookService implements Service {
 
     private final BookDao bookDao = new BookDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String locale = (String) session.getAttribute("locale");
-        String lang = locale.substring(0, 2);
-        int id = Integer.parseInt(request.getParameter("id"));
+        String locale = (String) session.getAttribute(LOCALE);
+        String languageCode = locale.substring(0, 2);
+        int id = Integer.parseInt(request.getParameter(ID));
 
-        String title = request.getParameter("new_title").trim();
-        if (title != null && title.length()>0) {
-            bookDao.setColumnValue("books", id, "title", title);
+        String title = request.getParameter(NEW_TITLE).trim();
+        if (title != null && title.length() > 0) {
+            bookDao.setColumnValue(BOOKS, id, TITLE, title);
         }
 
-        String [] authIds= request.getParameterValues("new_authors");
+        String[] authIds = request.getParameterValues(NEW_AUTHORS);
         if (authIds != null) {
             List<Integer> authors = new ArrayList<>();
             for (String idString : authIds) {
@@ -39,39 +42,39 @@ public class EditBookService implements Service{
             bookDao.setBookAuthors(id, authors);
         }
 
-        String publisher = request.getParameter("new_publisher").trim();
+        String publisher = request.getParameter(NEW_PUBLISHER).trim();
         if (publisher != null && publisher.length() > 0) {
-            bookDao.setColumnValue("books", id, "publisher", publisher);
+            bookDao.setColumnValue(BOOKS, id, PUBLISHER, publisher);
         }
 
-        String isbn = request.getParameter("new_isbn");
+        String isbn = request.getParameter(NEW_ISBN);
         if (isbn != null && isbn.length() > 0) {
-            bookDao.setColumnValue("books", id, "isbn", isbn);
+            bookDao.setColumnValue(BOOKS, id, ISBN, isbn);
         }
 
-        String category = request.getParameter("new_category");
-        if (category != null && category.length()>0) {
-            bookDao.setColumnValue("books", id, "category_id", Integer.parseInt(category));
+        String category = request.getParameter(NEW_CATEGORY);
+        if (category != null && category.length() > 0) {
+            bookDao.setColumnValue(BOOKS, id, CATEGORY_ID, Integer.parseInt(category));
         }
 
-        String priceStr = request.getParameter("new_price").trim();
+        String priceStr = request.getParameter(NEW_PRICE).trim();
         if (priceStr.length() > 0) {
-           double price = Double.parseDouble(priceStr);
-            bookDao.setColumnValue("books", id, "price", price);
+            double price = Double.parseDouble(priceStr);
+            bookDao.setColumnValue(BOOKS, id, PRICE, price);
         }
 
-        String qty = request.getParameter("new_quantity").trim();
-        if (qty.length() > 0)   {
+        String qty = request.getParameter(NEW_QUANTITY).trim();
+        if (qty.length() > 0) {
             int quantity = Integer.parseInt(qty);
-            bookDao.setColumnValue("books", id, "quantity", quantity);
+            bookDao.setColumnValue(BOOKS, id, QUANTITY, quantity);
         }
 
-        String description = request.getParameter("new_description").trim();
+        String description = request.getParameter(NEW_DESCRIPTION).trim();
         if (description != null && description.length() > 0) {
-            bookDao.setColumnValue("books", id, "description", description);
+            bookDao.setColumnValue(BOOKS, id, DESCRIPTION, description);
         }
-        List<Book> books = bookDao.getAll(lang);
-        session.setAttribute("books", books);
+        List<Book> books = bookDao.getAll(languageCode);
+        session.setAttribute(BOOKS, books);
         RequestDispatcher dispatcher = request.getRequestDispatcher("edit-book?id=" + id);
         dispatcher.forward(request, response);
     }

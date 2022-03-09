@@ -78,7 +78,7 @@
 
                                     <c:when test="${ book.quantity > 0 && book.quantity < 9}">
                                         <h2> <c:out value="${book.quantity}"/> <c:out value="${available}"/></h2>
-                                        <select name ="qty" onchange="this.form.submit()">
+                                        <select name ="quantity" onchange="this.form.submit()">
                                             <c:forEach var="number" items="${numbers}" >
                                                 <c:if test="${number <= book.quantity}">
                                                     <c:choose>
@@ -94,7 +94,7 @@
                                         </select>
                                     </c:when>
                                     <c:otherwise>
-                                        <select name ="qty" onchange="this.form.submit()">
+                                        <select name ="quantity" onchange="this.form.submit()">
                                             <c:forEach var="number" items="${numbers}">
                                                 <c:choose>
                                                     <c:when test="${number == qty}">

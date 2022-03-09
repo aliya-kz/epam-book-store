@@ -87,7 +87,7 @@
                                     <c:otherwise>
                                         <c:if test="${book.quantity > 0 && book.quantity < 8}">
                                             <h2> <c:out value="${book.quantity}"/> <c:out value="${available}"/></h2>
-                                            <select name ="qty">
+                                            <select name ="quantity">
                                                 <c:forEach var="number" items="${numbers}" >
                                                     <c:if test="${number <= book.quantity}">
                                                         <option value="${number}"><c:out value="${number}"/> </option>
@@ -96,7 +96,7 @@
                                             </select>
                                         </c:if>
                                         <c:if test="${book.quantity > 7}">
-                                            <select name ="qty">
+                                            <select name ="quantity">
                                                 <c:forEach var="number" items="${numbers}" >
                                                     <option value="${number}"><c:out value="${number}"/> </option>
                                                 </c:forEach>

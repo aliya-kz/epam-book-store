@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import static service.GeneralConstants.*;
+
 
 public class ChangeLanguageService implements Service {
 
@@ -29,18 +31,18 @@ public class ChangeLanguageService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String locale = request.getParameter("locale");
-        session.setAttribute("locale", locale);
+        String locale = request.getParameter(LOCALE);
+        session.setAttribute(LOCALE, locale);
         String lang = locale.substring(0, 2);
         List<Category> categories = categoryDao.getAll(lang);
-        session.setAttribute("categories",categories);
+        session.setAttribute(CATEGORIES, categories);
         List<Book> books = bookDao.getAll(lang);
-        session.setAttribute("books", books);
+        session.setAttribute(BOOKS, books);
         List<Author> authors = authorDao.getAll(lang);
-        session.setAttribute("authors", authors);
+        session.setAttribute(AUTHORS, authors);
         List<Format> formats = formatDao.getAll(lang);
-        session.setAttribute("formats", formats);
-        String uri = request.getParameter("uri");
+        session.setAttribute(FORMATS, formats);
+        String uri = request.getParameter(URI);
         RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);
     }

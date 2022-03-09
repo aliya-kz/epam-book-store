@@ -1,7 +1,5 @@
 package controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import service.Service;
 import service.ServiceFactory;
 import javax.servlet.ServletException;

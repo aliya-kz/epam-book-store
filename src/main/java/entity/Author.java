@@ -1,7 +1,7 @@
 package entity;
 
 public class Author extends Entity {
-    private int id;
+    private long id;
     private String name;
     private String surname;
     private String biography;
@@ -19,11 +19,11 @@ public class Author extends Entity {
         this.lang = lang;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

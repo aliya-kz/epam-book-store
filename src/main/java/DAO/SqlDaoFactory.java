@@ -2,13 +2,12 @@ package DAO;
 import DAO.impl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class SqlDaoFactory {
 
-    private static SqlDaoFactory instance = new SqlDaoFactory();
+    private static SqlDaoFactory INSTANCE;
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
 
@@ -29,8 +28,17 @@ public class SqlDaoFactory {
         DAO_MAP.put("wish_lists", new WishListDaoImpl());
     }
 
+    private SqlDaoFactory () {}
+
     public static SqlDaoFactory getInstance() {
-        return instance;
+        if (INSTANCE == null) {
+            synchronized (SqlDaoFactory.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new SqlDaoFactory();
+                }
+            }
+        }
+        return INSTANCE;
     }
 
     public BaseDao getDao(String table) {

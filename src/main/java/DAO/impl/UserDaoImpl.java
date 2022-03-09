@@ -49,12 +49,12 @@ public class UserDaoImpl implements UserDao {
     private final static String SELECT_PASS = "SELECT password FROM users WHERE id = ?;";
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         return 0;
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         return 0;
     }
 
@@ -117,7 +117,7 @@ public class UserDaoImpl implements UserDao {
             String encryptedPassword = PasswordEncrypter.encrypt(user.getPassword());
             statement.setString(6,encryptedPassword);
             statement.setBoolean(7, user.getIsAdmin());
-            statement.setInt(8, user.getId());
+            statement.setLong(8, user.getId());
             statement.executeUpdate();
 
             statement1 = connection.prepareStatement(GET_ID);
@@ -176,16 +176,16 @@ public class UserDaoImpl implements UserDao {
             connectionPool.returnConnection(connection);
         }
         return users.stream()
-                .sorted(Comparator.comparingInt(User::getId))
+                .sorted(Comparator.comparingLong(User::getId))
                 .collect(Collectors.toList());
     }
 
-    public int addAddress (int id, String address) {
+    public int addAddress (long id, String address) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         PreparedStatement statement = null;
         try { statement = connection.prepareStatement(INSERT_ADDRESS);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             statement.setString(2, address);
             result = statement.executeUpdate();
         } catch (Exception e) {
@@ -220,18 +220,18 @@ public class UserDaoImpl implements UserDao {
          return status;
     }
 
-    public int blockUser(int id, boolean status) {
+    public int blockUser(long id, boolean status) {
         BaseDao dao = new UserDaoImpl();
         return dao.setColumnValue("users", id, "is_blocked", status);
     }
 
-    public User getUser (int id) {
+    public User getUser (long id) {
         User user = new User(id);
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(GET_USER);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 if (user.getName() == null) {
@@ -315,14 +315,14 @@ public class UserDaoImpl implements UserDao {
         return status;
     }
 
-    public int changePassword(int id, String oldPass, String newPass) {
+    public int changePassword(long id, String oldPass, String newPass) {
         int result = 0;
             Connection connection = connectionPool.takeConnection();
             PreparedStatement statement = null;
             PreparedStatement statement1 = null;
             try {
                 statement = connection.prepareStatement(SELECT_PASS);
-                statement.setInt(1, id);
+                statement.setLong(1, id);
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     String sqlPass = resultSet.getString("password");
@@ -330,7 +330,7 @@ public class UserDaoImpl implements UserDao {
                     if (pasCorrect) {
                         String newEncrPas = PasswordEncrypter.encrypt(newPass);
                         statement1 = connection.prepareStatement(UPDATE_PASSWORD_SQL);
-                        statement1.setInt(2, id);
+                        statement1.setLong(2, id);
                         statement1.setString(1, newEncrPas);
                         result = statement1.executeUpdate();
                     }

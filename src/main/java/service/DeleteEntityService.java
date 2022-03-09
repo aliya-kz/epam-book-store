@@ -1,4 +1,5 @@
 package service;
+
 import DAO.*;
 import DAO.impl.CartDaoImpl;
 import DAO.impl.UserDaoImpl;
@@ -16,10 +17,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
+import static service.GeneralConstants.*;
 
-public class DeleteEntityService implements Service{
 
-    private final SqlDaoFactory daoFactory = SqlDaoFactory.getInstance();
+public class DeleteEntityService implements Service {
+
+    private final static SqlDaoFactory daoFactory = SqlDaoFactory.getInstance();
     private final UserDao userDao = new UserDaoImpl();
     private final CartDao cartDao = new CartDaoImpl();
     private final WishListDao wishListDao = new WishListDaoImpl();
@@ -27,29 +30,29 @@ public class DeleteEntityService implements Service{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        int id = Integer.parseInt(request.getParameter("id"));
-        String table = request.getParameter("table");
-        String lang = request.getParameter("lang");
-        String uri = request.getParameter("uri");
-        Cart cart = (Cart) session.getAttribute("cart");
+        User user = (User) session.getAttribute(USER);
+        int id = Integer.parseInt(request.getParameter(ID));
+        String table = request.getParameter(TABLE);
+        String lang = request.getParameter(LANGUAGE);
+        String uri = request.getParameter(URI);
+        Cart cart = (Cart) session.getAttribute(CART);
         Map<Book, Integer> cartItems = cart.getCartItems();
         if (user == null) {
             cartItems.entrySet()
                     .removeIf(entry -> entry.getKey().equals(new Book(id)));
-            session.setAttribute("cart", cart);
+            session.setAttribute(CART, cart);
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
             dispatcher.forward(request, response);
         } else {
-            int userId = user.getId();
-            if (table.equals("wish_lists")) {
+            long userId = user.getId();
+            if (table.equals(WISH_LISTS)) {
                 wishListDao.deleteFromTable(userId, id);
                 WishList wishList = wishListDao.getWishList(userId);
-                session.setAttribute("wishList", wishList);
-            } else if (table.equals("carts")) {
+                session.setAttribute(WISH_LIST, wishList);
+            } else if (table.equals(CARTS)) {
                 cartDao.deleteFromTable(id, userId);
                 cart = cartDao.getCart(userId);
-                session.setAttribute("cart", cart);
+                session.setAttribute(CART, cart);
             } else {
                 BaseDao dao = daoFactory.getDao(table);
                 if (lang == null) {
@@ -58,7 +61,7 @@ public class DeleteEntityService implements Service{
                     dao.deleteByIdLang(id, lang);
                 }
                 user = userDao.getUser(userId);
-                session.setAttribute("user", user);
+                session.setAttribute(USER, user);
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
             dispatcher.forward(request, response);

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FormatDaoImpl implements FormatDao {
+
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final static String GET_ALL_FORMATS= "SELECT * FROM formats_lang where lang = ?";
@@ -51,17 +52,12 @@ public class FormatDaoImpl implements FormatDao {
     }
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         return 0;
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         return 0;
-    }
-
-    public static void main (String [] args) {
-        FormatDao dao = new FormatDaoImpl();
-        System.out.println(dao.getAll("en").toString());
     }
 }

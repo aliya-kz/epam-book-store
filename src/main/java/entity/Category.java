@@ -1,13 +1,13 @@
 package entity;
 
 public class Category extends Entity {
-    private int id;
+    private long id;
     private String categoryName;
     private String lang;
 
     public Category () {}
 
-    public Category(int id, String categoryName, String lang) {
+    public Category(long id, String categoryName, String lang) {
         this.id = id;
         this.categoryName = categoryName;
         this.lang = lang;
@@ -29,11 +29,11 @@ public class Category extends Entity {
         this.lang = lang;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -22,7 +22,7 @@ public class AddressDaoImpl implements AddressDao {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(INSERT_ADDRESS);
-            statement.setInt(1, address.getUserId());
+            statement.setLong(1, address.getUserId());
             statement.setString(2, address.getAddress());
             result = statement.executeUpdate();
         } catch (Exception e) {
@@ -36,12 +36,12 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(DELETE_ADDRESS);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             result = statement.executeUpdate();
             close(statement);
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         return 0;
     }
 }

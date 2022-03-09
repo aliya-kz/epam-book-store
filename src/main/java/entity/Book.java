@@ -4,26 +4,26 @@ import java.util.List;
 import java.util.Objects;
 
 public class Book extends Entity {
-    private int id;
+    private long id;
     private String title;
-    private List<Integer> authors;
+    private List<Long> authors;
     private String publisher;
     private int quantity;
     private double price;
-    private int categoryId;
+    private long categoryId;
     private String category;
     private String isbn;
     private String description;
     private String language;
-    private int formatId;
+    private long formatId;
     private String format;
     private byte[] image;
 
     public Book() {
     }
 
-    public Book(String title, List<Integer> authors, String publisher, int quantity, double price, int categoryId,
-                 String isbn, String description, String language, int formatId, byte[] image) {
+    public Book(String title, List<Long> authors, String publisher, int quantity, double price, long categoryId,
+                 String isbn, String description, String language, long formatId, byte[] image) {
         this.title = title;
         this.authors = authors;
         this.publisher = publisher;
@@ -37,7 +37,7 @@ public class Book extends Entity {
         this.image = image;
     }
 
-    public Book (int id) {
+    public Book (long id) {
         this.id = id;
     }
 
@@ -65,19 +65,19 @@ public class Book extends Entity {
         this.image = image;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public List<Integer> getAuthors() {
+    public List<Long> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Integer> authors) {
+    public void setAuthors(List<Long> authors) {
         this.authors = authors;
     }
 
@@ -113,11 +113,11 @@ public class Book extends Entity {
         this.price = price;
     }
 
-    public int getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -145,11 +145,11 @@ public class Book extends Entity {
         this.language = language;
     }
 
-    public int getFormatId() {
+    public long getFormatId() {
         return formatId;
     }
 
-    public void setFormatId(int formatId) {
+    public void setFormatId(long formatId) {
         this.formatId = formatId;
     }
 
@@ -165,5 +165,4 @@ public class Book extends Entity {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }

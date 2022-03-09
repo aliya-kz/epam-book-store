@@ -49,10 +49,10 @@ public class BookDaoImpl implements BookDao {
             statement.setString(3, book.getPublisher());
             statement.setInt(4, book.getQuantity());
             statement.setDouble(5, book.getPrice());
-            statement.setInt(6, book.getCategoryId());
+            statement.setLong(6, book.getCategoryId());
             statement.setString(7, book.getIsbn());
             statement.setString(8, book.getLanguage());
-            statement.setInt(9, book.getFormatId());
+            statement.setLong(9, book.getFormatId());
             result = statement.executeUpdate();
 
             statement1 = connection.prepareStatement(SELECT_ID);
@@ -64,10 +64,10 @@ public class BookDaoImpl implements BookDao {
             }
 
             statement2 = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);
-            List<Integer> authors = book.getAuthors();
+            List<Long> authors = book.getAuthors();
             for (int i = 0; i < authors.size(); i++) {
                 statement2.setInt(1, id);
-                statement2.setInt(2, authors.get(i));
+                statement2.setLong(2, authors.get(i));
                 statement2.executeUpdate();
             }
 
@@ -99,18 +99,18 @@ public class BookDaoImpl implements BookDao {
             statement.setString(2, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                long id = resultSet.getInt("id");
                 Book book = new Book(id);
-                int authorId = resultSet.getInt("author_id");
+                long authorId = resultSet.getLong("author_id");
                 int index = books.indexOf(book);
                 if (index > -1) {
                     Book existingBook = books.get(index);
                     existingBook.getAuthors().add(authorId);
                 } else {
                     book.setTitle(resultSet.getString("title"));
-                    List<Integer> authors = new ArrayList<>();
+                    List<Long> authors = new ArrayList<>();
                     if (!authors.contains(resultSet.getInt("author_id"))) {
-                        authors.add(resultSet.getInt("author_id"));
+                        authors.add(resultSet.getLong("author_id"));
                     }
                     book.setAuthors(authors);
                     book.setPublisher(resultSet.getString("publisher"));
@@ -135,17 +135,17 @@ public class BookDaoImpl implements BookDao {
             connectionPool.returnConnection(connection);
         }
         return books.stream()
-                .sorted(Comparator.comparingInt(Book::getId))
+                .sorted(Comparator.comparingLong(Book::getId))
                 .collect(Collectors.toList());
     }
 
-    public int deleteBookAuthors (int bookId) {
+    public int deleteBookAuthors (long bookId) {
         int result = 0;
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(DELETE_AUTHORS_TO_BOOKS);
-            statement.setInt(1, bookId);
+            statement.setLong(1, bookId);
             result = statement.executeUpdate();
         } catch (Exception e) {
             LOGGER.error(e);
@@ -157,14 +157,14 @@ public class BookDaoImpl implements BookDao {
         return result;
     }
 
-    public int setBookAuthors (int bookId, List <Integer> authorIds) {
+    public int setBookAuthors (long bookId, List <Integer> authorIds) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);
             for (int author: authorIds) {
-                statement.setInt(1, bookId);
+                statement.setLong(1, bookId);
                 statement.setInt(2, author);
                 statement.executeUpdate();
             }
@@ -179,21 +179,21 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         return 0;
     }
 
     @Override
-    public int purchaseBooks(Map<Book, Integer> cartItems) {
-        int errorBookId = 0;
+    public long purchaseBooks(Map<Book, Integer> cartItems) {
+        long errorBookId = 0;
         for (Book book : cartItems.keySet()) {
-            int bookId = book.getId();
+            long bookId = book.getId();
             int qty = cartItems.get(book);
             Connection connection = connectionPool.takeConnection();
             PreparedStatement statement = null;
             try {
                 statement = connection.prepareStatement(GET_QTY);
-                statement.setInt(1, bookId);
+                statement.setLong(1, bookId);
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     int sqlQuantity = resultSet.getInt("quantity");
@@ -215,10 +215,10 @@ public class BookDaoImpl implements BookDao {
         } return errorBookId;
     }
 
-    public int returnBooks(Map<Book, Integer> cartItems, int errorBookId) {
+    public int returnBooks(Map<Book, Integer> cartItems, long errorBookId) {
         int result = 0;
         for (Book book : cartItems.keySet()) {
-            int bookId = book.getId();
+            long bookId = book.getId();
             if (bookId == errorBookId) {
                 break;
             } else {
@@ -227,7 +227,7 @@ public class BookDaoImpl implements BookDao {
                 PreparedStatement statement = null;
                 try {
                     statement = connection.prepareStatement(GET_QTY);
-                    statement.setInt(1, bookId);
+                    statement.setLong(1, bookId);
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
                         int sqlQuantity = resultSet.getInt("quantity");
@@ -248,14 +248,14 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         return 0;
     }
 
-    public List<Book> filterByCategory (List<Book> books, int [] categoryIds) {
+    public List<Book> filterByCategory (List<Book> books, long [] categoryIds) {
       List <Book> result = new ArrayList<>();
         for (Book book: books) {
-            for (int categoryId : categoryIds) {
+            for (long categoryId : categoryIds) {
                 if (book.getCategoryId() == categoryId) {
                     result.add(book);
                 }
@@ -264,10 +264,10 @@ public class BookDaoImpl implements BookDao {
         return result;
     }
 
-    public List<Book> filterByFormat (List<Book> books, int[] formatIds) {
+    public List<Book> filterByFormat (List<Book> books, long[] formatIds) {
             List <Book> result = new ArrayList<>();
             for (Book book: books) {
-                for (int formatId : formatIds) {
+                for (long formatId : formatIds) {
                     if (book.getFormatId() == formatId) {
                         result.add(book);
                     }
@@ -289,7 +289,7 @@ public class BookDaoImpl implements BookDao {
         return result;
     }
 
-    public int setByteImage (int id, String url) {
+    public int setByteImage (long id, String url) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         PreparedStatement statement = null;
@@ -297,7 +297,7 @@ public class BookDaoImpl implements BookDao {
             File file = new File(url);
             FileInputStream fis = new FileInputStream(file);
             statement = connection.prepareStatement(INSERT_COVER);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             statement.setBinaryStream(2, fis, file.length());
             result = statement.executeUpdate();
             fis.close();

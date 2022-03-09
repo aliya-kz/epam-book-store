@@ -46,7 +46,7 @@
                  </c:if>
                   <c:if test="${book.quantity > 0}">
                   <form id = "book-add${book.id}" style="display:none" onsubmit="showEl('grey-background${book.id}')"
-                        action = "<%=request.getContextPath()%>/controller?id=${book.id}&qty=1" method = "post">
+                        action = "<%=request.getContextPath()%>/controller?id=${book.id}&quantity=1" method = "post">
                   <input type="hidden" name="service_name" value="add_to_cart">
                       <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
                   <input type="submit" class="btn" style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add_to_cart}"/>

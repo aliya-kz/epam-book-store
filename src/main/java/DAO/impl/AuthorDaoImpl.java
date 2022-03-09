@@ -63,7 +63,7 @@ public class AuthorDaoImpl implements AuthorDao {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(INSERT_AUTHORS_LANG);
-            statement.setInt(1, author.getId());
+            statement.setLong(1, author.getId());
             statement.setString(2, author.getName());
             statement.setString(3, author.getSurname());
             statement.setString(4, author.getBiography());
@@ -111,12 +111,12 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             result = statement.executeUpdate();
             close(statement);
         } catch (Exception e) {
@@ -128,12 +128,12 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS_LANG);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             statement.setString(2, lang);
             result = statement.executeUpdate();
             close(statement);

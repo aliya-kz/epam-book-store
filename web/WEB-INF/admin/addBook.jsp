@@ -73,7 +73,7 @@
         <tr>
           <td> <c:out value="${language}"/> </td>
           <td>
-            <select name="language" >
+            <select name="book_language" >
               <c:forEach var="lang" items="${langs}">
                 <option value="${lang.title}"><c:out value="${lang.title}"/> </option>
               </c:forEach>

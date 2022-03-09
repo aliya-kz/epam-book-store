@@ -8,6 +8,6 @@ public interface LanguageDao extends BaseDao <Lang> {
 
         int addEntity (Lang lang);
         List<Lang> getAll();
-        int deleteById (int id);
+        int deleteById (long id);
 }
 

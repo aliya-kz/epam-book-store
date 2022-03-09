@@ -8,5 +8,5 @@ public interface CategoryDao extends BaseDao <Category> {
 
     List <Category> getAll (String lang);
     int addEntity(Category category);
-    int deleteById (int id);
+    int deleteById (long id);
 }

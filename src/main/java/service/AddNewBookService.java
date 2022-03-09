@@ -7,12 +7,14 @@ import entity.Book;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import static service.GeneralConstants.*;
+import static service.ServiceConstants.*;
 
 public class AddNewBookService implements Service {
 
@@ -20,37 +22,35 @@ public class AddNewBookService implements Service {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        String locale = (String) session.getAttribute("locale");
-        String title = request.getParameter("title").trim();
-        String bookLanguage = request.getParameter("language");
-        int formatId = Integer.parseInt(request.getParameter("format"));
-        int categoryId = Integer.parseInt(request.getParameter("category"));
-        String [] authIds = request.getParameterValues("author_ids");
-        List<Integer> authors = new ArrayList<>();
-            for (String idString : authIds) {
-                int authorId = Integer.parseInt(idString);
-                authors.add(authorId);
-            }
-        String publisher = request.getParameter("publisher").trim();
-        String isbn = request.getParameter("isbn");
-        String priceStr = request.getParameter("price").trim();
+        String title = request.getParameter(TITLE).trim();
+        String bookLanguage = request.getParameter(BOOK_LANGUAGE);
+        int formatId = Integer.parseInt(request.getParameter(FORMAT));
+        int categoryId = Integer.parseInt(request.getParameter(CATEGORY));
+        String[] authIds = request.getParameterValues(AUTHOR_IDS);
+        List<Long> authors = new ArrayList<>();
+        for (String idString : authIds) {
+            long authorId = Integer.parseInt(idString);
+            authors.add(authorId);
+        }
+        String publisher = request.getParameter(PUBLISHER).trim();
+        String isbn = request.getParameter(ISBN);
+        String priceStr = request.getParameter(PRICE).trim();
         double price = Double.parseDouble(priceStr);
-        String qty = request.getParameter("quantity").trim();
+        String qty = request.getParameter(QUANTITY).trim();
         int quantity = Integer.parseInt(qty);
-        String description = request.getParameter("description").trim();
+        String description = request.getParameter(DESCRIPTION).trim();
 
         Part part = null;
         try {
-            part = request.getPart("file");
+            part = request.getPart(FILE);
         } catch (ServletException e) {
             e.printStackTrace();
         }
-        InputStream is = ((Part) part).getInputStream();
+        InputStream is = part.getInputStream();
         byte[] bytes = is.readAllBytes();
         Book book = new Book(title, authors, publisher, quantity, price, categoryId, isbn, description, bookLanguage,
                 formatId, bytes);
         bookDao.addEntity(book);
-        ServiceFactory.getInstance().getService("get_all_books").execute(request, response);
+        ServiceFactory.getInstance().getService(GET_ALL_BOOKS_SERVICE).execute(request, response);
     }
 }

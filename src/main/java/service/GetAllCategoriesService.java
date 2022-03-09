@@ -11,21 +11,23 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import static service.GeneralConstants.*;
 
-public class GetAllCategoriesService implements Service{
+
+public class GetAllCategoriesService implements Service {
 
     private final CategoryDaoImpl categoryDao = new CategoryDaoImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String locale = (String) session.getAttribute("locale");
+        String locale = (String) session.getAttribute(LOCALE);
         if (locale == null) {
-            locale = "en_US";
+            locale = DEFAULT_LOCALE;
         }
         String lang = locale.substring(0, 2);
         List<Category> categories = categoryDao.getAll(lang);
-        session.setAttribute("categories", categories);
+        session.setAttribute(CATEGORIES, categories);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminCategories.jsp");
         dispatcher.forward(request, response);
     }

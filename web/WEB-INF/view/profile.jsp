@@ -200,7 +200,7 @@
 
         <div class="form-control">
           <label for = "new-password"><c:out value="${password}"/> </label>
-          <input id = "new-password" type = "password" name = "new-password" required>
+          <input id = "new-password" type = "password" name = "new_password" required>
           <i class = "fas-fa-check-circle"></i>
           <i class = "fas-fa-check-exclamation-circle"></i>
           <small>Error message</small>
@@ -208,7 +208,7 @@
 
         <div class="form-control">
           <label for = "new-password1"><c:out value="${confirm_password}"/> </label>
-          <input id = "new-password1" type = "password" name = "new-password1" required>
+          <input id = "new-password1" type = "password" name = "new_password1" required>
           <i class = "fas-fa-check-circle"></i>
           <i class = "fas-fa-check-exclamation-circle"></i>
           <small>Error message</small>

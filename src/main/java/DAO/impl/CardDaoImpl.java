@@ -23,7 +23,7 @@ public class CardDaoImpl implements CardDao {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(INSERT_CARD);
-            statement.setInt(1, card.getUserId());
+            statement.setLong(1, card.getUserId());
             statement.setString(2, card.getCardNumber());
             result = statement.executeUpdate();
         } catch (Exception e) {
@@ -37,13 +37,13 @@ public class CardDaoImpl implements CardDao {
     }
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(DELETE_CARD);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             result = statement.executeUpdate();
             close(statement);
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class CardDaoImpl implements CardDao {
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         return 0;
     }
 }

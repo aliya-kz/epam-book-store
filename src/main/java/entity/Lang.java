@@ -1,22 +1,22 @@
 package entity;
 
 public class Lang extends Entity{
-    private int id;
+    private long id;
     private String title;
 
     public Lang () {
     }
 
-    public Lang(int id, String title) {
+    public Lang(long id, String title) {
         this.id = id;
         this.title = title;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

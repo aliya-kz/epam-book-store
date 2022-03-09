@@ -5,10 +5,10 @@ import java.util.Objects;
 public class Address extends Entity {
 
     private String address;
-    private int id;
-    private int userId;
+    private long id;
+    private long userId;
 
-    public Address(int id, int userId, String address) {
+    public Address(long id, long userId, String address) {
         this.address = address;
         this.id = id;
         this.userId = userId;
@@ -24,19 +24,19 @@ public class Address extends Entity {
         this.address = address;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

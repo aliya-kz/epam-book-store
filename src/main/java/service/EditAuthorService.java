@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static service.GeneralConstants.*;
+import static service.ServiceConstants.*;
+
 public class EditAuthorService implements Service {
 
     private final static ServiceFactory factory = ServiceFactory.getInstance();
@@ -15,20 +18,20 @@ public class EditAuthorService implements Service {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String lang = request.getParameter("lang");
-        String name = request.getParameter("new_name");
-        if (name != null && name.length()>0) {
-            authorDao.setColumnValueLang("authors_lang", id, "name", name, lang);
+        int id = Integer.parseInt(request.getParameter(ID));
+        String lang = request.getParameter(LANGUAGE);
+        String name = request.getParameter(NEW_NAME);
+        if (name != null && name.length() > 0) {
+            authorDao.setColumnValueLang(AUTHORS_LANG, id, NAME, name, lang);
         }
-        String surname = request.getParameter("new_surname");
-        if (surname != null && surname.length()>0) {
-            authorDao.setColumnValueLang("authors_lang", id, "surname", surname, lang);
+        String surname = request.getParameter(NEW_SURNAME);
+        if (surname != null && surname.length() > 0) {
+            authorDao.setColumnValueLang(AUTHORS_LANG, id, SURNAME, surname, lang);
         }
-        String biography  = request.getParameter("new_biography");
-        if (biography != null && biography.length()>0) {
-            authorDao.setColumnValueLang("authors_lang", id, "biography", biography, lang);
+        String biography = request.getParameter(NEW_BIOGRAPHY);
+        if (biography != null && biography.length() > 0) {
+            authorDao.setColumnValueLang(AUTHORS_LANG, id, BIOGRAPHY, biography, lang);
         }
-        factory.getService("get_all_authors").execute(request, response);
+        factory.getService(GET_ALL_AUTHORS_SERVICE).execute(request, response);
     }
 }

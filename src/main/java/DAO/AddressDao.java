@@ -7,5 +7,5 @@ public interface AddressDao extends BaseDao <Address> {
 
     @Override
     int addEntity(Address address);
-    int deleteById(int id);
+    int deleteById(long id);
 }

@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cart extends Entity {
-    private int id;
-    private int userId;
+    private long id;
+    private long userId;
     private Map<Book, Integer> cartItems;
     private int cost;
 
-    public Cart(int userId) {
+    public Cart(long userId) {
         this.userId = userId;
         cartItems = new HashMap<>();
     }
@@ -26,11 +26,11 @@ public class Cart extends Entity {
         this.cartItems = cartItems;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
 
         this.id = id;
     }
@@ -43,12 +43,12 @@ public class Cart extends Entity {
         this.cost = cost;
     }
 
-    public int getUserId() {
+    public long getUserId() {
 
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
 
         this.userId = userId;
     }

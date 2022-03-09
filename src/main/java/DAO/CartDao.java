@@ -6,8 +6,8 @@ import entity.Cart;
 public interface CartDao extends BaseDao <Cart> {
 
         int addEntity (Cart cart);
-        Cart getCart (int userId);
-        int deleteFromTable(int userId, int bookId);
-        int addToCart (int userId, int bookId, int quantity);
-        int updateQuantity(int bookId, int userId, int quantity);
+        Cart getCart (long userId);
+        int deleteFromTable(long userId, long bookId);
+        int addToCart (long userId, long bookId, int quantity);
+        int updateQuantity(long bookId, long userId, int quantity);
 }

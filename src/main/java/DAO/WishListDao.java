@@ -4,7 +4,7 @@ import entity.WishList;
 
 public interface WishListDao extends BaseDao <WishList> {
 
-    int addToWishList (int userId, int bookId);
-    int deleteFromTable(int userId, int bookId);
-    WishList getWishList (int userId);
+    int addToWishList (long userId, long bookId);
+    int deleteFromTable(long userId, long bookId);
+    WishList getWishList (long userId);
 }

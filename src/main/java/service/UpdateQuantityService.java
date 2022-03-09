@@ -1,6 +1,5 @@
 package service;
 
-
 import DAO.CartDao;
 import DAO.impl.CartDaoImpl;
 import entity.Book;
@@ -15,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
+import static service.GeneralConstants.*;
+
 
 public class UpdateQuantityService implements Service {
 
@@ -23,25 +24,25 @@ public class UpdateQuantityService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        int bookId = Integer.parseInt(request.getParameter("id"));
-        int qty = Integer.parseInt(request.getParameter("qty"));
-        String uri = request.getParameter("uri");
-        User user = (User) session.getAttribute("user");
+        int bookId = Integer.parseInt(request.getParameter(ID));
+        int quantity = Integer.parseInt(request.getParameter(QUANTITY));
+        String uri = request.getParameter(URI);
+        User user = (User) session.getAttribute(USER);
         Cart cart;
         if (user == null) {
-            cart = (Cart) session.getAttribute("cart");
+            cart = (Cart) session.getAttribute(CART);
             Map<Book, Integer> items = cart.getCartItems();
-            Book book = new Book (bookId);
+            Book book = new Book(bookId);
             int oldQty = items.get(book);
-            items.replace(book, oldQty, qty);
+            items.replace(book, oldQty, quantity);
         } else {
-            int userId = user.getId();
-            int result = cartDao.updateQuantity(bookId, userId, qty);
+            long userId = user.getId();
+            int result = cartDao.updateQuantity(bookId, userId, quantity);
             cart = cartDao.getCart(userId);
 
         }
-        session.setAttribute("cart", cart);
-        RequestDispatcher dispatcher  = request.getRequestDispatcher(uri);
+        session.setAttribute(CART, cart);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);
     }
 }

@@ -12,13 +12,13 @@ import java.sql.*;
 
 public interface BaseDao <T extends Entity> {
 
-    int deleteById (int id);
+    int deleteById (long id);
 
-    int deleteByIdLang(int id, String lang);
+    int deleteByIdLang(long id, String lang);
 
     int addEntity(T t);
 
-    default int setColumnValue(String table, int id, String columnName, Object value) {
+    default int setColumnValue(String table, long id, String columnName, Object value) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
@@ -27,7 +27,7 @@ public interface BaseDao <T extends Entity> {
         try {
             statement = connection.prepareStatement(updateColumn);
             statement.setObject(1, value);
-            statement.setInt(2, id);
+            statement.setLong(2, id);
             result = statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,7 +38,7 @@ public interface BaseDao <T extends Entity> {
         return result;
     }
 
-    default int setColumnValueLang(String table, int id, String columnName, Object value, String lang) {
+    default int setColumnValueLang(String table, long id, String columnName, Object value, String lang) {
         Logger logger = LogManager.getLogger(this.getClass().getName());
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
@@ -48,7 +48,7 @@ public interface BaseDao <T extends Entity> {
         try {
             statement = connection.prepareStatement(updateColumn);
             statement.setObject(1, value);
-            statement.setInt(2, id);
+            statement.setLong(2, id);
             statement.setString(3, lang);
             result = statement.executeUpdate();
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public interface BaseDao <T extends Entity> {
         return image;
     }
 
-    default int updateByteImage (String table, int id, String url) {
+    default int updateByteImage (String table, long id, String url) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         int result = 0;
@@ -111,7 +111,7 @@ public interface BaseDao <T extends Entity> {
             File file = new File(url);
             FileInputStream fis = new FileInputStream(file);
             statement = connection.prepareStatement("UPDATE " + table + " SET image = ? where id = ?;");
-            statement.setInt(2, id);
+            statement.setLong(2, id);
             statement.setBinaryStream(1, fis, file.length());
             result = statement.executeUpdate();
             fis.close();

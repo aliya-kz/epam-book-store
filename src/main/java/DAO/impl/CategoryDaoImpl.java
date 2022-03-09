@@ -63,20 +63,20 @@ public class CategoryDaoImpl implements CategoryDao {
         PreparedStatement statement3 = null;
         try {
             statement = connection.prepareStatement(SELECT_CATEGORY_LANG);
-            statement.setInt(1, category.getId());
+            statement.setLong(1, category.getId());
             statement.setString(2, category.getLang());
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
                 statement1 = connection.prepareStatement(SELECT_CATEGORY);
-                statement1.setInt(1, category.getId());
+                statement1.setLong(1, category.getId());
                 ResultSet resultSet1 = statement1.executeQuery();
                 if (!resultSet1.next()) {
                     statement2 = connection.prepareStatement(INSERT_CATEGORIES);
-                    statement2.setInt(1, category.getId());
+                    statement2.setLong(1, category.getId());
                     result = statement2.executeUpdate();
                 }
                 statement3 = connection.prepareStatement(INSERT_CATEGORIES_LANG);
-                statement3.setInt(1, category.getId());
+                statement3.setLong(1, category.getId());
                 statement3.setString(2, category.getCategoryName());
                 statement3.setString(3, category.getLang());
                 result = statement3.executeUpdate();
@@ -95,13 +95,13 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public int deleteById(int id) {
+    public int deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(DELETE_CATEGORIES);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             result = statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,13 +114,13 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public int deleteByIdLang(int id, String lang) {
+    public int deleteByIdLang(long id, String lang) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(DELETE_CATEGORIES_LANG);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             result = statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

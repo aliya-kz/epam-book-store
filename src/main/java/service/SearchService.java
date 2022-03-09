@@ -2,6 +2,7 @@ package service;
 
 import DAO.AuthorDao;
 import DAO.impl.AuthorDaoImpl;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static service.GeneralConstants.*;
 
 public class SearchService implements Service {
 
@@ -16,11 +18,10 @@ public class SearchService implements Service {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String searchInput = request.getParameter("search").trim();
-        List <Integer> foundAuthors = authorDao.searchAuthors(searchInput);
-        System.out.println("found " + foundAuthors.size());
-        request.setAttribute("found", foundAuthors);
-        String uri = request.getParameter("uri");
+        String searchInput = request.getParameter(SEARCH).trim();
+        List<Integer> foundAuthors = authorDao.searchAuthors(searchInput);
+        request.setAttribute(FOUND, foundAuthors);
+        String uri = request.getParameter(URI);
         RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);
     }

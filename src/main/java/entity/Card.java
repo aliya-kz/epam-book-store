@@ -3,33 +3,33 @@ package entity;
 import java.util.Objects;
 
 public class Card extends Entity {
-    private int id;
-    private int userId;
+    private long id;
+    private long userId;
     String cardNumber;
 
     public Card(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
-    public Card(int id, int userId, String cardNumber) {
+    public Card(long id, long userId, String cardNumber) {
         this.id = id;
         this.userId = userId;
         this.cardNumber = cardNumber;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
