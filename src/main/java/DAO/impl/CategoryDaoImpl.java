@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static dao.DaoConstants.*;
+
+
 public class CategoryDaoImpl implements CategoryDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
@@ -35,9 +38,9 @@ public class CategoryDaoImpl implements CategoryDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Category category = new Category();
-                category.setId(resultSet.getInt("id"));
-                category.setCategoryName(resultSet.getString("category_name"));
-                category.setLang(resultSet.getString("lang"));
+                category.setId(resultSet.getInt(ID));
+                category.setCategoryName(resultSet.getString(CATEGORY_NAME));
+                category.setLang(resultSet.getString(LANG));
                 categories.add(category);
             }
         } catch (SQLException ex) {
@@ -53,9 +56,9 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public int addEntity(Category category) {
+    public boolean addEntity(Category category) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         PreparedStatement statement = null;
         PreparedStatement statement1 = null;
         PreparedStatement statement2 = null;
@@ -72,17 +75,17 @@ public class CategoryDaoImpl implements CategoryDao {
                 if (!resultSet1.next()) {
                     statement2 = connection.prepareStatement(INSERT_CATEGORIES);
                     statement2.setLong(1, category.getId());
-                    result = statement2.executeUpdate();
+                    statement2.executeUpdate();
                 }
                 statement3 = connection.prepareStatement(INSERT_CATEGORIES_LANG);
                 statement3.setLong(1, category.getId());
                 statement3.setString(2, category.getCategoryName());
                 statement3.setString(3, category.getLang());
-                result = statement3.executeUpdate();
+                statement3.executeUpdate();
             }
-        }catch (Exception e) {
+        } catch (SQLException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            result = false;
         } finally {
             close(statement);
             close(statement1);
@@ -94,17 +97,17 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public int deleteById(long id) {
+    public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(DELETE_CATEGORIES);
             statement.setLong(1, id);
-            result = statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+            statement.executeUpdate();
+        } catch (SQLException e) {
             LOGGER.info(e);
+            result = false;
         } finally {
             close(statement);
             connectionPool.returnConnection(connection);
@@ -113,17 +116,17 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
+    public boolean deleteByIdLang(long id, String lang) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(DELETE_CATEGORIES_LANG);
             statement.setLong(1, id);
-            result = statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+            statement.executeUpdate();
+        } catch (SQLException e) {
             LOGGER.info(e);
+            result = false;
         } finally {
             close(statement);
             connectionPool.returnConnection(connection);

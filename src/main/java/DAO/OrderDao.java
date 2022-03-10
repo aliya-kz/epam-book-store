@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface OrderDao extends BaseDao <Order> {
 
-    int addEntity(Order order);
+    boolean addEntity(Order order);
     List <Order> getAll ();
-    int updateStatus (long orderId, long statusId);
+    boolean updateStatus (long orderId, long statusId);
     Order getOrderById (long id);
     List <Order> getOrdersByUserId(long userId);
 }

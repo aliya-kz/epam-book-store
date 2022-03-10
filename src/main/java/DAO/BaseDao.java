@@ -12,24 +12,25 @@ import java.sql.*;
 
 public interface BaseDao <T extends Entity> {
 
-    int deleteById (long id);
+    boolean deleteById (long id);
 
-    int deleteByIdLang(long id, String lang);
+    boolean deleteByIdLang(long id, String lang);
 
-    int addEntity(T t);
+    boolean addEntity(T t);
 
-    default int setColumnValue(String table, long id, String columnName, Object value) {
+    default boolean setColumnValue(String table, long id, String columnName, Object value) {
+        boolean result = true;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
         String updateColumn = "UPDATE " + table + " set " + columnName + " = ? WHERE id = ?";
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(updateColumn);
             statement.setObject(1, value);
             statement.setLong(2, id);
-            result = statement.executeUpdate();
-        } catch (Exception e) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            result = false;
             e.printStackTrace();
         } finally {
             close(statement);
@@ -38,11 +39,11 @@ public interface BaseDao <T extends Entity> {
         return result;
     }
 
-    default int setColumnValueLang(String table, long id, String columnName, Object value, String lang) {
+    default boolean setColumnValueLang(String table, long id, String columnName, Object value, String lang) {
         Logger logger = LogManager.getLogger(this.getClass().getName());
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         String updateColumn = "UPDATE " + table + " set " + columnName + " = ? WHERE id = ? and lang = ?";
         PreparedStatement statement = null;
         try {
@@ -50,9 +51,9 @@ public interface BaseDao <T extends Entity> {
             statement.setObject(1, value);
             statement.setLong(2, id);
             statement.setString(3, lang);
-            result = statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            result = false;
             logger.info(e);
         } finally {
             close(statement);
@@ -102,10 +103,10 @@ public interface BaseDao <T extends Entity> {
         return image;
     }
 
-    default int updateByteImage (String table, long id, String url) {
+    default boolean updateByteImage (String table, long id, String url) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         PreparedStatement statement = null;
         try {
             File file = new File(url);
@@ -113,10 +114,11 @@ public interface BaseDao <T extends Entity> {
             statement = connection.prepareStatement("UPDATE " + table + " SET image = ? where id = ?;");
             statement.setLong(2, id);
             statement.setBinaryStream(1, fis, file.length());
-            result = statement.executeUpdate();
+            statement.executeUpdate();
             fis.close();
             statement.close();
         } catch (SQLException | IOException e) {
+            result = false;
             e.printStackTrace();
         } finally {
             connectionPool.returnConnection(connection);

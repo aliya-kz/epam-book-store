@@ -30,11 +30,12 @@ public class LoginService implements Service {
         HttpSession session = request.getSession();
         String locale = (String) session.getAttribute(LOCALE);
         String lang = locale.substring(0, 2);
-        int userId = userDao.validateUser(email, password);
-        if (userId < 1) {
+        boolean userIsValid= userDao.validateUser(email, password);
+        if (!userIsValid) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/logIn.jsp?" + MESSAGE + "=" + WRONG);
             dispatcher.forward(request, response);
         } else {
+            long userId = userDao.getIdByEmail(email);
             User user = userDao.getUser(userId);
             if (user.isBlocked()) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/logIn.jsp?" + MESSAGE + "=" + BLOCKED);

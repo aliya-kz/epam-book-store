@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface AuthorDao extends BaseDao <Author> {
 
-    int addEntity (Author author);
-    int addTranslation (Author author);
+    boolean addEntity (Author author);
+    boolean addTranslation (Author author);
     List<Author> getAll (String lang);
-    int deleteById (long id);
-    int deleteByIdLang (long id, String lang);
+    boolean deleteById (long id);
+    boolean deleteByIdLang (long id, String lang);
     List <Integer> searchAuthors (String search);
 }

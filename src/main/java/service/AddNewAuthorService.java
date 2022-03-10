@@ -32,7 +32,7 @@ public class AddNewAuthorService implements Service {
         Author author = new Author(name, surname, biography, lang);
         String idString = request.getParameter(ID);
         String uri = request.getParameter(URI);
-        int result = 0;
+        boolean entityAdded;
         if (idString == null) {
             Part part = null;
             try {
@@ -44,13 +44,13 @@ public class AddNewAuthorService implements Service {
             InputStream is = ((Part) part).getInputStream();
             byte[] bytes = is.readAllBytes();
             author.setImage(bytes);
-            result = authorDao.addEntity(author);
+            entityAdded = authorDao.addEntity(author);
         } else {
             int id = Integer.parseInt(idString);
             author.setId(id);
-            result = authorDao.addTranslation(author);
+            entityAdded = authorDao.addTranslation(author);
         }
-        if (result > 0) {
+        if (entityAdded) {
             Service getAllAuthorsService = serviceFactory.getService(GET_ALL_AUTHORS_SERVICE);
             getAllAuthorsService.execute(request, response);
         } else {

@@ -5,10 +5,14 @@ import dao.db_connection.ConnectionPool;
 import entity.Book;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static dao.DaoConstants.*;
+
 
 public class BookDaoImpl implements BookDao {
 
@@ -34,103 +38,121 @@ public class BookDaoImpl implements BookDao {
             "formats_lang fl on fl.id=b.format_id left join book_covers bc on bc.id=b.id WHERE fl.lang= ? and cl.lang=?;";
 
     @Override
-    public int addEntity(Book book) {
+    public boolean addEntity(Book book) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        PreparedStatement statement = null;
-        PreparedStatement statement1 = null;
-        PreparedStatement statement2 = null;
-        PreparedStatement statement3 = null;
-        try {
-            statement = connection.prepareStatement(INSERT_BOOK);
-            statement.setString(1, book.getTitle());
-            statement.setString(2, book.getDescription());
-            statement.setString(3, book.getPublisher());
-            statement.setInt(4, book.getQuantity());
-            statement.setDouble(5, book.getPrice());
-            statement.setLong(6, book.getCategoryId());
-            statement.setString(7, book.getIsbn());
-            statement.setString(8, book.getLanguage());
-            statement.setLong(9, book.getFormatId());
-            result = statement.executeUpdate();
+        boolean result = true;
+        try (PreparedStatement insertBook = connection.prepareStatement(INSERT_BOOK);
+        PreparedStatement getId = connection.prepareStatement(SELECT_ID);
+        PreparedStatement insertAuthors = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);
+        PreparedStatement insertCover = connection.prepareStatement(INSERT_COVER);) {
+            connection.setAutoCommit(false);
+           insertBook.setString(1, book.getTitle());
+            insertBook.setString(2, book.getDescription());
+            insertBook.setString(3, book.getPublisher());
+            insertBook.setInt(4, book.getQuantity());
+            insertBook.setDouble(5, book.getPrice());
+            insertBook.setLong(6, book.getCategoryId());
+            insertBook.setString(7, book.getIsbn());
+            insertBook.setString(8, book.getLanguage());
+            insertBook.setLong(9, book.getFormatId());
+            insertBook.executeUpdate();
 
-            statement1 = connection.prepareStatement(SELECT_ID);
-            statement1.setString(1, book.getIsbn());
-            ResultSet resultSet = statement1.executeQuery();
-            int id = -1;
+            getId.setString(1, book.getIsbn());
+            ResultSet resultSet = getId.executeQuery();
+            int id = 0;
             while (resultSet.next()) {
-                id = resultSet.getInt("id");
+                id = resultSet.getInt(ID);
             }
 
-            statement2 = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);
             List<Long> authors = book.getAuthors();
             for (int i = 0; i < authors.size(); i++) {
-                statement2.setInt(1, id);
-                statement2.setLong(2, authors.get(i));
-                statement2.executeUpdate();
+                insertAuthors.setInt(1, id);
+                insertAuthors.setLong(2, authors.get(i));
+                insertAuthors.executeUpdate();
             }
 
-            statement3 = connection.prepareStatement(INSERT_COVER);
-            statement3.setInt(1, id);
-            statement3.setBytes(2, book.getImage());
-            result = statement3.executeUpdate();
-        } catch (Exception e) {
-            LOGGER.error(e);
-            e.printStackTrace();
+            insertCover.setInt(1, id);
+            insertCover.setBytes(2, book.getImage());
+            insertCover.executeUpdate();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    LOGGER.warn("Transaction rolled back");
+                    connection.rollback();
+                } catch (SQLException excep) {
+                    LOGGER.warn(excep);
+                }
+            }
         } finally {
-            close(statement);
-            close(statement1);
-            close(statement2);
-            close(statement3);
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
             connectionPool.returnConnection(connection);
         }
         return result;
+    }
+
+    public long getIdByIsbn(String isbn) {
+        Connection connection = connectionPool.takeConnection();
+        long id = 0;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ID);) {
+            statement.setString(1, isbn);
+            try (ResultSet resultSet = statement.executeQuery();) {
+                while (resultSet.next()) {
+                    id = resultSet.getLong(ID);
+                }
+            }
+        }  catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
+            connectionPool.returnConnection(connection);
+        }
+        return id;
     }
 
     @Override
     public List<Book> getAll(String lang) {
         Connection connection = connectionPool.takeConnection();
         List<Book> books = new ArrayList<>();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SELECT_ALL_BOOKS);
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_BOOKS);) {
             statement.setString(1, lang);
             statement.setString(2, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                long id = resultSet.getInt("id");
+                long id = resultSet.getInt(ID);
                 Book book = new Book(id);
-                long authorId = resultSet.getLong("author_id");
+                long authorId = resultSet.getLong(AUTHOR_ID);
                 int index = books.indexOf(book);
                 if (index > -1) {
                     Book existingBook = books.get(index);
                     existingBook.getAuthors().add(authorId);
                 } else {
-                    book.setTitle(resultSet.getString("title"));
+                    book.setTitle(resultSet.getString(TITLE));
                     List<Long> authors = new ArrayList<>();
-                    if (!authors.contains(resultSet.getInt("author_id"))) {
-                        authors.add(resultSet.getLong("author_id"));
+                    if (!authors.contains(resultSet.getLong(AUTHOR_ID))) {
+                        authors.add(resultSet.getLong(AUTHOR_ID));
                     }
                     book.setAuthors(authors);
-                    book.setPublisher(resultSet.getString("publisher"));
-                    book.setIsbn(resultSet.getString("isbn"));
-                    book.setQuantity(resultSet.getInt("quantity"));
-                    book.setLanguage(resultSet.getString("publ_lang"));
-                    book.setPrice(resultSet.getInt("price"));
-                    book.setDescription(resultSet.getString("description"));
-                    book.setCategoryId(resultSet.getInt("category_id"));
-                    book.setCategory(resultSet.getString("category_name"));
-                    book.setFormatId(resultSet.getInt("format_id"));
-                    book.setFormat(resultSet.getString("format_name"));
-                    book.setImage(resultSet.getBytes("image"));
+                    book.setPublisher(resultSet.getString(PUBLISHER));
+                    book.setIsbn(resultSet.getString(ISBN));
+                    book.setQuantity(resultSet.getInt(QUANTITY));
+                    book.setLanguage(resultSet.getString(PUBLICATION_LANGUAGE));
+                    book.setPrice(resultSet.getInt(PRICE));
+                    book.setDescription(resultSet.getString(DESCRIPTION));
+                    book.setCategoryId(resultSet.getInt(CATEGORY_ID));
+                    book.setCategory(resultSet.getString(CATEGORY_NAME));
+                    book.setFormatId(resultSet.getInt(FORMAT_ID));
+                    book.setFormat(resultSet.getString(FORMAT_NAME));
+                    book.setImage(resultSet.getBytes(IMAGE));
                     books.add(book);
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOGGER.warn(e);
             e.printStackTrace();
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return books.stream()
@@ -138,84 +160,76 @@ public class BookDaoImpl implements BookDao {
                 .collect(Collectors.toList());
     }
 
-    public int deleteBookAuthors (long bookId) {
-        int result = 0;
+    public boolean deleteBookAuthors(long bookId) {
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(DELETE_AUTHORS_TO_BOOKS);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS_TO_BOOKS);) {
             statement.setLong(1, bookId);
-            result = statement.executeUpdate();
-        } catch (Exception e) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
     }
 
-    public int setBookAuthors (long bookId, List <Integer> authorIds) {
+    public int setBookAuthors(long bookId, List<Integer> authorIds) {
         Connection connection = connectionPool.takeConnection();
         int result = 0;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);
-            for (int author: authorIds) {
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_AUTHORS_TO_BOOKS);) {
+            for (int author : authorIds) {
                 statement.setLong(1, bookId);
                 statement.setInt(2, author);
                 statement.executeUpdate();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOGGER.error(e);
             e.printStackTrace();
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
     }
 
     @Override
-    public int deleteById(long id) {
-        return 0;
+    public boolean deleteById(long id) {
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
     public long purchaseBooks(Map<Book, Integer> cartItems) {
+        Connection connection = connectionPool.takeConnection();
         long errorBookId = 0;
         for (Book book : cartItems.keySet()) {
             long bookId = book.getId();
             int quantity = cartItems.get(book);
-            Connection connection = connectionPool.takeConnection();
-            PreparedStatement statement = null;
-            try {
-                statement = connection.prepareStatement(GET_QTY);
+            try (PreparedStatement statement  = connection.prepareStatement(GET_QTY);) {
                 statement.setLong(1, bookId);
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
-                    int sqlQuantity = resultSet.getInt("quantity");
+                    int sqlQuantity = resultSet.getInt(QUANTITY);
                     if (sqlQuantity >= quantity) {
                         int newQty = sqlQuantity - quantity;
-                        setColumnValue("books", bookId, "quantity", newQty);
+                        setColumnValue(BOOKS, bookId, QUANTITY, newQty);
                     } else {
                         errorBookId = bookId;
                         break;
                     }
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 LOGGER.error(e);
                 e.printStackTrace();
             } finally {
-                close(statement);
                 connectionPool.returnConnection(connection);
             }
-        } return errorBookId;
+        }
+        return errorBookId;
     }
 
-    public int returnBooks(Map<Book, Integer> cartItems, long errorBookId) {
-        int result = 0;
+    public boolean returnBooks(Map<Book, Integer> cartItems, long errorBookId) {
+        boolean result = true;
         for (Book book : cartItems.keySet()) {
             long bookId = book.getId();
             if (bookId == errorBookId) {
@@ -229,31 +243,30 @@ public class BookDaoImpl implements BookDao {
                     statement.setLong(1, bookId);
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
-                        int sqlQuantity = resultSet.getInt("quantity");
+                        int sqlQuantity = resultSet.getInt(QUANTITY);
                         int newQty = sqlQuantity + quantity;
-                        result = setColumnValue("books", bookId, "quantity", newQty);
+                        setColumnValue(BOOKS, bookId, QUANTITY, newQty);
                     }
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     LOGGER.error(e);
-                    e.printStackTrace();
+                    result = false;
                 } finally {
                     close(statement);
                     connectionPool.returnConnection(connection);
                 }
-
             }
         }
         return result;
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
-        return 0;
+    public boolean deleteByIdLang(long id, String lang) {
+        throw new UnsupportedOperationException("Method not supported");
     }
 
-    public List<Book> filterByCategory (List<Book> books, long [] categoryIds) {
-      List <Book> result = new ArrayList<>();
-        for (Book book: books) {
+    public List<Book> filterByCategory(List<Book> books, long[] categoryIds) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : books) {
             for (long categoryId : categoryIds) {
                 if (book.getCategoryId() == categoryId) {
                     result.add(book);
@@ -263,21 +276,21 @@ public class BookDaoImpl implements BookDao {
         return result;
     }
 
-    public List<Book> filterByFormat (List<Book> books, long[] formatIds) {
-            List <Book> result = new ArrayList<>();
-            for (Book book: books) {
-                for (long formatId : formatIds) {
-                    if (book.getFormatId() == formatId) {
-                        result.add(book);
-                    }
+    public List<Book> filterByFormat(List<Book> books, long[] formatIds) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : books) {
+            for (long formatId : formatIds) {
+                if (book.getFormatId() == formatId) {
+                    result.add(book);
                 }
             }
-            return result;
+        }
+        return result;
     }
 
-    public List<Book> filterByPublLang (List<Book> books, String [] publLangs) {
-        List <Book> result = new ArrayList<>();
-        for (Book book: books) {
+    public List<Book> filterByPublLang(List<Book> books, String[] publLangs) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : books) {
             for (String lang : publLangs) {
                 if (book.getLanguage().equals(lang)) {
                     result.add(book);
@@ -288,9 +301,9 @@ public class BookDaoImpl implements BookDao {
         return result;
     }
 
-    public int setByteImage (long id, String url) {
+    public boolean setByteImage(long id, String url) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         PreparedStatement statement = null;
         try {
             File file = new File(url);
@@ -298,10 +311,11 @@ public class BookDaoImpl implements BookDao {
             statement = connection.prepareStatement(INSERT_COVER);
             statement.setLong(1, id);
             statement.setBinaryStream(2, fis, file.length());
-            result = statement.executeUpdate();
+           statement.executeUpdate();
             fis.close();
             statement.close();
         } catch (SQLException | IOException e) {
+            result = false;
             e.printStackTrace();
         } finally {
             connectionPool.returnConnection(connection);
@@ -310,11 +324,11 @@ public class BookDaoImpl implements BookDao {
     }
 
 
-
     public static void main(String[] args) throws IOException {
 
         BookDao impl = new BookDaoImpl();
 
+        /*
         impl.setByteImage(1, "D:/cover/volki.jpg");
         impl.setByteImage(2, "D:/cover/head_first.jpg");
         impl.setByteImage(3, "D:/cover/vse_dlya_prazdnika.jpg");
@@ -344,27 +358,27 @@ public class BookDaoImpl implements BookDao {
         impl.setByteImage(27, "D:/cover/hp_audio.jpg");
 
         impl.updateByteImage("authors", 1, "D:/authors/fel.jpg");
-        impl.updateByteImage("authors", 2, "D:/authors/profile.jpg" );
-        impl.updateByteImage("authors", 3, "D:/authors/profile.jpg" );
-        impl.updateByteImage("authors", 4, "D:/authors/profile.jpg" );
-        impl.updateByteImage("authors", 5, "D:/authors/profile.jpg" );
-        impl.updateByteImage("authors", 6, "D:/authors/doyle.jpg" );
-        impl.updateByteImage("authors", 7, "D:/authors/moyes.jpg" );
-        impl.updateByteImage("authors", 8, "D:/authors/profile.jpg" );
-        impl.updateByteImage("authors", 9,  "D:/authors/jose.jpg" );
-        impl.updateByteImage("authors", 10, "D:/authors/profile.jpg" );
-        impl.updateByteImage("authors", 11, "D:/authors/andersen.jpg" );
-        impl.updateByteImage("authors", 12, "D:/authors/eckel.jpg" );
-        impl.updateByteImage("authors", 13, "D:/authors/bulgakov.jpg" );
-        impl.updateByteImage("authors", 14, "D:/authors/london.jpg" );
-        impl.updateByteImage("authors", 15,  "D:/authors/murakami.jpg" );
-        impl.updateByteImage("authors", 16,  "D:/authors/kiyosaki.jpg" );
-        impl.updateByteImage("authors", 17,  "D:/authors/dovlatov.jpg" );
-        impl.updateByteImage("authors", 18, "D:/authors/rowling.jpg" );
-        impl.updateByteImage("authors", 19,  "D:/authors/oliver.jpg" );
+        impl.updateByteImage("authors", 2, "D:/authors/profile.jpg");
+        impl.updateByteImage("authors", 3, "D:/authors/profile.jpg");
+        impl.updateByteImage("authors", 4, "D:/authors/profile.jpg");
+        impl.updateByteImage("authors", 5, "D:/authors/profile.jpg");
+        impl.updateByteImage("authors", 6, "D:/authors/doyle.jpg");
+        impl.updateByteImage("authors", 7, "D:/authors/moyes.jpg");
+        impl.updateByteImage("authors", 8, "D:/authors/profile.jpg");
+        impl.updateByteImage("authors", 9, "D:/authors/jose.jpg");
+        impl.updateByteImage("authors", 10, "D:/authors/profile.jpg");
+        impl.updateByteImage("authors", 11, "D:/authors/andersen.jpg");
+        impl.updateByteImage("authors", 12, "D:/authors/eckel.jpg");
+        impl.updateByteImage("authors", 13, "D:/authors/bulgakov.jpg");
+        impl.updateByteImage("authors", 14, "D:/authors/london.jpg");
+        impl.updateByteImage("authors", 15, "D:/authors/murakami.jpg");
+        impl.updateByteImage("authors", 16, "D:/authors/kiyosaki.jpg");
+        impl.updateByteImage("authors", 17, "D:/authors/dovlatov.jpg");
+        impl.updateByteImage("authors", 18, "D:/authors/rowling.jpg");
+        impl.updateByteImage("authors", 19, "D:/authors/oliver.jpg");
         impl.updateByteImage("authors", 20, "D:/authors/smith.jpg");
-        impl.updateByteImage("authors", 21, "D:/authors/profile.jpg" );
-        impl.updateByteImage("authors", 22,  "D:/authors/wells.jpg" );
+        impl.updateByteImage("authors", 21, "D:/authors/profile.jpg");
+        impl.updateByteImage("authors", 22, "D:/authors/wells.jpg");*/
     }
 }
 

@@ -5,7 +5,7 @@ import entity.Card;
 public interface CardDao extends BaseDao <Card> {
 
     @Override
-    int addEntity(Card card);
+    boolean addEntity(Card card);
 
-    int deleteById (long id);
+    boolean deleteById (long id);
 }

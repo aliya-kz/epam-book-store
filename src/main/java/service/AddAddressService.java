@@ -31,10 +31,10 @@ public class AddAddressService implements Service {
         Address address = new Address();
         address.setAddress(addressString);
         address.setUserId(userId);
-        int result = addressDao.addEntity(address);
+        boolean entityAdded = addressDao.addEntity(address);
         String uri = request.getParameter(URI);
         RequestDispatcher dispatcher;
-        if (result == 0) {
+        if (!entityAdded) {
             dispatcher = request.getRequestDispatcher(uri + "?" + MESSAGE + "=" + ERROR);
         } else {
             user = userDao.getUser(userId);

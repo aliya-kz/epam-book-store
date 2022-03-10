@@ -7,10 +7,14 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static dao.DaoConstants.*;
+
 
 public class FormatDaoImpl implements FormatDao {
 
@@ -19,8 +23,9 @@ public class FormatDaoImpl implements FormatDao {
     private final static String GET_ALL_FORMATS= "SELECT * FROM formats_lang where lang = ?";
 
     @Override
-    public int addEntity(Format format) {
-        return 0;
+    public boolean addEntity(Format format) {
+
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
@@ -33,12 +38,12 @@ public class FormatDaoImpl implements FormatDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Format format = new Format();
-                format.setId(resultSet.getInt("id"));
-                format.setFormatName(resultSet.getString("format_name"));
-                format.setLang(resultSet.getString("lang"));
+                format.setId(resultSet.getInt(ID));
+                format.setFormatName(resultSet.getString(FORMAT_NAME));
+                format.setLang(resultSet.getString(LANG));
                 formats.add(format);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOGGER.warn(e);
             e.printStackTrace();
         }
@@ -52,12 +57,13 @@ public class FormatDaoImpl implements FormatDao {
     }
 
     @Override
-    public int deleteById(long id) {
-        return 0;
+    public boolean deleteById(long id) {
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
-        return 0;
+    public boolean deleteByIdLang(long id, String lang) {
+
+        throw new UnsupportedOperationException("Method not supported");
     }
 }

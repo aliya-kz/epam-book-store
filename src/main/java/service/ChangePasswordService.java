@@ -25,8 +25,8 @@ public class ChangePasswordService implements Service {
         String newPassword = request.getParameter(NEW_PASSWORD).trim();
         String uri = request.getParameter(URI);
         long userId = user.getId();
-        int result = userDao.changePassword(userId, password, newPassword);
-        if (result < 1) {
+        boolean result = userDao.changePassword(userId, password, newPassword);
+        if (!result) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?pass-msg=error");
             dispatcher.forward(request, response);
         }

@@ -24,8 +24,8 @@ public class AddNewCategoryService implements Service {
         int id = Integer.parseInt(request.getParameter(NEW_ID));
         String lang = request.getParameter(CATEGORY_LANGUAGE);
         Category category = new Category(id, title, lang);
-        int result = categoryDao.addEntity(category);
-        if (result == 0) {
+        boolean entityAdded = categoryDao.addEntity(category);
+        if (!entityAdded) {
             String uri = request.getParameter(URI);
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?" + MESSAGE + "=" + ERROR);
             dispatcher.forward(request, response);

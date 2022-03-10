@@ -10,8 +10,11 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static dao.DaoConstants.*;
 
 
 public class WishListDaoImpl implements WishListDao {
@@ -23,40 +26,34 @@ public class WishListDaoImpl implements WishListDao {
     private final static String GET_WL = "SELECT book_id from wish_lists WHERE user_id = ?;";
 
     @Override
-    public int addToWishList(long userId, long bookId) {
+    public boolean addToWishList(long userId, long bookId) {
     Connection connection = connectionPool.takeConnection();
-    int result = 0;
-    PreparedStatement statement = null;
-        try {
-        statement = connection.prepareStatement(INSERT_WL);
+    boolean result = true;
+    try (PreparedStatement statement = connection.prepareStatement(INSERT_WL);) {
         statement.setLong(1, userId);
         statement.setLong(2, bookId);
-        result = statement.executeUpdate();
-    } catch (Exception e) {
+        statement.executeUpdate();
+    } catch (SQLException e) {
         LOGGER.error(e);
-        e.printStackTrace();
+        result = false;
     } finally {
-        close(statement);
         connectionPool.returnConnection(connection);
     }
         return result;
     }
 
     @Override
-    public int deleteFromTable(long userId, long bookId) {
+    public boolean deleteFromTable(long userId, long bookId) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(DELETE_BOOK);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_BOOK);) {
             statement.setLong(1, userId);
             statement.setLong(2, bookId);
-            result = statement.executeUpdate();
-        } catch (Exception e) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
@@ -69,38 +66,37 @@ public class WishListDaoImpl implements WishListDao {
         List<Book> books = new ArrayList<>();
         wishList.setBooks(books);
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(GET_WL);
+        try (PreparedStatement statement = connection.prepareStatement(GET_WL);) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Book book = new Book (resultSet.getLong("book_id"));
+                Book book = new Book (resultSet.getLong(BOOK_ID));
                 books.add(book);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOGGER.error(e);
             e.printStackTrace();
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return wishList;
     }
 
     @Override
-    public int deleteById(long id) {
-        return 0;
+    public boolean deleteById(long id) {
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
-        return 0;
+    public boolean deleteByIdLang(long id, String lang) {
+
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
-    public int addEntity(WishList wishList) {
-        return 0;
+    public boolean addEntity(WishList wishList) {
+
+        throw new UnsupportedOperationException("Method not supported");
     }
 
 }

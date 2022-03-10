@@ -5,14 +5,15 @@ import java.util.List;
 
 public interface UserDao extends BaseDao <User> {
 
-    int addEntity (User user);
-    int addAddress (long id, String address);
+    boolean addEntity (User user);
+    boolean addAddress (long id, String address);
     List <User> getAll();
     boolean isAdmin (String email);
-    int validateUser (String email, String password);
+    boolean validateUser (String email, String password);
     User getUser (long id);
     boolean userExists (String email);
-    int blockUser(long id, boolean status);
-    int changePassword (long id, String oldPass, String newPass);
+    boolean blockUser(long id, boolean status);
+    boolean changePassword (long id, String oldPass, String newPass);
+    long getIdByEmail (String email);
 
 }

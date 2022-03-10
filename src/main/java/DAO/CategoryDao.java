@@ -7,6 +7,6 @@ import java.util.List;
 public interface CategoryDao extends BaseDao <Category> {
 
     List <Category> getAll (String lang);
-    int addEntity(Category category);
-    int deleteById (long id);
+    boolean addEntity(Category category);
+    boolean deleteById (long id);
 }

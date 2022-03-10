@@ -32,11 +32,11 @@ public class AddCardService implements Service {
         Card card = new Card(cardNumber);
         card.setUserId(userId);
         String uri = request.getParameter(URI);
-        int result = cardDao.addEntity(card);
+        boolean entityAdded = cardDao.addEntity(card);
         RequestDispatcher dispatcher;
         user = userDao.getUser(userId);
         session.setAttribute(USER, user);
-        if (result < 1) {
+        if (!entityAdded) {
             dispatcher = request.getRequestDispatcher(uri + "?" + MESSAGE + "=" + ERROR);
         } else {
             dispatcher = request.getRequestDispatcher(uri);

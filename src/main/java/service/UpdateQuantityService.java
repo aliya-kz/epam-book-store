@@ -37,9 +37,8 @@ public class UpdateQuantityService implements Service {
             items.replace(book, oldQty, quantity);
         } else {
             long userId = user.getId();
-            int result = cartDao.updateQuantity(bookId, userId, quantity);
+            cartDao.updateQuantity(bookId, userId, quantity);
             cart = cartDao.getCart(userId);
-
         }
         session.setAttribute(CART, cart);
         RequestDispatcher dispatcher = request.getRequestDispatcher(uri);

@@ -6,12 +6,15 @@ import entity.Book;
 import entity.Cart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static dao.DaoConstants.*;
 
 
 public class CartDaoImpl implements CartDao {
@@ -38,8 +41,8 @@ public class CartDaoImpl implements CartDao {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Book book = new Book(resultSet.getInt("book_id"));
-                cartItems.put(book, resultSet.getInt("quantity"));
+                Book book = new Book(resultSet.getInt(BOOK_ID));
+                cartItems.put(book, resultSet.getInt(QUANTITY));
             }
         } catch (SQLException e) {
             LOGGER.warn(e);
@@ -52,19 +55,17 @@ public class CartDaoImpl implements CartDao {
     }
 
 
-    public int deleteFromTable(long bookId, long userId) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+    public boolean deleteFromTable(long bookId, long userId) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        try {
-            PreparedStatement statement = connection.prepareStatement(DELETE_FROM_CART);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_FROM_CART);) {
             statement.setLong(1, bookId);
             statement.setLong(2, userId);
-            result = statement.executeUpdate();
+            statement.executeUpdate();
             close(statement);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
             LOGGER.info(e);
+            result = false;
         } finally {
             connectionPool.returnConnection(connection);
         }
@@ -72,19 +73,17 @@ public class CartDaoImpl implements CartDao {
     }
 
 
-    public int addToCart(long userId, long bookId, int quantity) {
+    public boolean addToCart(long userId, long bookId, int quantity) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        PreparedStatement statement = null;
-        PreparedStatement statement1 = null;
-        PreparedStatement statement2 = null;
-        try {
-            statement = connection.prepareStatement(SELECT_BOOK);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BOOK);
+        PreparedStatement statement1 = connection.prepareStatement(UPDATE_QTY);
+        PreparedStatement statement2 = connection.prepareStatement(INSERT_CART);) {
+            connection.setAutoCommit(false);
             statement.setLong(1, userId);
             statement.setLong(2, bookId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                statement1 = connection.prepareStatement(UPDATE_QTY);
                 if (quantity > 8) {
                     statement1.setInt(1, 8);
                 } else {
@@ -92,58 +91,63 @@ public class CartDaoImpl implements CartDao {
                 }
                 statement1.setLong(2, bookId);
                 statement1.setLong(3, userId);
-                result = statement1.executeUpdate();
+                statement1.executeUpdate();
             } else {
-                statement2 = connection.prepareStatement(INSERT_CART);
                 statement2.setLong(1, userId);
                 statement2.setLong(2, bookId);
                 statement2.setInt(3, quantity);
-                result = statement2.executeUpdate();
+                statement2.executeUpdate();
             }
-        } catch (Exception e) {
-            LOGGER.error(e);
-            e.printStackTrace();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    LOGGER.warn("Transaction rolled back");
+                    result = false;
+                    connection.rollback();
+                } catch (SQLException excep) {
+                    LOGGER.warn(excep);
+                }
+            }
         } finally {
-            close(statement);
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
             connectionPool.returnConnection(connection);
         }
         return result;
     }
 
     @Override
-    public int updateQuantity(long bookId, long userId, int quantity) {
+    public boolean updateQuantity(long bookId, long userId, int quantity) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(UPDATE_QTY);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_QTY);) {
             statement.setInt(1, quantity);
             statement.setLong(2, bookId);
             statement.setLong(3, userId);
-            result = statement.executeUpdate();
-        } catch (Exception e) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
     }
 
     @Override
-    public int deleteById(long id) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+    public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        try {
-            PreparedStatement statement = connection.prepareStatement(DELETE_CART);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CART);) {
             statement.setLong(1, id);
-            result = statement.executeUpdate();
+            statement.executeUpdate();
             close(statement);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
             LOGGER.info(e);
+            result = false;
         } finally {
             connectionPool.returnConnection(connection);
         }
@@ -151,28 +155,25 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
-        return 0;
+    public boolean deleteByIdLang(long id, String lang) {
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
-    public int addEntity(Cart cart) {
+    //TODO
+    public boolean addEntity(Cart cart) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         Map<Book, Integer> cartItems = cart.getCartItems();
         for (Book book : cartItems.keySet()) {
-            PreparedStatement statement = null;
-            try {
-                statement = connection.prepareStatement(INSERT_CART);
+            try (PreparedStatement statement = connection.prepareStatement(INSERT_CART);) {
                 statement.setLong(1, cart.getUserId());
                 statement.setLong(2, book.getId());
                 statement.setInt(3, cartItems.get(book));
-                result = statement.executeUpdate();
-            } catch (Exception e) {
+                statement.executeUpdate();
+            } catch (SQLException e) {
                 LOGGER.error(e);
-                e.printStackTrace();
-            } finally {
-                close(statement);
+                result = false;
             }
         }
         connectionPool.returnConnection(connection);

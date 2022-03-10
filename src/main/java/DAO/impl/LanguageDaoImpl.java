@@ -9,8 +9,12 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static dao.DaoConstants.*;
+
 
 public class LanguageDaoImpl implements LanguageDao {
 
@@ -23,20 +27,19 @@ public class LanguageDaoImpl implements LanguageDao {
     private static final String GET_ALL_LANG = "SELECT * from langs;";
 
     @Override
-    public int addEntity(Lang lang) {
+    public boolean addEntity(Lang lang) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(INSERT_LANG);
-            statement.setString(1,lang.getTitle());
-            result = statement.executeUpdate();
+            statement.setString(1, lang.getTitle());
+            statement.executeUpdate();
             close(statement);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOGGER.info(e);
-            e.printStackTrace();
-        }
-        finally {
+            result = false;
+        } finally {
             close(statement);
             connectionPool.returnConnection(connection);
         }
@@ -44,23 +47,23 @@ public class LanguageDaoImpl implements LanguageDao {
     }
 
     @Override
-    public List <Lang> getAll() {
-        List <Lang> langs = new ArrayList<>();
+    public List<Lang> getAll() {
+        List<Lang> langs = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
-        try { statement = connection.prepareStatement(GET_ALL_LANG);
+        try {
+            statement = connection.prepareStatement(GET_ALL_LANG);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Lang lang = new Lang();
-                lang.setId(resultSet.getInt("id"));
-                lang.setTitle(resultSet.getString("title"));
+                lang.setId(resultSet.getInt(ID));
+                lang.setTitle(resultSet.getString(TITLE));
                 langs.add(lang);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             LOGGER.info(e);
-        }
-        finally {
+        } finally {
             close(statement);
             connectionPool.returnConnection(connection);
         }
@@ -68,12 +71,13 @@ public class LanguageDaoImpl implements LanguageDao {
     }
 
     @Override
-    public int deleteById(long id) {
-        return 0;
+    public boolean deleteById(long id) {
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
-        return 0;
+    public boolean deleteByIdLang(long id, String lang) {
+
+        throw new UnsupportedOperationException("Method not supported");
     }
 }

@@ -8,12 +8,12 @@ import entity.Order;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static dao.DaoConstants.*;
+
 
 public class OrderDaoImpl implements OrderDao {
 
@@ -40,19 +40,21 @@ public class OrderDaoImpl implements OrderDao {
 
 
     @Override
-    public int deleteById(long id) {
-        return 0;
+    public boolean deleteById(long id) {
+
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
-        return 0;
+    public boolean deleteByIdLang(long id, String lang) {
+
+        throw new UnsupportedOperationException("Method not supported");
     }
 
     @Override
-    public int addEntity(Order order) {
+    public boolean addEntity(Order order) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         PreparedStatement statement = null;
         PreparedStatement statement1 = null;
         PreparedStatement statement2 = null;
@@ -69,6 +71,7 @@ public class OrderDaoImpl implements OrderDao {
             statement1 = connection.prepareStatement(GET_ID);
             statement1.setLong(1, order.getUserId());
             ResultSet resultSet = statement1.executeQuery();
+         //TODO
             while (resultSet.next()) {
                 orderId = resultSet.getInt("max");
             }
@@ -79,11 +82,11 @@ public class OrderDaoImpl implements OrderDao {
                 statement2.setLong(1, orderId);
                 statement2.setLong(2, book.getId());
                 statement2.setInt(3, orderItems.get(book));
-                result = statement2.executeUpdate();
+                statement2.executeUpdate();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            result = false;
         } finally {
             close(statement);
             connectionPool.returnConnection(connection);
@@ -100,11 +103,11 @@ public class OrderDaoImpl implements OrderDao {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_ORDERS);
             while (resultSet.next()) {
-                long id = resultSet.getLong("id");
+                long id = resultSet.getLong(ID);
                 Order order = getOrderById(id);
                 orders.add(order);
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             LOGGER.info(ex);
         }
@@ -117,18 +120,17 @@ public class OrderDaoImpl implements OrderDao {
                 .collect(Collectors.toList());
     }
 
-    public int updateStatus(long orderId, long statusId) {
+    public boolean updateStatus(long orderId, long statusId) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-
+        boolean result = true;
         PreparedStatement statement = null;
         try { statement = connection.prepareStatement(SET_STATUS_SQL);
             statement.setLong(1, statusId);
             statement.setLong(2, orderId);
-            result = statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            result = false;
             LOGGER.error(e);
         }
         finally {
@@ -150,24 +152,24 @@ public class OrderDaoImpl implements OrderDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 if (order.getUserId() < 1) {
-                    order.setUserId(resultSet.getInt("user_id"));
+                    order.setUserId(resultSet.getInt(USER_ID));
                     Address address = new Address();
-                    address.setId(resultSet.getInt("address_id"));
-                    address.setUserId(resultSet.getInt("user_id"));
-                    address.setAddress(resultSet.getString("address"));
+                    address.setId(resultSet.getInt(ADDRESS_ID));
+                    address.setUserId(resultSet.getInt(USER_ID));
+                    address.setAddress(resultSet.getString(ADDRESS));
                     order.setAddress(address);
-                    order.setCost(resultSet.getInt("cost"));
-                    order.setDate(resultSet.getDate("date"));
-                    order.setStatusId(resultSet.getInt("status_id"));
-                    Book book = new Book (resultSet.getInt("book_id"));
-                    items.put(book, resultSet.getInt("quantity"));
+                    order.setCost(resultSet.getInt(COST));
+                    order.setDate(resultSet.getDate(DATE));
+                    order.setStatusId(resultSet.getInt(STATUS_ID));
+                    Book book = new Book (resultSet.getInt(BOOK_ID));
+                    items.put(book, resultSet.getInt(QUANTITY));
                 } else {
-                    Book book = new Book(resultSet.getInt("book_id"));
-                    items.put(book, resultSet.getInt("quantity"));
+                    Book book = new Book(resultSet.getInt(BOOK_ID));
+                    items.put(book, resultSet.getInt(QUANTITY));
                 }
                 order.setOrderItems(items);
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             LOGGER.warn(ex);
         }
@@ -186,10 +188,10 @@ public class OrderDaoImpl implements OrderDao {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Order order = getOrderById(resultSet.getInt("id"));
+                Order order = getOrderById(resultSet.getInt(ID));
                 orders.add(order);
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             LOGGER.info(ex);
         }
@@ -197,10 +199,9 @@ public class OrderDaoImpl implements OrderDao {
             close(statement);
             connectionPool.returnConnection(connection);
         }
-        List<Order> sortedList = orders.stream()
+        return orders.stream()
                 .sorted(Comparator.comparingLong(Order::getId).reversed())
                 .collect(Collectors.toList());
-        return sortedList;
     }
 
 }

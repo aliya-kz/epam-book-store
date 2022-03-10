@@ -54,11 +54,12 @@ public class SignUpService implements Service {
             cards.add(new Card(card));
             user.setCards(cards);
             user.setPassword(password);
-            int userId = userDao.addEntity(user);
+            boolean userAdded = userDao.addEntity(user);
             RequestDispatcher dispatcher;
-            if (userId < 1) {
+            if (!userAdded) {
                 dispatcher = request.getRequestDispatcher("/WEB-INF/view/signUp.jsp?" + MESSAGE + "=" + ERROR);
             } else {
+                long userId = userDao.getIdByEmail(email);
                 Cart cart = (Cart) session.getAttribute(CART);
                 cart.setUserId(userId);
                 cartDao.addEntity(cart);

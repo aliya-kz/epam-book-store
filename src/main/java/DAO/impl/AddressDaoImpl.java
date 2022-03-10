@@ -5,8 +5,11 @@ import dao.db_connection.ConnectionPool;
 import entity.Address;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 public class AddressDaoImpl implements AddressDao {
 
@@ -16,36 +19,35 @@ public class AddressDaoImpl implements AddressDao {
     private final static String DELETE_ADDRESS = "UPDATE addresses set user_id = 1 where address_id = ?;";
 
     @Override
-    public int addEntity(Address address) {
+    public boolean addEntity(Address address) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(INSERT_ADDRESS);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_ADDRESS);) {
             statement.setLong(1, address.getUserId());
             statement.setString(2, address.getAddress());
-            result = statement.executeUpdate();
-        } catch (Exception e) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
             LOGGER.error(e);
             e.printStackTrace();
+            result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
     }
 
     @Override
-    public int deleteById(long id) {
+    public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
+        boolean result = true;
         try {
             PreparedStatement statement = connection.prepareStatement(DELETE_ADDRESS);
             statement.setLong(1, id);
-            result = statement.executeUpdate();
+            statement.executeUpdate();
             close(statement);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            result = false;
         } finally {
             connectionPool.returnConnection(connection);
         }
@@ -53,7 +55,8 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
-        return 0;
+    public boolean deleteByIdLang(long id, String lang) {
+        throw new UnsupportedOperationException("Method not supported");
     }
 }
+

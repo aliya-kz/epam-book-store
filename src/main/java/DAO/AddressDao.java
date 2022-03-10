@@ -6,6 +6,6 @@ import entity.Address;
 public interface AddressDao extends BaseDao <Address> {
 
     @Override
-    int addEntity(Address address);
-    int deleteById(long id);
+    boolean addEntity(Address address);
+    boolean deleteById(long id);
 }

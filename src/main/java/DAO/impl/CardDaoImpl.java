@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 public class CardDaoImpl implements CardDao {
@@ -17,37 +18,33 @@ public class CardDaoImpl implements CardDao {
     private final static String DELETE_CARD = "DELETE from cards WHERE card_id = ?;";
 
     @Override
-    public int addEntity(Card card) {
+    public boolean addEntity(Card card) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(INSERT_CARD);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_CARD);) {
             statement.setLong(1, card.getUserId());
             statement.setString(2, card.getCardNumber());
-            result = statement.executeUpdate();
-        } catch (Exception e) {
+          statement.executeUpdate();
+        } catch (SQLException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
     }
 
     @Override
-    public int deleteById(long id) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+    public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
-        int result = 0;
-        try {
-            PreparedStatement statement = connection.prepareStatement(DELETE_CARD);
+        boolean result = true;
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CARD);) {
             statement.setLong(1, id);
-            result = statement.executeUpdate();
+            statement.executeUpdate();
             close(statement);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            result = false;
         } finally {
             connectionPool.returnConnection(connection);
         }
@@ -55,7 +52,8 @@ public class CardDaoImpl implements CardDao {
     }
 
     @Override
-    public int deleteByIdLang(long id, String lang) {
-        return 0;
+    public boolean deleteByIdLang(long id, String lang) {
+
+        throw new UnsupportedOperationException("Method not supported");
     }
 }
