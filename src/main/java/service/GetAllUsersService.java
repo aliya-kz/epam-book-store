@@ -23,8 +23,8 @@ public class GetAllUsersService implements Service {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<User> users = userDao.getAll();
         HttpSession session = request.getSession();
-        session.setAttribute(USER, users);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminUsers.jsp");
+        session.setAttribute(USERS, users);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_USERS_URI);
         dispatcher.forward(request, response);
     }
 }

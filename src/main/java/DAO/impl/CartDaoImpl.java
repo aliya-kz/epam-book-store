@@ -27,7 +27,7 @@ public class CartDaoImpl implements CartDao {
     private final static String UPDATE_QTY = "UPDATE carts set quantity = ? WHERE book_id = ? and user_id = ?;";
     private final static String DELETE_FROM_CART = "DELETE from carts WHERE book_id = ? AND user_id = ?;";
     private final static String DELETE_CART = "DELETE from carts WHERE user_id = ?;";
-
+    private final static int MAX_BOOKS_QUANTITY = 8;
 
     @Override
     public Cart getCart(long userId) {
@@ -35,9 +35,7 @@ public class CartDaoImpl implements CartDao {
         Map<Book, Integer> cartItems = new HashMap<>();
         cart.setCartItems(cartItems);
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SELECT_CART);
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_CART);) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -48,7 +46,6 @@ public class CartDaoImpl implements CartDao {
             LOGGER.warn(e);
             e.printStackTrace();
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return cart;
@@ -77,15 +74,15 @@ public class CartDaoImpl implements CartDao {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BOOK);
-        PreparedStatement statement1 = connection.prepareStatement(UPDATE_QTY);
-        PreparedStatement statement2 = connection.prepareStatement(INSERT_CART);) {
+             PreparedStatement statement1 = connection.prepareStatement(UPDATE_QTY);
+             PreparedStatement statement2 = connection.prepareStatement(INSERT_CART);) {
             connection.setAutoCommit(false);
             statement.setLong(1, userId);
             statement.setLong(2, bookId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                if (quantity > 8) {
-                    statement1.setInt(1, 8);
+                if (quantity > MAX_BOOKS_QUANTITY) {
+                    statement1.setInt(1, MAX_BOOKS_QUANTITY);
                 } else {
                     statement1.setInt(1, quantity);
                 }
@@ -98,10 +95,11 @@ public class CartDaoImpl implements CartDao {
                 statement2.setInt(3, quantity);
                 statement2.executeUpdate();
             }
+            connection.commit();
         } catch (SQLException e) {
             if (connection != null) {
                 try {
-                    LOGGER.warn("Transaction rolled back");
+                    LOGGER.warn(ROLLED_BACK_MESSAGE);
                     result = false;
                     connection.rollback();
                 } catch (SQLException excep) {
@@ -156,7 +154,7 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     public boolean deleteByIdLang(long id, String lang) {
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override

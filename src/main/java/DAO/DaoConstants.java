@@ -80,4 +80,6 @@ public class DaoConstants {
     public final static String NEW_ID = "new_id";
     public final static String AUTHOR_ID = "author_id";
     public final static String PROF_CARD = "prof-card";
+    public final static String UNSUPPORTED_MESSAGE = "Method not supported";
+    public final static String ROLLED_BACK_MESSAGE = "Transaction rolled back";
 }

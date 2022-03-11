@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static service.GeneralConstants.*;
+import static service.GeneralConstants.ADMIN_CATEGORIES_URI;
 
 
 public class GetAllCategoriesService implements Service {
@@ -28,7 +29,7 @@ public class GetAllCategoriesService implements Service {
         String lang = locale.substring(0, 2);
         List<Category> categories = categoryDao.getAll(lang);
         session.setAttribute(CATEGORIES, categories);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminCategories.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_CATEGORIES_URI);
         dispatcher.forward(request, response);
     }
 }

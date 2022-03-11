@@ -30,9 +30,7 @@ public class LanguageDaoImpl implements LanguageDao {
     public boolean addEntity(Lang lang) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(INSERT_LANG);
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_LANG);) {
             statement.setString(1, lang.getTitle());
             statement.executeUpdate();
             close(statement);
@@ -40,7 +38,6 @@ public class LanguageDaoImpl implements LanguageDao {
             LOGGER.info(e);
             result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
@@ -50,9 +47,7 @@ public class LanguageDaoImpl implements LanguageDao {
     public List<Lang> getAll() {
         List<Lang> langs = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(GET_ALL_LANG);
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_LANG);) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Lang lang = new Lang();
@@ -64,7 +59,6 @@ public class LanguageDaoImpl implements LanguageDao {
             e.printStackTrace();
             LOGGER.info(e);
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return langs;
@@ -72,12 +66,12 @@ public class LanguageDaoImpl implements LanguageDao {
 
     @Override
     public boolean deleteById(long id) {
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public boolean deleteByIdLang(long id, String lang) {
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 }

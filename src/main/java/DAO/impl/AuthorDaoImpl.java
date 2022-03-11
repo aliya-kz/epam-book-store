@@ -6,10 +6,7 @@ import entity.Author;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -25,7 +22,7 @@ public class AuthorDaoImpl implements AuthorDao {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private final static String GET_ALL_AUTHORS_LANG = "SELECT al.*, a.image FROM authors_lang al LEFT JOIN authors a ON a.id=al.id WHERE lang = ?;";
-    private final static String INSERT_AUTHORS = "INSERT into authors (id, image) values (?,?);";
+    private final static String INSERT_AUTHORS = "INSERT into authors (image) values (?);";
     private final static String INSERT_AUTHORS_LANG = "INSERT into authors_lang (id, name, surname, biography, lang) values " +
             "(?, ?, ?, ?, ?);";
     private final static String DELETE_AUTHORS_LANG = "DELETE from authors_lang WHERE id = ? and lang = ?;";
@@ -35,15 +32,18 @@ public class AuthorDaoImpl implements AuthorDao {
     public boolean addEntity(Author author) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        int id = 0;
-        try (PreparedStatement insertAuthorImage = connection.prepareStatement(INSERT_AUTHORS);
+        try (PreparedStatement insertAuthorImage = connection.prepareStatement(INSERT_AUTHORS, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement insertAuthorDetails = connection.prepareStatement(INSERT_AUTHORS_LANG);) {
             connection.setAutoCommit(false);
-            insertAuthorImage.setInt(1, id);
-            insertAuthorImage.setBytes(2, author.getImage());
+            long id = 0;
+            insertAuthorImage.setBytes(1, author.getImage());
             insertAuthorImage.executeUpdate();
+            ResultSet rs = insertAuthorImage.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getLong(ID);
+            }
 
-            insertAuthorDetails.setLong(1, author.getId());
+            insertAuthorDetails.setLong(1, id);
             insertAuthorDetails.setString(2, author.getName());
             insertAuthorDetails.setString(3, author.getSurname());
             insertAuthorDetails.setString(4, author.getBiography());
@@ -53,7 +53,7 @@ public class AuthorDaoImpl implements AuthorDao {
         } catch (SQLException e) {
             if (connection != null) {
                 try {
-                    LOGGER.warn("Transaction rolled back");
+                    LOGGER.warn(ROLLED_BACK_MESSAGE);
                     connection.rollback();
                 } catch (SQLException excep) {
                     LOGGER.warn(excep);

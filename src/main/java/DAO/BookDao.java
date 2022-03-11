@@ -8,9 +8,7 @@ import java.util.Map;
 public interface BookDao extends BaseDao <Book> {
         boolean addEntity (Book book);
         boolean deleteById (long id);
-        long purchaseBooks(Map<Book, Integer> items);
-         long getIdByIsbn(String isbn);
-        boolean returnBooks(Map<Book, Integer> cartItems, long errorBookId);
+        boolean purchaseBooks(Map<Book, Integer> items);
         List<Book> getAll(String lang);
         boolean deleteBookAuthors (long bookId);
         int setBookAuthors (long bookId, List <Integer> authorIds);

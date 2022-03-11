@@ -63,7 +63,7 @@ public class GeneralConstants {
     public final static String NEW_AUTHORS = "new_authors";
     public final static String NEW_TITLE = "new_title";
     public final static String TITLE = "title";
-    public final static String NEW_CATEGORY = "new_title";
+    public final static String NEW_CATEGORY = "new_category";
     public final static String PUBLISHER = "publisher";
     public final static String NEW_PUBLISHER = "new_publisher";
     public final static String ISBN = "isbn";
@@ -80,4 +80,7 @@ public class GeneralConstants {
     public final static String NEW_ID = "new_id";
     public final static String AUTHOR_IDS = "author_ids";
     public final static String PROF_CARD = "prof-card";
+    public static final String INDEX_URI = "/WEB-INF/view/index.jsp";
+    public static final String ADMIN_CATEGORIES_URI = "/WEB-INF/admin/adminCategories.jsp?";
+    public static final String ADMIN_USERS_URI = "/WEB-INF/admin/adminUsers.jsp";
 }

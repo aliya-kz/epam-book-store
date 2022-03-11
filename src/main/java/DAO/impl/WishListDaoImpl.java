@@ -84,19 +84,19 @@ public class WishListDaoImpl implements WishListDao {
 
     @Override
     public boolean deleteById(long id) {
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public boolean deleteByIdLang(long id, String lang) {
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public boolean addEntity(WishList wishList) {
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
 }

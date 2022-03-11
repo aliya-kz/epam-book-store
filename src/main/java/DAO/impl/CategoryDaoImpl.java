@@ -25,15 +25,12 @@ public class CategoryDaoImpl implements CategoryDao {
     private final static String SELECT_ALL_CATEGORIES_LANG = "SELECT * FROM categories_lang WHERE lang = ?;";
     private final static String DELETE_CATEGORIES_LANG = "DELETE from categories_lang WHERE id = ?;";
     private final static String DELETE_CATEGORIES = "DELETE from categories WHERE id = ?;";
-    private final static String SELECT_CATEGORY_LANG = "SELECT * from categories_lang where id = ? and lang = ?;";
     private final static String SELECT_CATEGORY = "SELECT * from categories where id = ?;";
 
     public List<Category> getAll(String lang) {
         List<Category> categories = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SELECT_ALL_CATEGORIES_LANG);
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_CATEGORIES_LANG);) {
             statement.setString(1, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -47,11 +44,10 @@ public class CategoryDaoImpl implements CategoryDao {
             LOGGER.error(ex);
             ex.printStackTrace();
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return categories.stream()
-                .sorted(Comparator.comparing(Category::getCategoryName))
+                .sorted(Comparator.comparingLong(Category::getId).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -59,38 +55,39 @@ public class CategoryDaoImpl implements CategoryDao {
     public boolean addEntity(Category category) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        PreparedStatement statement = null;
-        PreparedStatement statement1 = null;
-        PreparedStatement statement2 = null;
-        PreparedStatement statement3 = null;
-        try {
-            statement = connection.prepareStatement(SELECT_CATEGORY_LANG);
-            statement.setLong(1, category.getId());
-            statement.setString(2, category.getLang());
-            ResultSet resultSet = statement.executeQuery();
+        try (PreparedStatement checkIfIdExists = connection.prepareStatement(SELECT_CATEGORY);
+             PreparedStatement insertCategory = connection.prepareStatement(INSERT_CATEGORIES);
+             PreparedStatement insertCategoryLang = connection.prepareStatement(INSERT_CATEGORIES_LANG);) {
+            connection.setAutoCommit(false);
+
+            checkIfIdExists.setLong(1, category.getId());
+            ResultSet resultSet = checkIfIdExists.executeQuery();
             if (!resultSet.next()) {
-                statement1 = connection.prepareStatement(SELECT_CATEGORY);
-                statement1.setLong(1, category.getId());
-                ResultSet resultSet1 = statement1.executeQuery();
-                if (!resultSet1.next()) {
-                    statement2 = connection.prepareStatement(INSERT_CATEGORIES);
-                    statement2.setLong(1, category.getId());
-                    statement2.executeUpdate();
-                }
-                statement3 = connection.prepareStatement(INSERT_CATEGORIES_LANG);
-                statement3.setLong(1, category.getId());
-                statement3.setString(2, category.getCategoryName());
-                statement3.setString(3, category.getLang());
-                statement3.executeUpdate();
+                insertCategory.setLong(1, category.getId());
+                insertCategory.executeUpdate();
             }
+
+            insertCategoryLang.setLong(1, category.getId());
+            insertCategoryLang.setString(2, category.getCategoryName());
+            insertCategoryLang.setString(3, category.getLang());
+            insertCategoryLang.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
-            LOGGER.error(e);
             result = false;
+            if (connection != null) {
+                try {
+                    LOGGER.warn(ROLLED_BACK_MESSAGE);
+                    connection.rollback();
+                } catch (SQLException excep) {
+                    LOGGER.warn(excep);
+                }
+            }
         } finally {
-            close(statement);
-            close(statement1);
-            close(statement2);
-            close(statement3);
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
             connectionPool.returnConnection(connection);
         }
         return result;
@@ -100,16 +97,13 @@ public class CategoryDaoImpl implements CategoryDao {
     public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(DELETE_CATEGORIES);
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CATEGORIES);) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.info(e);
             result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
@@ -119,16 +113,13 @@ public class CategoryDaoImpl implements CategoryDao {
     public boolean deleteByIdLang(long id, String lang) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(DELETE_CATEGORIES_LANG);
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CATEGORIES_LANG);) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.info(e);
             result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;

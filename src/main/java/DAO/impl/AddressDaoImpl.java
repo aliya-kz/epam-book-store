@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import static dao.DaoConstants.UNSUPPORTED_MESSAGE;
+
 
 public class AddressDaoImpl implements AddressDao {
 
@@ -56,7 +58,7 @@ public class AddressDaoImpl implements AddressDao {
 
     @Override
     public boolean deleteByIdLang(long id, String lang) {
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 }
 

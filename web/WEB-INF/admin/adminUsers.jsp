@@ -35,22 +35,26 @@
                     <td><c:out value="${user.name}"/></td>
                     <td><c:out value="${user.surname}"/></td>
                     <td><c:out value="${user.phone}"/></td>
-                    <td><c:if test="${!user.isBlocked()}">
-                        <form action="<%= request.getContextPath()%>/controller" method="post">
-                            <input type="hidden" name="user_id" value="${user.id}"/>
-                            <input type = "hidden" name = "blocked_status" value = "true"/>
-                            <input type = "hidden" name="service_name" value="block_user"/>
-                            <input class= "btn decline"  type = "submit" value ="${block_user}">
-                        </form>
-                    </c:if>
-                    <c:if test="${user.isBlocked()}">
-                    <form action="<%= request.getContextPath()%>/controller" method="post">
-                        <input type="hidden" name="user_id" value="${user.id}"/>
-                        <input type = "hidden" name = "blocked_status" value = "false"/>
-                        <input type = "hidden" name="service_name" value="block_user"/>
-                        <input class= "btn accept"  type = "submit" value ="${unblock_user}">
-                    </form>
-                    </c:if>
+                    <td>
+                        <c:choose>
+                            <c:when test="${!user.isBlocked()}">
+                                <form action="<%= request.getContextPath()%>/controller" method="post">
+                                    <input type="hidden" name="user_id" value="${user.id}"/>
+                                    <input type = "hidden" name = "blocked_status" value = "true"/>
+                                    <input type = "hidden" name="service_name" value="block_user"/>
+                                    <input class= "btn decline"  type = "submit" value ="${block_user}">
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <form action="<%= request.getContextPath()%>/controller" method="post">
+                                    <input type="hidden" name="user_id" value="${user.id}"/>
+                                    <input type = "hidden" name = "blocked_status" value = "false"/>
+                                    <input type = "hidden" name="service_name" value="block_user"/>
+                                    <input class= "btn accept"  type = "submit" value ="${unblock_user}">
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+
                 </td>
                 </tr>
             </c:forEach>>

@@ -23,9 +23,7 @@ public interface BaseDao <T extends Entity> {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.takeConnection();
         String updateColumn = "UPDATE " + table + " set " + columnName + " = ? WHERE id = ?";
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(updateColumn);
+        try (PreparedStatement statement = connection.prepareStatement(updateColumn);) {
             statement.setObject(1, value);
             statement.setLong(2, id);
             statement.executeUpdate();
@@ -33,7 +31,6 @@ public interface BaseDao <T extends Entity> {
             result = false;
             e.printStackTrace();
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;

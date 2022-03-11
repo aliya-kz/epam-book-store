@@ -25,15 +25,14 @@ public class FormatDaoImpl implements FormatDao {
     @Override
     public boolean addEntity(Format format) {
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public List<Format> getAll(String lang) {
         List <Format> formats = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try { statement = connection.prepareStatement(GET_ALL_FORMATS);
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_FORMATS);) {
             statement.setString(1, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -48,7 +47,6 @@ public class FormatDaoImpl implements FormatDao {
             e.printStackTrace();
         }
         finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return formats.stream()
@@ -58,12 +56,12 @@ public class FormatDaoImpl implements FormatDao {
 
     @Override
     public boolean deleteById(long id) {
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public boolean deleteByIdLang(long id, String lang) {
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 }

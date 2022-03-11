@@ -50,18 +50,18 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public boolean deleteById(long id) {
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public boolean deleteByIdLang(long id, String lang){
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public boolean addEntity(Status status){
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 }

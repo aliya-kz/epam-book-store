@@ -53,22 +53,21 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean deleteById(long id){
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public boolean deleteByIdLang(long id, String lang){
-
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
     public boolean addEntity (User user) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        PreparedStatement statement = null;
-        PreparedStatement statement1 = null;
-        try {statement = connection.prepareStatement(INSERT_USER);
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_USER,
+                Statement.RETURN_GENERATED_KEYS);) {
+            long id = 0;
             statement.setString(1,user.getName());
             statement.setString(2,user.getSurname());
             statement.setDate(3, user.getDateOfBirth());
@@ -78,8 +77,10 @@ public class UserDaoImpl implements UserDao {
             statement.setString(6,encryptedPassword);
             statement.setBoolean(7, user.getIsAdmin());
             statement.executeUpdate();
-
-            long id = getIdByEmail(user.getEmail());
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getLong(ID);
+            }
 
             List <Address> addresses = user.getAddresses();
             AddressDao addressDao = new AddressDaoImpl();
@@ -96,8 +97,6 @@ public class UserDaoImpl implements UserDao {
             result = false;
         }
         finally {
-            close(statement);
-            close(statement1);
             connectionPool.returnConnection(connection);
         }
         return result;
@@ -106,8 +105,7 @@ public class UserDaoImpl implements UserDao {
     public long getIdByEmail (String email) {
         Connection connection = connectionPool.takeConnection();
         long id = 0;
-        PreparedStatement statement = null;
-        try {statement = connection.prepareStatement(GET_ID);
+        try (PreparedStatement statement = connection.prepareStatement(GET_ID);) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -117,12 +115,12 @@ public class UserDaoImpl implements UserDao {
             LOGGER.info(e);
         }
         finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return id;
     }
 
+    //TODO
     public int addForDbCheck (User user) {
         Connection connection = connectionPool.takeConnection();
         int id = -1;
@@ -172,9 +170,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> getAll() {
         List <User> users = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        Statement statement = null;
-        try {
-            statement = connection.createStatement();
+        try (Statement statement = connection.createStatement();) {
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_SQL);
             while (resultSet.next()) {
                 User user = new User();
@@ -192,7 +188,6 @@ public class UserDaoImpl implements UserDao {
             ex.printStackTrace();
         }
         finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return users.stream()
@@ -368,6 +363,8 @@ public class UserDaoImpl implements UserDao {
 
     public static void main (String [] args) {
         UserDaoImpl dao= new UserDaoImpl();
+
+
         User admin = new User("admin", "admin", "admin@admin.com", "87771111111", new Date(2000/04/05), "12345", true);
         admin.setId(1);
         List <Address> addresses = new ArrayList<>();

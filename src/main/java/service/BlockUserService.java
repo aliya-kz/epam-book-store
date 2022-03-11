@@ -19,7 +19,7 @@ public class BlockUserService implements Service {
         int id = Integer.parseInt(request.getParameter(USER_ID));
         boolean status = Boolean.parseBoolean(request.getParameter(BLOCKED_STATUS));
         userDao.blockUser(id, status);
-        GetAllUsersService getUsers = new GetAllUsersService();
+        Service getUsers = new GetAllUsersService();
         getUsers.execute(request, response);
     }
 }

@@ -45,9 +45,9 @@ public class CreateOrderService implements Service {
         order.setStatusId(1);
         order.setCost(cost);
         Map<Book, Integer> cartItems = cart.getCartItems();
-        long errorBook = bookDao.purchaseBooks(cartItems);
+        boolean booksPurchased = bookDao.purchaseBooks(cartItems);
         RequestDispatcher dispatcher;
-        if (errorBook <= 0) {
+        if (booksPurchased) {
             orderDao.addEntity(order);
             List<Order> orders = orderDao.getOrdersByUserId(user.getId());
             session.setAttribute(MY_ORDERS, orders);
@@ -60,7 +60,10 @@ public class CreateOrderService implements Service {
             session.setAttribute(BOOKS, books);
             dispatcher = request.getRequestDispatcher("/profile#prof-orders");
         } else {
-            bookDao.returnBooks(cartItems, errorBook);
+            String locale = (String) session.getAttribute("locale");
+            String languageCode = locale.substring(0, 2);
+            List <Book> books = bookDao.getAll(languageCode);
+            session.setAttribute("books", books);
             dispatcher = request.getRequestDispatcher("/WEB-INF/view/cart.jsp?" + MESSAGE + "=" + ERROR);
         }
         dispatcher.forward(request, response);

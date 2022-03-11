@@ -5,9 +5,12 @@ import dao.db_connection.ConnectionPool;
 import entity.Card;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import static dao.DaoConstants.UNSUPPORTED_MESSAGE;
 
 
 public class CardDaoImpl implements CardDao {
@@ -24,7 +27,7 @@ public class CardDaoImpl implements CardDao {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_CARD);) {
             statement.setLong(1, card.getUserId());
             statement.setString(2, card.getCardNumber());
-          statement.executeUpdate();
+            statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
             result = false;
@@ -54,6 +57,6 @@ public class CardDaoImpl implements CardDao {
     @Override
     public boolean deleteByIdLang(long id, String lang) {
 
-        throw new UnsupportedOperationException("Method not supported");
+        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 }
