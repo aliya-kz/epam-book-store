@@ -3,8 +3,6 @@ package service;
 import dao.AuthorDao;
 import dao.impl.AuthorDaoImpl;
 import entity.Author;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

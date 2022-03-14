@@ -32,7 +32,7 @@
 <fmt:message bundle="${content}" key="SURNAME" var="surname"/>
 <fmt:message bundle="${content}" key="ADDRESS" var="address" scope="session"/>
 <fmt:message bundle="${content}" key="PHONE_NUMBER" var="phone"/>
-<fmt:message bundle="${content}" key="CARD_NUMBER" var="card"/>
+<fmt:message bundle="${content}" key="CARD_NUMBER" var="card_number"/>
 <fmt:message bundle="${content}" key="CONFIRM_PASSWORD" var="confirm_password"/>
 <fmt:message bundle="${content}" key="EDIT" var="edit"/>
 <fmt:message bundle="${content}" key="SAVE" var="save"/>
@@ -253,6 +253,7 @@
                 <th><c:out value="${order_date}"/></th>
                 <th><c:out value="${address}"/></th>
                 <th><c:out value="${status}"/></th>
+                <th><c:out value="${card_number}"/></th>
                 <th><c:out value="${cost}"/>, ₸</th>
                 <th></th>
             </tr>
@@ -267,6 +268,8 @@
                                 <c:out value="${stat.statusName}"/>
                             </c:if>
                         </c:forEach>
+                    </td>
+                    <td> <c:out value="${order.cardNumber}"/>
                     </td>
                     <td><c:out value="${order.cost}"/></td>
                     <td>

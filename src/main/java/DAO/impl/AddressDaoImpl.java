@@ -17,16 +17,17 @@ public class AddressDaoImpl implements AddressDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static String INSERT_ADDRESS = "INSERT INTO addresses (user_id, address) VALUES (?,?);";
-    private final static String DELETE_ADDRESS = "UPDATE addresses set user_id = 1 where address_id = ?;";
+    private final static String INSERT_ADDRESS = "INSERT INTO addresses (user_id, address, is_active) VALUES (?,?,?);";
+    private final static String DELETE_ADDRESS = "UPDATE addresses set is_active = false where address_id = ?;";
 
     @Override
     public boolean addEntity(Address address) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(INSERT_ADDRESS);) {
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_ADDRESS)) {
             statement.setLong(1, address.getUserId());
             statement.setString(2, address.getAddress());
+            statement.setBoolean(3, true);
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -42,7 +43,7 @@ public class AddressDaoImpl implements AddressDao {
     public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_ADDRESS);) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_ADDRESS)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {

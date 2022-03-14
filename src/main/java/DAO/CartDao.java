@@ -3,9 +3,9 @@ import entity.Cart;
 
 
 
-public interface CartDao extends BaseDao <Cart> {
+public interface CartDao extends BaseDao {
 
-        public boolean deleteCart(long userId);
+        boolean deleteCart(long userId);
         boolean deleteById (long cartItemId);
         boolean addEntity (Cart cart);
         Cart getCart (long userId);

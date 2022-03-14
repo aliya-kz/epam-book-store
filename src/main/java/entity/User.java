@@ -1,9 +1,10 @@
 package entity;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class User extends Entity {
+public class User implements Serializable {
     private long id;
     private String name;
     private String surname;
@@ -14,8 +15,8 @@ public class User extends Entity {
     private Date dateOfBirth;
     private String password;
     private List<Order> orders;
-    private boolean isAdmin = false;
-    private boolean isBlocked = false;
+    private boolean isAdmin;
+    private boolean isBlocked;
 
     public User() {
     }
@@ -126,14 +127,6 @@ public class User extends Entity {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public void isAdmin(boolean admin) {
-        isAdmin = admin;
-    }
-
-    public boolean getIsAdmin() {
-        return isAdmin;
     }
 
     public boolean isBlocked() {

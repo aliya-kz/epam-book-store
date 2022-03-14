@@ -29,8 +29,14 @@ public class DeleteEntityService implements Service {
         String table = request.getParameter(TABLE);
         String lang = request.getParameter(LANGUAGE);
         String uri = request.getParameter(URI);
+        String wishListItemId = request.getParameter(WISH_LIST_ITEM_ID);
+
+        if (wishListItemId != null) {
+            id = Long.parseLong(wishListItemId);
+        }
+
         if (user == null) {
-            deleteFromCartNotUser(request, response, id);
+            deleteFromCartNotUser(session, id);
         } else {
             BaseDao dao = daoFactory.getDao(table);
             if (lang == null) {
@@ -44,9 +50,7 @@ public class DeleteEntityService implements Service {
         dispatcher.forward(request, response);
     }
 
-    public void deleteFromCartNotUser(HttpServletRequest request, HttpServletResponse response, long bookId)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
+    public void deleteFromCartNotUser(HttpSession session, long bookId) {
         Cart cart = (Cart) session.getAttribute(CART);
         Map<Book, Integer> cartItems = cart.getCartItems();
         cartItems.entrySet()

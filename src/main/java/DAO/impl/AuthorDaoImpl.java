@@ -35,7 +35,7 @@ public class AuthorDaoImpl implements AuthorDao {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
         try (PreparedStatement insertAuthorImage = connection.prepareStatement(INSERT_AUTHORS, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement insertAuthorDetails = connection.prepareStatement(INSERT_AUTHORS_LANG);) {
+             PreparedStatement insertAuthorDetails = connection.prepareStatement(INSERT_AUTHORS_LANG)) {
             connection.setAutoCommit(false);
             long id = 0;
             insertAuthorImage.setBytes(1, author.getImage());
@@ -52,14 +52,12 @@ public class AuthorDaoImpl implements AuthorDao {
             insertAuthorDetails.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            if (connection != null) {
-                try {
-                    LOGGER.info(e);
-                    LOGGER.info(ROLLED_BACK_MESSAGE);
-                    connection.rollback();
-                } catch (SQLException excep) {
-                    LOGGER.warn(excep);
-                }
+            try {
+                LOGGER.info(e);
+                LOGGER.info(ROLLED_BACK_MESSAGE);
+                connection.rollback();
+            } catch (SQLException excep) {
+                LOGGER.warn(excep);
             }
         } finally {
             try {
@@ -78,7 +76,7 @@ public class AuthorDaoImpl implements AuthorDao {
         }
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(INSERT_AUTHORS_LANG);) {
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_AUTHORS_LANG)) {
             statement.setLong(1, author.getId());
             statement.setString(2, author.getName());
             statement.setString(3, author.getSurname());
@@ -97,7 +95,7 @@ public class AuthorDaoImpl implements AuthorDao {
     public boolean authorIdExists(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = false;
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_ID);) {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -114,7 +112,7 @@ public class AuthorDaoImpl implements AuthorDao {
     public boolean authorWithIdAndLangExists(Author author) {
         Connection connection = connectionPool.takeConnection();
         boolean result = false;
-        try (PreparedStatement statement = connection.prepareStatement(CHECK_IF_EXISTS);) {
+        try (PreparedStatement statement = connection.prepareStatement(CHECK_IF_EXISTS)) {
             statement.setLong(1, author.getId());
             statement.setString(2, author.getLang());
             ResultSet resultSet = statement.executeQuery();
@@ -132,7 +130,7 @@ public class AuthorDaoImpl implements AuthorDao {
     public List<Author> getAll(String lang) {
         List<Author> authors = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_AUTHORS_LANG);) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_AUTHORS_LANG)) {
             statement.setString(1, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -161,7 +159,7 @@ public class AuthorDaoImpl implements AuthorDao {
     public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS);) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -177,7 +175,7 @@ public class AuthorDaoImpl implements AuthorDao {
     public boolean deleteByIdLang(long id, String lang) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS_LANG);) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS_LANG)) {
             statement.setLong(1, id);
             statement.setString(2, lang);
             statement.executeUpdate();
@@ -194,7 +192,7 @@ public class AuthorDaoImpl implements AuthorDao {
     public List<Integer> searchAuthors(String search) {
         List<Integer> authors = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL);) {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String surname = resultSet.getString(SURNAME);

@@ -1,8 +1,9 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Status extends Entity {
+public class Status implements Serializable {
     private long id;
     private String statusName;
     private String lang;

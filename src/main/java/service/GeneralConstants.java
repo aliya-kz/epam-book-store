@@ -13,7 +13,6 @@ public class GeneralConstants {
     public final static String USERS = "users";
     public final static String FORMATS = "formats";
     public final static String LANGUAGES = "langs";
-    public final static String CARTS = "carts";
     public final static String CART = "cart";
     public final static String CARD = "card";
     public final static String PHONE = "phone";
@@ -28,9 +27,9 @@ public class GeneralConstants {
     public final static String LANGUAGE = "lang";
     public final static String NEW_VALUE = "new_value";
     public final static String WISH_LIST = "wishList";
-    public final static String WISH_LISTS = "wish_lists";
     public final static String ADDED = "added";
     public final static String FORMAT = "format";
+    public final static String WISH_LIST_ITEM_ID = "wishListItemId";
     public final static String LOCALE = "locale";
     public final static String CATEGORY = "category";
     public final static String PUBLICATION_LANGUAGE = "pubLang";

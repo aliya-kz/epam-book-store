@@ -5,7 +5,6 @@ function checkBook() {
     const price = document.getElementById('price');
     const description = document.getElementById('description');
     const quantity = document.getElementById('quantity');
-    console.log ('1: ' + isbn.value);
     if (title !== null && !checkItem(title,200)) {
         return false;
     }
@@ -119,10 +118,14 @@ function checkItem (item, length) {
 
 function checkISBN (item) {
     const itemValue = item.value.trim();
-    console.log (itemValue);
+
+    console.log(itemValue);
+    console.log(/[0-9]{10,13}/.test(itemValue));
+
     if (itemValue === '') {
         return true;
-    } else if (isNaN(Number(itemValue)) && (itemValue.length !== 10 || itemValue.length !== 13)) {
+
+    } else if (!/\d{10,13}$/.test(itemValue) || itemValue.length < 10 || itemValue.length > 13) {
         setErrorFor(item, 'Please enter 10 or 13 digits long number. No other characters are acceptable.');
         return false;
     }  else {
@@ -318,10 +321,8 @@ function checkInputs() {
     const emailValue = email.value.trim();
     const addressValue = address.value.trim();
     const phoneValue = phone.value.replace(/[\s\-\\(\\)]/g,'');
-    console.log(phoneValue);
     const dateValue = date.value;
     const cardValue = card.value.replace(/[\s\-]/g,'');
-    console.log(cardValue);
     const passValue = password.value.trim();
     const passValue1 = password1.value.trim();
 

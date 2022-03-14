@@ -22,31 +22,14 @@ public class LanguageDaoImpl implements LanguageDao {
 
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static final String INSERT_LANG = "INSERT into langs (title) values (?);";
-
     private static final String GET_ALL_LANG = "SELECT * from langs;";
 
-    @Override
-    public boolean addEntity(Lang lang) {
-        Connection connection = connectionPool.takeConnection();
-        boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(INSERT_LANG);) {
-            statement.setString(1, lang.getTitle());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.info(e);
-            result = false;
-        } finally {
-            connectionPool.returnConnection(connection);
-        }
-        return result;
-    }
 
     @Override
     public List<Lang> getAll() {
         List<Lang> langs = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_LANG);) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_LANG)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Lang lang = new Lang();

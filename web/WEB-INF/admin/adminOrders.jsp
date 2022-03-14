@@ -16,6 +16,7 @@
 <fmt:setBundle basename="content" var="content" scope="session"/>
 
 <fmt:message bundle="${content}" key="ORDERS" var="ords"/>
+<fmt:message bundle="${content}" key="CARD_NUMBER" var="card_number"/>
 <fmt:message bundle="${content}" key="QUANTITY" var="quantity"/>
 <fmt:message bundle="${content}" key="ORDER_NUM" var="order_num"/>
 <fmt:message bundle="${content}" key="USER_ID" var="user_id"/>
@@ -43,6 +44,7 @@
             <th><c:out value="${date}"/></th>
             <th><c:out value="${address}"/></th>
             <th><c:out value="${cost}"/></th>
+            <th><c:out value="${card_number}"/></th>
             <th><c:out value="${status}"/></th>
             <th><c:out value="${edit}"/></th>
             <th>Details</th>
@@ -55,6 +57,7 @@
                 <td><c:out value="${order.date}"/></td>
                 <td><c:out value="${order.address.address}"/></td>
                 <td><c:out value="${order.cost}"/></td>
+                <td><c:out value="${order.cardNumber}"/></td>
                 <td>
                     <c:forEach var="stat" items="${statuses}">
                         <c:if test="${order.statusId == stat.id}">

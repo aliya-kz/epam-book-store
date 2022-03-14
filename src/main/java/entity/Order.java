@@ -1,18 +1,20 @@
 package entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Map;
 import java.util.Objects;
 
-public class Order extends Entity {
+public class Order implements Serializable {
     private long id;
     private long userId;
     private Map<Book, Integer> orderItems;
     private long statusId;
-    private Map <Status, Date> statusHistory;
     private Date date;
     private Address address;
     private int cost;
+    private String cardNumber;
+    private long cardId;
 
     public Order() {
     }
@@ -49,11 +51,19 @@ public class Order extends Entity {
         this.orderItems = orderItems;
     }
 
+    public long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(long cardId) {
+        this.cardId = cardId;
+    }
+
     public long getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(int statusId) {
+    public void setStatusId(long statusId) {
         this.statusId = statusId;
     }
 
@@ -65,20 +75,20 @@ public class Order extends Entity {
         this.date = date;
     }
 
-    public Map<Status, Date> getStatusHistory() {
-        return statusHistory;
-    }
-
-    public void setStatusHistory(Map<Status, Date> statusHistory) {
-        this.statusHistory = statusHistory;
-    }
-
     public Address getAddress() {
         return address;
     }
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     @Override

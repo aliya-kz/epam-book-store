@@ -3,7 +3,7 @@ package dao;
 import entity.Order;
 import java.util.List;
 
-public interface OrderDao extends BaseDao <Order> {
+public interface OrderDao extends BaseDao {
 
     boolean addEntity(Order order);
     List <Order> getAll ();

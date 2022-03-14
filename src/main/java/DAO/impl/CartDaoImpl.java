@@ -25,7 +25,6 @@ public class CartDaoImpl implements CartDao {
     private final static String INSERT_CART = "INSERT into carts (user_id, book_id, quantity) values (?, ?, ?);";
     private final static String SELECT_BOOK = "SELECT quantity FROM carts where user_id = ? and book_id = ?;";
     private final static String UPDATE_QTY = "UPDATE carts set quantity = ? WHERE book_id = ? and user_id = ?;";
-    private final static String DELETE_FROM_CART = "DELETE from carts WHERE book_id = ? AND user_id = ?;";
     private final static String DELETE_CART = "DELETE from carts WHERE user_id = ?;";
     private final static int MAX_BOOKS_QUANTITY = 8;
     private final static String DELETE_CART_ITEM = "DELETE from carts WHERE id = ?;";
@@ -37,7 +36,7 @@ public class CartDaoImpl implements CartDao {
         Map<Book, Integer> cartItems = new HashMap<>();
         cart.setCartItems(cartItems);
         Connection connection = connectionPool.takeConnection();
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_CART);) {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_CART)) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -57,7 +56,7 @@ public class CartDaoImpl implements CartDao {
     public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_CART_ITEM);) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CART_ITEM)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -74,7 +73,7 @@ public class CartDaoImpl implements CartDao {
         boolean result = true;
         try (PreparedStatement checkIfExists = connection.prepareStatement(SELECT_BOOK);
              PreparedStatement updateQuantity = connection.prepareStatement(UPDATE_QTY);
-             PreparedStatement addNew = connection.prepareStatement(INSERT_CART);) {
+             PreparedStatement addNew = connection.prepareStatement(INSERT_CART)) {
             connection.setAutoCommit(false);
             checkIfExists.setLong(1, userId);
             checkIfExists.setLong(2, bookId);
@@ -97,14 +96,12 @@ public class CartDaoImpl implements CartDao {
             }
             connection.commit();
         } catch (SQLException e) {
-            if (connection != null) {
-                try {
-                    LOGGER.warn(ROLLED_BACK_MESSAGE);
-                    result = false;
-                    connection.rollback();
-                } catch (SQLException excep) {
-                    LOGGER.warn(excep);
-                }
+            try {
+                LOGGER.warn(ROLLED_BACK_MESSAGE);
+                result = false;
+                connection.rollback();
+            } catch (SQLException excep) {
+                LOGGER.warn(excep);
             }
         } finally {
             try {
@@ -121,7 +118,7 @@ public class CartDaoImpl implements CartDao {
     public boolean updateQuantity(long bookId, long userId, int quantity) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_QTY);) {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_QTY)) {
             statement.setInt(1, quantity);
             statement.setLong(2, bookId);
             statement.setLong(3, userId);
@@ -139,7 +136,7 @@ public class CartDaoImpl implements CartDao {
     public boolean deleteCart(long userId) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_CART);) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CART)) {
             statement.setLong(1, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -161,34 +158,32 @@ public class CartDaoImpl implements CartDao {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
         Map<Book, Integer> cartItems = cart.getCartItems();
-            try (PreparedStatement statement = connection.prepareStatement(INSERT_CART);) {
-                connection.setAutoCommit(false);
-                for (Book book : cartItems.keySet()) {
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_CART)) {
+            connection.setAutoCommit(false);
+            for (Book book : cartItems.keySet()) {
                 statement.setLong(1, cart.getUserId());
                 statement.setLong(2, book.getId());
                 statement.setInt(3, cartItems.get(book));
                 statement.addBatch();
-                }
-                statement.executeBatch();
-                connection.commit();
-            } catch (SQLException e) {
-                result = false;
-                if (connection != null) {
-                    try {
-                        LOGGER.warn(ROLLED_BACK_MESSAGE);
-                        connection.rollback();
-                    } catch (SQLException excep) {
-                        LOGGER.warn(excep);
-                    }
-                }
-            } finally {
-                try {
-                    connection.setAutoCommit(true);
-                } catch (SQLException e) {
-                    LOGGER.info(e);
-                }
-                connectionPool.returnConnection(connection);
             }
+            statement.executeBatch();
+            connection.commit();
+        } catch (SQLException e) {
+            result = false;
+            try {
+                LOGGER.warn(ROLLED_BACK_MESSAGE);
+                connection.rollback();
+            } catch (SQLException excep) {
+                LOGGER.warn(excep);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
+            connectionPool.returnConnection(connection);
+        }
         return result;
     }
 }

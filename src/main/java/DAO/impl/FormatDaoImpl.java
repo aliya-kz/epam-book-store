@@ -22,17 +22,12 @@ public class FormatDaoImpl implements FormatDao {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final static String GET_ALL_FORMATS= "SELECT * FROM formats_lang where lang = ?";
 
-    @Override
-    public boolean addEntity(Format format) {
-
-        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
-    }
 
     @Override
     public List<Format> getAll(String lang) {
         List <Format> formats = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_FORMATS);) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_FORMATS)) {
             statement.setString(1, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

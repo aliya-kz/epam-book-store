@@ -29,11 +29,11 @@
 
 <% int[] numbers = new int[]{1, 2, 3, 4, 5, 6, 7, 8};
     request.setAttribute("numbers", numbers);
-    request.setAttribute("id", request.getParameter("id"));%>
+    request.setAttribute("id", request.getParameter("id"));
+%>
 
 <c:forEach var="book" items="${books}">
     <c:if test="${book.id == id}">
-
         <main class="main">
             <section id="book">
                 <div class="book-cover">
@@ -45,7 +45,12 @@
                     <c:if test="${not empty user}">
                         <c:choose>
                             <c:when test="${fn:contains(wishList.books,book)}">
-                                <form action="<%=request.getContextPath()%>/controller?id=${book.id}" method="post">
+                                <c:forEach var="wishListBook" items="${wishList.books}">
+                                    <c:if test="${wishListBook.id eq book.id}">
+                                        <c:set var="wishListItemId" value="${wishListBook.wishListItemId}"/>
+                                    </c:if>
+                                </c:forEach>
+                                <form action="<%=request.getContextPath()%>/controller?id=${book.id}&wishListItemId=${wishListItemId}" method="post">
                                     <input type="hidden" name="table" value="wish_lists">
                                     <input type="hidden" name="uri" value="<%=request.getRequestURI()%>"/>
                                     <button id="delete-from-wl" name="service_name" value="delete_entity"></button>

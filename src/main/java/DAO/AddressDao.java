@@ -3,9 +3,8 @@ package dao;
 import entity.Address;
 
 
-public interface AddressDao extends BaseDao <Address> {
+public interface AddressDao extends BaseDao {
 
-    @Override
     boolean addEntity(Address address);
     boolean deleteById(long id);
 }

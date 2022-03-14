@@ -1,9 +1,10 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class Book extends Entity {
+public class Book implements Serializable {
     private long id;
     private String title;
     private List<Long> authors;

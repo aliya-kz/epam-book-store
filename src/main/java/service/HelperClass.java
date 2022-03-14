@@ -45,7 +45,7 @@ public class HelperClass {
             LOGGER.info(e);
             e.printStackTrace();
         }
-        InputStream is = ((Part) part).getInputStream();
+        InputStream is = part.getInputStream();
         byte[] bytes = is.readAllBytes();
         return bytes;
     }

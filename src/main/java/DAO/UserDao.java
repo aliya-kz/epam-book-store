@@ -3,12 +3,10 @@ package dao;
 import entity.User;
 import java.util.List;
 
-public interface UserDao extends BaseDao <User> {
+public interface UserDao extends BaseDao {
 
     boolean addEntity (User user);
-    boolean addAddress (long id, String address);
     List <User> getAll();
-    boolean isAdmin (String email);
     boolean validateUser (String email, String password);
     User getUser (long id);
     boolean userExists (String email);

@@ -1,6 +1,8 @@
 package entity;
 
-public class Format extends Entity {
+import java.io.Serializable;
+
+public class Format implements Serializable {
     private long id;
     private String formatName;
     private String lang;

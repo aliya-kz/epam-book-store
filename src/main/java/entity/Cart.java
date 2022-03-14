@@ -1,9 +1,10 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cart extends Entity {
+public class Cart implements Serializable {
     private long id;
     private long userId;
     private Map<Book, Integer> cartItems;

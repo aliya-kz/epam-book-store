@@ -1,10 +1,11 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class WishList extends Entity {
+public class WishList implements Serializable {
 
     private long id;
     private long userId;

@@ -2,7 +2,7 @@ package dao;
 import entity.Author;
 import java.util.List;
 
-public interface AuthorDao extends BaseDao <Author> {
+public interface AuthorDao extends BaseDao {
 
     boolean addEntity (Author author);
     boolean addTranslation (Author author);

@@ -4,7 +4,7 @@ import entity.Status;
 
 import java.util.List;
 
-public interface StatusDao extends BaseDao <Status> {
+public interface StatusDao extends BaseDao {
 
     List<Status> getAll (String lang);
 }

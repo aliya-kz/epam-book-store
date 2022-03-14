@@ -1,12 +1,14 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Address extends Entity {
+public class Address implements Serializable {
 
     private String address;
     private long id;
     private long userId;
+    private boolean isActive;
 
     public Address(long id, long userId, String address) {
         this.address = address;
@@ -15,6 +17,14 @@ public class Address extends Entity {
     }
 
     public Address() {}
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     public String getAddress() {
         return address;

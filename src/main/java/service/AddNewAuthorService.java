@@ -17,7 +17,6 @@ import static service.ServiceConstants.GET_ALL_AUTHORS_SERVICE;
 
 public class AddNewAuthorService implements Service {
 
-    private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static final AuthorDao authorDao = new AuthorDaoImpl();
     private static HelperClass helperClass = HelperClass.getInstance();

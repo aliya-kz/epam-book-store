@@ -29,7 +29,7 @@ public class WishListDaoImpl implements WishListDao {
     public boolean addToWishList(long userId, long bookId) {
     Connection connection = connectionPool.takeConnection();
     boolean result = true;
-    try (PreparedStatement statement = connection.prepareStatement(INSERT_WL);) {
+    try (PreparedStatement statement = connection.prepareStatement(INSERT_WL)) {
         statement.setLong(1, userId);
         statement.setLong(2, bookId);
         statement.executeUpdate();
@@ -50,7 +50,7 @@ public class WishListDaoImpl implements WishListDao {
         List<Book> books = new ArrayList<>();
         wishList.setBooks(books);
         Connection connection = connectionPool.takeConnection();
-        try (PreparedStatement statement = connection.prepareStatement(GET_WL);) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_WL)) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -71,7 +71,7 @@ public class WishListDaoImpl implements WishListDao {
     public boolean deleteById(long id) {
             Connection connection = connectionPool.takeConnection();
             boolean result = true;
-            try (PreparedStatement statement = connection.prepareStatement(DELETE_ITEM);) {
+            try (PreparedStatement statement = connection.prepareStatement(DELETE_ITEM)) {
                 statement.setLong(1, id);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -88,12 +88,5 @@ public class WishListDaoImpl implements WishListDao {
 
         throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
-
-    @Override
-    public boolean addEntity(WishList wishList) {
-
-        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
-    }
-
 }
 

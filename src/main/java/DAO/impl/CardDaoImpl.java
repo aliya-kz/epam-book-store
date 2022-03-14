@@ -17,16 +17,17 @@ public class CardDaoImpl implements CardDao {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static String INSERT_CARD = "INSERT INTO cards (user_id, card_number) VALUES (?,?);";
-    private final static String DELETE_CARD = "DELETE from cards WHERE card_id = ?;";
+    private final static String INSERT_CARD = "INSERT INTO cards (user_id, card_number, is_active) VALUES (?,?,?);";
+    private final static String DELETE_CARD = "UPDATE cards set is_active = false WHERE card_id = ?;";
 
     @Override
     public boolean addEntity(Card card) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(INSERT_CARD);) {
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_CARD)) {
             statement.setLong(1, card.getUserId());
             statement.setString(2, card.getCardNumber());
+            statement.setBoolean(3, true);
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -41,7 +42,7 @@ public class CardDaoImpl implements CardDao {
     public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_CARD);) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CARD)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {

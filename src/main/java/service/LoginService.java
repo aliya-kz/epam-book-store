@@ -21,7 +21,6 @@ public class LoginService implements Service {
     private final CartDao cartDao = new CartDaoImpl();
     private final WishListDao wishListDao = new WishListDaoImpl();
     private final OrderDao orderDao = new OrderDaoImpl();
-    private final StatusDao statusDao = new StatusDaoImpl();
     private final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
@@ -49,8 +48,6 @@ public class LoginService implements Service {
     }
 
     public void setUserAttributes(HttpSession session, User user) {
-        String locale = (String) session.getAttribute(LOCALE);
-        String languageCode = locale.substring(0, 2);
         long id = user.getId();
         session.setAttribute(USER, user);
         Cart cart = cartDao.getCart(id);

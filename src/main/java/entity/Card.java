@@ -1,11 +1,13 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Card extends Entity {
+public class Card implements Serializable {
     private long id;
     private long userId;
     String cardNumber;
+    private boolean isActive;
 
     public Card(String cardNumber) {
         this.cardNumber = cardNumber;
@@ -15,6 +17,14 @@ public class Card extends Entity {
         this.id = id;
         this.userId = userId;
         this.cardNumber = cardNumber;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public long getUserId() {

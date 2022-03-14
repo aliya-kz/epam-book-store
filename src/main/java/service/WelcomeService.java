@@ -3,7 +3,6 @@ package service;
 import dao.*;
 import dao.impl.*;
 import entity.Cart;
-import entity.Status;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 import static service.GeneralConstants.*;
 

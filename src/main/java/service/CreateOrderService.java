@@ -4,7 +4,6 @@ import dao.*;
 
 import dao.impl.*;
 import entity.*;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,16 +33,18 @@ public class CreateOrderService implements Service {
         int cost = cart.getCost();
         User user = (User) session.getAttribute(USER);
         int addressId = Integer.parseInt(request.getParameter(ADDRESS));
+        int cardId = Integer.parseInt(request.getParameter(CARD));
         Order order = new Order();
         user.getAddresses().stream()
                 .filter(address -> address.getId() == addressId)
-                .forEach(address -> order.setAddress(address));
+                .forEach(order::setAddress);
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         order.setOrderItems(cartItems);
         order.setUserId(user.getId());
         order.setDate(date);
         order.setStatusId(1);
         order.setCost(cost);
+        order.setCardId(cardId);
         boolean quantitiesValidAndDecreased= bookDao.purchaseBooks(cartItems);
         if (quantitiesValidAndDecreased) {
             orderDao.addEntity(order);

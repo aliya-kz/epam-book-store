@@ -45,7 +45,7 @@
             </select>
 
             <h1><c:out value="${language}"/></h1>
-            <select name="publang" multiple>
+            <select name="pubLang" multiple>
                 <c:forEach var="publang" items="${langs}">
                     <option id="lang${lang.id}" value="${publang.title}" onselect="selectStyle('publang${lang.id}')">
                         <c:out value="${publang.title}"/></option>

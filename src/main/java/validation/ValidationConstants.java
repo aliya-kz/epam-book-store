@@ -9,6 +9,5 @@ public class ValidationConstants {
     public final static String REGEXP_REMOVE_PHONE_SYMBOLS = "[\\s\\-\\(\\)]";
     public final static String REGEXP_REMOVE_CARD_SYMBOLS = "[\\s\\-]";
     public final static String SIGN_BLANK = "";
-    public final static String SIGN_SPACE = " ";
     public final static String CONTENT = "content";
 }

@@ -1,9 +1,7 @@
 package service;
 
 import dao.CardDao;
-import dao.UserDao;
 import dao.impl.CardDaoImpl;
-import dao.impl.UserDaoImpl;
 import entity.Card;
 import entity.User;
 

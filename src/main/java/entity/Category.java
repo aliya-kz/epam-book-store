@@ -1,6 +1,8 @@
 package entity;
 
-public class Category extends Entity {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     private long id;
     private String categoryName;
     private String lang;

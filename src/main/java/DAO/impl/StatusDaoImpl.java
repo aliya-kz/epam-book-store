@@ -26,7 +26,7 @@ public class StatusDaoImpl implements StatusDao {
     public List<Status> getAll(String lang) {
         List<Status> statuses = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_STATUSES);) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_STATUSES)) {
             statement.setString(1, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -52,12 +52,6 @@ public class StatusDaoImpl implements StatusDao {
 
     @Override
     public boolean deleteByIdLang(long id, String lang){
-
-        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
-    }
-
-    @Override
-    public boolean addEntity(Status status){
 
         throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }

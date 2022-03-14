@@ -30,7 +30,7 @@ public class CategoryDaoImpl implements CategoryDao {
     public List<Category> getAll(String lang) {
         List<Category> categories = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_CATEGORIES_LANG);) {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_CATEGORIES_LANG)) {
             statement.setString(1, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -57,7 +57,7 @@ public class CategoryDaoImpl implements CategoryDao {
         boolean result = true;
         try (PreparedStatement checkIfIdExists = connection.prepareStatement(SELECT_CATEGORY);
              PreparedStatement insertCategory = connection.prepareStatement(INSERT_CATEGORIES);
-             PreparedStatement insertCategoryLang = connection.prepareStatement(INSERT_CATEGORIES_LANG);) {
+             PreparedStatement insertCategoryLang = connection.prepareStatement(INSERT_CATEGORIES_LANG)) {
             connection.setAutoCommit(false);
 
             checkIfIdExists.setLong(1, category.getId());
@@ -74,13 +74,11 @@ public class CategoryDaoImpl implements CategoryDao {
             connection.commit();
         } catch (SQLException e) {
             result = false;
-            if (connection != null) {
-                try {
-                    LOGGER.warn(ROLLED_BACK_MESSAGE);
-                    connection.rollback();
-                } catch (SQLException excep) {
-                    LOGGER.warn(excep);
-                }
+            try {
+                LOGGER.warn(ROLLED_BACK_MESSAGE);
+                connection.rollback();
+            } catch (SQLException excep) {
+                LOGGER.warn(excep);
             }
         } finally {
             try {
@@ -97,7 +95,7 @@ public class CategoryDaoImpl implements CategoryDao {
     public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_CATEGORIES);) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CATEGORIES)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -113,7 +111,7 @@ public class CategoryDaoImpl implements CategoryDao {
     public boolean deleteByIdLang(long id, String lang) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_CATEGORIES_LANG);) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CATEGORIES_LANG)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {

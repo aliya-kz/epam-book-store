@@ -21,7 +21,7 @@ public class AddAddressService implements Service {
 
     private static final UserDao userDao = new UserDaoImpl();
     private static final AddressDao addressDao = new AddressDaoImpl();
-    private static HelperClass helperClass = HelperClass.getInstance();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

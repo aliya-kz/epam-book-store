@@ -22,6 +22,8 @@
 <fmt:message bundle="${content}" key="PAYMENT_METHOD" var="payment_method"/>
 <fmt:message bundle="${content}" key="DELIVERY" var="delivery"/>
 <fmt:message bundle="${content}" key="ADD" var="add"/>
+<fmt:message bundle="${content}" key="ADD_ADDRESS" var="add_address"/>
+<fmt:message bundle="${content}" key="ADD_CARD" var="add_card"/>
 <body>
 <main class="checkout-main">
 
@@ -31,7 +33,10 @@
             <c:forEach var="addr" items="${user.addresses}">
                 <input type="radio" name="address" value="${addr.id}" required><c:out value="${addr.address}"/><br>
             </c:forEach>
-            <a href="/profile#prof-address"><c:out value="${add}"/></a>
+
+            <a href="/profile#prof-address">
+                <div><c:out value="${add}"/></div>
+            </a>
         </section>
 
         <table id="cart-table">
@@ -71,7 +76,7 @@
                                 <c:set var="cost" value="${book.price * qty}"/>
                                 <c:set var="total" value="${total + cost}" scope="session"/>
                                 <c:if test="${total > 0}">
-                                    <c:out value="${cost}"></c:out></c:if>
+                                    <c:out value="${cost}"/></c:if>
                             </td>
                         </tr>
                     </c:if>
@@ -89,14 +94,24 @@
             <input type="radio" name="card" value="${card.id}" required><i class="fas fa-credit-card fa-2x"></i><c:out
                 value="${card.cardNumber}"/>
         </c:forEach><br>
+
         <a href="/profile#prof-cards">
             <div><c:out value="${add}"/></div>
         </a>
-        <button class="btn accept" type="submit" name="service_name" value="create_order"><c:out
-                value="${pay}"/></button>
+
+        <c:choose>
+            <c:when test="${empty user.addresses}">
+                <c:out value="${add_address}"></c:out>
+            </c:when>
+            <c:when test="${empty user.cards}">
+                <c:out value="${add_card}"></c:out>
+            </c:when>
+            <c:otherwise>
+                <button class="btn accept" type="submit" name="service_name" value="create_order"><c:out
+                        value="${pay}"/></button>
+            </c:otherwise>
+        </c:choose>
     </form>
-
-
 </main>
 </body>
 </html>

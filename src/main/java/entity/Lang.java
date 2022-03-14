@@ -1,6 +1,8 @@
 package entity;
 
-public class Lang extends Entity{
+import java.io.Serializable;
+
+public class Lang implements Serializable {
     private long id;
     private String title;
 
