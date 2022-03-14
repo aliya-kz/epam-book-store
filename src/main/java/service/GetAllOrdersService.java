@@ -24,7 +24,7 @@ public class GetAllOrdersService implements Service {
         List<Order> orders = orderDao.getAll();
         HttpSession session = request.getSession();
         session.setAttribute(ORDERS, orders);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminOrders.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_ORDERS_URI);
         dispatcher.forward(request, response);
     }
 }

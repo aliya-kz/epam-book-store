@@ -33,8 +33,8 @@ public class UpdateQuantityService implements Service {
             cart = (Cart) session.getAttribute(CART);
             Map<Book, Integer> items = cart.getCartItems();
             Book book = new Book(bookId);
-            int oldQty = items.get(book);
-            items.replace(book, oldQty, quantity);
+            int oldQuantity = items.get(book);
+            items.replace(book, oldQuantity, quantity);
         } else {
             long userId = user.getId();
             cartDao.updateQuantity(bookId, userId, quantity);

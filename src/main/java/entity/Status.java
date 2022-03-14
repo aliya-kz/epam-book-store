@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class Status extends Entity {
     private long id;
     private String statusName;
@@ -29,5 +31,18 @@ public class Status extends Entity {
 
     public void setLang(String lang) {
         this.lang = lang;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Status status = (Status) o;
+        return id == status.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

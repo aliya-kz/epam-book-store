@@ -73,27 +73,28 @@ public class CartDaoImpl implements CartDao {
     public boolean addToCart(long userId, long bookId, int quantity) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_BOOK);
-             PreparedStatement statement1 = connection.prepareStatement(UPDATE_QTY);
-             PreparedStatement statement2 = connection.prepareStatement(INSERT_CART);) {
+        try (PreparedStatement checkIfExists = connection.prepareStatement(SELECT_BOOK);
+             PreparedStatement updateQuantity = connection.prepareStatement(UPDATE_QTY);
+             PreparedStatement addNew = connection.prepareStatement(INSERT_CART);) {
             connection.setAutoCommit(false);
-            statement.setLong(1, userId);
-            statement.setLong(2, bookId);
-            ResultSet resultSet = statement.executeQuery();
+            checkIfExists.setLong(1, userId);
+            checkIfExists.setLong(2, bookId);
+            ResultSet resultSet = checkIfExists.executeQuery();
             if (resultSet.next()) {
-                if (quantity > MAX_BOOKS_QUANTITY) {
-                    statement1.setInt(1, MAX_BOOKS_QUANTITY);
+                int sqlQuantity = resultSet.getInt(QUANTITY);
+                if (sqlQuantity + quantity > MAX_BOOKS_QUANTITY) {
+                    updateQuantity.setInt(1, MAX_BOOKS_QUANTITY);
                 } else {
-                    statement1.setInt(1, quantity);
+                    updateQuantity.setInt(1, sqlQuantity + quantity);
                 }
-                statement1.setLong(2, bookId);
-                statement1.setLong(3, userId);
-                statement1.executeUpdate();
+                updateQuantity.setLong(2, bookId);
+                updateQuantity.setLong(3, userId);
+                updateQuantity.executeUpdate();
             } else {
-                statement2.setLong(1, userId);
-                statement2.setLong(2, bookId);
-                statement2.setInt(3, quantity);
-                statement2.executeUpdate();
+                addNew.setLong(1, userId);
+                addNew.setLong(2, bookId);
+                addNew.setInt(3, quantity);
+                addNew.executeUpdate();
             }
             connection.commit();
         } catch (SQLException e) {

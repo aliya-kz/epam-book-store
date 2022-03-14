@@ -33,7 +33,7 @@ public class UpdateStatusService implements Service {
         } else {
             List<Order> myOrders = orderDao.getOrdersByUserId(user.getId());
             session.setAttribute(MY_ORDERS, myOrders);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/profile#prof-orders");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(PROFILE_ORDERS_URI);
             dispatcher.forward(request, response);
         }
     }

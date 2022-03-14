@@ -7,9 +7,7 @@ import entity.Book;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ import static service.ServiceConstants.*;
 public class AddNewBookService implements Service {
 
     private static final BookDao bookDao = new BookDaoImpl();
+    private static HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -39,15 +38,7 @@ public class AddNewBookService implements Service {
         String quantityString = request.getParameter(QUANTITY).trim();
         int quantity = Integer.parseInt(quantityString);
         String description = request.getParameter(DESCRIPTION).trim();
-
-        Part part = null;
-        try {
-            part = request.getPart(FILE);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        }
-        InputStream is = part.getInputStream();
-        byte[] bytes = is.readAllBytes();
+        byte[] bytes = helperClass.partToBytes(request, FILE);
         Book book = new Book(title, authors, publisher, quantity, price, categoryId, isbn, description, bookLanguage,
                 formatId, bytes);
         bookDao.addEntity(book);

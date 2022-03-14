@@ -4,6 +4,7 @@ public class GeneralConstants {
     public final static String ID = "id";
     public final static String QUANTITY = "quantity";
     public final static String BOOKS = "books";
+    public final static String BOOK_ID = "book_id";
     public final static String ORDERS = "orders";
     public final static String ORDER = "order";
     public final static String AUTHORS = "authors";
@@ -34,6 +35,7 @@ public class GeneralConstants {
     public final static String PUBLICATION_LANGUAGE = "pubLang";
     public final static String PASSWORD = "password";
     public final static String NEW_PASSWORD = "new_password";
+    public final static String NEW_PASSWORD_REPEAT = "new_password_repeat";
     public final static String SUCCESS = "success";
     public final static String RESET = "reset";
     public final static String MY_ORDERS = "myOrders";
@@ -79,8 +81,34 @@ public class GeneralConstants {
     public final static String BOOK_LANGUAGE = "book_language";
     public final static String NEW_ID = "new_id";
     public final static String AUTHOR_IDS = "author_ids";
-    public final static String PROF_CARD = "prof-card";
+    public final static String AUTHOR_ID = "author_id";
+    public final static String PROFILE_CARD = "prof-card";
+    public final static String AUTHOR_EXISTS = "author_exists";
+    public final static String AUTHOR_NOT_EXISTS = "author_not_exists";
+    public static final String GET_ALL = "get_all_";
+    public static final String CHANGE_PASSWORD_MESSAGE = "change_password_message";
+    public static final String PASSWORD_CHANGED="PASSWORD_CHANGED";
+
+    public static final String REGEXP_PHONE_SYMBOLS = "[\\s\\-\\(\\)]";
+    public static final String REGEXP_CARD_SYMBOLS = "[\\s\\-]";
+    public static final String BLANK_STRING = "";
+    public static final String SIGN_EQUALS = "=";
+    public static final String SIGN_QUESTION = "?";
+
     public static final String INDEX_URI = "/WEB-INF/view/index.jsp";
-    public static final String ADMIN_CATEGORIES_URI = "/WEB-INF/admin/adminCategories.jsp?";
+    public static final String ADMIN_CATEGORIES_URI = "/WEB-INF/admin/adminCategories.jsp";
     public static final String ADMIN_USERS_URI = "/WEB-INF/admin/adminUsers.jsp";
+    public static final String ADMIN_ORDERS_URI = "/WEB-INF/admin/adminOrders.jsp";
+    public static final String ADMIN_BOOKS_URI = "/WEB-INF/admin/adminBooks.jsp";
+    public static final String ADMIN_AUTHORS_URI = "/WEB-INF/admin/adminAuthors.jsp";
+    public static final String CART_URI = "/WEB-INF/view/cart.jsp";
+    public static final String CHECKOUT_URI = "/WEB-INF/view/checkout.jsp";
+    public static final String EDIT_AUTHOR_URI = "/WEB-INF/admin/editAuthor.jsp";
+    public static final String EDIT_BOOK_URI = "/WEB-INF/admin/editBook.jsp";
+    public static final String LOGIN_URI = "/WEB-INF/view/logIn.jsp";
+    public static final String SIGNUP_URI = "/WEB-INF/view/signUp.jsp";
+    public static final String BOOKS_URI = "/WEB-INF/view/books.jsp";
+    public static final String PROFILE_ORDERS_URI = "/WEB-INF/view/profile.jsp#prof-orders";
+
+
 }

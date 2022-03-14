@@ -10,4 +10,5 @@ public interface AuthorDao extends BaseDao <Author> {
     boolean deleteById (long id);
     boolean deleteByIdLang (long id, String lang);
     List <Integer> searchAuthors (String search);
+    boolean authorWithIdAndLangExists(Author author);
 }

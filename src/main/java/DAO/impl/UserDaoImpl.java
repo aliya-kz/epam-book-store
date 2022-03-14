@@ -9,8 +9,8 @@ import entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import passwordEncr.PasswordEncrypter;
+
 import java.sql.*;
-import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,17 +26,15 @@ public class UserDaoImpl implements UserDao {
             "(name, surname, date_of_birth, email, phone, password, is_admin) " +
             "VALUES " + "(?,?,?,?,?,?,?);";
 
-    private final static String INSERT_FOR_CHECK = "INSERT into users" +
-            "(name, surname, date_of_birth, email, phone, password, is_admin, id) " +
-            "VALUES " + "(?, ?,?,?,?,?,?,?);";
-
-    private final static String GET_USER= "SELECT u.*, c.card_number, c.card_id, a.address, a.address_id FROM users u " +
+    private final static String GET_USER = "SELECT u.*, c.card_number, c.card_id, a.address, a.address_id FROM users u " +
             "LEFT JOIN cards c ON u.id=c.user_id LEFT JOIN addresses a ON u.id=a.user_id " +
             "WHERE u.id = ?;";
 
-    private final static String VALIDATE_USER= "SELECT id, password from users WHERE email = ?;";
+    private final static String VALIDATE_USER = "SELECT id, password from users WHERE email = ?;";
 
     private final static String INSERT_ADDRESS = "INSERT into addresses (user_id, address) values (?, ?);";
+
+    private final static String INSERT_CARD = "INSERT INTO cards (user_id, card_number) VALUES (?,?);";
 
     private final static String SELECT_ALL_SQL = "SELECT * FROM users;";
 
@@ -50,59 +48,74 @@ public class UserDaoImpl implements UserDao {
 
     private final static String SELECT_PASS = "SELECT password FROM users WHERE id = ?;";
 
+
     @Override
-    public boolean deleteById(long id){
+    public boolean deleteById(long id) {
 
         throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
-    public boolean deleteByIdLang(long id, String lang){
+    public boolean deleteByIdLang(long id, String lang) {
         throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
     }
 
     @Override
-    public boolean addEntity (User user) {
+    public boolean addEntity(User user) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(INSERT_USER,
-                Statement.RETURN_GENERATED_KEYS);) {
-            long id = 0;
-            statement.setString(1,user.getName());
-            statement.setString(2,user.getSurname());
-            statement.setDate(3, user.getDateOfBirth());
-            statement.setString(4,user.getEmail());
-            statement.setString(5,user.getPhone());
+        try (PreparedStatement insertUser = connection.prepareStatement(INSERT_USER,
+                Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement insertAddress = connection.prepareStatement(INSERT_ADDRESS);
+             PreparedStatement insertCard = connection.prepareStatement(INSERT_CARD);) {
+            connection.setAutoCommit(false);
+            long userId = 0;
+            insertUser.setString(1, user.getName());
+            insertUser.setString(2, user.getSurname());
+            insertUser.setDate(3, user.getDateOfBirth());
+            insertUser.setString(4, user.getEmail());
+            insertUser.setString(5, user.getPhone());
             String encryptedPassword = PasswordEncrypter.encrypt(user.getPassword());
-            statement.setString(6,encryptedPassword);
-            statement.setBoolean(7, user.getIsAdmin());
-            statement.executeUpdate();
-            ResultSet rs = statement.getGeneratedKeys();
+            insertUser.setString(6, encryptedPassword);
+            insertUser.setBoolean(7, user.getIsAdmin());
+            insertUser.executeUpdate();
+            ResultSet rs = insertUser.getGeneratedKeys();
             if (rs.next()) {
-                id = rs.getLong(ID);
+                userId = rs.getLong(ID);
             }
 
-            List <Address> addresses = user.getAddresses();
-            AddressDao addressDao = new AddressDaoImpl();
-            Address address = addresses.get(0);
-            address.setUserId(id);
-            addressDao.addEntity(address);
-            List <Card > cards = user.getCards();
-            CardDao cardDao = new CardDaoImpl();
-            Card card = cards.get(0);
-            card.setUserId(id);
-            cardDao.addEntity(card);
+            Address address = user.getAddresses().get(0);
+            insertAddress.setLong(1, userId);
+            insertAddress.setString(2, address.getAddress());
+            insertAddress.executeUpdate();
+
+            Card card = user.getCards().get(0);
+            insertCard.setLong(1, userId);
+            insertCard.setString(2, card.getCardNumber());
+            insertCard.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
-            LOGGER.info(e);
             result = false;
-        }
-        finally {
+            if (connection != null) {
+                try {
+                    LOGGER.warn(ROLLED_BACK_MESSAGE);
+                    connection.rollback();
+                } catch (SQLException excep) {
+                    LOGGER.warn(excep);
+                }
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
             connectionPool.returnConnection(connection);
         }
         return result;
     }
 
-    public long getIdByEmail (String email) {
+    public long getIdByEmail(String email) {
         Connection connection = connectionPool.takeConnection();
         long id = 0;
         try (PreparedStatement statement = connection.prepareStatement(GET_ID);) {
@@ -113,54 +126,7 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException e) {
             LOGGER.info(e);
-        }
-        finally {
-            connectionPool.returnConnection(connection);
-        }
-        return id;
-    }
-
-    //TODO
-    public int addForDbCheck (User user) {
-        Connection connection = connectionPool.takeConnection();
-        int id = -1;
-        PreparedStatement statement = null;
-        PreparedStatement statement1 = null;
-        try {statement = connection.prepareStatement(INSERT_FOR_CHECK);
-            statement.setString(1,user.getName());
-            statement.setString(2,user.getSurname());
-            statement.setDate(3, user.getDateOfBirth());
-            statement.setString(4,user.getEmail());
-            statement.setString(5,user.getPhone());
-            String encryptedPassword = PasswordEncrypter.encrypt(user.getPassword());
-            statement.setString(6,encryptedPassword);
-            statement.setBoolean(7, user.getIsAdmin());
-            statement.setLong(8, user.getId());
-            statement.executeUpdate();
-
-            statement1 = connection.prepareStatement(GET_ID);
-            statement1.setString(1, user.getEmail());
-            ResultSet resultSet = statement1.executeQuery();
-            while (resultSet.next()) {
-                id = resultSet.getInt(ID);
-            }
-            List <Address> addresses = user.getAddresses();
-            AddressDao addressDao = new AddressDaoImpl();
-            Address address = addresses.get(0);
-            address.setUserId(id);
-            addressDao.addEntity(address);
-            List <Card > cards = user.getCards();
-            CardDao cardDao = new CardDaoImpl();
-            Card card = cards.get(0);
-            card.setUserId(id);
-            cardDao.addEntity(card);
-        } catch (SQLException e) {
-            LOGGER.info(e);
-            e.printStackTrace();
-        }
-        finally {
-            close(statement);
-            close(statement1);
+        } finally {
             connectionPool.returnConnection(connection);
         }
         return id;
@@ -168,7 +134,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        List <User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
         try (Statement statement = connection.createStatement();) {
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_SQL);
@@ -186,8 +152,7 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException ex) {
             LOGGER.info(ex);
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             connectionPool.returnConnection(connection);
         }
         return users.stream()
@@ -195,19 +160,19 @@ public class UserDaoImpl implements UserDao {
                 .collect(Collectors.toList());
     }
 
-    public boolean addAddress (long id, String address) {
+    public boolean addAddress(long id, String address) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
         PreparedStatement statement = null;
-        try { statement = connection.prepareStatement(INSERT_ADDRESS);
+        try {
+            statement = connection.prepareStatement(INSERT_ADDRESS);
             statement.setLong(1, id);
             statement.setString(2, address);
             statement.executeUpdate();
         } catch (SQLException e) {
             result = false;
             LOGGER.info(e);
-        }
-        finally {
+        } finally {
             close(statement);
             connectionPool.returnConnection(connection);
         }
@@ -215,24 +180,24 @@ public class UserDaoImpl implements UserDao {
     }
 
     public boolean isAdmin(String email) {
-         boolean status = false;
-         Connection connection = connectionPool.takeConnection();
-         PreparedStatement statement = null;
-         try {
-             statement = connection.prepareStatement(CHECK_ADMIN_SQL);
-             statement.setString(1,email);
-             ResultSet resultSet = statement.executeQuery();
-             while (resultSet.next()) {
-                 status = resultSet.getBoolean(IS_ADMIN);
-             }
-         } catch (SQLException e) {
-             e.printStackTrace();
-             LOGGER.info(e);
-         } finally {
-             close(statement);
-             connectionPool.returnConnection(connection);
-         }
-         return status;
+        boolean status = false;
+        Connection connection = connectionPool.takeConnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(CHECK_ADMIN_SQL);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                status = resultSet.getBoolean(IS_ADMIN);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOGGER.info(e);
+        } finally {
+            close(statement);
+            connectionPool.returnConnection(connection);
+        }
+        return status;
     }
 
     public boolean blockUser(long id, boolean status) {
@@ -240,12 +205,10 @@ public class UserDaoImpl implements UserDao {
         return dao.setColumnValue(USERS, id, IS_BLOCKED, status);
     }
 
-    public User getUser (long id) {
+    public User getUser(long id) {
         User user = new User(id);
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(GET_USER);
+        try (PreparedStatement statement  = connection.prepareStatement(GET_USER);) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -269,7 +232,7 @@ public class UserDaoImpl implements UserDao {
                 } else {
                     Address address = new Address(resultSet.getInt(ADDRESS_ID), id,
                             resultSet.getString(ADDRESS));
-                    Card card = new Card (resultSet.getInt(CARD_ID), id, resultSet.getString(CARD_NUMBER));
+                    Card card = new Card(resultSet.getInt(CARD_ID), id, resultSet.getString(CARD_NUMBER));
                     if (!user.getAddresses().contains(address)) {
                         user.getAddresses().add(address);
                     }
@@ -282,13 +245,12 @@ public class UserDaoImpl implements UserDao {
             LOGGER.warn(e);
             e.printStackTrace();
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return user;
     }
 
-    public boolean validateUser (String email, String password) {
+    public boolean validateUser(String email, String password) {
         boolean result = false;
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
@@ -297,10 +259,10 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-            String sqlPass = resultSet.getString(PASSWORD);
-            if (SCryptUtil.check(password, sqlPass)) {
-                result = true;
-            }
+                String sqlPassword = resultSet.getString(PASSWORD);
+                if (SCryptUtil.check(password, sqlPassword)) {
+                    result = true;
+                }
             }
         } catch (SQLException e) {
             LOGGER.warn(e);
@@ -317,8 +279,8 @@ public class UserDaoImpl implements UserDao {
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statement = null;
         try {
-           statement = connection.prepareStatement(SELECT_WHERE_EMAIL);
-           statement.setString(1, email);
+            statement = connection.prepareStatement(SELECT_WHERE_EMAIL);
+            statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             status = resultSet.next();
         } catch (SQLException e) {
@@ -332,55 +294,32 @@ public class UserDaoImpl implements UserDao {
 
     public boolean changePassword(long id, String oldPass, String newPass) {
         boolean result = true;
-            Connection connection = connectionPool.takeConnection();
-            PreparedStatement statement = null;
-            PreparedStatement statement1 = null;
-            try {
-                statement = connection.prepareStatement(SELECT_PASS);
-                statement.setLong(1, id);
-                ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
-                    String sqlPass = resultSet.getString(PASSWORD);
-                    boolean pasCorrect = SCryptUtil.check(oldPass, sqlPass);
-                    if (pasCorrect) {
-                        String newEncrPas = PasswordEncrypter.encrypt(newPass);
-                        statement1 = connection.prepareStatement(UPDATE_PASSWORD_SQL);
-                        statement1.setLong(2, id);
-                        statement1.setString(1, newEncrPas);
-                        statement1.executeUpdate();
-                    }
+        Connection connection = connectionPool.takeConnection();
+        PreparedStatement statement = null;
+        PreparedStatement statement1 = null;
+        try {
+            statement = connection.prepareStatement(SELECT_PASS);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String sqlPass = resultSet.getString(PASSWORD);
+                boolean pasCorrect = SCryptUtil.check(oldPass, sqlPass);
+                if (pasCorrect) {
+                    String newEncrPas = PasswordEncrypter.encrypt(newPass);
+                    statement1 = connection.prepareStatement(UPDATE_PASSWORD_SQL);
+                    statement1.setLong(2, id);
+                    statement1.setString(1, newEncrPas);
+                    statement1.executeUpdate();
                 }
-            } catch (SQLException e) {
-                LOGGER.info(e);
-                e.printStackTrace();
-                result = false;
-            } finally {
-                close(statement);
-                connectionPool.returnConnection(connection);
             }
+        } catch (SQLException e) {
+            LOGGER.info(e);
+            e.printStackTrace();
+            result = false;
+        } finally {
+            close(statement);
+            connectionPool.returnConnection(connection);
+        }
         return result;
-    }
-
-    public static void main (String [] args) {
-        UserDaoImpl dao= new UserDaoImpl();
-
-
-        User admin = new User("admin", "admin", "admin@admin.com", "87771111111", new Date(2000/04/05), "12345", true);
-        admin.setId(1);
-        List <Address> addresses = new ArrayList<>();
-        Address address = new Address(1, 1, "Gogol 2");
-        addresses.add(address);
-        admin.setAddresses(addresses);
-        List <Card> cards = new ArrayList<>();
-        Card card = new Card(1,2, "123412341234");
-        cards.add(card);
-        admin.setCards(cards);
-        dao.addForDbCheck(admin);
-
-        User user = new User ("user", "ivanov", "user@user.com", "87775556644", new Date(2000/04/05), "12345", false);
-        user.setId(2);
-        user.setCards(cards);
-        user.setAddresses(addresses);
-        dao.addForDbCheck(user);
     }
 }

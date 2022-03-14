@@ -2,6 +2,7 @@ package service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class ServiceFactory {
         SERVICE_MAP.put(DELETE_ENTITY_SERVICE, new DeleteEntityService());
         SERVICE_MAP.put(DELETE_ENTITY_ADMIN_SERVICE, new DeleteEntityAdmin());
         SERVICE_MAP.put(ADD_NEW_AUTHOR_SERVICE, new AddNewAuthorService());
+        SERVICE_MAP.put(ADD_AUTHOR_TRANSLATION_SERVICE, new AddAuthorTranslationService());
         SERVICE_MAP.put(EDIT_AUTHOR_SERVICE, new EditAuthorService());
         SERVICE_MAP.put(EDIT_IMAGE_SERVICE, new EditImageService());
         SERVICE_MAP.put(WELCOME_SERVICE, new WelcomeService());

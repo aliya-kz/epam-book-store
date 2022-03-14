@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
+import static dao.DaoConstants.*;
+
 public class SqlDaoFactory {
 
     private static SqlDaoFactory INSTANCE;
@@ -14,18 +16,18 @@ public class SqlDaoFactory {
     private static final Map<String, BaseDao> DAO_MAP = new HashMap<>();
 
     static {
-        DAO_MAP.put("users", new UserDaoImpl());
-        DAO_MAP.put("books", new BookDaoImpl());
-        DAO_MAP.put("categories", new CategoryDaoImpl());
-        DAO_MAP.put("categories_lang", new CategoryDaoImpl());
-        DAO_MAP.put("authors", new AuthorDaoImpl());
-        DAO_MAP.put("authors_lang", new AuthorDaoImpl());
-        DAO_MAP.put("formats", new FormatDaoImpl());
-        DAO_MAP.put("carts", new CartDaoImpl());
-        DAO_MAP.put("cards", new CardDaoImpl());
-        DAO_MAP.put("addresses", new AddressDaoImpl());
-        DAO_MAP.put("statuses_lang", new StatusDaoImpl());
-        DAO_MAP.put("wish_lists", new WishListDaoImpl());
+        DAO_MAP.put(USERS, new UserDaoImpl());
+        DAO_MAP.put(BOOKS, new BookDaoImpl());
+        DAO_MAP.put(CATEGORIES, new CategoryDaoImpl());
+        DAO_MAP.put(CATEGORIES_LANG, new CategoryDaoImpl());
+        DAO_MAP.put(AUTHORS, new AuthorDaoImpl());
+        DAO_MAP.put(AUTHORS_LANG, new AuthorDaoImpl());
+        DAO_MAP.put(FORMATS, new FormatDaoImpl());
+        DAO_MAP.put(CARTS, new CartDaoImpl());
+        DAO_MAP.put(CARDS, new CardDaoImpl());
+        DAO_MAP.put(ADDRESSES, new AddressDaoImpl());
+        DAO_MAP.put(STATUSES_LANG, new StatusDaoImpl());
+        DAO_MAP.put(WISH_LISTS, new WishListDaoImpl());
     }
 
     private SqlDaoFactory () {}

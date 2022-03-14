@@ -21,26 +21,26 @@ public class AddAddressService implements Service {
 
     private static final UserDao userDao = new UserDaoImpl();
     private static final AddressDao addressDao = new AddressDaoImpl();
+    private static HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String addressString = request.getParameter(ADDRESS);
+        String addressValue = request.getParameter(ADDRESS);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER);
         long userId = user.getId();
         Address address = new Address();
-        address.setAddress(addressString);
+        address.setAddress(addressValue);
         address.setUserId(userId);
         boolean entityAdded = addressDao.addEntity(address);
         String uri = request.getParameter(URI);
-        RequestDispatcher dispatcher;
         if (!entityAdded) {
-            dispatcher = request.getRequestDispatcher(uri + "?" + MESSAGE + "=" + ERROR);
+            helperClass.forwardToUriWithMessage(request, response, uri, ERROR);
         } else {
             user = userDao.getUser(userId);
             session.setAttribute(USER, user);
-            dispatcher = request.getRequestDispatcher(uri);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
+            dispatcher.forward(request, response);
         }
-        dispatcher.forward(request, response);
     }
 }

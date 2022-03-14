@@ -9,6 +9,7 @@
 <body>
 <% ResourceBundle bundle = ResourceBundle.getBundle("content", Locale.forLanguageTag("ru"));
 %>
-<h3> <%=bundle.getString("ERROR_GEN")%></h3>
+<h3><%=bundle.getString("ERROR_GEN")%>
+</h3>
 </body>
 </html>

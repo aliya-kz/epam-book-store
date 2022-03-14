@@ -28,7 +28,7 @@ public class GetAllBooksService implements Service {
         String languageCode = locale.substring(0, 2);
         List<Book> books = bookDao.getAll(languageCode);
         session.setAttribute(BOOKS, books);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/adminBooks.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_BOOKS_URI);
         dispatcher.forward(request, response);
     }
 }

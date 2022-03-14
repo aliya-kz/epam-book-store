@@ -23,16 +23,13 @@ public class DeleteEntityAdmin implements Service {
         String table = request.getParameter(TABLE);
         String lang = request.getParameter(LANGUAGE);
         BaseDao dao = daoFactory.getDao(table);
+        String serviceName = "";
         if (lang != null) {
             dao.deleteByIdLang(id, lang);
+            serviceName = GET_ALL + table.substring(0, table.indexOf("_"));
         } else {
             dao.deleteById(id);
-        }
-        String serviceName = "";
-        if (lang == null) {
-            serviceName = "get_all_" + table;
-        } else {
-            serviceName = "get_all_" + table.substring(0, table.indexOf("_"));
+            serviceName = GET_ALL + table;
         }
         serviceFactory.getService(serviceName).execute(request, response);
     }

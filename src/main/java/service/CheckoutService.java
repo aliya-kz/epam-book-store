@@ -33,26 +33,19 @@ public class CheckoutService implements Service {
         session.setAttribute(BOOKS, books);
         Cart cart = cartDao.getCart(user.getId());
         Map<Book, Integer> cartItems = cart.getCartItems();
-        RequestDispatcher dispatcher;
-        int count = 0;
-        for (Book book : cartItems.keySet()) {
-            for (Book listBook : books) {
-                if (book.getId() == listBook.getId()) {
-                    book = listBook;
-                    if (cartItems.get(book) > book.getQuantity()) {
-                        count++;
-                        cartItems.replace(book, book.getQuantity());
-                    }
-                }
-            }
-        }
 
-        if (count > 0) {
-            dispatcher = request.getRequestDispatcher("/WEB-INF/view/cart.jsp?" + MESSAGE + "=" + ERROR);
-            dispatcher.forward(request, response);
+        long countOfInvalidQuantities = cartItems.keySet().stream()
+                .filter(
+                        cartItem -> books.stream()
+                                .anyMatch(book -> book.getId() == cartItem.getId() &&
+                                        cartItems.get(cartItem) > book.getQuantity())).count();
+
+        if (countOfInvalidQuantities > 0) {
+            HelperClass.getInstance().forwardToUriWithMessage(request, response, CART_URI, ERROR);
         } else {
-            dispatcher = request.getRequestDispatcher("/WEB-INF/view/checkout.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(CHECKOUT_URI);
             dispatcher.forward(request, response);
         }
     }
 }
+

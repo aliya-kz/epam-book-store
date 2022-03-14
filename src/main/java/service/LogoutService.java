@@ -17,8 +17,7 @@ public class LogoutService implements Service {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         deleteUserAttributes(session);
-
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(INDEX_URI);
         requestDispatcher.forward(request, response);
     }
 

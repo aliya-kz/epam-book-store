@@ -26,8 +26,8 @@ public class GetAllCategoriesService implements Service {
         if (locale == null) {
             locale = DEFAULT_LOCALE;
         }
-        String lang = locale.substring(0, 2);
-        List<Category> categories = categoryDao.getAll(lang);
+        String languageCode = locale.substring(0, 2);
+        List<Category> categories = categoryDao.getAll(languageCode);
         session.setAttribute(CATEGORIES, categories);
         RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_CATEGORIES_URI);
         dispatcher.forward(request, response);

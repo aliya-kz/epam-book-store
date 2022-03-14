@@ -7,7 +7,6 @@ import entity.Book;
 import entity.Cart;
 import entity.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,45 +22,38 @@ public class AddToCartService implements Service {
 
     private final CartDaoImpl cartDao = new CartDaoImpl();
     private final BookDao bookDao = new BookDaoImpl();
+    private static final HelperClass HELPER_CLASS = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        int bookId = Integer.parseInt(request.getParameter(ID));
+        long bookId = Integer.parseInt(request.getParameter(ID));
         Cart cart = (Cart) session.getAttribute(CART);
-        Map<Book, Integer> items = cart.getCartItems();
+        Map<Book, Integer> cartItems = cart.getCartItems();
         int quantity = Integer.parseInt(request.getParameter(QUANTITY));
         String locale = (String) session.getAttribute(LOCALE);
         String languageCode = locale.substring(0, 2);
         List<Book> books = bookDao.getAll(languageCode);
         User user = (User) session.getAttribute(USER);
-        int oldQty = quantity;
-        for (Book book : books) {
-            if (book.getId() == bookId) {
-                if (items.containsKey(book)) {
-                    oldQty = items.get(book);
-                    int newQty = oldQty + quantity;
-                    if (newQty <= book.getQuantity()) {
-                        oldQty = items.replace(book, oldQty + quantity);
+        books.stream()
+                .filter(book -> book.getId() == bookId)
+                .forEach(book -> {
+                    if (cartItems.containsKey(book)) {
+                        if (cartItems.get(book) + quantity <= book.getQuantity()) {
+                            cartItems.replace(book, cartItems.get(book), cartItems.get(book) + quantity);
+                        } else {
+                            cartItems.replace(book, cartItems.get(book), book.getQuantity());
+                        }
                     } else {
-                        oldQty = items.replace(book, book.getQuantity());
+                        cartItems.put(book, quantity);
                     }
-                } else {
-                    items.put(book, quantity);
-                }
-            }
-        }
-
-
+                });
         if (user != null) {
-            cartDao.addToCart(user.getId(), bookId, oldQty);
-            cart = cartDao.getCart(user.getId());
-            session.setAttribute(CART, cart);
+            cartDao.addToCart(user.getId(), bookId, quantity);
+            HELPER_CLASS.updateCartAttribute(session, user.getId());
+            HELPER_CLASS.updateUserAttribute(session, user.getId());
         }
-        books = bookDao.getAll(locale.substring(0, 2));
-        session.setAttribute(BOOKS, books);
         String uri = request.getParameter(URI);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?" + MESSAGE + "=" + ADDED);
-        dispatcher.forward(request, response);
+        HELPER_CLASS.forwardToUriWithMessage(request, response, uri, ADDED);
     }
 }

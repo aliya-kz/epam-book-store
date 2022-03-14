@@ -4,7 +4,6 @@ import dao.BookDao;
 import dao.impl.BookDaoImpl;
 import entity.Book;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,7 +74,6 @@ public class EditBookService implements Service {
         }
         List<Book> books = bookDao.getAll(languageCode);
         session.setAttribute(BOOKS, books);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("edit-book?id=" + id);
-        dispatcher.forward(request, response);
+        HelperClass.getInstance().forwardToUriWithMessage(request, response, EDIT_BOOK_URI, ID + SIGN_EQUALS + id);
     }
 }

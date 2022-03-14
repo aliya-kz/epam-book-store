@@ -302,15 +302,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>adminMessages</servlet-name>
-        <jsp-file>/WEB-INF/admin/adminMessages.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>adminMessages</servlet-name>
-        <url-pattern>/admin-messages</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>editAuthor</servlet-name>
         <jsp-file>/WEB-INF/admin/editAuthor.jsp</jsp-file>
     </servlet>

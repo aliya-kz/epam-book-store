@@ -29,7 +29,7 @@ public class GetAllAuthorsService implements Service {
         String languageCode = locale.substring(0, 2);
         List<Author> authors = authorDao.getAll(languageCode);
         session.setAttribute(AUTHORS, authors);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-authors");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_AUTHORS_URI);
         dispatcher.forward(request, response);
     }
 }

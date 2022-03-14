@@ -4,6 +4,7 @@ import dao.*;
 
 import dao.impl.*;
 import entity.*;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,49 +24,41 @@ public class CreateOrderService implements Service {
     private final CartDao cartDao = new CartDaoImpl();
     private final BookDao bookDao = new BookDaoImpl();
     private final OrderDao orderDao = new OrderDaoImpl();
+    private static HelperClass helperClass =  HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute(CART);
+        Map<Book, Integer> cartItems = cart.getCartItems();
         int cost = cart.getCost();
         User user = (User) session.getAttribute(USER);
         int addressId = Integer.parseInt(request.getParameter(ADDRESS));
         Order order = new Order();
-        for (Address address : user.getAddresses()) {
-            if (addressId == address.getId()) {
-                order.setAddress(address);
-            }
-        }
-
+        user.getAddresses().stream()
+                .filter(address -> address.getId() == addressId)
+                .forEach(address -> order.setAddress(address));
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        order.setOrderItems(cart.getCartItems());
+        order.setOrderItems(cartItems);
         order.setUserId(user.getId());
         order.setDate(date);
         order.setStatusId(1);
         order.setCost(cost);
-        Map<Book, Integer> cartItems = cart.getCartItems();
-        boolean booksPurchased = bookDao.purchaseBooks(cartItems);
-        RequestDispatcher dispatcher;
-        if (booksPurchased) {
+        boolean quantitiesValidAndDecreased= bookDao.purchaseBooks(cartItems);
+        if (quantitiesValidAndDecreased) {
             orderDao.addEntity(order);
             List<Order> orders = orderDao.getOrdersByUserId(user.getId());
             session.setAttribute(MY_ORDERS, orders);
             cartDao.deleteById(user.getId());
             cart = new Cart();
             session.setAttribute(CART, cart);
-            String locale = (String) session.getAttribute(LOCALE);
-            String languageCode = locale.substring(0, 2);
-            List<Book> books = bookDao.getAll(languageCode);
-            session.setAttribute(BOOKS, books);
-            dispatcher = request.getRequestDispatcher("/profile#prof-orders");
+            helperClass.updateBooksAttribute(session);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(PROFILE_ORDERS_URI);
+            dispatcher.forward(request, response);
         } else {
-            String locale = (String) session.getAttribute("locale");
-            String languageCode = locale.substring(0, 2);
-            List <Book> books = bookDao.getAll(languageCode);
-            session.setAttribute("books", books);
-            dispatcher = request.getRequestDispatcher("/WEB-INF/view/cart.jsp?" + MESSAGE + "=" + ERROR);
+            helperClass.updateBooksAttribute(session);
+            helperClass.forwardToUriWithMessage(request, response, CART_URI, ERROR);
         }
-        dispatcher.forward(request, response);
+
     }
 }

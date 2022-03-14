@@ -34,4 +34,5 @@ public class ServiceConstants {
     public final static String FILTER_BOOKS_SERVICE = "filter_books";
     public final static String CHECKOUT_SERVICE = "checkout";
     public final static String GET_IMAGE_SERVICE = "get_image";
+    public final static String ADD_AUTHOR_TRANSLATION_SERVICE = "add_author_translation";
 }

@@ -22,6 +22,7 @@ public class SignUpService implements Service {
 
     private final UserDao userDao = new UserDaoImpl();
     private final CartDao cartDao = new CartDaoImpl();
+    private static HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -29,16 +30,15 @@ public class SignUpService implements Service {
         HttpSession session = request.getSession();
         boolean userExists = userDao.userExists(email);
         if (userExists) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/signup?" + MESSAGE + "=" + USER_EXISTS);
-            dispatcher.forward(request, response);
+            helperClass.forwardToUriWithMessage(request, response, SIGNUP_URI, USER_EXISTS);
         } else {
             String name = request.getParameter(NAME);
             String surname = request.getParameter(SURNAME);
             Date dateOfBirth = Date.valueOf(request.getParameter(DATE_OF_BIRTH));
-            String phone = request.getParameter(PHONE).replaceAll("[\\s\\-\\(\\)]", "");
+            String phone = request.getParameter(PHONE).replaceAll(REGEXP_PHONE_SYMBOLS, BLANK_STRING);
             Address address = new Address();
             address.setAddress(request.getParameter(ADDRESS));
-            String card = request.getParameter(CARD).replaceAll("[\\s\\-]", "");
+            String card = request.getParameter(CARD).replaceAll(REGEXP_CARD_SYMBOLS, BLANK_STRING);
             String password = request.getParameter(PASSWORD);
             User user = new User();
             user.setName(name);
@@ -55,17 +55,15 @@ public class SignUpService implements Service {
             user.setCards(cards);
             user.setPassword(password);
             boolean userAdded = userDao.addEntity(user);
-            RequestDispatcher dispatcher;
             if (!userAdded) {
-                dispatcher = request.getRequestDispatcher("/WEB-INF/view/signUp.jsp?" + MESSAGE + "=" + ERROR);
+                helperClass.forwardToUriWithMessage(request, response, SIGNUP_URI, ERROR);
             } else {
                 long userId = userDao.getIdByEmail(email);
                 Cart cart = (Cart) session.getAttribute(CART);
                 cart.setUserId(userId);
                 cartDao.addEntity(cart);
-                dispatcher = request.getRequestDispatcher("/WEB-INF/view/signUp.jsp?" + MESSAGE + "=" + SUCCESS);
+                helperClass.forwardToUriWithMessage(request, response, SIGNUP_URI, SUCCESS);
             }
-            dispatcher.forward(request, response);
         }
     }
 }

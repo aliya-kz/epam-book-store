@@ -73,6 +73,7 @@ public class BookDaoImpl implements BookDao {
             insertCover.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
+            result = false;
             if (connection != null) {
                 try {
                     LOGGER.warn(ROLLED_BACK_MESSAGE);
@@ -111,9 +112,7 @@ public class BookDaoImpl implements BookDao {
                 } else {
                     book.setTitle(resultSet.getString(TITLE));
                     List<Long> authors = new ArrayList<>();
-                    if (!authors.contains(resultSet.getLong(AUTHOR_ID))) {
-                        authors.add(resultSet.getLong(AUTHOR_ID));
-                    }
+                    authors.add(resultSet.getLong(AUTHOR_ID));
                     book.setAuthors(authors);
                     book.setPublisher(resultSet.getString(PUBLISHER));
                     book.setIsbn(resultSet.getString(ISBN));

@@ -20,12 +20,11 @@ import static service.GeneralConstants.*;
 public class AddCardService implements Service {
 
     private final CardDao cardDao = new CardDaoImpl();
-    private static final UserDao userDao = new UserDaoImpl();
+    private static HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-        String cardNumber = request.getParameter(PROF_CARD);
+        String cardNumber = request.getParameter(PROFILE_CARD);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER);
         long userId = user.getId();
@@ -33,14 +32,12 @@ public class AddCardService implements Service {
         card.setUserId(userId);
         String uri = request.getParameter(URI);
         boolean entityAdded = cardDao.addEntity(card);
-        RequestDispatcher dispatcher;
-        user = userDao.getUser(userId);
-        session.setAttribute(USER, user);
+        helperClass.updateUserAttribute(session, userId);
         if (!entityAdded) {
-            dispatcher = request.getRequestDispatcher(uri + "?" + MESSAGE + "=" + ERROR);
+            helperClass.forwardToUriWithMessage(request, response, uri, ERROR);
         } else {
-            dispatcher = request.getRequestDispatcher(uri);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
+            dispatcher.forward(request, response);
         }
-        dispatcher.forward(request, response);
     }
 }

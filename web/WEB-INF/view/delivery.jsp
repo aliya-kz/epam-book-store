@@ -9,7 +9,7 @@
 <body>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content" var="content" scope="session"/>
-<fmt:message bundle="${content}" key="DELIVERY_PAGE" var="del" />
+<fmt:message bundle="${content}" key="DELIVERY_PAGE" var="del"/>
 <jsp:include page="/header"/>
 <h3>
     <c:out value="${del}"/>

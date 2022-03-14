@@ -49,7 +49,7 @@ public class BookFilterService implements Service {
             }
         }
         session.setAttribute(FILTERED_BOOKS, filteredBooks);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/books");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(BOOKS_URI);
         dispatcher.forward(request, response);
     }
 }
