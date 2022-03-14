@@ -17,8 +17,8 @@ import static service.GeneralConstants.*;
 
 public class AddCardService implements Service {
 
-    private final CardDao cardDao = new CardDaoImpl();
-    private static HelperClass helperClass = HelperClass.getInstance();
+    private static final CardDao cardDao = new CardDaoImpl();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

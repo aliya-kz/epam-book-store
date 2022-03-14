@@ -14,7 +14,6 @@ import static service.GeneralConstants.*;
 public class DeleteEntityAdmin implements Service {
 
     private static final ServiceFactory serviceFactory = ServiceFactory.getInstance();
-
     private static final SqlDaoFactory daoFactory = SqlDaoFactory.getInstance();
 
     @Override

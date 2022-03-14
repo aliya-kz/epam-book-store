@@ -3,10 +3,7 @@ package service;
 import dao.AuthorDao;
 import dao.impl.AuthorDaoImpl;
 import entity.Author;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +16,7 @@ public class AddNewAuthorService implements Service {
 
     private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static final AuthorDao authorDao = new AuthorDaoImpl();
-    private static HelperClass helperClass = HelperClass.getInstance();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -37,8 +34,7 @@ public class AddNewAuthorService implements Service {
             Service getAllAuthorsService = serviceFactory.getService(GET_ALL_AUTHORS_SERVICE);
             getAllAuthorsService.execute(request, response);
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_AUTHORS_URI + "?" + MESSAGE + "=" + ERROR);
-            dispatcher.forward(request, response);
+              helperClass.forwardToUriWithMessage(request, response,ADMIN_AUTHORS_URI,ERROR);
         }
     }
 }

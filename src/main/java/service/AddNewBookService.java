@@ -17,7 +17,7 @@ import static service.ServiceConstants.*;
 public class AddNewBookService implements Service {
 
     private static final BookDao bookDao = new BookDaoImpl();
-    private static HelperClass helperClass = HelperClass.getInstance();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

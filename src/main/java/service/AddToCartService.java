@@ -22,13 +22,16 @@ public class AddToCartService implements Service {
 
     private final CartDaoImpl cartDao = new CartDaoImpl();
     private final BookDao bookDao = new BookDaoImpl();
-    private static final HelperClass HELPER_CLASS = HelperClass.getInstance();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         long bookId = Integer.parseInt(request.getParameter(ID));
         Cart cart = (Cart) session.getAttribute(CART);
+        if (cart == null) {
+            cart = new Cart();
+        }
         Map<Book, Integer> cartItems = cart.getCartItems();
         int quantity = Integer.parseInt(request.getParameter(QUANTITY));
         String locale = (String) session.getAttribute(LOCALE);
@@ -50,10 +53,10 @@ public class AddToCartService implements Service {
                 });
         if (user != null) {
             cartDao.addToCart(user.getId(), bookId, quantity);
-            HELPER_CLASS.updateCartAttribute(session, user.getId());
-            HELPER_CLASS.updateUserAttribute(session, user.getId());
+            helperClass.updateCartAttribute(session, user.getId());
+            helperClass.updateUserAttribute(session, user.getId());
         }
         String uri = request.getParameter(URI);
-        HELPER_CLASS.forwardToUriWithMessage(request, response, uri, ADDED);
+        helperClass.forwardToUriWithMessage(request, response, uri, ADDED);
     }
 }

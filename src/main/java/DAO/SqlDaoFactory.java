@@ -15,6 +15,7 @@ public class SqlDaoFactory {
 
     private static final Map<String, BaseDao> DAO_MAP = new HashMap<>();
 
+
     static {
         DAO_MAP.put(USERS, new UserDaoImpl());
         DAO_MAP.put(BOOKS, new BookDaoImpl());

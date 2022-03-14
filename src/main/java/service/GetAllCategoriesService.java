@@ -4,6 +4,7 @@ import dao.impl.CategoryDaoImpl;
 import entity.Category;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,13 +23,14 @@ public class GetAllCategoriesService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        ServletContext context = session.getServletContext();
         String locale = (String) session.getAttribute(LOCALE);
         if (locale == null) {
             locale = DEFAULT_LOCALE;
         }
         String languageCode = locale.substring(0, 2);
         List<Category> categories = categoryDao.getAll(languageCode);
-        session.setAttribute(CATEGORIES, categories);
+        context.setAttribute(CATEGORIES, categories);
         RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_CATEGORIES_URI);
         dispatcher.forward(request, response);
     }

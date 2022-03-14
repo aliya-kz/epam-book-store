@@ -15,6 +15,10 @@
 <fmt:message bundle="${content}" key="SHOP_NOW" var="shop_now"/>
 <fmt:message bundle="${content}" key="OUT_OF_STOCK" var="out_of_stock"/>
 <jsp:useBean id="cart" scope="session" class="entity.Cart"/>
+<%String locale = (String) session.getAttribute("locale");
+if (locale == null) {
+    session.setAttribute("locale", "en_US");
+};%>
 
 <main class="index-main">
     <div class="ads-container">

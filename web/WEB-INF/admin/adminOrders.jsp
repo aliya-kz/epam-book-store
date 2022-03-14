@@ -104,7 +104,7 @@
                                     <div class="index-book">
                                         <img src="/image-servlet?image_id=${book.id}&table=book_covers"
                                              alt="${book.title}" width="80px"><br>
-                                        <a href="/book?id=${book.id}" class="index-book-name"><c:out
+                                        <a href="/admin-books#book${book.id}" class="index-book-name"><c:out
                                                 value="${book.title}"/></a>
                                         <c:set var="authorIds" value="${book.authors}"/>
                                         <c:forEach var="authorId" items="${authorIds}">

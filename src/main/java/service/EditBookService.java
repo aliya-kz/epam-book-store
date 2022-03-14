@@ -17,6 +17,7 @@ import static service.GeneralConstants.*;
 public class EditBookService implements Service {
 
     private final BookDao bookDao = new BookDaoImpl();
+    private final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -72,8 +73,7 @@ public class EditBookService implements Service {
         if (description != null && description.length() > 0) {
             bookDao.setColumnValue(BOOKS, id, DESCRIPTION, description);
         }
-        List<Book> books = bookDao.getAll(languageCode);
-        session.setAttribute(BOOKS, books);
-        HelperClass.getInstance().forwardToUriWithMessage(request, response, EDIT_BOOK_URI, ID + SIGN_EQUALS + id);
+        helperClass.updateBooksAttribute(session);
+        helperClass.forwardToUriWithMessage(request, response, EDIT_BOOK_URI, ID + SIGN_EQUALS + id);
     }
 }

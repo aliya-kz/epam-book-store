@@ -23,7 +23,7 @@ public class CreateOrderService implements Service {
     private final CartDao cartDao = new CartDaoImpl();
     private final BookDao bookDao = new BookDaoImpl();
     private final OrderDao orderDao = new OrderDaoImpl();
-    private static HelperClass helperClass =  HelperClass.getInstance();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -45,7 +45,7 @@ public class CreateOrderService implements Service {
         order.setStatusId(1);
         order.setCost(cost);
         order.setCardId(cardId);
-        boolean quantitiesValidAndDecreased= bookDao.purchaseBooks(cartItems);
+        boolean quantitiesValidAndDecreased = bookDao.purchaseBooks(cartItems);
         if (quantitiesValidAndDecreased) {
             orderDao.addEntity(order);
             List<Order> orders = orderDao.getOrdersByUserId(user.getId());

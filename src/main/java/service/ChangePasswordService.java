@@ -20,9 +20,9 @@ import static validation.ValidationConstants.CONTENT;
 public class ChangePasswordService implements Service {
 
     private ChangePasswordFormValidator validator;
-    private static HelperClass helperClass = HelperClass.getInstance();
+    private static final HelperClass helperClass = HelperClass.getInstance();
     private final UserDao userDao = new UserDaoImpl();
-    ResourceBundle resourceBundle = ResourceBundle.getBundle(CONTENT);
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle(CONTENT);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

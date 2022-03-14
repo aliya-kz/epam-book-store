@@ -7,6 +7,7 @@ import dao.impl.CartDaoImpl;
 import entity.*;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,19 +27,15 @@ public class CheckoutService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        ServletContext context = session.getServletContext();
         String locale = (String) session.getAttribute(LOCALE);
         String languageCode = locale.substring(0, 2);
         List<Book> books = bookDao.getAll(languageCode);
         User user = (User) session.getAttribute(USER);
-        session.setAttribute(BOOKS, books);
         Cart cart = cartDao.getCart(user.getId());
-        Map<Book, Integer> cartItems = cart.getCartItems();
+        context.setAttribute(BOOKS, books);
 
-        long countOfInvalidQuantities = cartItems.keySet().stream()
-                .filter(
-                        cartItem -> books.stream()
-                                .anyMatch(book -> book.getId() == cartItem.getId() &&
-                                        cartItems.get(cartItem) > book.getQuantity())).count();
+        long countOfInvalidQuantities = countOfInvalidQuantities(books, cart);
 
         if (countOfInvalidQuantities > 0) {
             HelperClass.getInstance().forwardToUriWithMessage(request, response, CART_URI, ERROR);
@@ -46,6 +43,16 @@ public class CheckoutService implements Service {
             RequestDispatcher dispatcher = request.getRequestDispatcher(CHECKOUT_URI);
             dispatcher.forward(request, response);
         }
+    }
+
+    public long countOfInvalidQuantities (List<Book> books, Cart cart) {
+        Map<Book, Integer> cartItems = cart.getCartItems();
+        long count= cartItems.keySet().stream()
+                .filter(
+                        cartItem -> books.stream()
+                                .anyMatch(book -> book.getId() == cartItem.getId() &&
+                                        cartItems.get(cartItem) > book.getQuantity())).count();
+       return count;
     }
 }
 

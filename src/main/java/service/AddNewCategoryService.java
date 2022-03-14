@@ -4,7 +4,6 @@ import dao.CategoryDao;
 import dao.impl.CategoryDaoImpl;
 import entity.Category;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +16,7 @@ public class AddNewCategoryService implements Service {
 
     private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static final CategoryDao categoryDao = new CategoryDaoImpl();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -26,8 +26,7 @@ public class AddNewCategoryService implements Service {
         Category category = new Category(id, title, lang);
         boolean entityAdded = categoryDao.addEntity(category);
         if (!entityAdded) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_CATEGORIES_URI + "?" + MESSAGE + "=" + ERROR);
-            dispatcher.forward(request, response);
+            helperClass.forwardToUriWithMessage(request, response, ADMIN_CATEGORIES_URI, ERROR);
         } else {
             Service service = serviceFactory.getService(GET_ALL_CATEGORIES_SERVICE);
             service.execute(request, response);

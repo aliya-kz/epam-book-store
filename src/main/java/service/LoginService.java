@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
+
 
 import static service.GeneralConstants.*;
 
@@ -18,9 +18,6 @@ import static service.GeneralConstants.*;
 public class LoginService implements Service {
 
     private final UserDao userDao = new UserDaoImpl();
-    private final CartDao cartDao = new CartDaoImpl();
-    private final WishListDao wishListDao = new WishListDaoImpl();
-    private final OrderDao orderDao = new OrderDaoImpl();
     private final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
@@ -37,25 +34,15 @@ public class LoginService implements Service {
             if (user.isBlocked()) {
                 helperClass.forwardToUriWithMessage(request, response,LOGIN_URI, BLOCKED);
             } else if (user.isAdmin()) {
+                helperClass.updateAllUsersAttribute(session);
                 RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_BOOKS_URI);
                 dispatcher.forward(request, response);
             } else {
-                setUserAttributes(session, user);
+                helperClass.updateUserAttributes(session, userId);
                 RequestDispatcher dispatcher = request.getRequestDispatcher(INDEX_URI);
                 dispatcher.forward(request, response);
             }
         }
-    }
-
-    public void setUserAttributes(HttpSession session, User user) {
-        long id = user.getId();
-        session.setAttribute(USER, user);
-        Cart cart = cartDao.getCart(id);
-        session.setAttribute(CART, cart);
-        List<Order> orders = orderDao.getOrdersByUserId(id);
-        session.setAttribute(MY_ORDERS, orders);
-        WishList wishList = wishListDao.getWishList(id);
-        session.setAttribute(WISH_LIST, wishList);
     }
 }
 

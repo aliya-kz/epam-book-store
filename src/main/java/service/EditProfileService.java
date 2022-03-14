@@ -33,13 +33,13 @@ public class EditProfileService implements Service {
 
         String phone = request.getParameter(PHONE);
         if (phone != null && phone.length() > 0) {
-            phone = phone.replaceAll("[\\s\\-\\(\\)]", "");
+            phone = phone.replaceAll(REGEXP_PHONE_SYMBOLS, BLANK_STRING);
             userDao.setColumnValue(USERS, id, PHONE, phone);
         }
 
         User user = userDao.getUser(id);
         session.setAttribute(USER, user);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("profile#prof-personal");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(PROFILE_PERSONAL_URI);
         dispatcher.forward(request, response);
     }
 }

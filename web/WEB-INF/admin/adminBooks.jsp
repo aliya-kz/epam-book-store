@@ -53,7 +53,7 @@
             <th class="admin-th"><c:out value="${price}"/></th>
             <th class="admin-th"><c:out value="${edit}"/></th>
             <c:forEach items="${books}" var="book">
-                <tr>
+                <tr id="book${book.id}">
                     <td class="td-image">
                         <img src="/image-servlet?image_id=${book.id}&table=book_covers" alt="author" width="90px"/></td>
                     <td><c:out value="${book.id}"/></td>

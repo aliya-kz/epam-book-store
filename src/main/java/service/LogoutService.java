@@ -16,15 +16,9 @@ public class LogoutService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        deleteUserAttributes(session);
+        session.invalidate();
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(INDEX_URI);
         requestDispatcher.forward(request, response);
-    }
-
-    public void deleteUserAttributes (HttpSession session) {
-        session.removeAttribute(MY_ORDERS);
-        session.removeAttribute(USER);
-        Cart cart = new Cart();
-        session.setAttribute(CART, cart);
     }
 }

@@ -19,6 +19,7 @@ import static service.GeneralConstants.*;
 public class AddToWishListService implements Service {
 
     private final WishListDao wishListDao = new WishListDaoImpl();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -34,8 +35,6 @@ public class AddToWishListService implements Service {
         wishListDao.addToWishList(user.getId(), bookId);
         wishList = wishListDao.getWishList(user.getId());
         session.setAttribute(WISH_LIST, wishList);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher(uri + "?" + MESSAGE + "=" + ADDED);
-        dispatcher.forward(request, response);
+        helperClass.forwardToUriWithMessage(request, response, uri,ADDED);
     }
 }

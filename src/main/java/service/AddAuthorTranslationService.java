@@ -4,7 +4,6 @@ import dao.AuthorDao;
 import dao.impl.AuthorDaoImpl;
 import entity.Author;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,8 @@ import static service.ServiceConstants.GET_ALL_AUTHORS_SERVICE;
 public class AddAuthorTranslationService implements Service {
 
     private final static ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private static final AuthorDao authorDao = new AuthorDaoImpl();
+    private final AuthorDao authorDao = new AuthorDaoImpl();
+    private static final HelperClass helperClass = HelperClass.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -31,18 +31,14 @@ public class AddAuthorTranslationService implements Service {
         author.setId(id);
         boolean entityAlreadyExists = authorDao.authorWithIdAndLangExists(author);
         if (entityAlreadyExists) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_AUTHORS_URI + "?" + MESSAGE + "="
-                    + AUTHOR_EXISTS);
-            dispatcher.forward(request, response);
+            helperClass.forwardToUriWithMessage(request, response, ADMIN_AUTHORS_URI, AUTHOR_EXISTS);
         } else {
             boolean entityAdded = authorDao.addTranslation(author);
             if (entityAdded) {
                 Service getAllAuthorsService = serviceFactory.getService(GET_ALL_AUTHORS_SERVICE);
                 getAllAuthorsService.execute(request, response);
             } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_AUTHORS_URI + "?"
-                        + MESSAGE + "=" + AUTHOR_NOT_EXISTS);
-                dispatcher.forward(request, response);
+                helperClass.forwardToUriWithMessage(request, response, ADMIN_AUTHORS_URI, AUTHOR_NOT_EXISTS);
             }
         }
     }

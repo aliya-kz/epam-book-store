@@ -8,6 +8,7 @@ import entity.Author;
 import entity.Book;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,7 @@ public class EditImageService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        ServletContext context = session.getServletContext();
         String locale = (String) session.getAttribute(LOCALE);
         String languageCode = locale.substring(0, 2);
         int id = Integer.parseInt(request.getParameter(ID));
@@ -35,13 +37,13 @@ public class EditImageService implements Service {
         if (table.equals(AUTHORS)) {
             authorDao.setColumnValue(table, id, IMAGE, bytes);
             List<Author> authors = authorDao.getAll(languageCode);
-            session.setAttribute(AUTHORS, authors);
+            context.setAttribute(AUTHORS, authors);
             RequestDispatcher dispatcher = request.getRequestDispatcher(EDIT_AUTHOR_URI + "?" + AUTHOR_ID + "=" + id);
             dispatcher.forward(request, response);
         } else if (table.equals(BOOK_COVERS)) {
             bookDao.setColumnValue(table, id, IMAGE, bytes);
             List<Book> books = bookDao.getAll(languageCode);
-            session.setAttribute(BOOKS, books);
+            context.setAttribute(BOOKS, books);
             RequestDispatcher dispatcher = request.getRequestDispatcher(EDIT_BOOK_URI + "?" + BOOK_ID + "=" + id);
             dispatcher.forward(request, response);
         }

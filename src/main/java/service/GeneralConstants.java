@@ -109,6 +109,7 @@ public class GeneralConstants {
     public static final String SIGNUP_URI = "/WEB-INF/view/signUp.jsp";
     public static final String BOOKS_URI = "/WEB-INF/view/books.jsp";
     public static final String PROFILE_ORDERS_URI = "/WEB-INF/view/profile.jsp#prof-orders";
+    public static final String PROFILE_PERSONAL_URI ="/WEB-INF/view/profile.jsp#prof-personal";
 
 
 }

@@ -5,6 +5,7 @@ import dao.impl.AuthorDaoImpl;
 import entity.Author;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,13 +23,14 @@ public class GetAllAuthorsService implements Service {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        ServletContext context = session.getServletContext();
         String locale = (String) session.getAttribute(LOCALE);
         if (locale == null) {
             locale = DEFAULT_LOCALE;
         }
         String languageCode = locale.substring(0, 2);
         List<Author> authors = authorDao.getAll(languageCode);
-        session.setAttribute(AUTHORS, authors);
+        context.setAttribute(AUTHORS, authors);
         RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_AUTHORS_URI);
         dispatcher.forward(request, response);
     }

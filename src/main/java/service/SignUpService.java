@@ -60,7 +60,7 @@ public class SignUpService implements Service {
                 long userId = userDao.getIdByEmail(email);
                 Cart cart = (Cart) session.getAttribute(CART);
                 cart.setUserId(userId);
-                //cartDao.addEntity(cart);
+                cartDao.addEntity(cart);
                 helperClass.forwardToUriWithMessage(request, response, SIGNUP_URI, SUCCESS);
             }
         }

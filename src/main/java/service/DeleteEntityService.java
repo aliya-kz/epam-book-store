@@ -44,7 +44,7 @@ public class DeleteEntityService implements Service {
             } else {
                 dao.deleteByIdLang(id, lang);
             }
-            HelperClass.getInstance().updateAllUserAttributes(session, user.getId());
+            HelperClass.getInstance().updateUserAttributes(session, user.getId());
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);
