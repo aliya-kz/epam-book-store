@@ -1,6 +1,7 @@
 package service;
 
 public class GeneralConstants {
+    public final static int MAX_QUANTITY_CART_ITEM = 8;
     public final static String ID = "id";
     public final static String QUANTITY = "quantity";
     public final static String BOOKS = "books";

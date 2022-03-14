@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -37,7 +38,8 @@ public final class ConnectionPool {
         this.driverName = properties.getString("db.driver");
         this.url = properties.getString("db.url");
         this.user = properties.getString("db.user");
-        this.password = properties.getString("db.password");
+       //this.password = properties.getString("db.password");
+        this.password = System.getenv(properties.getString("db.passwordEnvironmentVariableName"));
     }
 
     private void loadDrivers() {

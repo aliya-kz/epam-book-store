@@ -40,9 +40,9 @@ public class AddToCartService implements Service {
                 .forEach(book -> {
                     if (cartItems.containsKey(book)) {
                         if (cartItems.get(book) + quantity <= book.getQuantity()) {
-                            cartItems.replace(book, cartItems.get(book), cartItems.get(book) + quantity);
+                            cartItems.replace(book, cartItems.get(book), selectMinFromTwo(cartItems.get(book) + quantity, MAX_QUANTITY_CART_ITEM));
                         } else {
-                            cartItems.replace(book, cartItems.get(book), book.getQuantity());
+                            cartItems.replace(book, cartItems.get(book), selectMinFromTwo(book.getQuantity(), MAX_QUANTITY_CART_ITEM));
                         }
                     } else {
                         cartItems.put(book, quantity);
@@ -55,5 +55,12 @@ public class AddToCartService implements Service {
         }
         String uri = request.getParameter(URI);
         HELPER_CLASS.forwardToUriWithMessage(request, response, uri, ADDED);
+    }
+
+    public int selectMinFromTwo (int first, int second) {
+        if (first <= second) {
+            return first;
+        }
+        return second;
     }
 }
