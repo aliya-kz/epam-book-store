@@ -26,9 +26,7 @@ public class StatusDaoImpl implements StatusDao {
     public List<Status> getAll(String lang) {
         List<Status> statuses = new ArrayList<>();
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(GET_ALL_STATUSES);
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_STATUSES);) {
             statement.setString(1, lang);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -41,7 +39,6 @@ public class StatusDaoImpl implements StatusDao {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return statuses;

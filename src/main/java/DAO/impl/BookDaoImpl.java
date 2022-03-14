@@ -264,13 +264,12 @@ public class BookDaoImpl implements BookDao {
     public boolean setByteImage(long id, String url) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(INSERT_COVER);) {
-            File file = new File(url);
-            FileInputStream fis = new FileInputStream(file);
+        File file = new File(url);
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_COVER);
+             FileInputStream fis = new FileInputStream(file);) {
             statement.setLong(1, id);
             statement.setBinaryStream(2, fis, file.length());
             statement.executeUpdate();
-            fis.close();
         } catch (SQLException | IOException e) {
             result = false;
             e.printStackTrace();

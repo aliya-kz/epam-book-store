@@ -59,8 +59,6 @@ public class LoginService implements Service {
         session.setAttribute(MY_ORDERS, orders);
         WishList wishList = wishListDao.getWishList(id);
         session.setAttribute(WISH_LIST, wishList);
-        List<Status> statuses = statusDao.getAll(languageCode);
-        session.setAttribute(STATUSES, statuses);
     }
 }
 

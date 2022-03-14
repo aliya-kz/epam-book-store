@@ -71,7 +71,7 @@
     </table>
 </form>
 
-<form action="<%= request.getContextPath()%>/controller?id=${category.id}&table=categories_lang&lang=${category.lang}"
+<form action="<%= request.getContextPath()%>/controller?id=${category.id}&table=categories&lang=${category.lang}"
       method="post">
     <input type="hidden" name="service_name" value="delete_entity_admin"/>
     <c:out value="${delete}"/>

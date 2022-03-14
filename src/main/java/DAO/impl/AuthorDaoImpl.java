@@ -164,7 +164,6 @@ public class AuthorDaoImpl implements AuthorDao {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_AUTHORS);) {
             statement.setLong(1, id);
             statement.executeUpdate();
-            close(statement);
         } catch (SQLException e) {
             LOGGER.warn(e);
             result = false;

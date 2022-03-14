@@ -52,7 +52,7 @@
                                    style="margin-top: 5px; width: 170px; background-color: #24575c" value="${add}"/>
                         </form>
                     </c:if>
-                    <form action="<%=request.getContextPath()%>/controller?id=${book.id}&table=wish_lists"
+                    <form action="<%=request.getContextPath()%>/controller?id=${wl_book.wishListItemId}&table=wish_lists"
                           method="post">
                         <input type="hidden" name="service_name" value="delete_entity">
                         <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">

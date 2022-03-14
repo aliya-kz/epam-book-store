@@ -44,7 +44,6 @@ public class CardDaoImpl implements CardDao {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_CARD);) {
             statement.setLong(1, id);
             statement.executeUpdate();
-            close(statement);
         } catch (SQLException e) {
             e.printStackTrace();
             result = false;

@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 
     private final static String INSERT_CARD = "INSERT INTO cards (user_id, card_number) VALUES (?,?);";
 
-    private final static String SELECT_ALL_SQL = "SELECT * FROM users;";
+    private final static String SELECT_ALL_SQL = "SELECT * FROM users where is_admin = false";
 
     private final static String SELECT_WHERE_EMAIL = "SELECT id FROM users WHERE email = ?";
 
@@ -70,6 +70,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement insertCard = connection.prepareStatement(INSERT_CARD);) {
             connection.setAutoCommit(false);
             long userId = 0;
+
             insertUser.setString(1, user.getName());
             insertUser.setString(2, user.getSurname());
             insertUser.setDate(3, user.getDateOfBirth());
@@ -83,12 +84,10 @@ public class UserDaoImpl implements UserDao {
             if (rs.next()) {
                 userId = rs.getLong(ID);
             }
-
             Address address = user.getAddresses().get(0);
             insertAddress.setLong(1, userId);
             insertAddress.setString(2, address.getAddress());
             insertAddress.executeUpdate();
-
             Card card = user.getCards().get(0);
             insertCard.setLong(1, userId);
             insertCard.setString(2, card.getCardNumber());
@@ -99,9 +98,10 @@ public class UserDaoImpl implements UserDao {
             if (connection != null) {
                 try {
                     LOGGER.warn(ROLLED_BACK_MESSAGE);
+                    LOGGER.debug(e);
                     connection.rollback();
                 } catch (SQLException excep) {
-                    LOGGER.warn(excep);
+                    LOGGER.debug(excep);
                 }
             }
         } finally {
@@ -163,9 +163,7 @@ public class UserDaoImpl implements UserDao {
     public boolean addAddress(long id, String address) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(INSERT_ADDRESS);
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_ADDRESS);) {
             statement.setLong(1, id);
             statement.setString(2, address);
             statement.executeUpdate();
@@ -173,7 +171,6 @@ public class UserDaoImpl implements UserDao {
             result = false;
             LOGGER.info(e);
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
@@ -253,9 +250,7 @@ public class UserDaoImpl implements UserDao {
     public boolean validateUser(String email, String password) {
         boolean result = false;
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(VALIDATE_USER);
+        try (PreparedStatement statement = connection.prepareStatement(VALIDATE_USER);) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -268,7 +263,6 @@ public class UserDaoImpl implements UserDao {
             LOGGER.warn(e);
             e.printStackTrace();
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;
@@ -295,10 +289,8 @@ public class UserDaoImpl implements UserDao {
     public boolean changePassword(long id, String oldPass, String newPass) {
         boolean result = true;
         Connection connection = connectionPool.takeConnection();
-        PreparedStatement statement = null;
-        PreparedStatement statement1 = null;
-        try {
-            statement = connection.prepareStatement(SELECT_PASS);
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_PASS);
+        PreparedStatement statement1 = connection.prepareStatement(UPDATE_PASSWORD_SQL);) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -306,7 +298,6 @@ public class UserDaoImpl implements UserDao {
                 boolean pasCorrect = SCryptUtil.check(oldPass, sqlPass);
                 if (pasCorrect) {
                     String newEncrPas = PasswordEncrypter.encrypt(newPass);
-                    statement1 = connection.prepareStatement(UPDATE_PASSWORD_SQL);
                     statement1.setLong(2, id);
                     statement1.setString(1, newEncrPas);
                     statement1.executeUpdate();
@@ -317,7 +308,6 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
             result = false;
         } finally {
-            close(statement);
             connectionPool.returnConnection(connection);
         }
         return result;

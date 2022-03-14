@@ -18,6 +18,8 @@ public class Book extends Entity {
     private long formatId;
     private String format;
     private byte[] image;
+    private long cartItemId;
+    private long wishListItemId;
 
     public Book() {
     }
@@ -151,6 +153,22 @@ public class Book extends Entity {
 
     public void setFormatId(long formatId) {
         this.formatId = formatId;
+    }
+
+    public long getCartItemId() {
+        return cartItemId;
+    }
+
+    public void setCartItemId(long cartItemId) {
+        this.cartItemId = cartItemId;
+    }
+
+    public long getWishListItemId() {
+        return wishListItemId;
+    }
+
+    public void setWishListItemId(long wishListItemId) {
+        this.wishListItemId = wishListItemId;
     }
 
     @Override

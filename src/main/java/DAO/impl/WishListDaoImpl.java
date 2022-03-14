@@ -22,8 +22,8 @@ public class WishListDaoImpl implements WishListDao {
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final static String INSERT_WL = "INSERT into wish_lists (user_id, book_id) values (?,?);";
-    private final static String DELETE_BOOK = "DELETE from wish_lists WHERE user_id = ? AND book_id = ?;";
-    private final static String GET_WL = "SELECT book_id from wish_lists WHERE user_id = ?;";
+    private final static String GET_WL = "SELECT * from wish_lists WHERE user_id = ?;";
+    private final static String DELETE_ITEM = "DELETE from wish_lists WHERE id = ?;";
 
     @Override
     public boolean addToWishList(long userId, long bookId) {
@@ -42,22 +42,6 @@ public class WishListDaoImpl implements WishListDao {
         return result;
     }
 
-    @Override
-    public boolean deleteFromTable(long userId, long bookId) {
-        Connection connection = connectionPool.takeConnection();
-        boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_BOOK);) {
-            statement.setLong(1, userId);
-            statement.setLong(2, bookId);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            result = false;
-        } finally {
-            connectionPool.returnConnection(connection);
-        }
-        return result;
-    }
 
     @Override
     public WishList getWishList(long userId) {
@@ -71,6 +55,7 @@ public class WishListDaoImpl implements WishListDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Book book = new Book (resultSet.getLong(BOOK_ID));
+                book.setWishListItemId(resultSet.getLong(ID));
                 books.add(book);
             }
         } catch (SQLException e) {
@@ -84,8 +69,19 @@ public class WishListDaoImpl implements WishListDao {
 
     @Override
     public boolean deleteById(long id) {
-        throw new UnsupportedOperationException(UNSUPPORTED_MESSAGE);
-    }
+            Connection connection = connectionPool.takeConnection();
+            boolean result = true;
+            try (PreparedStatement statement = connection.prepareStatement(DELETE_ITEM);) {
+                statement.setLong(1, id);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                LOGGER.info(e);
+                result = false;
+            } finally {
+                connectionPool.returnConnection(connection);
+            }
+            return result;
+        }
 
     @Override
     public boolean deleteByIdLang(long id, String lang) {

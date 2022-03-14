@@ -49,7 +49,7 @@ public class CreateOrderService implements Service {
             orderDao.addEntity(order);
             List<Order> orders = orderDao.getOrdersByUserId(user.getId());
             session.setAttribute(MY_ORDERS, orders);
-            cartDao.deleteById(user.getId());
+            cartDao.deleteCart(user.getId());
             cart = new Cart();
             session.setAttribute(CART, cart);
             helperClass.updateBooksAttribute(session);

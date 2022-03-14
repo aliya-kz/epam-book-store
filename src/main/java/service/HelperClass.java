@@ -1,14 +1,8 @@
 package service;
 
-import dao.BookDao;
-import dao.CartDao;
-import dao.UserDao;
-import dao.impl.BookDaoImpl;
-import dao.impl.CartDaoImpl;
-import dao.impl.UserDaoImpl;
-import entity.Book;
-import entity.Cart;
-import entity.User;
+import dao.*;
+import dao.impl.*;
+import entity.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +25,8 @@ public class HelperClass {
     private static HelperClass instance = new HelperClass();
     private final UserDao userDao = new UserDaoImpl();
     private CartDao cartDao = new CartDaoImpl();
+    private OrderDao orderDao = new OrderDaoImpl();
+    private WishListDao wishListDao = new WishListDaoImpl();
 
     private HelperClass() {
     }
@@ -70,6 +66,15 @@ public class HelperClass {
     public void updateUserAttribute(HttpSession session, long userId) {
         User user = userDao.getUser(userId);
         session.setAttribute(USER, user);
+    }
+
+    public void updateAllUserAttributes(HttpSession session, long userId) {
+       updateUserAttribute(session, userId);
+       updateCartAttribute(session, userId);
+        List<Order> orders = orderDao.getOrdersByUserId(userId);
+        session.setAttribute(MY_ORDERS, orders);
+        WishList wishList = wishListDao.getWishList(userId);
+        session.setAttribute(WISH_LIST, wishList);
     }
 
     public void updateCartAttribute(HttpSession session, long userId) {

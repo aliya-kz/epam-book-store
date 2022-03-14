@@ -28,6 +28,8 @@ public class CartDaoImpl implements CartDao {
     private final static String DELETE_FROM_CART = "DELETE from carts WHERE book_id = ? AND user_id = ?;";
     private final static String DELETE_CART = "DELETE from carts WHERE user_id = ?;";
     private final static int MAX_BOOKS_QUANTITY = 8;
+    private final static String DELETE_CART_ITEM = "DELETE from carts WHERE id = ?;";
+
 
     @Override
     public Cart getCart(long userId) {
@@ -40,6 +42,7 @@ public class CartDaoImpl implements CartDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Book book = new Book(resultSet.getInt(BOOK_ID));
+                book.setCartItemId(resultSet.getLong(ID));
                 cartItems.put(book, resultSet.getInt(QUANTITY));
             }
         } catch (SQLException e) {
@@ -51,15 +54,12 @@ public class CartDaoImpl implements CartDao {
         return cart;
     }
 
-
-    public boolean deleteFromTable(long bookId, long userId) {
+    public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_FROM_CART);) {
-            statement.setLong(1, bookId);
-            statement.setLong(2, userId);
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CART_ITEM);) {
+            statement.setLong(1, id);
             statement.executeUpdate();
-            close(statement);
         } catch (SQLException e) {
             LOGGER.info(e);
             result = false;
@@ -68,7 +68,6 @@ public class CartDaoImpl implements CartDao {
         }
         return result;
     }
-
 
     public boolean addToCart(long userId, long bookId, int quantity) {
         Connection connection = connectionPool.takeConnection();
@@ -137,13 +136,12 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteCart(long userId) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
         try (PreparedStatement statement = connection.prepareStatement(DELETE_CART);) {
-            statement.setLong(1, id);
+            statement.setLong(1, userId);
             statement.executeUpdate();
-            close(statement);
         } catch (SQLException e) {
             LOGGER.info(e);
             result = false;
@@ -159,23 +157,38 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
-    //TODO
     public boolean addEntity(Cart cart) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
         Map<Book, Integer> cartItems = cart.getCartItems();
-        for (Book book : cartItems.keySet()) {
             try (PreparedStatement statement = connection.prepareStatement(INSERT_CART);) {
+                connection.setAutoCommit(false);
+                for (Book book : cartItems.keySet()) {
                 statement.setLong(1, cart.getUserId());
                 statement.setLong(2, book.getId());
                 statement.setInt(3, cartItems.get(book));
-                statement.executeUpdate();
+                statement.addBatch();
+                }
+                statement.executeBatch();
+                connection.commit();
             } catch (SQLException e) {
-                LOGGER.error(e);
                 result = false;
+                if (connection != null) {
+                    try {
+                        LOGGER.warn(ROLLED_BACK_MESSAGE);
+                        connection.rollback();
+                    } catch (SQLException excep) {
+                        LOGGER.warn(excep);
+                    }
+                }
+            } finally {
+                try {
+                    connection.setAutoCommit(true);
+                } catch (SQLException e) {
+                    LOGGER.info(e);
+                }
+                connectionPool.returnConnection(connection);
             }
-        }
-        connectionPool.returnConnection(connection);
         return result;
     }
 }

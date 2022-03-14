@@ -42,11 +42,9 @@ public class AddressDaoImpl implements AddressDao {
     public boolean deleteById(long id) {
         Connection connection = connectionPool.takeConnection();
         boolean result = true;
-        try {
-            PreparedStatement statement = connection.prepareStatement(DELETE_ADDRESS);
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_ADDRESS);) {
             statement.setLong(1, id);
             statement.executeUpdate();
-            close(statement);
         } catch (SQLException e) {
             e.printStackTrace();
             result = false;

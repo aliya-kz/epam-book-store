@@ -33,7 +33,6 @@ public class LanguageDaoImpl implements LanguageDao {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_LANG);) {
             statement.setString(1, lang.getTitle());
             statement.executeUpdate();
-            close(statement);
         } catch (SQLException e) {
             LOGGER.info(e);
             result = false;

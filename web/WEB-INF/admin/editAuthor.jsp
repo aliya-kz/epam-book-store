@@ -113,7 +113,7 @@
         </form>
         <br>
 
-        <form action="<%= request.getContextPath()%>/controller?id=${author.id}&table=authors_lang&lang=${author.lang}"
+        <form action="<%= request.getContextPath()%>/controller?id=${author.id}&table=authors&lang=${author.lang}"
               method="post">
             <input type="hidden" name="service_name" value="delete_entity_admin"/>
             <c:out value="${delete}"/>

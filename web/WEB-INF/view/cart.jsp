@@ -118,8 +118,16 @@
                                 <input type="hidden" name="service_name" value="update_quantity"/>
                                 <input class="invisible-input" type="submit"/>
                             </form>
-                            <form action="<%=request.getContextPath()%>/controller?id=${book.id}&table=carts"
+                            <form action="<%=request.getContextPath()%>/controller?table=carts"
                                   method="post">
+                                <c:choose>
+                                    <c:when test="${empty user}">
+                                        <input type="hidden" name="id" value="${book.id}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="hidden" name="id" value="${cartBook.cartItemId}">
+                                    </c:otherwise>
+                                </c:choose>
                                 <input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
                                 <button class="fa-btn" type="submit" name="service_name" value="delete_entity"
                                         style="margin-top: 5px"><i class="fas fa-minus-circle fa-lg"></i></button>
