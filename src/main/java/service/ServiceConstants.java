@@ -1,6 +1,8 @@
 package service;
 
 public class ServiceConstants {
+    public static final String SERVICE_NAME = "service_name";
+    public static final String GET_IMAGE_SERVICE = "get_image";
     public final static String SIGN_UP_SERVICE = "sign_up";
     public final static String LOG_IN_SERVICE = "log_in";
     public final static String LOG_OUT_SERVICE = "log_out";
@@ -33,6 +35,5 @@ public class ServiceConstants {
     public final static String SEARCH_SERVICE = "search";
     public final static String FILTER_BOOKS_SERVICE = "filter_books";
     public final static String CHECKOUT_SERVICE = "checkout";
-    public final static String GET_IMAGE_SERVICE = "get_image";
     public final static String ADD_AUTHOR_TRANSLATION_SERVICE = "add_author_translation";
 }

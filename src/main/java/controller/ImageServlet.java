@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static service.ServiceConstants.*;
+
 
 public class ImageServlet extends HttpServlet {
 
     private final ServiceFactory factory = ServiceFactory.getInstance();
-    public static final String SERVICE_NAME = "service_name";
-    public static final String GET_IMAGE = "get_image";
     public static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Service service = factory.getService(GET_IMAGE);
+        Service service = factory.getService(GET_IMAGE_SERVICE);
         service.execute(request, response);
     }
 

@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static service.ServiceConstants.SERVICE_NAME;
+
+
 public class Controller extends HttpServlet {
 
     private final ServiceFactory factory = ServiceFactory.getInstance();
@@ -27,7 +30,7 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String serviceName = request.getParameter("service_name");
+        String serviceName = request.getParameter(SERVICE_NAME);
         Service service = factory.getService(serviceName);
         service.execute(request, response);
     }

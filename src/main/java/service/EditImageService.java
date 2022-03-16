@@ -38,13 +38,13 @@ public class EditImageService implements Service {
             authorDao.setColumnValue(table, id, IMAGE, bytes);
             List<Author> authors = authorDao.getAll(languageCode);
             context.setAttribute(AUTHORS, authors);
-            RequestDispatcher dispatcher = request.getRequestDispatcher(EDIT_AUTHOR_URI + "?" + AUTHOR_ID + "=" + id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(EDIT_AUTHOR_URI + SIGN_QUESTION + AUTHOR_ID + SIGN_EQUALS + id);
             dispatcher.forward(request, response);
         } else if (table.equals(BOOK_COVERS)) {
             bookDao.setColumnValue(table, id, IMAGE, bytes);
             List<Book> books = bookDao.getAll(languageCode);
             context.setAttribute(BOOKS, books);
-            RequestDispatcher dispatcher = request.getRequestDispatcher(EDIT_BOOK_URI + "?" + BOOK_ID + "=" + id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(EDIT_BOOK_URI + SIGN_QUESTION + BOOK_ID + SIGN_EQUALS + id);
             dispatcher.forward(request, response);
         }
     }

@@ -7,6 +7,7 @@ public class EncodingFilter implements Filter {
 
     private String encoding;
     private ServletContext context;
+    private static final String CHARACTER_ENCODING = "characterEncoding";
 
     public void destroy() {}
 
@@ -18,7 +19,7 @@ public class EncodingFilter implements Filter {
     }
 
     public void init(FilterConfig fConfig) throws ServletException {
-        encoding = fConfig.getInitParameter("characterEncoding");
+        encoding = fConfig.getInitParameter(CHARACTER_ENCODING);
         context = fConfig.getServletContext();
     }
 }
